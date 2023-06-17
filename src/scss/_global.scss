@@ -22,9 +22,27 @@
   }
 }
 
+html,
+body {
+  height: 100%;
+}
+
+.main {
+  display: flex;
+  height: 100%;
+}
+
 // Body Locked
 body {
-  font-family: "Raleway", serif;
+  background-color: var(--bg-color);
+  font-family: 'Raleway', sans-serif;
+  font-variant-numeric: lining-nums;
+  font-feature-settings: 'lnum';
+  -moz-font-feature-settings: 'lnum=1';
+  -ms-font-feature-settings: 'lnum';
+  -webkit-font-feature-settings: 'lnum';
+  -o-font-feature-settings: 'lnum';
+
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -34,6 +52,11 @@ body {
   &.locked {
     overflow: hidden;
   }
+}
+
+.main-title {
+  font-weight: 600;
+  font-size: 24px;
 }
 
 // Animations
