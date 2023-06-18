@@ -6,9 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Index</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.min.css">
 </head>
 
@@ -25,8 +22,25 @@
         <img class="sidebar__logo-img" src="./img/sidebar/logo.svg" alt="logo">
       </a>
 
-      <div class="sidebar__user">
-        <img class="sidebar__user-icon" src="./img/sidebar/user-arrow.svg" alt="user">
+      <div class="sidebar__user" data-select-wrapper>
+        <img class="sidebar__user-icon" src="./img/sidebar/user-arrow.svg" alt="user" data-select-arrow>
+
+        <div class="sidebar__user-list select-list" data-select-list>
+          <a href="#" class="sidebar__user-item select-item" data-select-item>
+            <img class="sidebar__user-item-img" src="./img/sidebar/user.svg" alt="user">
+            <span class="sidebar__user-item-text">Ivan Ivanov</span>
+          </a>
+
+          <a href="#" class="sidebar__user-item select-item" data-select-item>
+            <img class="sidebar__user-item-img" src="./img/sidebar/settings.svg" alt="settings">
+            <span class="sidebar__user-item-text">Настройки</span>
+          </a>
+
+          <a href="#" class="sidebar__user-item sidebar__user-item--red select-item" data-select-item>
+            <img class="sidebar__user-item-img" src="./img/sidebar/log-out.svg" alt="log-out">
+            <span class="sidebar__user-item-text">Выйти</span>
+          </a>
+        </div>
       </div>
 
       <div class="sidebar__bell">
@@ -223,7 +237,356 @@
   </h1>
 
   <div class="main-content__inner">
-    <div class="main-content__header"></div>
+    <div class="main-content__header">
+      <div class="main-content__check about-check">
+        <div class="about-check__header">
+          <div class="about-check__info">
+            <div class="about-check__info-top">
+              <h4 class="about-check__info-title">
+                Активные счета:
+              </h4>
+
+              <span class="about-check__info-sum">
+                350
+              </span>
+            </div>
+
+            <div class="about-check__info-labels">
+              <div class="about-check__info-label">На сумму:</div>
+              <div class="about-check__info-label">1.789.567.57</div>
+            </div>
+          </div>
+
+          <div class="about-check__info">
+            <div class="about-check__info-top">
+              <h4 class="about-check__info-title">
+                Активные депозиты:
+              </h4>
+
+              <span class="about-check__info-sum">
+                350
+              </span>
+            </div>
+
+            <div class="about-check__info-labels">
+              <div class="about-check__info-label">На сумму:</div>
+              <div class="about-check__info-label">1.789.567.57</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-check__balance">
+          <div class="about-check__balance-labels">
+            <div class="about-check__balance-label">
+              Общий баланс:
+            </div>
+
+            <a href="#" class="about-check__balance-statistic">
+              Статистика
+
+              <img class="about-check__balance-statistic-img" src="./img/icons/arrow-right.svg" alt="Статистика">
+            </a>
+          </div>
+
+          <div class="about-check__balance-sum">
+            2.565.678
+            <span>
+              ,456$
+            </span>
+          </div>
+
+          <div class="about-check__graphic">
+            <img class="about-check__graphic-img" src="./img/balance-graphic.svg" alt="графика баланса">
+          </div>
+        </div>
+
+        <button type="button" class="about-check__btn main-btn">Заказ наличных в офис</button>
+      </div>
+
+      <div class="main-content__deposit about-deposit">
+        <div class="about-deposit__header">
+          <div class="about-deposit__header-notif">
+            Новые уведомления
+
+            <span>
+              350
+            </span>
+          </div>
+
+          <div class="about-deposit__header-info">
+            Закончился срок депозита по заявке №123...
+          </div>
+        </div>
+
+        <div class="about-deposit__generation">
+          <p class="about-deposit__generation-label">
+            Быстрая генерация ссылки
+          </p>
+
+          <div class="about-deposit__generation-select" data-select-wrapper>
+            <div class="about-deposit__generation-selected">
+              <div class="about-deposit__generation-info">
+                <h5 class="about-deposit__generation-title">
+                  Выбор проекта
+                </h5>
+              </div>
+
+              <div class="about-deposit__generation-currency">
+
+
+                <img class="about-deposit__generation-img" src="./img/icons/arrow-down.svg" alt="arrow-down"
+                  data-select-arrow>
+              </div>
+            </div>
+
+            <ul class="about-deposit__generation-list" data-select-list>
+              <li class="about-deposit__generation-item" data-select-item>Выбор проекта</li>
+              <li class="about-deposit__generation-item" data-select-item>Выбор проекта</li>
+              <li class="about-deposit__generation-item" data-select-item>Выбор проекта</li>
+            </ul>
+          </div>
+
+          <div class="about-deposit__generation-select">
+            <div class="about-deposit__generation-selected">
+              <div class="about-deposit__generation-info">
+                <h5 class="about-deposit__generation-title">
+                  Сумма
+                </h5>
+
+                <input class="about-deposit__generation-input" type="number" placeholder="Введите сумму">
+              </div>
+
+              <div class="about-deposit__generation-currency" data-select-wrapper>
+
+                <div class="about-deposit__generation-curr" data-select-value>
+                  USD
+                </div>
+
+                <img class="about-deposit__generation-img" src="./img/icons/arrow-down.svg" alt="arrow-down"
+                  data-select-arrow>
+
+                <ul class="about-deposit__generation-list" data-select-list>
+                  <li class="about-deposit__generation-item" data-select-item>USа</li>
+                  <li class="about-deposit__generation-item" data-select-item>USD</li>
+                  <li class="about-deposit__generation-item" data-select-item>USD</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="about-check__btn main-btn">Сгенерировать платежную ссылку</button>
+      </div>
+    </div>
+
+
+
+    <div class="my-actives">
+      <div class="my-actives__header">
+        <h2 class="my-actives__title main-title">
+          Мои активы:
+        </h2>
+
+        <div class="my-actives__search search-group">
+          <input class="my-actives__src search-input" type="search" placeholder="Поиск">
+          <img class="my-actives__search-img search-img" src="./img/icons/search.svg" alt="Поиск">
+        </div>
+      </div>
+
+      <div class="my-actives__checks-view checkbox-group">
+        <input class="my-actives__checkbox checkbox-input" type="checkbox" id="checkbox1" checked>
+
+        <label class="my-actives__label checkbox-label" for="checkbox1">
+          <div class="my-actives__checkbox-decor checkbox-decor"></div>
+          <span class="my-actives__checkbox-text checkbox-text">Скрыть нулевые балансы</span>
+        </label>
+      </div>
+
+      <div class="my-actives__checks-container">
+        <ul class="my-actives__checks">
+          <li class="my-actives__check">
+            <div class="my-actives__check-info">
+              <div class="my-actives__check-currency">
+                <img class="my-actives__check-pic" src="./img/actives/actives-1.png" alt="">
+
+                <div class="my-actives__check-name">
+                  <h4 class="my-actives__check-title">
+                    RUB
+                  </h4>
+
+                  <p class="my-actives__check-detail">
+                    Russian Rubles
+                  </p>
+                </div>
+              </div>
+
+              <div class="my-actives__check-sums">
+                <h4 class="my-actives__check-title">
+                  1.789.567.57
+                </h4>
+
+                <p class="my-actives__check-detail">
+                  1.789.567.57
+                </p>
+              </div>
+            </div>
+
+            <div class="my-actives__check-operations">
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/conclusion.svg" alt="Вывод">
+
+                <p class="my-actives__check-operation-descr">Вывод</p>
+              </div>
+
+            </div>
+          </li>
+
+          <li class="my-actives__check">
+            <div class="my-actives__check-info">
+              <div class="my-actives__check-currency">
+                <img class="my-actives__check-pic" src="./img/actives/actives-2.png" alt="">
+
+                <div class="my-actives__check-name">
+                  <h4 class="my-actives__check-title">
+                    Bitcoin
+                  </h4>
+
+                  <p class="my-actives__check-detail">
+                    BTC
+                  </p>
+                </div>
+              </div>
+
+              <div class="my-actives__check-sums">
+                <h4 class="my-actives__check-title">
+                  1.789.567.57
+                </h4>
+
+                <p class="my-actives__check-detail">
+                  1.789.567.57
+                </p>
+              </div>
+            </div>
+
+            <div class="my-actives__check-operations">
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/conclusion.svg" alt="Вывод">
+
+                <p class="my-actives__check-operation-descr">Вывод</p>
+              </div>
+
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/sell.svg" alt="Продать">
+
+                <p class="my-actives__check-operation-descr">Продать</p>
+              </div>
+
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/swap.svg" alt="SWAP">
+
+                <p class="my-actives__check-operation-descr">SWAP</p>
+              </div>
+            </div>
+          </li>
+
+          <li class="my-actives__check">
+            <div class="my-actives__check-info">
+              <div class="my-actives__check-currency">
+                <img class="my-actives__check-pic" src="./img/actives/actives-3.png" alt="">
+
+                <div class="my-actives__check-name">
+                  <h4 class="my-actives__check-title">
+                    Green Metaverse Token
+                  </h4>
+
+                  <p class="my-actives__check-detail">
+                    PEOPLE
+                  </p>
+                </div>
+              </div>
+
+              <div class="my-actives__check-sums">
+                <h4 class="my-actives__check-title">
+                  1.789.567.57
+                </h4>
+
+                <p class="my-actives__check-detail">
+                  1.789.567.57
+                </p>
+              </div>
+            </div>
+
+            <div class="my-actives__check-operations">
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/conclusion.svg" alt="Вывод">
+
+                <p class="my-actives__check-operation-descr">Вывод</p>
+              </div>
+
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/sell.svg" alt="Продать">
+
+                <p class="my-actives__check-operation-descr">Продать</p>
+              </div>
+
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/swap.svg" alt="SWAP">
+
+                <p class="my-actives__check-operation-descr">SWAP</p>
+              </div>
+            </div>
+          </li>
+
+          <li class="my-actives__check">
+            <div class="my-actives__check-info">
+              <div class="my-actives__check-currency">
+                <img class="my-actives__check-pic" src="./img/actives/actives-4.png" alt="">
+
+                <div class="my-actives__check-name">
+                  <h4 class="my-actives__check-title">
+                    Etherium
+                  </h4>
+
+                  <p class="my-actives__check-detail">
+                    ETH
+                  </p>
+                </div>
+              </div>
+
+              <div class="my-actives__check-sums">
+                <h4 class="my-actives__check-title">
+                  1.789.567.57
+                </h4>
+
+                <p class="my-actives__check-detail">
+                  1.789.567.57
+                </p>
+              </div>
+            </div>
+
+            <div class="my-actives__check-operations">
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/conclusion.svg" alt="Вывод">
+
+                <p class="my-actives__check-operation-descr">Вывод</p>
+              </div>
+
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/sell.svg" alt="Продать">
+
+                <p class="my-actives__check-operation-descr">Продать</p>
+              </div>
+
+              <div class="my-actives__check-operation">
+                <img class="my-actives__check-operation-img" src="./img/icons/swap.svg" alt="SWAP">
+
+                <p class="my-actives__check-operation-descr">SWAP</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
 
     <div class="history-operations">
       <div class="history-operations__label">

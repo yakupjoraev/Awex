@@ -5,8 +5,25 @@
         <img class="sidebar__logo-img" src="./img/sidebar/logo.svg" alt="logo">
       </a>
 
-      <div class="sidebar__user">
-        <img class="sidebar__user-icon" src="./img/sidebar/user-arrow.svg" alt="user">
+      <div class="sidebar__user" data-select-wrapper>
+        <img class="sidebar__user-icon" src="./img/sidebar/user-arrow.svg" alt="user" data-select-arrow>
+
+        <div class="sidebar__user-list select-list" data-select-list>
+          <a href="#" class="sidebar__user-item select-item" data-select-item>
+            <img class="sidebar__user-item-img" src="./img/sidebar/user.svg" alt="user">
+            <span class="sidebar__user-item-text">Ivan Ivanov</span>
+          </a>
+
+          <a href="#" class="sidebar__user-item select-item" data-select-item>
+            <img class="sidebar__user-item-img" src="./img/sidebar/settings.svg" alt="settings">
+            <span class="sidebar__user-item-text">Настройки</span>
+          </a>
+
+          <a href="#" class="sidebar__user-item sidebar__user-item--red select-item" data-select-item>
+            <img class="sidebar__user-item-img" src="./img/sidebar/log-out.svg" alt="log-out">
+            <span class="sidebar__user-item-text">Выйти</span>
+          </a>
+        </div>
       </div>
 
       <div class="sidebar__bell">

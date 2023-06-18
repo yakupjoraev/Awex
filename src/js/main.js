@@ -40,3 +40,46 @@ function sidebarFunctions() {
 
 sidebarFunctions();
 
+function simpleSelect() {
+  const selectWrappers = document.querySelectorAll('[data-select-wrapper]');
+
+  selectWrappers.forEach(wrapper => {
+    const selectValue = wrapper.querySelector('[data-select-value]');
+    const selectArrow = wrapper.querySelector('[data-select-arrow]');
+    const selectList = wrapper.querySelector('[data-select-list]');
+    const selectItems = wrapper.querySelectorAll('[data-select-item]');
+
+    if (selectValue) {
+      selectValue.addEventListener('click', toggleSelectList);
+    }
+
+    if (selectArrow) {
+      selectArrow.addEventListener('click', toggleSelectList);
+    }
+
+    function toggleSelectList() {
+      selectList.classList.toggle('active');
+    }
+
+    selectItems.forEach(item => {
+      item.addEventListener('click', () => {
+        selectList.classList.remove('active');
+      });
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    selectWrappers.forEach(wrapper => {
+      const isClickedInsideSelect = wrapper.contains(event.target);
+      const selectList = wrapper.querySelector('[data-select-list]');
+
+      if (!isClickedInsideSelect) {
+        selectList.classList.remove('active');
+      }
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  simpleSelect();
+});

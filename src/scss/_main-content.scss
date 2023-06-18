@@ -2,3 +2,357 @@
   width: 100%;
   padding: 65px 72px 48px 0;
 }
+
+.main-content__title {
+  margin-bottom: 25px;
+}
+
+.main-content__check {
+  flex: 0 1 50%;
+}
+
+.main-content__deposit {
+  flex: 0 1 50%;
+}
+
+.main-content__header {
+  display: flex;
+  column-gap: 25px;
+  margin-bottom: 45px;
+}
+
+.about-check {
+
+  // .about-check__header
+
+  &__header {
+    display: flex;
+    column-gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  // .about-check__info
+
+  &__info {
+    flex: 0 1 50%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    padding: 20px 15px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+  }
+
+  // .about-check__info-top
+
+  &__info-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 25px;
+  }
+
+  // .about-check__info-title
+
+  &__info-title {
+    width: 180px;
+    font-weight: 600;
+  }
+
+  // .about-check__info-sum
+
+  &__info-sum {
+    font-weight: 600;
+  }
+
+  // .about-check__info-labels
+
+  &__info-labels {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 25px;
+    font-size: 13px;
+  }
+
+  // .about-check__info-label
+
+  &__info-label {
+
+    &:nth-child(1) {
+      width: 180px;
+    }
+  }
+
+  // .about-check__balance
+
+  &__balance {
+    position: relative;
+    padding: 30px 30px 100px 30px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    height: 250px;
+  }
+
+  // .about-check__balance-labels
+
+  &__balance-labels {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 25px;
+    margin-bottom: 5px;
+  }
+
+  // .about-check__balance-label
+
+  &__balance-label {}
+
+  // .about-check__balance-statistic
+
+  &__balance-statistic {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+
+    transition: font-weight 0.2s linear;
+
+    &:hover {
+      font-weight: 600;
+
+      .about-check__balance-statistic-img {
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  // .about-check__balance-statistic-img
+
+  &__balance-statistic-img {
+    transition: transform 0.2s linear;
+  }
+
+  // .about-check__balance-sum
+
+  &__balance-sum {
+    display: flex;
+    align-items: flex-end;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 120%;
+
+    span {
+      margin-bottom: -5px;
+      font-weight: 400;
+      font-size: 40px;
+      color: var(--grey-color-2);
+    }
+  }
+
+  // .about-check__graphic
+
+  &__graphic {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  // .about-check__graphic-img
+
+  &__graphic-img {
+    width: 100%;
+  }
+
+  // .about-check__btn
+
+  &__btn {
+    position: relative;
+    z-index: 2;
+    margin: -25px auto 0;
+  }
+}
+
+.about-deposit {
+
+  // .about-deposit__header
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 25px;
+    margin-bottom: 25px;
+    padding: 20px 15px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+  }
+
+  // .about-deposit__header-notif
+
+  &__header-notif {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      background-color: var(--second-color);
+      border-radius: 100px;
+      font-size: 13px;
+    }
+  }
+
+  // .about-deposit__header-info
+
+  &__header-info {
+    padding: 10px;
+    background: rgba(254, 214, 2, 0.2);
+    border-radius: 10px;
+  }
+
+  // .about-deposit__generation
+
+  &__generation {
+    padding: 30px 30px 60px;
+    background-color: var(--second-color);
+    border-radius: 10px;
+    height: 250px;
+  }
+
+  // .about-deposit__generation-label
+
+  &__generation-label {
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  // .about-deposit__generation-select
+
+  &__generation-select {
+    position: relative;
+    padding: 10px 15px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  // .about-deposit__generation-selected
+
+  &__generation-selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 20px;
+  }
+
+  // .about-deposit__generation-info
+
+  &__generation-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  // .about-deposit__generation-title
+
+  &__generation-title {
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  // .about-deposit__generation-currency
+
+  &__generation-currency {
+    position: relative;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+
+    & .about-deposit__generation-item {
+      font-weight: 400;
+      font-size: 36px;
+      line-height: 120%;
+    }
+  }
+
+  // .about-deposit__generation-img
+
+  &__generation-img {}
+
+  // .about-deposit__generation-descr
+
+  &__generation-input {
+    width: 80%;
+    font-size: 13px;
+    border: 0;
+    outline: 0;
+
+    &::placeholder {
+      font-family: 'Raleway', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 120%;
+      color: var(--text-color);
+    }
+  }
+
+  // .about-deposit__generation-curr
+
+  &__generation-curr {
+    font-size: 36px;
+    line-height: 120%;
+  }
+}
+
+
+.about-deposit {
+
+  // .about-deposit__generation-list
+
+  &__generation-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 100%;
+    min-width: 124px;
+    max-height: 0;
+    overflow-y: auto;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    padding: 0 15px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+
+    &.active {
+      max-height: 400px;
+      padding: 15px 15px;
+      opacity: 1;
+      pointer-events: visible;
+    }
+  }
+
+  // .about-deposit__generation-item
+
+  &__generation-item {
+
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+  }
+}

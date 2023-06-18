@@ -6,9 +6,11 @@
 
 // Sections or Pages SCSS-files imports
 // @import './header';
+@import './base';
 @import './sidebar';
 @import './main-content';
 @import './history-operations';
+@import './my-actives';
 // @import './footer';
 
 // Libs
