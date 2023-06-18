@@ -1,0 +1,99 @@
+.successfully-invoice {
+
+  // .successfully-invoice__header
+
+  &__header {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  // .successfully-invoice__title
+
+  &__title {}
+
+  // .successfully-invoice__header-img
+
+  &__header-img {}
+
+  // .successfully-invoice__list
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+  }
+
+  // .successfully-invoice__item
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 20px;
+    padding: 30px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+  }
+
+  // .successfully-invoice__item-info
+
+  &__item-info {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+  }
+
+  // .successfully-invoice__item-status
+
+  &__item-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 26px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--white-color);
+
+    &.paid {
+      background-color: var(--green-color);
+    }
+
+    &.expired {
+      background-color: var(--error-color);
+    }
+
+    &.pending {
+      background-color: var(--bg-grey-color);
+      color: var(--text-color);
+    }
+  }
+
+  // .successfully-invoice__item-code
+
+  &__item-code {
+    text-decoration: underline;
+  }
+
+  // .successfully-invoice__item-copy
+
+  &__item-copy {}
+
+  // .successfully-invoice__item-scan
+
+  &__item-scan {}
+
+  // .successfully-invoice__item-link
+
+  &__item-link {}
+}
+
+.paid {}
+
+
+.expired {}
+
+.pending {}

@@ -1,0 +1,262 @@
+<section class="my-projects">
+  <div class="my-projects__header">
+    <h1 class="my-projects__title main-title">
+      Добавление проекта
+    </h1>
+
+  </div>
+
+  <h2 class="main-title" hidden>
+    окно проекта
+  </h2>
+
+  <form action="#" class="my-projects__item-wrapper">
+    <div class="my-projects__item">
+      <div class="my-projects__item-info">
+        <h3 class="my-projects__item-title main-title">
+          ООО ”Первый”
+
+          <img class="my-projects__item-icon" src="./img/icons/pen.svg" alt="pen">
+        </h3>
+
+        <a href="#" class="my-projects__item-address">https://www.gemini.com/</a>
+      </div>
+
+      <div class="my-projects__item-convertion">
+        <div class="my-projects__item-for">
+          <div class="my-projects__item-text">конвертация в:</div>
+          <div class="my-projects__item-currency">
+            <img class="my-projects__item-pic" src="./img/actives/actives-1.png" alt="">
+
+            <span class="my-projects__item-curr">USDT</span>
+          </div>
+        </div>
+
+        <div class="my-projects__item-to">
+          <div class="my-projects__item-text">комиссию платит:</div>
+          <div class="my-projects__item-client">клиент</div>
+        </div>
+      </div>
+
+      <a class="my-projects__item-btn second-btn" href="#">Сгенерировать платежную ссылку</a>
+    </div>
+
+    <div class="my-projects__groups project-groups">
+      <div class="my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          Название проекта
+        </label>
+
+        <input class="my-projects__input project-input" type="text" placeholder="ООО “Первый”">
+      </div>
+
+      <div class="my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          Деятельность
+        </label>
+
+        <input class="my-projects__input project-input" type="text" placeholder="Введите род деятельности">
+      </div>
+    </div>
+
+    <div class="my-projects__groups project-groups">
+      <div class="my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          Название проекта
+        </label>
+
+        <textarea class="my-projects__textarea project-textarea"
+          placeholder="Введите краткое описание проекта"></textarea>
+      </div>
+
+      <div class="my-projects__group my-projects__group-changes">
+        <div class="my-projects__radios">
+          <div class="my-projects__label project-label" for="#">
+            <img class="my-projects__label-img" src="./img/icons/checkbox-circle-checked.svg"
+              alt="checkbox-circle-checked">
+
+            <p class="my-projects__label-descr project-label-descr">Конвертировать оплату в:</p>
+          </div>
+          <div class="my-projects__radio-container">
+            <div class="my-projects__radio-group">
+              <input class="my-projects__radio" type="radio" name="marka" id="radio1" checked>
+
+              <label class="my-projects__radio-label" for="radio1">Стейблкоин</label>
+            </div>
+
+            <div class="my-projects__radio-group">
+              <input class="my-projects__radio" type="radio" name="marka" id="radio2">
+
+              <label class="my-projects__radio-label" for="radio2">Фиат</label>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="my-projects__group-select" data-select-wrapper>
+          <div class="my-projects__group-selected">
+            Валюта
+
+            <img class="my-projects__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down"
+              data-select-arrow>
+          </div>
+
+          <ul class="my-projects__group-list select-list" data-select-list>
+            <li class="my-projects__group-item select-item" data-select-item>Валюта</li>
+            <li class="my-projects__group-item select-item" data-select-item>Валюта</li>
+            <li class="my-projects__group-item select-item" data-select-item>Валюта</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-projects__groups project-groups">
+
+      <div class="my-projects__group my-projects__group--transparent project-group">
+        <div class="my-projects__radios">
+          <label class="my-projects__label project-label" for="#">
+            Комиссию оплачивает:
+
+            <img class="my-projects__label-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+          </label>
+
+          <div class="my-projects__radio-container">
+            <div class="my-projects__radio-group">
+              <input class="my-projects__radio" type="radio" name="pay" id="radio3" checked>
+
+              <label class="my-projects__radio-label" for="radio3">Мерчант</label>
+            </div>
+
+            <div class="my-projects__radio-group">
+              <input class="my-projects__radio" type="radio" name="pay" id="radio4">
+
+              <label class="my-projects__radio-label" for="radio4">Клиент</label>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="my-projects__group my-projects__group--transparent project-group">
+        <div class="my-projects__group my-projects__group-changes">
+          <div class="my-projects__radios">
+            <div class="my-projects__label project-label" for="#">
+              <img class="my-projects__label-img" src="./img/icons/checkbox-circle-checked.svg"
+                alt="checkbox-circle-checked">
+
+              <p class="my-projects__label-descr project-label-descr"> Использую CMS</p>
+            </div>
+
+          </div>
+
+          <div class="my-projects__group-select" data-select-wrapper>
+            <div class="my-projects__group-selected">
+              Выбрать CMS
+
+              <img class="my-projects__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down"
+                data-select-arrow>
+            </div>
+
+            <ul class="my-projects__group-list select-list" data-select-list>
+              <li class="my-projects__group-item select-item" data-select-item>Выбрать CMS</li>
+              <li class="my-projects__group-item select-item" data-select-item>Выбрать CMS</li>
+              <li class="my-projects__group-item select-item" data-select-item>Выбрать CMS</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="my-projects__checkboxes">
+      <p class="my-projects__checkboxes-label project-label">
+        Как вы планируете принимать платежи:
+      </p>
+
+      <div class="my-projects__checkboxes-list">
+        <div class="my-projects__checkbox-view checkbox-group">
+          <input class="my-projects__checkbox-checkbox checkbox-input" type="checkbox" id="checkbox2" checked>
+
+          <label class="my-projects__checkbox-label checkbox-label" for="checkbox2">
+            <div class="my-projects__checkbox-decor checkbox-decor"></div>
+            <span class="my-projects__checkbox-text checkbox-text">Выставлять счета</span>
+          </label>
+        </div>
+
+        <div class="my-projects__checkbox-view checkbox-group">
+          <input class="my-projects__checkbox-checkbox checkbox-input" type="checkbox" id="checkbox3">
+
+          <label class="my-projects__checkbox-label checkbox-label" for="checkbox3">
+            <div class="my-projects__checkbox-decor checkbox-decor"></div>
+            <span class="my-projects__checkbox-text checkbox-text">На сайте</span>
+          </label>
+        </div>
+
+        <div class="my-projects__checkbox-view checkbox-group">
+          <input class="my-projects__checkbox-checkbox checkbox-input" type="checkbox" id="checkbox4" checked>
+
+          <label class="my-projects__checkbox-label checkbox-label" for="checkbox4">
+            <div class="my-projects__checkbox-decor checkbox-decor"></div>
+            <span class="my-projects__checkbox-text checkbox-text">В Telegram</span>
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="my-projects__groups project-groups">
+      <div class="my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          URL сайта или Telegram канала
+
+          <img class="my-projects__label-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+        </label>
+
+        <input class="my-projects__input project-input" type="text" placeholder="https://www.gemini.com/">
+      </div>
+
+      <div class="my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          URL успешной оплаты
+
+          <img class="my-projects__label-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+        </label>
+
+        <input class="my-projects__input project-input" type="text" placeholder="Введите URL">
+      </div>
+    </div>
+
+    <div class="my-projects__groups project-groups">
+      <div class="my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          URL уведомлений
+
+          <img class="my-projects__label-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+        </label>
+
+        <input class="my-projects__input project-input" type="text" placeholder="Введите URL">
+      </div>
+
+      <div class="my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          URL неудачной оплаты
+
+          <img class="my-projects__label-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+        </label>
+
+        <input class="my-projects__input project-input" type="text" placeholder="Введите URL">
+      </div>
+    </div>
+
+    <div class="my-projects__item-btns">
+
+      <button type="button" class="my-projects__btn third-btn">Отменить</button>
+      <button type="button" class="my-projects__btn second-btn">Создать проекте</button>
+    </div>
+  </form>
+
+</section>
