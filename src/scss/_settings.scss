@@ -1,0 +1,60 @@
+.settings {
+
+  // .settings__inner
+
+  &__inner {
+    padding: 30px;
+  }
+
+  // .settings__list
+
+  &__list {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  // .settings__item
+
+  &__item {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 120%;
+    color: var(--grey-color);
+
+    transition: color 0.2s linear;
+
+    &.active {
+      color: var(--text-color);
+    }
+
+    &:hover {
+      color: var(--text-color);
+    }
+  }
+
+  // .settings__content
+
+  &__content {}
+
+  // .settings__user
+
+  &__user {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  // .settings__user-img
+
+  &__user-img {}
+
+  // .settings__user-name
+
+  &__user-name {}
+
+  // .settings__user-id
+
+  &__user-id {}
+}

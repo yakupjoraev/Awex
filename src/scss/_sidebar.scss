@@ -232,6 +232,7 @@
     padding: 10px;
     border-radius: 10px;
     white-space: nowrap;
+    color: var(--text-color);
 
     &:nth-child(1) {
       border-bottom: 1px solid var(--bg-grey-color);

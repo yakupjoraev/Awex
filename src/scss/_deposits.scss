@@ -1,0 +1,250 @@
+.deposits {
+
+  // .deposits__header
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 20px;
+    margin-bottom: 25px;
+  }
+
+  // .deposits__title
+
+  &__title {}
+
+  // .deposits__infos
+
+  &__infos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  // .deposits__info
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+    row-gap: 5px;
+    padding: 20px 15px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+  }
+
+  // .deposits__info-row
+
+  &__info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 20px;
+  }
+
+  // .deposits__info-name
+
+  &__info-name {
+    font-weight: 600;
+  }
+
+  // .deposits__info-count
+
+  &__info-count {
+    font-weight: 600;
+  }
+
+  // .deposits__info-label
+
+  &__info-label {
+    font-size: 13px;
+  }
+
+  // .deposits__info-sum
+
+  &__info-sum {
+    font-size: 13px;
+  }
+
+  // .deposits__info-count--red
+
+  &__info-count--red {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background-color: var(--error-color);
+    border-radius: 100%;
+    color: var(--white-color);
+  }
+
+  // .deposits__in
+
+  &__in {
+    width: 100%;
+    padding: 30px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    margin-bottom: 25px;
+  }
+
+  // .deposits__in-label
+
+  &__in-label {
+    margin-bottom: 5px;
+  }
+
+  // .deposits__in-sum
+
+  &__in-sum {
+    display: flex;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 120%;
+
+    span {
+      margin-top: 5px;
+      font-size: 40px;
+      color: var(--grey-color-2);
+    }
+  }
+
+  // .deposits__filters
+
+  &__filters {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  // .deposits__filter-select
+
+  &__filter-select {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    padding: 10px 35px 10px 15px;
+    background: var(--bg-grey-color);
+    border-radius: 10px;
+  }
+
+  // .deposits__filter-label
+
+  &__filter-label {
+    color: var(--grey-color-2);
+  }
+
+  // .deposits__filter-selected
+
+  &__filter-selected {
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  // .deposits__filter-arrow
+
+  &__filter-arrow {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    width: 7px;
+    height: 9px;
+  }
+
+  // .deposits__filter-list
+
+  &__filter-list {}
+
+  // .deposits__filter-item
+
+  &__filter-item {}
+
+  // .deposits__filter-search
+
+  &__filter-search {}
+
+  // .deposits__filter-src
+
+  &__filter-src {}
+
+  // .deposits__filter-search-img
+
+  &__filter-search-img {}
+
+  // .deposits__list
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  // .deposits__item-header
+
+  &__item-header {
+    display: grid;
+    grid-template-columns: 26px 72px 74px 150px 80px 124px 1fr 1fr;
+    column-gap: 35px;
+    justify-items: center;
+    padding: 0 30px;
+  }
+
+  // .deposits__item-status
+
+  &__item-status {}
+
+  // .deposits__item-id
+
+  &__item-id {}
+
+  // .deposits__item-data
+
+  &__item-data {}
+
+  // .deposits__item-status-deposite
+
+  &__item-status-deposite {}
+
+  // .deposits__item-sum
+
+  &__item-sum {}
+
+  // .deposits__item-data-end
+
+  &__item-data-end {}
+
+  // .deposits__item-status-application
+
+  &__item-status-application {}
+
+  // .deposits__item-commets
+
+  &__item-commets {
+    justify-self: start;
+  }
+
+  // .deposits__item
+
+  &__item {
+    display: grid;
+    grid-template-columns: 26px 72px 74px 150px 80px 124px 1fr 1fr;
+    column-gap: 35px;
+    justify-items: center;
+    padding: 30px;
+    border: 2px solid var(--white-color);
+    background-color: var(--white-color);
+    border-radius: 10px;
+  }
+
+  // .deposits__item-rejected
+
+  &__item-rejected {
+    border: 2px solid var(--error-color);
+  }
+}

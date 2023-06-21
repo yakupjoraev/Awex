@@ -85,3 +85,23 @@ document.addEventListener('DOMContentLoaded', () => {
   simpleSelect();
 });
 
+function checkIntoView() {
+  const container = document.querySelector('.deposit-retention__form');
+
+  if (!container) {
+    return null
+  }
+  var checkbox = document.querySelector('.deposit-retention__checkbox');
+  var form = document.querySelector('.deposit-retention__form');
+
+  checkbox.addEventListener('change', function () {
+    if (checkbox.checked) {
+      form.classList.add('show');
+    } else {
+      form.classList.remove('show');
+    }
+  });
+
+}
+
+checkIntoView();

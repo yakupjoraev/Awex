@@ -1,0 +1,209 @@
+.deposit-retention {
+
+  // .deposit-retention__inner
+
+  &__inner {
+    padding: 30px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+  }
+
+  // .deposit-retention__info
+
+  &__info {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+
+  // .deposit-retention__deposit
+
+  &__deposit {
+    margin-right: 50px;
+  }
+
+  // .deposit-retention__deposit-label
+
+  &__deposit-label {
+    margin-bottom: 5px;
+  }
+
+  // .deposit-retention__deposit-sum
+
+  &__deposit-sum {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 120%;
+
+    span {
+      margin-bottom: -5px;
+      font-size: 40px;
+      color: var(--grey-color-2);
+    }
+  }
+
+  // .deposit-retention__project
+
+  &__project {
+    margin-right: 30px;
+  }
+
+  // .deposit-retention__project-label
+
+  &__project-label {
+    margin-bottom: 10px;
+  }
+
+  // .deposit-retention__project-name
+
+  &__project-name {
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 120%;
+  }
+
+  // .deposit-retention__project-link
+
+  &__project-link {
+    color: var(--text-color);
+  }
+
+  // .deposit-retention__about
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  // .deposit-retention__id
+
+  &__id {}
+
+  // .deposit-retention__label
+
+  &__label {
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  // .deposit-retention__descr
+
+  &__descr {
+    max-width: 540px;
+  }
+
+  // .deposit-retention__comments
+
+  &__comments {}
+
+  // .deposit-retention__form
+
+  &__form {
+
+    &.show .deposit-retention__item-btns--first {
+      display: none;
+    }
+
+    &.show .deposit-retention__checked-moment {
+      display: block;
+    }
+  }
+
+  // .deposit-retention__checks-view
+
+  &__checks-view {
+    margin-bottom: 30px;
+  }
+
+  // .deposit-retention__checkbox
+
+  &__checkbox {}
+
+  // .deposit-retention__checkbox-decor
+
+  &__checkbox-decor {}
+
+  // .deposit-retention__checkbox-text
+
+  &__checkbox-text {}
+
+  // .deposit-retention__item-btns
+
+  &__item-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+  }
+
+  // .deposit-retention__btn
+
+  &__btn {}
+
+  // .deposit-retention__checked-moment
+
+  &__checked-moment {
+    display: none;
+  }
+
+  // .deposit-retention__groups
+
+  &__groups {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  // .deposit-retention__file
+
+  &__file {
+    position: relative;
+    padding: 10px 40px 10px 10px;
+    background: var(--bg-grey-color);
+    border-radius: 10px;
+  }
+
+  // .deposit-retention__file-input
+
+  &__file-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -100;
+    opacity: 0;
+  }
+
+  // .deposit-retention__file-label
+
+  &__file-label {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    cursor: pointer;
+  }
+
+  // .deposit-retention__file-text
+
+  &__file-text {
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--grey-color-2);
+  }
+
+  // .deposit-retention__file-img
+
+  &__file-img {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+  }
+}
