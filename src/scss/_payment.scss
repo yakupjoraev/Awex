@@ -1,0 +1,129 @@
+.payment {
+  flex: 0 1 50%;
+  width: 100%;
+  padding: 60px;
+  background-color: var(--white-color);
+  border-radius: 10px;
+  height: 100%;
+
+  // .payment__logo
+
+  &__logo {
+    display: inline-flex;
+    margin-bottom: 55px;
+  }
+
+  // .payment__logo-img
+
+  &__logo-img {}
+
+  // .payment__from
+
+  &__from {}
+}
+
+.payment-form {
+  max-width: 550px;
+
+  // .payment-form__group
+
+  &__group {
+    margin-bottom: 60px;
+  }
+
+  // .payment-form__label
+
+  &__label {
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  // .payment-form__radios
+
+  &__radios {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  // .payment-form__radio
+
+  &__radio {}
+
+  // .payment-form__radio-input
+
+  &__radio-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -100;
+    opacity: 0;
+
+    &:checked~.payment-form__radio-label {
+      color: var(--text-color);
+    }
+  }
+
+  // .payment-form__radio-label
+
+  &__radio-label {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 120%;
+    color: var(--grey-color);
+    cursor: pointer;
+  }
+
+  // .payment-form__radio-pic
+
+  &__radio-pic {
+    cursor: pointer;
+  }
+
+  & .about-deposit__generation-input {
+    font-size: 36px;
+    line-height: 120%;
+  }
+
+  & .about-deposit__generation-curr {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  & .my-projects__group {
+    margin-bottom: 15px;
+  }
+}
+
+.payment-form {
+
+  // .payment-form__btns
+
+  &__btns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  // .payment-form__btn
+
+  &__btn {}
+
+  // .payment-form__footer
+
+  &__footer {
+
+    a {
+      text-decoration: underline;
+      color: var(--text-color);
+    }
+  }
+}
+
+.blue-btn {
+  border-radius: 10px;
+  background-color: var(--blue-color);
+}
