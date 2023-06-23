@@ -208,6 +208,13 @@
   color: var(--text-color);
 }
 
+.project-label__text {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 120%;
+  color: var(--text-color);
+}
+
 .project-input {
   width: 100%;
   background: transparent;
@@ -220,6 +227,10 @@
     font-size: 13px;
     line-height: 120%;
     color: var(--text-color);
+  }
+
+  &:disabled {
+    color: var(--grey-color-2);
   }
 }
 
@@ -242,5 +253,15 @@
     font-size: 13px;
     line-height: 120%;
     color: var(--text-color);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

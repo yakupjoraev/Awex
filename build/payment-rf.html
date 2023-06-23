@@ -1,4 +1,22 @@
-<div class="payment">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index</title>
+  <link rel="stylesheet" href="./css/style.min.css">
+</head>
+
+<body class="main__body">
+  <!-- Header -->
+  
+
+  <!-- Main Page -->
+  <main class="main">
+    <div class="wrapper-payment">
+      <div class="payment">
   <a href="#" class="payment__logo">
     <img class="payment__logo-img" src="./img/icons/logo.svg" alt="">
   </a>
@@ -11,23 +29,22 @@
 
       <div class="payment-form__radios">
         <div class="payment-form__radio">
-          <input class="payment-form__radio-input" type="radio" name="pay" id="pay1" checked>
+          <input class="payment-form__radio-input" type="radio" name="pay" id="pay9">
 
-          <label class="payment-form__radio-label" for="pay1">Крипто</label>
+          <label class="payment-form__radio-label" for="pay9">Крипто</label>
         </div>
 
         <div class="payment-form__radio">
-          <input class="payment-form__radio-input" type="radio" name="pay" id="pay2">
+          <input class="payment-form__radio-input" type="radio" name="pay" id="pay10">
 
-          <label class="payment-form__radio-label" for="pay2">Наличный расчет</label>
+          <label class="payment-form__radio-label" for="pay10">Наличный расчет</label>
         </div>
 
         <div class="payment-form__radio">
-          <input class="payment-form__radio-input" type="radio" name="pay" id="pay3">
+          <input class="payment-form__radio-input" type="radio" name="pay" id="pay11" checked>
 
-          <label class="payment-form__radio-label" for="pay3">Карта РФ</label>
+          <label class="payment-form__radio-label" for="pay11">Карта РФ</label>
         </div>
-
         <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
           data-tooltip-length="medium">
           <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
@@ -44,7 +61,7 @@
           <div class="about-deposit__generation-currency" data-select-wrapper>
 
             <div class="about-deposit__generation-curr" data-select-value>
-              <img src="./img/usdt.png" alt="">
+              <img src="./img/rub.png" alt="">
               RUB
             </div>
 
@@ -54,15 +71,15 @@
             <ul class="about-deposit__generation-list" data-select-list>
               <li class="about-deposit__generation-item" data-select-item>
                 <img src="./img/usdt.png" alt="">
-                RUB
+                rub
               </li>
               <li class="about-deposit__generation-item" data-select-item>
                 <img src="./img/usdt.png" alt="">
-                RUB
+                rub
               </li>
               <li class="about-deposit__generation-item" data-select-item>
                 <img src="./img/usdt.png" alt="">
-                RUB
+                rub
               </li>
             </ul>
           </div>
@@ -77,13 +94,13 @@
 
       <div class="payment-form__radios">
         <div class="payment-form__radio">
-          <input class="payment-form__radio-input" type="radio" name="pay" id="pay4">
+          <input class="payment-form__radio-input" type="radio" name="pay2" id="pay4">
 
           <label class="payment-form__radio-label" for="pay4">Крипто</label>
         </div>
 
         <div class="payment-form__radio">
-          <input class="payment-form__radio-input" type="radio" name="pay" id="pay5" checked>
+          <input class="payment-form__radio-input" type="radio" name="pay2" id="pay5" checked>
 
           <label class="payment-form__radio-label" for="pay5">Карта РФ</label>
         </div>
@@ -126,14 +143,6 @@
       <button class="payment-form__btn second-btn">
         Оплатить
       </button>
-
-      <button class="payment-form__btn blue-btn">
-        <img src="./img/icons/WalletConnect.svg" alt="">
-      </button>
-
-      <button class="payment-form__btn second-btn">
-        <img src="./img/icons/payment-form-awex.svg" alt="">
-      </button>
     </div>
 
     <div class="payment-form__footer">
@@ -142,3 +151,80 @@
     </div>
   </form>
 </div>
+      <div class="payment-details">
+  <h2 class="payment-details__title main-title">Детали счета №12345678</h2>
+
+  <div class="payment-details__block">
+    <div class="payment-details__label">
+      <div class="payment-details__label-text">
+        Истечет через:
+      </div>
+
+      <div class="payment-details__label-time">12:34:56</div>
+    </div>
+
+    <div class="payment-details__salesman">
+      <div class="payment-details__salesman-label">Продавец:</div>
+
+      <div class="payment-details__salesman-name">ООО “Первый”</div>
+    </div>
+  </div>
+
+  <div class="payment-details__block">
+    <div class="payment-details__sum">
+      <div class="payment-details__sum-label">
+        Сумма к оплате:
+      </div>
+
+      <div class="payment-details__sum-count">
+        3.500 <span>AED</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="payment-details__block">
+    <div class="payment-details__product">
+      <div class="payment-details__product-label">
+        Наименование товара или услуги:
+      </div>
+
+      <p class="payment-details__product-descr">
+        Аренда машины гос.номер А123АА123 на 10 дней (марка, модель и другая информация)
+      </p>
+    </div>
+  </div>
+
+  <div class="payment-details__block">
+    <div class="payment-details__row">
+      <div class="payment-details__row-label">
+        Стоимость:
+      </div>
+
+      <div class="payment-details__row-text">
+        2.500 AED
+      </div>
+    </div>
+    <div class="payment-details__row-border"></div>
+    <div class="payment-details__row">
+      <div class="payment-details__row-label">
+        Депозит:
+      </div>
+
+      <div class="payment-details__row-text">
+        1.000 AED <span>(срок: 21 день)</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  
+
+</body>
+
+<script src="./js/scripts.min.js"></script>
+
+</html>

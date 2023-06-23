@@ -15,6 +15,7 @@
     margin-bottom: 40px;
     font-size: 16px;
     line-height: 120%;
+    max-width: 435px;
   }
 
   // .payment-details__label
@@ -69,9 +70,16 @@
   // .payment-details__sum-count
 
   &__sum-count {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
     font-weight: 600;
     font-size: 36px;
     line-height: 120%;
+
+    img {
+      cursor: pointer;
+    }
   }
 
   // .payment-details__product
@@ -117,7 +125,55 @@
 
   // .payment-details__row-text
 
-  &__row-text {}
+  &__row-text {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
 }
 
-.main-title {}
+.payment-details__commission {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 20px;
+  margin-bottom: 15px;
+}
+
+.payment-details__commission-label {
+  font-weight: 600;
+}
+
+.payment-details__commission-sum {}
+
+.payment-details__qr {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.payment-details__qr-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+}
+
+.payment-details__qr-descr {
+  color: var(--grey-color-2);
+}
+
+.payment-details__group {
+  position: relative;
+}
+
+.payment-details__group-copy {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.payment-details__group:not(:last-child) {
+  margin-bottom: 10px;
+}

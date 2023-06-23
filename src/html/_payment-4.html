@@ -1,0 +1,213 @@
+<div class="payment">
+  <a href="#" class="payment__logo">
+    <img class="payment__logo-img" src="./img/icons/logo.svg" alt="">
+  </a>
+
+  <form class="payment__from payment-form" action="#">
+    <div class="payment-form__group">
+      <p class="payment-form__label">
+        Выберете способ оплаты
+      </p>
+
+      <div class="payment-form__radios">
+        <div class="payment-form__radio">
+          <input class="payment-form__radio-input" type="radio" name="pay" id="pay4">
+
+          <label class="payment-form__radio-label" for="pay4">Крипто</label>
+        </div>
+
+        <div class="payment-form__radio">
+          <input class="payment-form__radio-input" type="radio" name="pay" id="pay5" checked>
+
+          <label class="payment-form__radio-label" for="pay5">Наличный расчет</label>
+        </div>
+
+        <div class="payment-form__radio">
+          <input class="payment-form__radio-input" type="radio" name="pay" id="pay6">
+
+          <label class="payment-form__radio-label" for="pay6">Карта РФ</label>
+        </div>
+
+        <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+          data-tooltip-length="medium">
+          <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+        </div>
+      </div>
+
+      <div class="about-deposit__generation-select invoice__generation-select">
+        <div class="about-deposit__generation-selected">
+          <div class="about-deposit__generation-info">
+
+            <input class="about-deposit__generation-input" type="number" placeholder="Введите сумму" value="9.650">
+          </div>
+
+          <div class="about-deposit__generation-currency" data-select-wrapper>
+
+            <div class="about-deposit__generation-curr" data-select-value>
+              <img src="./img/aed.png" alt="">
+              AED
+            </div>
+
+            <img class="about-deposit__generation-img" src="./img/icons/arrow-down.svg" alt="arrow-down"
+              data-select-arrow>
+
+            <ul class="about-deposit__generation-list" data-select-list>
+              <li class="about-deposit__generation-item" data-select-item>
+                <img src="./img/aed.png" alt="">
+                AED
+              </li>
+              <li class="about-deposit__generation-item" data-select-item>
+                <img src="./img/aed.png" alt="">
+                AED
+              </li>
+              <li class="about-deposit__generation-item" data-select-item>
+                <img src="./img/aed.png" alt="">
+                AED
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="invoice-project__group-selects">
+        <div class="invoice-project__group-select" data-select-wrapper>
+          <div class="invoice-project__group-selected">
+            Выберете страну
+
+            <img class="invoice-project__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down"
+              data-select-arrow="">
+          </div>
+
+          <ul class="invoice-project__group-list select-list" data-select-list>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете страну</li>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете страну</li>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете страну</li>
+          </ul>
+        </div>
+
+        <div class="invoice-project__group-select" data-select-wrapper>
+          <div class="invoice-project__group-selected">
+            Выберете город
+
+            <img class="invoice-project__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down"
+              data-select-arrow="">
+          </div>
+
+          <ul class="invoice-project__group-list select-list" data-select-list>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете город</li>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете город</li>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете город</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="invoice-project__group-select" data-select-wrapper>
+        <div class="invoice-project__group-selected">
+          Выберете офис
+
+          <img class="invoice-project__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down"
+            data-select-arrow="">
+        </div>
+
+        <ul class="invoice-project__group-list select-list" data-select-list>
+          <li class="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
+          <li class="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
+          <li class="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="payment-form__group">
+      <p class="payment-form__label">
+        Выберете способ возврата депозита
+      </p>
+
+      <div class="payment-form__radios">
+        <div class="payment-form__radio">
+          <input class="payment-form__radio-input" type="radio" name="pay2" id="pay7" checked>
+
+          <label class="payment-form__radio-label" for="pay7">Крипто</label>
+        </div>
+
+        <div class="payment-form__radio">
+          <input class="payment-form__radio-input" type="radio" name="pay2" id="pay8">
+
+          <label class="payment-form__radio-label" for="pay8">Карта РФ</label>
+        </div>
+      </div>
+
+      <div class="invoice-project__group-select" data-select-wrapper>
+        <div class="invoice-project__group-selected">
+          Выберете криптовалюту
+
+          <img class="invoice-project__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down"
+            data-select-arrow="">
+        </div>
+
+        <ul class="invoice-project__group-list select-list" data-select-list>
+          <li class="invoice-project__group-item select-item" data-select-item>Выберете криптовалюту</li>
+          <li class="invoice-project__group-item select-item" data-select-item>Выберете криптовалюту</li>
+          <li class="invoice-project__group-item select-item" data-select-item>Выберете криптовалюту</li>
+        </ul>
+      </div>
+
+      <div class="invoice-project__group-select" data-select-wrapper>
+        <div class="invoice-project__group-selected">
+          Выберете сеть
+
+          <img class="invoice-project__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down"
+            data-select-arrow="">
+        </div>
+
+        <ul class="invoice-project__group-list select-list" data-select-list>
+          <li class="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
+          <li class="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
+          <li class="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
+        </ul>
+      </div>
+
+      <div class="my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          Адрес кошелька
+        </label>
+
+        <input class="my-projects__input project-input" type="text" placeholder="Введите адрес кошелька">
+      </div>
+
+    </div>
+
+    <div class="payment-form__group">
+      <p class="payment-form__label">
+        Отправить уведомление на почту
+      </p>
+
+      <div class="my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          E-mail
+        </label>
+
+        <input class="my-projects__input project-input" type="text" placeholder="Введите ваш e-mail">
+      </div>
+
+    </div>
+
+    <div class="payment-form__btns">
+      <button class="payment-form__btn second-btn">
+        Оплатить
+      </button>
+
+      <button class="payment-form__btn blue-btn">
+        <img src="./img/icons/WalletConnect.svg" alt="">
+      </button>
+
+      <button class="payment-form__btn second-btn">
+        <img src="./img/icons/payment-form-awex.svg" alt="">
+      </button>
+    </div>
+
+    <div class="payment-form__footer">
+      Нажимая «Оплатить», вы принимаете
+      <a href="#">пользовательское соглашение..</a>
+    </div>
+  </form>
+</div>

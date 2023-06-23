@@ -127,3 +127,171 @@
   border-radius: 10px;
   background-color: var(--blue-color);
 }
+
+.payment-form__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
+.payment-form__label-link {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+.payment__wait {
+  max-width: 485px;
+}
+
+.payment__wait-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 15px;
+  margin-bottom: 15px;
+}
+
+.payment__wait-img {
+  animation: spinner 3s linear infinite;
+}
+
+.invoice-project__group-selects {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.invoice-project__group-select-arrow {
+  width: 10px;
+  height: 12px;
+}
+
+.payment__from {
+  & .invoice-project__group-select {
+    margin-bottom: 15px;
+  }
+}
+
+.payment-form__info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3px;
+}
+
+.payment-form__info-label {
+  font-weight: 600;
+}
+
+.payment-form__inf-descr {}
+
+.payment-form__btn--2 {
+  grid-column: span 2;
+}
+
+.about-deposit__generation-val {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--second-color);
+  font-weight: 600;
+}
+
+.payment__wait--cash {
+  max-width: 620px;
+
+  & .payment__wait-header {
+    margin-bottom: 35px;
+  }
+
+  & .payment-form__info {
+    margin-bottom: 35px;
+  }
+
+
+}
+
+.payment__wait-link {
+  width: fit-content;
+}
+
+.payment__wait--dedline {
+  & .payment__wait-header {
+    justify-content: flex-start;
+  }
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip:after,
+.tooltip:before {
+  opacity: 0;
+  pointer-events: none;
+  bottom: 100%;
+  left: 50%;
+  position: absolute;
+  z-index: 10;
+  transform: translate(-50%, 10px);
+  transform-origin: top;
+  transition: all 0.18s ease-out 0.18s;
+}
+
+.tooltip:after {
+  border-radius: 10px;
+  background: rgba(254, 214, 2, 0.20);
+  content: attr(data-tooltip);
+  padding: 15px 20px;
+  white-space: nowrap;
+  margin-bottom: 11px;
+  font-size: 13px;
+}
+
+.tooltip:before {
+  width: 0;
+  height: 0;
+  content: "";
+  margin-bottom: 6px;
+}
+
+.tooltip:hover:before,
+.tooltip:hover:after {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+
+[data-tooltip-pos="right"]:before {
+  border-top: 6px solid transparent;
+  border-right: 6px solid #f5f5f5;
+  border-bottom: 6px solid transparent;
+  margin-left: 6px;
+}
+
+
+[data-tooltip-pos="right"]:before,
+[data-tooltip-pos="right"]:after {
+  bottom: auto;
+  left: 100%;
+  top: 50%;
+  transform: translate(-10px, -50%);
+}
+
+[data-tooltip-pos="right"]:after {
+  margin-left: 11px;
+}
+
+[data-tooltip-pos="right"]:hover:before,
+[data-tooltip-pos="right"]:hover:after {
+  transform: translate(0, -50%);
+}
+
+
+
+[data-tooltip-length="medium"]:after {
+  width: 300px;
+}
