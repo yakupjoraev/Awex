@@ -121,7 +121,7 @@ input[type=number] {
 
 html,
 body {
-  height: 100%;
+  min-height: 100vh;
 }
 
 .main {
@@ -129,6 +129,15 @@ body {
   display: -ms-flexbox;
   display: flex;
   height: 100%;
+}
+
+.main--grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+}
+
+.main--grid .sidebar {
+  min-height: 100vh;
 }
 
 .wrapper {
@@ -687,6 +696,7 @@ body.locked {
 .sidebar__menu-item.show > .sidebar__menu-sublist .sidebar__menu-sublink {
   padding: 10px 0 10px 40px;
   height: 100%;
+  color: var(--text-color);
 }
 
 .sidebar__menu-item-main {
@@ -954,6 +964,7 @@ body.locked {
   -webkit-column-gap: 10px;
      -moz-column-gap: 10px;
           column-gap: 10px;
+  color: var(--text-color);
   -webkit-transition: font-weight 0.2s linear;
   -o-transition: font-weight 0.2s linear;
   transition: font-weight 0.2s linear;
@@ -1263,6 +1274,7 @@ body.locked {
   -webkit-column-gap: 10px;
      -moz-column-gap: 10px;
           column-gap: 10px;
+  color: var(--text-color);
   -webkit-transition: font-weight 0.2s linear;
   -o-transition: font-weight 0.2s linear;
   transition: font-weight 0.2s linear;
