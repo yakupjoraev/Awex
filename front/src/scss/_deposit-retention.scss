@@ -13,6 +13,8 @@
   &__info {
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
+    column-gap: 30px;
     margin-bottom: 30px;
   }
 
@@ -53,6 +55,7 @@
   // .deposit-retention__project-label
 
   &__project-label {
+    font-weight: 600;
     margin-bottom: 10px;
   }
 
@@ -61,8 +64,6 @@
   &__project-name {
     margin-bottom: 5px;
     font-weight: 600;
-    font-size: 24px;
-    line-height: 120%;
   }
 
   // .deposit-retention__project-link
@@ -75,7 +76,8 @@
 
   &__about {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
+    column-gap: 30px;
     row-gap: 20px;
   }
 
@@ -103,14 +105,17 @@
   // .deposit-retention__form
 
   &__form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
 
-    &.show .deposit-retention__item-btns--first {
-      display: none;
-    }
+    // &.show .deposit-retention__item-btns--first {
+    //   display: none;
+    // }
 
-    &.show .deposit-retention__checked-moment {
-      display: block;
-    }
+    // &.show .deposit-retention__checked-moment {
+    //   display: block;
+    // }
   }
 
   // .deposit-retention__checks-view
@@ -142,12 +147,18 @@
 
   // .deposit-retention__btn
 
-  &__btn {}
+  &__btn {
+    width: 100%;
+  }
 
   // .deposit-retention__checked-moment
 
   &__checked-moment {
-    display: none;
+    // display: none;
+
+    .deposit-retention__btn {
+      width: fit-content;
+    }
   }
 
   // .deposit-retention__groups
@@ -157,6 +168,10 @@
     grid-template-columns: repeat(2, 1fr);
     column-gap: 30px;
     margin-bottom: 30px;
+
+    .about-deposit__generation-select:not(:last-child) {
+      margin-bottom: 0;
+    }
   }
 
   // .deposit-retention__file
@@ -207,3 +222,28 @@
     top: 20px;
   }
 }
+
+.deposit-retention__info-groups {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+
+}
+
+.deposit-retention__info-group {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 130px;
+
+  p+p {
+    margin-top: 5px;
+  }
+}
+
+.deposit-retention__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.deposit-retention__item {}

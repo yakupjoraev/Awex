@@ -118,6 +118,8 @@
     display: flex;
     align-items: center;
     column-gap: 20px;
+    row-gap: 20px;
+    flex-wrap: wrap;
     margin-bottom: 30px;
   }
 
@@ -167,7 +169,9 @@
 
   // .deposits__filter-search
 
-  &__filter-search {}
+  &__filter-search {
+    flex: 0 1 100%;
+  }
 
   // .deposits__filter-src
 
@@ -227,6 +231,19 @@
 
   &__item-commets {
     justify-self: start;
+
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -ms-line-clamp: 2;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    display: box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
   }
 
   // .deposits__item
@@ -236,7 +253,7 @@
     grid-template-columns: 26px 72px 74px 150px 80px 124px 1fr 1fr;
     column-gap: 35px;
     justify-items: center;
-    padding: 30px;
+    padding: 15px;
     border: 2px solid var(--white-color);
     background-color: var(--white-color);
     border-radius: 10px;
@@ -246,5 +263,20 @@
 
   &__item-rejected {
     border: 2px solid var(--error-color);
+
+    .deposits__item-status-application {
+      text-decoration: underline;
+      color: var(--error-color);
+    }
   }
+}
+
+.deposits__info--black {
+  background-color: var(--text-color);
+  color: var(--white-color);
+}
+
+.deposits__header--start {
+  justify-content: flex-start;
+  column-gap: 10px;
 }

@@ -30,9 +30,9 @@
   &__item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    // justify-content: space-between;
     column-gap: 20px;
-    padding: 30px;
+    padding: 15px;
     background-color: var(--white-color);
     border-radius: 10px;
   }
@@ -88,7 +88,12 @@
 
   // .successfully-invoice__item-link
 
-  &__item-link {}
+  &__item-link {
+    background-color: rgba(209, 209, 209, 0.20);
+    border-color: rgba(209, 209, 209, 0.20);
+    font-size: 13px;
+    line-height: 120%;
+  }
 }
 
 .paid {}

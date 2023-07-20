@@ -24,7 +24,11 @@
     display: flex;
     align-items: center;
     column-gap: 5px;
-    margin-bottom: 10px;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--text-color);
+    color: var(--white-color);
   }
 
   // .payment-details__label-text
@@ -103,7 +107,7 @@
   &__row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    // justify-content: space-between;
     column-gap: 20px;
     max-width: 435px;
     margin-bottom: 15px;
@@ -120,6 +124,7 @@
   // .payment-details__row-label
 
   &__row-label {
+    width: 140px;
     font-weight: 600;
   }
 
@@ -129,6 +134,11 @@
     display: flex;
     align-items: center;
     column-gap: 10px;
+    font-weight: 600;
+
+    span {
+      font-weight: 400;
+    }
   }
 }
 

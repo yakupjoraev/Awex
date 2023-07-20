@@ -155,12 +155,13 @@
     left: 0;
     width: 100%;
     height: auto;
+    text-align: right;
   }
 
   // .about-check__graphic-img
 
   &__graphic-img {
-    width: 100%;
+    // width: 100%;
   }
 
   // .about-check__btn
@@ -220,7 +221,7 @@
 
   &__generation {
     padding: 30px 30px 60px;
-    background-color: var(--second-color);
+    background-color: rgba(209, 209, 209, 0.20);
     border-radius: 10px;
     height: 250px;
   }
@@ -237,8 +238,9 @@
   &__generation-select {
     position: relative;
     padding: 10px 15px;
-    background-color: var(--white-color);
+    background-color: transparent !important;
     border-radius: 10px;
+    border: 1px solid var(--grey-color);
 
     &:not(:last-child) {
       margin-bottom: 10px;
@@ -251,6 +253,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: row-reverse;
     column-gap: 20px;
   }
 

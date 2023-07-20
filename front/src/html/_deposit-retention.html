@@ -1,130 +1,249 @@
 <section class="deposit-retention">
-  <div class="deposits__header">
+  <div class="deposits__header deposits__header--start">
     <h1 class="deposits__title main-title">
       Заявка на возврат депозита
     </h1>
+
+    <div class="deposits__info-count deposits__info-count--red">50</div>
   </div>
 
-  <div class="deposit-retention__inner">
-    <div class="deposit-retention__info">
-      <div class="deposit-retention__deposit">
-        <div class="deposit-retention__deposit-label">
-          Текущий депозит:
-        </div>
-
-        <div class="deposit-retention__deposit-sum">
-          5.000
-          <span>
-            ,00$
-          </span>
-        </div>
-      </div>
-
-      <div class="deposit-retention__project">
-        <div class="deposit-retention__project-label">
-          Проект:
-        </div>
-
-        <div class="deposit-retention__project-name">
-          ООО ”Первый”
-        </div>
-
-        <a class="deposit-retention__project-link" href="#">https://www.gemini.com/</a>
-      </div>
-
-      <div class="deposit-retention__about">
-        <div class="deposit-retention__id">
-          <div class="deposit-retention__label">
-            ID клиента:
-          </div>
-
-          <p class="deposit-retention__descr">
-            #124hy4590 (Ivanov Ivan)
-          </p>
-        </div>
-
-        <div class="deposit-retention__comments">
-          <div class="deposit-retention__label">
-            Комментарий:
-          </div>
-
-          <p class="deposit-retention__descr">
-            Аренда автомобиля марки Mercedes-Benz E200 А123АА123 на 30 дней (депозит 21 день)
-          </p>
-        </div>
-      </div>
-    </div>
-    <form class="deposit-retention__form" action="#">
-      <div class="deposit-retention__checks-view checkbox-group">
-        <input class="deposit-retention__checkbox checkbox-input" type="checkbox" id="checkbox10">
-
-        <label class="deposit-retention__label checkbox-label" for="checkbox10">
-          <div class="deposit-retention__checkbox-decor checkbox-decor"></div>
-          <span class="deposit-retention__checkbox-text checkbox-text">Удержать часть депозита</span>
-        </label>
-      </div>
-
-      <div class="deposit-retention__item-btns deposit-retention__item-btns--first">
-        <button type="button" class="deposit-retention__btn second-btn">Вернуть</button>
-      </div>
-
-      <div class="deposit-retention__checked-moment">
-        <div class="deposit-retention__groups">
-          <div class="about-deposit__generation-select invoice__generation-select">
-            <div class="about-deposit__generation-selected">
-              <div class="about-deposit__generation-info">
-                <h5 class="about-deposit__generation-title">
-                  Сумма удержания:
-                </h5>
-
-                <input class="about-deposit__generation-input" type="number" placeholder="Напишите сумму">
+  <ul class="deposit-retention__list">
+    <li class="deposit-retention__item">
+      <div class="deposit-retention__inner">
+        <div class="deposit-retention__info">
+          <div class="deposit-retention__info-groups">
+            <div class="deposit-retention__deposit">
+              <div class="deposit-retention__deposit-label">
+                Текущий депозит:
               </div>
 
-              <div class="about-deposit__generation-currency" data-select-wrapper>
+              <div class="deposit-retention__deposit-sum">
+                5.000
+                <span>
+                  ,00$
+                </span>
+              </div>
+            </div>
 
-                <div class="about-deposit__generation-curr" data-select-value>
-                  RUB
+            <div class="deposit-retention__info-group">
+              <div class="deposit-retention__project">
+                <div class="deposit-retention__project-label">
+                  Проект:
                 </div>
 
-                <img class="about-deposit__generation-img" src="./img/icons/arrow-down.svg" alt="arrow-down"
-                  data-select-arrow>
+                <div class="deposit-retention__project-name">
+                  ООО ”Первый”
+                </div>
 
-                <ul class="about-deposit__generation-list" data-select-list>
-                  <li class="about-deposit__generation-item" data-select-item>RUB</li>
-                  <li class="about-deposit__generation-item" data-select-item>RUB</li>
-                  <li class="about-deposit__generation-item" data-select-item>RUB</li>
-                </ul>
+                <a class="deposit-retention__project-link" href="#">https://www.gemini.com/</a>
+              </div>
+
+              <div class="deposit-retention__id">
+                <div class="deposit-retention__label">
+                  ID клиента:
+                </div>
+
+                <p class="deposit-retention__descr">
+                  #124hy4590
+                </p>
+
+                <p class="deposit-retention__descr">
+                  (Ivanov Ivan)
+                </p>
               </div>
             </div>
           </div>
 
-          <div class="deposit-retention__file">
-            <input class="deposit-retention__file-input" type="file" id="fileInput">
-            <label class="deposit-retention__file-label" for="fileInput">
-              Документы подтверждаещие удержание депозита
 
-              <p class="deposit-retention__file-text">Прикрепить документы</p>
 
-              <img class="deposit-retention__file-img" src="./img/icons/file.svg" alt="">
-            </label>
+
+          <div class="deposit-retention__about">
+
+            <div class="deposit-retention__comments">
+              <div class="deposit-retention__label">
+                Комментарий:
+              </div>
+
+              <p class="deposit-retention__descr">
+                Аренда автомобиля марки Mercedes-Benz E200 А123АА123 на 30 дней (депозит 21 день)
+              </p>
+            </div>
+
+            <form class="deposit-retention__form" action="#">
+              <div class="deposit-retention__item-btns deposit-retention__item-btns--first">
+                <button type="button" class="deposit-retention__btn third-btn">Удержать часть депозита</button>
+              </div>
+
+              <div class="deposit-retention__item-btns deposit-retention__item-btns--first">
+                <button type="button" class="deposit-retention__btn second-btn">Вернуть полностью</button>
+              </div>
+
+            </form>
+
           </div>
         </div>
-        <div class="invoice-project__group project-group invoice__group-textarea">
-          <label class="invoice-project__label project-label" for="#">
-            Комментарий для клиента:
-          </label>
 
-          <textarea class="invoice-project__textarea project-textarea"
-            placeholder="Сообщение для клиента (описание проблемы и запроса)"></textarea>
-        </div>
-        <div class="deposit-retention__item-btns">
-          <button type="button" class="deposit-retention__btn third-btn">Назад</button>
-          <button type="button" class="deposit-retention__btn second-btn">Отправить на проверку</button>
-        </div>
       </div>
+    </li>
 
-    </form>
-  </div>
+    <li class="deposit-retention__item">
+      <div class="deposit-retention__inner">
+        <div class="deposit-retention__info">
+          <div class="deposit-retention__info-groups">
+            <div class="deposit-retention__deposit">
+              <div class="deposit-retention__deposit-label">
+                Текущий депозит:
+              </div>
+
+              <div class="deposit-retention__deposit-sum">
+                5.000
+                <span>
+                  ,00$
+                </span>
+              </div>
+            </div>
+
+            <div class="deposit-retention__info-group">
+              <div class="deposit-retention__project">
+                <div class="deposit-retention__project-label">
+                  Проект:
+                </div>
+
+                <div class="deposit-retention__project-name">
+                  ООО ”Первый”
+                </div>
+
+                <a class="deposit-retention__project-link" href="#">https://www.gemini.com/</a>
+              </div>
+
+              <div class="deposit-retention__id">
+                <div class="deposit-retention__label">
+                  ID клиента:
+                </div>
+
+                <p class="deposit-retention__descr">
+                  #124hy4590
+                </p>
+
+                <p class="deposit-retention__descr">
+                  (Ivanov Ivan)
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div class="deposit-retention__about">
+
+            <div class="deposit-retention__comments">
+              <div class="deposit-retention__label">
+                Комментарий:
+              </div>
+
+              <p class="deposit-retention__descr">
+                Аренда автомобиля марки Mercedes-Benz E200 А123АА123 на 30 дней (депозит 21 день)
+              </p>
+            </div>
+
+            <form class="deposit-retention__form" action="#">
+              <div class="deposit-retention__item-btns deposit-retention__item-btns--first">
+                <button type="button" class="deposit-retention__btn third-btn">Удержать часть депозита</button>
+              </div>
+
+              <div class="deposit-retention__item-btns deposit-retention__item-btns--first">
+                <button type="button" class="deposit-retention__btn second-btn">Вернуть полностью</button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </li>
+
+    <li class="deposit-retention__item">
+      <div class="deposit-retention__inner">
+        <div class="deposit-retention__info">
+          <div class="deposit-retention__info-groups">
+            <div class="deposit-retention__deposit">
+              <div class="deposit-retention__deposit-label">
+                Текущий депозит:
+              </div>
+
+              <div class="deposit-retention__deposit-sum">
+                5.000
+                <span>
+                  ,00$
+                </span>
+              </div>
+            </div>
+
+            <div class="deposit-retention__info-group">
+              <div class="deposit-retention__project">
+                <div class="deposit-retention__project-label">
+                  Проект:
+                </div>
+
+                <div class="deposit-retention__project-name">
+                  ООО ”Первый”
+                </div>
+
+                <a class="deposit-retention__project-link" href="#">https://www.gemini.com/</a>
+              </div>
+
+              <div class="deposit-retention__id">
+                <div class="deposit-retention__label">
+                  ID клиента:
+                </div>
+
+                <p class="deposit-retention__descr">
+                  #124hy4590
+                </p>
+
+                <p class="deposit-retention__descr">
+                  (Ivanov Ivan)
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div class="deposit-retention__about">
+
+            <div class="deposit-retention__comments">
+              <div class="deposit-retention__label">
+                Комментарий:
+              </div>
+
+              <p class="deposit-retention__descr">
+                Аренда автомобиля марки Mercedes-Benz E200 А123АА123 на 30 дней (депозит 21 день)
+              </p>
+            </div>
+
+            <form class="deposit-retention__form" action="#">
+              <div class="deposit-retention__item-btns deposit-retention__item-btns--first">
+                <button type="button" class="deposit-retention__btn third-btn">Удержать часть депозита</button>
+              </div>
+
+              <div class="deposit-retention__item-btns deposit-retention__item-btns--first">
+                <button type="button" class="deposit-retention__btn second-btn">Вернуть полностью</button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </li>
+  </ul>
+
+
 
 
 </section>

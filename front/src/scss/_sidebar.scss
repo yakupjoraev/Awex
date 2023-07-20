@@ -22,7 +22,8 @@
   &__header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 30px 10px;
     column-gap: 24px;
   }
 
@@ -256,3 +257,15 @@
 
   &__user-item-text {}
 }
+
+.sidebar__themes {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.sidebar__theme {
+  cursor: pointer;
+}
+
+.sidebar__theme-img {}
