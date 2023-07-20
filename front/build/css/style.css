@@ -3152,6 +3152,10 @@ body.locked {
   transition: opacity 0.3s ease-in-out;
 }
 
+.open-modal-btn {
+  cursor: pointer;
+}
+
 .modal.show {
   display: -webkit-box;
   display: -ms-flexbox;
