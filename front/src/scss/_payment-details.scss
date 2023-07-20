@@ -57,7 +57,11 @@
 
   // .payment-details__salesman-name
 
-  &__salesman-name {}
+  &__salesman-name {
+    span {
+      margin-right: 10px;
+    }
+  }
 
   // .payment-details__sum
 

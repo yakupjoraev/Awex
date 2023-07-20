@@ -122,6 +122,7 @@ input[type=number] {
 html,
 body {
   min-height: 100vh;
+  height: 100%;
 }
 
 .main {
@@ -1138,6 +1139,17 @@ body.locked {
           column-gap: 20px;
 }
 
+.about-deposit__generation-selected--not-reverse {
+  background-color: var(--white-color) !important;
+}
+
+.about-deposit__generation-selected--not-reverse .about-deposit__generation-selected {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
 .about-deposit__generation-info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1971,6 +1983,7 @@ body.locked {
 }
 
 .invoice__generation-select {
+  margin-bottom: 36px !important;
   padding: 10px;
   background: var(--bg-grey-color);
   border-radius: 10px;
@@ -2977,6 +2990,10 @@ body.locked {
   font-weight: 600;
 }
 
+.payment-details__salesman-name span {
+  margin-right: 10px;
+}
+
 .payment-details__sum {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3290,6 +3307,128 @@ body.locked {
 .modal-content__qr--big img {
   width: 100%;
   max-width: 100%;
+}
+
+.modal-content--select-list {
+  max-width: 380px;
+  padding: 30px 15px;
+  font-family: "Raleway", sans-serif;
+}
+
+.modal-content__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-column-gap: 20px;
+     -moz-column-gap: 20px;
+          column-gap: 20px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.modal-content__title {
+  height: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 120%;
+  color: var(--text-color);
+}
+
+.modal-content .deposits__filter-search {
+  margin-bottom: 20px;
+}
+
+.crypto__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 10px;
+  width: 100%;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.crypto__list::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.crypto__list::-webkit-scrollbar-track {
+  background: var(--color-primary);
+}
+
+.crypto__list::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: var(--color-secondary);
+}
+
+.crypto___item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 10px;
+     -moz-column-gap: 10px;
+          column-gap: 10px;
+  padding: 5px 10px;
+  -webkit-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+  cursor: pointer;
+}
+
+.crypto___item:hover {
+  background-color: var(--bg-grey-color);
+}
+
+.crypto__item-pic {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+}
+
+.crypto__item-name {
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.crypto__item-subname {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.crypto__item-counts {
+  margin-left: auto;
+  text-align: right;
+}
+
+.crypto__item-count--main {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.crypto__item-count--second {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--grey-color-2);
 }
 
 @media (max-width: 1449.98px) {

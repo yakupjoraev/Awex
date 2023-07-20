@@ -257,6 +257,15 @@
     column-gap: 20px;
   }
 
+  &__generation-selected--not-reverse {
+
+    background-color: var(--white-color) !important;
+
+    .about-deposit__generation-selected {
+      flex-direction: row;
+    }
+  }
+
   // .about-deposit__generation-info
 
   &__generation-info {
