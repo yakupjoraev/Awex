@@ -5,20 +5,29 @@
   margin: 0 auto;
   padding: 0 $containerSidePadding + px;
 
+  @media (max-width: $breakpoint1750) {
+    // max-width: 1200px;
+  }
+
   @media (max-width: $breakpoint1450) {
-    max-width: 1200px;
+    // max-width: 1200px;
+  }
+
+
+  @media (max-width: $breakpoint1200) {
+    // max-width: 1200px;
   }
 
   @media (max-width: $breakpoint992) {
-    max-width: 970px;
+    // max-width: 970px;
   }
 
   @media (max-width: $breakpoint768) {
-    max-width: 740px;
+    // max-width: 740px;
   }
 
   @media (max-width: $breakpoint480) {
-    max-width: none;
+    // max-width: none;
   }
 }
 
@@ -40,6 +49,11 @@ body {
   & .sidebar {
     min-height: 100vh;
   }
+
+  @media (max-width: $breakpoint768) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
 }
 
 .wrapper {

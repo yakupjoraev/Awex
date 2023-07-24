@@ -41,6 +41,24 @@ function sidebarFunctions() {
 
 sidebarFunctions();
 
+
+function sidebarMobile() {
+  const sidebarMobile = document.querySelector('[data-sidebar-mobile]');
+
+  if (!sidebarMobile) {
+    return null
+  }
+
+  const sidebarMobileBtn = document.querySelector('[data-sidebar-mobile-btn]');
+
+  sidebarMobileBtn.addEventListener('click', () => {
+    sidebarMobile.classList.toggle('show')
+  })
+
+}
+
+sidebarMobile();
+
 function simpleSelect() {
   const selectWrappers = document.querySelectorAll('[data-select-wrapper]');
 

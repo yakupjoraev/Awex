@@ -19,7 +19,11 @@
   <div class="sidebar__inner">
     <div class="sidebar__header">
       <a class="sidebar__logo" href="#">
-        <img class="sidebar__logo-img" src="./img/sidebar/logo.svg" alt="logo">
+        <picture>
+          <source media="(max-width: 992px)" srcset="./img/sidebar/logo-mobile.svg">
+          <source media="(max-width: 1200px)" srcset="./img/sidebar/logo-tablet.svg">
+          <img class="sidebar__logo-img" src="./img/sidebar/logo.svg" alt="logo">
+        </picture>
       </a>
 
 
@@ -271,6 +275,105 @@
     </div>
   </div>
 </aside>
+
+<div class="sidebar-mobile" data-sidebar-mobile>
+  <div class="sidebar-mobile__inner">
+    <div class="sidebar-mobile__header">
+      <a href="#" class="sidebar-mobile__user">
+        <div class="sidebar-mobile__user-icon">
+          <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/user.svg" alt="user">
+        </div>
+
+        <p class="sidebar-mobile__user-name">
+          Ivan Ivanov
+        </p>
+      </a>
+
+      <a href="#" class="sidebar-mobile__settings">
+        <div class="sidebar-mobile__settings-icon">
+          <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/settings.svg" alt="settings">
+        </div>
+
+        <p class="sidebar-mobile__settings-name">
+          Настройки
+        </p>
+      </a>
+
+      <a href="#" class="sidebar-mobile__log-out">
+        <div class="sidebar-mobile__log-out-icon">
+          <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/log-out.svg" alt="log-out">
+        </div>
+
+        <p class="sidebar-mobile__log-out-name">
+          Выйти
+        </p>
+      </a>
+    </div>
+
+    <div class="sidebar-mobile__middle">
+      <a href="#" class="sidebar-mobile__item">
+        <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/clock.svg" alt="clock">
+
+        <p class="sidebar-mobile__item-text">История</p>
+      </a>
+
+      <a href="#" class="sidebar-mobile__item">
+        <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/sliders-horizontal-alt.svg"
+          alt="sliders-horizontal-alt">
+
+        <p class="sidebar-mobile__item-text">Интеграция</p>
+      </a>
+
+      <a href="#" class="sidebar-mobile__item">
+        <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/chat-dots.svg" alt="chat-dots">
+
+        <p class="sidebar-mobile__item-text">Инфоцентр</p>
+      </a>
+
+      <a href="#" class="sidebar-mobile__item">
+        <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/home.svg" alt="home">
+
+        <p class="sidebar-mobile__item-text">Реф. программа</p>
+      </a>
+    </div>
+
+    <div class="sidebar-mobile__main">
+      <a href="#" class="sidebar-mobile__item active">
+        <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/users-alt.svg" alt="users-alt">
+
+        <p class="sidebar-mobile__item-text">Главная</p>
+      </a>
+
+      <a href="#" class="sidebar-mobile__item">
+        <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/link.svg" alt="link">
+
+        <p class="sidebar-mobile__item-text">Счета</p>
+      </a>
+
+      <a href="#" class="sidebar-mobile__item">
+        <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/bookmark.svg" alt="bookmark">
+
+        <p class="sidebar-mobile__item-text">Депозиты</p>
+      </a>
+
+      <a href="#" class="sidebar-mobile__item">
+        <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/menu-left-alt.svg" alt="menu-left-alt">
+
+        <p class="sidebar-mobile__item-text">Проекты</p>
+      </a>
+
+      <div class="sidebar-mobile__item" data-sidebar-mobile-btn>
+        <img class="sidebar-mobile__pic" src="./img/sidebar-mobile/more-horizontal-circle.svg"
+          alt="more-horizontal-circle">
+
+        <img class="sidebar-mobile__pic sidebar-mobile__pic--open" src="./img/sidebar-mobile/angle-down-circle.svg"
+          alt="angle-down-circle">
+
+        <p class="sidebar-mobile__item-text">Меню</p>
+      </div>
+    </div>
+  </div>
+</div>
 
     <div class="wrapper">
       <section class="settings">
