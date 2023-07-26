@@ -298,7 +298,13 @@
 
   // .about-deposit__generation-img
 
-  &__generation-img {}
+  &__generation-img {
+    transition: transform 0.2s linear;
+
+    &.active {
+      transform: rotate(180deg);
+    }
+  }
 
   // .about-deposit__generation-descr
 
@@ -333,21 +339,26 @@
 
   &__generation-list {
     position: absolute;
-    top: 100%;
-    left: 0;
+    top: 28px;
+    left: -1px;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    width: 100%;
+    width: calc(100% + 2px);
     min-width: 124px;
     max-height: 0;
     overflow-y: auto;
     background-color: var(--white-color);
-    border-radius: 10px;
-    padding: 0 15px;
+    border-radius: 0 0 10px 10px;
+    border-bottom: 1px solid var(--grey-color);
+    border-left: 1px solid var(--grey-color);
+    border-right: 1px solid var(--grey-color);
+    padding-bottom: 10px;
     opacity: 0;
     pointer-events: none;
     z-index: 3;
+
+    transition: opacity 0.2s linear;
 
     &.active {
       max-height: 400px;
@@ -360,9 +371,31 @@
   // .about-deposit__generation-item
 
   &__generation-item {
-
+    padding: 10px;
+    border-radius: 10px;
     font-weight: 600;
     font-size: 13px;
+    line-height: 120%;
+    color: #000;
     cursor: pointer;
+
+    border-bottom: 1px solid rgba(209, 209, 209, 0.20);
+    transition: background-color 0.2s linear;
+
+    &:hover {
+      background-color: rgba(209, 209, 209, 0.20);
+    }
+  }
+}
+
+.about-deposit__generation-selected--not-reverse {
+  flex-direction: row;
+}
+
+.about-deposit__generation-selected--border {
+
+  .about-deposit__generation-currency {
+    padding-right: 15px;
+    border-right: 1px solid #D1D1D1;
   }
 }

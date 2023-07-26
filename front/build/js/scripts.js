@@ -78,11 +78,13 @@ function simpleSelect() {
 
     function toggleSelectList() {
       selectList.classList.toggle('active');
+      selectArrow.classList.toggle('active');
     }
 
     selectItems.forEach(item => {
       item.addEventListener('click', () => {
         selectList.classList.remove('active');
+        selectArrow.classList.remove('active');
       });
     });
   });
@@ -94,6 +96,7 @@ function simpleSelect() {
 
       if (!isClickedInsideSelect) {
         selectList.classList.remove('active');
+        selectArrow.classList.remove('active');
       }
     });
   });

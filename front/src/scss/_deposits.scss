@@ -131,8 +131,13 @@
     flex-direction: column;
     row-gap: 5px;
     padding: 10px 35px 10px 15px;
-    background: var(--bg-grey-color);
+    background-color: rgba(209, 209, 209, 0.20);
     border-radius: 10px;
+    transition: background-color 0.2s linear;
+
+    &:hover {
+      background-color: rgba(209, 209, 209, 0.50);
+    }
   }
 
   // .deposits__filter-label
@@ -157,6 +162,11 @@
     top: 20px;
     width: 7px;
     height: 9px;
+    transition: transform 0.2s linear;
+
+    &.active {
+      transform: rotate(180deg);
+    }
   }
 
   // .deposits__filter-list

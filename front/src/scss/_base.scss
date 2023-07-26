@@ -161,19 +161,19 @@
   flex-direction: column;
   row-gap: 10px;
   width: 100%;
-  min-width: 124px;
+  min-width: 110px;
   max-height: 0;
   overflow-y: auto;
   background-color: var(--white-color);
   border-radius: 10px;
-  padding: 0 15px;
+
   opacity: 0;
   pointer-events: none;
   z-index: 3;
 
   &.active {
     max-height: 400px;
-    padding: 15px 15px;
+    padding: 10px 15px;
     opacity: 1;
     pointer-events: visible;
   }
@@ -181,7 +181,17 @@
 
 .select-item {
   width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+
+  border-bottom: 1px solid rgba(209, 209, 209, 0.20);
+  transition: background-color 0.2s linear;
+
+  &:hover {
+    background-color: rgba(209, 209, 209, 0.20);
+  }
 }
+
 
 .project-groups {
   display: flex;

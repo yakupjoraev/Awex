@@ -417,12 +417,11 @@ body.locked {
           flex-direction: column;
   row-gap: 10px;
   width: 100%;
-  min-width: 124px;
+  min-width: 110px;
   max-height: 0;
   overflow-y: auto;
   background-color: var(--white-color);
   border-radius: 10px;
-  padding: 0 15px;
   opacity: 0;
   pointer-events: none;
   z-index: 3;
@@ -430,13 +429,23 @@ body.locked {
 
 .select-list.active {
   max-height: 400px;
-  padding: 15px 15px;
+  padding: 10px 15px;
   opacity: 1;
   pointer-events: visible;
 }
 
 .select-item {
   width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.2);
+  -webkit-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+
+.select-item:hover {
+  background-color: rgba(209, 209, 209, 0.2);
 }
 
 .project-groups {
@@ -712,6 +721,7 @@ body.locked {
 }
 
 .sidebar__menu-link {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -727,12 +737,27 @@ body.locked {
   color: var(--grey-color-2);
 }
 
+.sidebar__menu-link:hover {
+  color: var(--text-color);
+}
+
+.sidebar__menu-link:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 101%;
+  height: 100%;
+  background: var(--bg-grey-color);
+  border-right: 3px solid var(--second-color);
+  border-radius: 10px 0px 0px 10px;
+}
+
 .sidebar__menu-link svg path {
   fill: currentColor;
 }
 
 .sidebar__menu-link.active {
-  position: relative;
   color: var(--text-color);
 }
 
@@ -741,7 +766,7 @@ body.locked {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 101%;
   height: 100%;
   background: var(--bg-grey-color);
   border-right: 3px solid var(--second-color);
@@ -763,6 +788,7 @@ body.locked {
 }
 
 .sidebar__menu-sublink {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -777,12 +803,27 @@ body.locked {
   transition: height 0.4s linear, padding 0.4s linear;
 }
 
+.sidebar__menu-sublink:hover {
+  color: var(--text-color);
+}
+
+.sidebar__menu-sublink:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-grey-color);
+  border-right: 3px solid var(--second-color);
+  border-radius: 10px 0px 0px 10px;
+}
+
 .sidebar__menu-sublink svg path {
   fill: currentColor;
 }
 
 .sidebar__menu-sublink.active {
-  position: relative;
   color: var(--text-color);
 }
 
@@ -1359,6 +1400,20 @@ body.locked {
   line-height: 120%;
 }
 
+.about-deposit__generation-img {
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.about-deposit__generation-img.active {
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
 .about-deposit__generation-input {
   width: 80%;
   font-size: 13px;
@@ -1418,8 +1473,8 @@ body.locked {
 
 .about-deposit__generation-list {
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: 28px;
+  left: -1px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1428,16 +1483,22 @@ body.locked {
       -ms-flex-direction: column;
           flex-direction: column;
   row-gap: 10px;
-  width: 100%;
+  width: calc(100% + 2px);
   min-width: 124px;
   max-height: 0;
   overflow-y: auto;
   background-color: var(--white-color);
-  border-radius: 10px;
-  padding: 0 15px;
+  border-radius: 0 0 10px 10px;
+  border-bottom: 1px solid var(--grey-color);
+  border-left: 1px solid var(--grey-color);
+  border-right: 1px solid var(--grey-color);
+  padding-bottom: 10px;
   opacity: 0;
   pointer-events: none;
   z-index: 3;
+  -webkit-transition: opacity 0.2s linear;
+  -o-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
 }
 
 .about-deposit__generation-list.active {
@@ -1448,9 +1509,33 @@ body.locked {
 }
 
 .about-deposit__generation-item {
+  padding: 10px;
+  border-radius: 10px;
   font-weight: 600;
   font-size: 13px;
+  line-height: 120%;
+  color: #000;
   cursor: pointer;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.2);
+  -webkit-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+
+.about-deposit__generation-item:hover {
+  background-color: rgba(209, 209, 209, 0.2);
+}
+
+.about-deposit__generation-selected--not-reverse {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.about-deposit__generation-selected--border .about-deposit__generation-currency {
+  padding-right: 15px;
+  border-right: 1px solid #D1D1D1;
 }
 
 .history-operations__label {
@@ -2644,8 +2729,15 @@ body.locked {
           flex-direction: column;
   row-gap: 5px;
   padding: 10px 35px 10px 15px;
-  background: var(--bg-grey-color);
+  background-color: rgba(209, 209, 209, 0.2);
   border-radius: 10px;
+  -webkit-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+
+.deposits__filter-select:hover {
+  background-color: rgba(209, 209, 209, 0.5);
 }
 
 .deposits__filter-label {
@@ -2664,6 +2756,17 @@ body.locked {
   top: 20px;
   width: 7px;
   height: 9px;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.deposits__filter-arrow.active {
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 .deposits__filter-search {
@@ -2995,10 +3098,11 @@ body.locked {
 }
 
 .about-deposit__generation-val {
-  padding: 10px;
-  border-radius: 10px;
-  background-color: var(--second-color);
+  padding: 10px 20px;
+  border-radius: 100px;
+  background-color: var(--text-color);
   font-weight: 600;
+  color: var(--white-color);
 }
 
 .payment__wait--cash {
@@ -3395,6 +3499,7 @@ body.locked {
 .modal-content__header h2 {
   font-weight: 600;
   font-size: 24px;
+  line-height: 24px;
 }
 
 .modal-content__main {
@@ -3506,20 +3611,22 @@ body.locked {
   -webkit-column-gap: 20px;
      -moz-column-gap: 20px;
           column-gap: 20px;
-  margin-bottom: 10px;
   width: 100%;
 }
 
 .modal-content__title {
-  height: 24px;
   font-size: 14px;
   font-weight: 600;
-  line-height: 120%;
+  line-height: 24px;
   color: var(--text-color);
 }
 
 .modal-content .deposits__filter-search {
   margin-bottom: 20px;
+}
+
+.close-modal-btn {
+  background-color: transparent;
 }
 
 .crypto__list {
@@ -3568,6 +3675,7 @@ body.locked {
 }
 
 .crypto___item:hover {
+  border-radius: 10px;
   background-color: var(--bg-grey-color);
 }
 
@@ -3661,6 +3769,10 @@ body.locked {
 
   .sidebar__currency {
     display: none;
+  }
+
+  .sidebar__menu-link:hover::before {
+    width: 104%;
   }
 
   .sidebar__menu-link.active::before {
