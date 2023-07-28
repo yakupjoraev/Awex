@@ -127,6 +127,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // checkIntoView();
 
+function paymentDetails() {
+  const btn = document.querySelector('[data-payment-details-btn]');
+  const content = document.querySelector('[data-payment-details-content]');
+
+  btn.addEventListener('click', () => {
+    content.classList.toggle('show');
+  });
+
+  window.addEventListener('click', (event) => {
+    if (!content.contains(event.target) && !event.target.matches('[data-payment-details-btn]')) {
+      content.classList.remove('show');
+    }
+  });
+}
+
+paymentDetails();
+
 
 const openModalBtns = document.querySelectorAll('.open-modal-btn');
 const closeModalBtns = document.querySelectorAll('.close-modal-btn');

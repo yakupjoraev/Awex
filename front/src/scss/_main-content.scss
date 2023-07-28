@@ -2,6 +2,11 @@
 
 .main-content__title {
   margin-bottom: 25px;
+  line-height: 120%;
+
+  @media (max-width: $breakpoint1300) {
+    margin-bottom: 15px;
+  }
 }
 
 .main-content__check {
@@ -16,6 +21,10 @@
   display: flex;
   column-gap: 25px;
   margin-bottom: 45px;
+
+  @media (max-width: $breakpoint1300) {
+    column-gap: 15px;
+  }
 }
 
 .about-check {
@@ -38,6 +47,10 @@
     padding: 20px 15px;
     background-color: var(--white-color);
     border-radius: 10px;
+
+    @media (max-width: $breakpoint1300) {
+      padding: 10px 15px;
+    }
   }
 
   // .about-check__info-top
@@ -54,12 +67,22 @@
   &__info-title {
     width: 180px;
     font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+      line-height: 120%;
+    }
   }
 
   // .about-check__info-sum
 
   &__info-sum {
     font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+      line-height: 120%;
+    }
   }
 
   // .about-check__info-labels
@@ -78,6 +101,15 @@
 
     &:nth-child(1) {
       width: 180px;
+
+      @media (max-width: $breakpoint1300) {
+        width: 164px;
+      }
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+      line-height: 120%;
     }
   }
 
@@ -186,6 +218,11 @@
     padding: 20px 15px;
     background-color: var(--white-color);
     border-radius: 10px;
+
+    @media (max-width: $breakpoint1300) {
+      justify-content: center;
+      padding: 10px 15px;
+    }
   }
 
   // .about-deposit__header-notif
@@ -207,6 +244,11 @@
       border-radius: 100px;
       font-size: 13px;
     }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+      line-height: 120%;
+    }
   }
 
   // .about-deposit__header-info
@@ -215,6 +257,10 @@
     padding: 10px;
     background: rgba(254, 214, 2, 0.2);
     border-radius: 10px;
+
+    @media (max-width: $breakpoint1300) {
+      display: none;
+    }
   }
 
   // .about-deposit__generation
