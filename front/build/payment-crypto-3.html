@@ -34,9 +34,14 @@
   </div>
 </div>
       <div class="payment-details">
-  <h2 class="payment-details__title main-title">Детали счета №12345678</h2>
+  <a href="#" class="payment-details__logo">
+    <img class="payment-details__logo-img" src="./img/icons/logo-2.svg" alt="">
+  </a>
 
-  <div class="payment-details__block">
+
+
+  <div class="payment-details__block payment-details__block--main">
+    <h2 class="payment-details__title main-title">Детали счета №12345678</h2>
     <div class="payment-details__label">
       <div class="payment-details__label-text">
         Истечет через:
@@ -45,70 +50,87 @@
       <div class="payment-details__label-time">12:34:56</div>
     </div>
 
+    <img class="payment-details__pic" src="./img/icons/info.svg" alt="" data-payment-details-btn>
   </div>
 
-  <div class="payment-details__block">
-    <div class="payment-details__salesman">
-      <div class="payment-details__salesman-label">Продавец:</div>
+  <div class="payment-details__block-wrapper" data-payment-details-content>
+    <div class="payment-details__block">
+      <h2 class="payment-details__title main-title">Детали счета №12345678</h2>
+      <div class="payment-details__label">
+        <div class="payment-details__label-text">
+          Истечет через:
+        </div>
 
-      <div class="payment-details__salesman-name">ООО “Первый”</div>
-    </div>
-  </div>
-
-  <div class="payment-details__block">
-    <div class="payment-details__sum">
-      <div class="payment-details__sum-label">
-        Сумма к оплате:
-      </div>
-
-      <div class="payment-details__sum-count">
-        9.657,45 <span>USDT</span>
-        <img src="./img/icons/file.svg" alt="">
+        <div class="payment-details__label-time">12:34:56</div>
       </div>
     </div>
 
-    <div class="payment-details__commission">
-      <div class="payment-details__commission-label">
-        в том числе комиссия:
+    <div class="payment-details__block">
+      <div class="payment-details__salesman">
+        <div class="payment-details__salesman-label">Продавец:</div>
+
+        <div class="payment-details__salesman-name">ООО “Первый”</div>
+      </div>
+    </div>
+
+    <div class="payment-details__block">
+      <div class="payment-details__sum">
+        <div class="payment-details__sum-label">
+          Сумма к оплате:
+        </div>
+
+        <div class="payment-details__sum-count">
+          9.657,45 <span>USDT</span>
+          <img src="./img/icons/file.svg" alt="">
+        </div>
       </div>
 
-      <p class="payment-details__commission-sum">
-        7,45
-        <span>USDT</span>
-      </p>
-    </div>
+      <div class="payment-details__commission">
+        <div class="payment-details__commission-label">
+          в том числе комиссия:
+        </div>
 
-    <div class="payment-details__qr">
-      <img class="payment-details__qr-img" src="./img/payment-qr.png" alt="">
+        <p class="payment-details__commission-sum">
+          7,45
+          <span>USDT</span>
+        </p>
+      </div>
 
-      <p class="payment-details__qr-descr">
-        Отправьте точную сумму по указанному адресу. После совершения оплаты нажмите на кнопку «Я оплатил» для проверки
-        транзакции.
-      </p>
-    </div>
+      <div class="payment-details__qr">
+        <img class="payment-details__qr-img" src="./img/payment-qr.png" alt="">
 
-    <div class="payment-details__group my-projects__group project-group">
-      <label class="my-projects__label project-label" for="#">
-        Адрес:
-      </label>
+        <p class="payment-details__qr-descr">
+          Отправьте точную сумму по указанному адресу. После совершения оплаты нажмите на кнопку «Я оплатил» для
+          проверки
+          транзакции.
+        </p>
+      </div>
 
-      <p class="project-label__text">
-        238894dhdfm83838nskfjsf90393732nfk
-      </p>
+      <div class="payment-details__group my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          Адрес:
+        </label>
 
-      <img class="payment-details__group-copy" src="./img/icons/file.svg" alt="">
-    </div>
+        <p class="project-label__text">
+          238894dhdfm83838nskfjsf90393732nfk
+        </p>
 
-    <div class="payment-details__group my-projects__group project-group">
-      <label class="my-projects__label project-label" for="#">
-        ФИО владельца
-      </label>
+        <img class="payment-details__group-copy" src="./img/icons/file.svg" alt="">
+      </div>
 
-      <p class="project-label__text">
-        TRC20
-      </p>
+      <div class="payment-details__group my-projects__group project-group">
+        <label class="my-projects__label project-label" for="#">
+          ФИО владельца
+        </label>
+
+        <p class="project-label__text">
+          TRC20
+        </p>
+      </div>
     </div>
   </div>
+
+
 
 
 </div>

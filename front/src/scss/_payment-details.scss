@@ -88,6 +88,10 @@
 
   &__salesman-label {
     font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .payment-details__salesman-name
@@ -95,6 +99,10 @@
   &__salesman-name {
     span {
       margin-right: 10px;
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
     }
   }
 
@@ -104,6 +112,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+    margin-bottom: 10px;
   }
 
   // .payment-details__sum-label
@@ -216,6 +225,10 @@
 
 .payment-details__commission-label {
   font-weight: 600;
+
+  @media (max-width: $breakpoint1300) {
+    font-size: 13px;
+  }
 }
 
 .payment-details__commission-sum {}
@@ -224,20 +237,31 @@
   display: flex;
   align-items: center;
   column-gap: 15px;
+  margin-bottom: 20px;
 }
 
 .payment-details__qr-img {
   width: 100px;
   height: 100px;
   border-radius: 10px;
+
+  @media (max-width: $breakpoint768) {
+    width: 70px;
+    height: 70px;
+  }
 }
 
 .payment-details__qr-descr {
   color: var(--grey-color-2);
+
+  @media (max-width: $breakpoint1300) {
+    font-size: 13px;
+  }
 }
 
 .payment-details__group {
   position: relative;
+  padding-right: 35px;
 }
 
 .payment-details__group-copy {

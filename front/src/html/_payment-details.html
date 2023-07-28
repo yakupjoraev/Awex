@@ -1,7 +1,12 @@
 <div class="payment-details">
-  <h2 class="payment-details__title main-title">Детали счета №12345678</h2>
 
-  <div class="payment-details__block">
+  <a href="#" class="payment-details__logo">
+    <img class="payment-details__logo-img" src="./img/icons/logo-2.svg" alt="">
+  </a>
+
+  <div class="payment-details__block payment-details__block--main">
+    <h2 class="payment-details__title main-title">Детали счета №12345678</h2>
+
     <div class="payment-details__label">
       <div class="payment-details__label-text">
         Истечет через:
@@ -10,64 +15,79 @@
       <div class="payment-details__label-time">12:34:56</div>
     </div>
 
-
+    <img class="payment-details__pic" src="./img/icons/info.svg" alt="" data-payment-details-btn>
   </div>
 
 
+  <div class="payment-details__block-wrapper" data-payment-details-content>
+    <div class="payment-details__block">
+      <h2 class="payment-details__title main-title">Детали счета №12345678</h2>
 
-  <div class="payment-details__block">
-    <div class="payment-details__sum">
-      <div class="payment-details__sum-label">
-        Сумма к оплате:
+      <div class="payment-details__label">
+        <div class="payment-details__label-text">
+          Истечет через:
+        </div>
+
+        <div class="payment-details__label-time">12:34:56</div>
       </div>
 
-      <div class="payment-details__sum-count">
-        3.500 <span>AED</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="payment-details__block">
-    <div class="payment-details__salesman">
-      <div class="payment-details__salesman-label">Продавец:</div>
-
-      <div class="payment-details__salesman-name">ООО “Первый”</div>
     </div>
 
-  </div>
+    <div class="payment-details__block">
+      <div class="payment-details__sum">
+        <div class="payment-details__sum-label">
+          Сумма к оплате:
+        </div>
 
-  <div class="payment-details__block">
-    <div class="payment-details__product">
-      <div class="payment-details__product-label">
-        Наименование товара или услуги:
-      </div>
-
-      <p class="payment-details__product-descr">
-        Аренда машины гос.номер А123АА123 на 10 дней (марка, модель и другая информация)
-      </p>
-    </div>
-  </div>
-
-  <div class="payment-details__block">
-    <div class="payment-details__row">
-      <div class="payment-details__row-label">
-        Стоимость:
-      </div>
-
-      <div class="payment-details__row-text">
-        2.500 AED
+        <div class="payment-details__sum-count">
+          3.500 <span>AED</span>
+        </div>
       </div>
     </div>
-    <div class="payment-details__row-border"></div>
-    <div class="payment-details__row">
-      <div class="payment-details__row-label">
-        Депозит:
+
+    <div class="payment-details__block">
+      <div class="payment-details__salesman">
+        <div class="payment-details__salesman-label">Продавец:</div>
+
+        <div class="payment-details__salesman-name">ООО “Первый”</div>
       </div>
 
-      <div class="payment-details__row-text">
-        1.000 AED <span>(срок: 21 день)</span>
+    </div>
+
+    <div class="payment-details__block">
+      <div class="payment-details__product">
+        <div class="payment-details__product-label">
+          Наименование товара или услуги:
+        </div>
+
+        <p class="payment-details__product-descr">
+          Аренда машины гос.номер А123АА123 на 10 дней (марка, модель и другая информация)
+        </p>
       </div>
     </div>
+
+    <div class="payment-details__block">
+      <div class="payment-details__row">
+        <div class="payment-details__row-label">
+          Стоимость:
+        </div>
+
+        <div class="payment-details__row-text">
+          2.500 AED
+        </div>
+      </div>
+      <div class="payment-details__row-border"></div>
+      <div class="payment-details__row">
+        <div class="payment-details__row-label">
+          Депозит:
+        </div>
+
+        <div class="payment-details__row-text">
+          1.000 AED <span>(срок: 21 день)</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </div>

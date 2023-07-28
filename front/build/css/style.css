@@ -488,6 +488,7 @@ body.locked {
   font-family: "Raleway", sans-serif;
   font-weight: 600;
   line-height: 120%;
+  font-size: 13px;
   color: var(--text-color);
 }
 
@@ -496,6 +497,18 @@ body.locked {
   font-size: 13px;
   line-height: 120%;
   color: var(--text-color);
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -ms-line-clamp: 1;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  display: -webkit-box;
+  display: box;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
 }
 
 .project-input {
@@ -2328,7 +2341,7 @@ body.locked {
           justify-content: space-between;
   width: 100%;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 120%;
   padding: 10px 15px;
   background-color: var(--bg-grey-color);
@@ -2998,6 +3011,11 @@ body.locked {
   margin-bottom: 15px;
 }
 
+.payment-form__btn {
+  height: 46px;
+  padding: 10px;
+}
+
 .payment-form__footer a {
   text-decoration: underline;
   color: var(--text-color);
@@ -3096,6 +3114,7 @@ body.locked {
 
 .payment-form__info-label {
   font-weight: 600;
+  line-height: 120%;
 }
 
 .payment-form__btn--2 {
@@ -3132,6 +3151,15 @@ body.locked {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+}
+
+.payment-form__btns--center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .tooltip {
@@ -3286,6 +3314,7 @@ body.locked {
       -ms-flex-direction: column;
           flex-direction: column;
   row-gap: 8px;
+  margin-bottom: 10px;
 }
 
 .payment-details__sum-count {
@@ -3389,6 +3418,7 @@ body.locked {
   -webkit-column-gap: 15px;
      -moz-column-gap: 15px;
           column-gap: 15px;
+  margin-bottom: 20px;
 }
 
 .payment-details__qr-img {
@@ -3403,6 +3433,7 @@ body.locked {
 
 .payment-details__group {
   position: relative;
+  padding-right: 35px;
 }
 
 .payment-details__group-copy {
@@ -3803,6 +3834,31 @@ body.locked {
     display: none;
   }
 
+  .about-deposit__generation-curr {
+    font-size: 24px;
+  }
+
+  .payment-form__group {
+    margin-bottom: 35px;
+  }
+
+  .payment-form__radio-label {
+    font-size: 16px;
+  }
+
+  .payment-form .about-deposit__generation-input {
+    font-size: 24px;
+  }
+
+  .payment-form__label {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .payment-form__info-label {
+    font-size: 13px;
+  }
+
   .payment-form__inf-descr {
     font-size: 13px;
   }
@@ -3827,8 +3883,24 @@ body.locked {
     margin-bottom: 25px;
   }
 
+  .payment-details__salesman-label {
+    font-size: 13px;
+  }
+
+  .payment-details__salesman-name {
+    font-size: 13px;
+  }
+
   .payment-details__sum-count {
     font-size: 24px;
+  }
+
+  .payment-details__commission-label {
+    font-size: 13px;
+  }
+
+  .payment-details__qr-descr {
+    font-size: 13px;
   }
 }
 
@@ -3986,10 +4058,21 @@ body.locked {
             flex: 0 1 auto;
     text-align: center;
     padding: 0 12px 0;
+    overflow: hidden;
   }
 
   .payment__logo {
     display: none;
+  }
+
+  .payment-form {
+    max-width: 100%;
+  }
+
+  .payment-form__radios {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 10px;
   }
 
   .payment__wait {
@@ -3997,6 +4080,11 @@ body.locked {
   }
 
   .payment__wait-header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    row-gap: 16px;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -4004,7 +4092,19 @@ body.locked {
     text-align: center;
   }
 
+  .invoice-project__group-selects {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
   .payment__wait--cash .payment__wait-header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    row-gap: 16px;
     margin-bottom: 25px;
   }
 
@@ -4055,6 +4155,11 @@ body.locked {
     -webkit-box-align: start;
         -ms-flex-align: start;
             align-items: flex-start;
+  }
+
+  .payment-details__qr-img {
+    width: 70px;
+    height: 70px;
   }
 
   .payment-details__logo {

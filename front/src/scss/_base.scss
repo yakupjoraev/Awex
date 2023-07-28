@@ -222,6 +222,7 @@
   font-family: 'Raleway', sans-serif;
   font-weight: 600;
   line-height: 120%;
+  font-size: 13px;
   color: var(--text-color);
 }
 
@@ -230,6 +231,19 @@
   font-size: 13px;
   line-height: 120%;
   color: var(--text-color);
+
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -ms-line-clamp: 1;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  display: -webkit-box;
+  display: box;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
 }
 
 .project-input {

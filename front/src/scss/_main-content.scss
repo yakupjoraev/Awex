@@ -375,6 +375,11 @@
   &__generation-curr {
     font-size: 36px;
     line-height: 120%;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 24px;
+    }
+
   }
 }
 

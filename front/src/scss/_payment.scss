@@ -19,6 +19,8 @@
     flex: 0 1 auto;
     text-align: center;
     padding: 0 12px 0;
+
+    overflow: hidden;
   }
 
   // .payment__logo
@@ -44,10 +46,19 @@
 .payment-form {
   max-width: 550px;
 
+  @media (max-width: $breakpoint768) {
+    max-width: 100%;
+  }
+
   // .payment-form__group
 
   &__group {
     margin-bottom: 60px;
+
+    @media (max-width: $breakpoint1300) {
+      margin-bottom: 35px;
+    }
+
   }
 
   // .payment-form__label
@@ -64,6 +75,11 @@
     align-items: center;
     column-gap: 10px;
     margin-bottom: 15px;
+
+    @media (max-width: $breakpoint768) {
+      flex-wrap: wrap;
+      row-gap: 10px;
+    }
   }
 
   // .payment-form__radio
@@ -92,6 +108,11 @@
     line-height: 120%;
     color: var(--grey-color);
     cursor: pointer;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 16px;
+    }
+
   }
 
   // .payment-form__radio-pic
@@ -103,6 +124,11 @@
   & .about-deposit__generation-input {
     font-size: 36px;
     line-height: 120%;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 24px;
+    }
+
   }
 
   & .about-deposit__generation-curr {
@@ -129,7 +155,10 @@
 
   // .payment-form__btn
 
-  &__btn {}
+  &__btn {
+    height: 46px;
+    padding: 10px;
+  }
 
   // .payment-form__footer
 
@@ -152,6 +181,12 @@
   align-items: center;
   justify-content: space-between;
   column-gap: 20px;
+
+  @media (max-width: $breakpoint1300) {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
 }
 
 .payment-form__label-link {
@@ -178,6 +213,8 @@
   margin-bottom: 15px;
 
   @media (max-width: $breakpoint768) {
+    flex-direction: column-reverse;
+    row-gap: 16px;
     justify-content: center;
     width: 100%;
     text-align: center;
@@ -192,6 +229,10 @@
   display: flex;
   align-items: center;
   column-gap: 15px;
+
+  @media (max-width: $breakpoint768) {
+    flex-direction: column;
+  }
 }
 
 .invoice-project__group-select-arrow {
@@ -213,6 +254,11 @@
 
 .payment-form__info-label {
   font-weight: 600;
+  line-height: 120%;
+
+  @media (max-width: $breakpoint1300) {
+    font-size: 13px;
+  }
 }
 
 .payment-form__inf-descr {
@@ -245,6 +291,8 @@
     }
 
     @media (max-width: $breakpoint768) {
+      flex-direction: column-reverse;
+      row-gap: 16px;
       margin-bottom: 25px;
     }
   }
@@ -280,6 +328,12 @@
       justify-content: center;
     }
   }
+}
+
+
+.payment-form__btns--center {
+  display: flex;
+  justify-content: center;
 }
 
 .tooltip {
