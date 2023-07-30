@@ -70,9 +70,13 @@
     align-items: center;
     justify-content: space-between;
     column-gap: 25px;
-    padding: 15px;
+    padding: 19px 15px;
     background-color: var(--white-color);
     border-radius: 10px;
+
+    @media (max-width: $breakpoint1300) {
+      padding: 14px 15px;
+    }
   }
 
   // .my-actives__check-info
@@ -83,6 +87,12 @@
     align-items: center;
     justify-content: space-between;
     column-gap: 20px;
+
+
+    @media (max-width: $breakpoint768) {
+      column-gap: 16px;
+    }
+
   }
 
   // .my-actives__check-currency
@@ -115,11 +125,19 @@
 
   &__check-title {
     font-weight: 600;
+
+    @media (max-width: $breakpoint1200) {
+      font-size: 13px;
+    }
   }
 
   // .my-actives__check-detail
 
-  &__check-detail {}
+  &__check-detail {
+    @media (max-width: $breakpoint1200) {
+      font-size: 13px;
+    }
+  }
 
   // .my-actives__check-sums
 
@@ -130,6 +148,9 @@
       font-size: 13px;
     }
 
+    @media (max-width: $breakpoint1200) {
+      font-size: 13px;
+    }
   }
 
   // .my-actives__check-operations
@@ -139,6 +160,12 @@
     display: flex;
     align-items: center;
     column-gap: 15px;
+
+
+    @media (max-width: $breakpoint768) {
+      display: none;
+    }
+
   }
 
   // .my-actives__check-operation

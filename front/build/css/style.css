@@ -156,7 +156,7 @@ body {
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: indianred;
   font-family: "Raleway", sans-serif;
   font-variant-numeric: lining-nums;
   font-feature-settings: "lnum";
@@ -1089,29 +1089,23 @@ body.locked {
   line-height: 120%;
 }
 
-.main-content__check {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 50%;
-          flex: 0 1 50%;
-}
-
-.main-content__deposit {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 50%;
-          flex: 0 1 50%;
-}
-
 .main-content__header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-column-gap: 25px;
-     -moz-column-gap: 25px;
-          column-gap: 25px;
+  width: 100%;
   margin-bottom: 45px;
 }
 
+.about-check {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  width: 100%;
+}
+
 .about-check__header {
+  grid-column: span 6;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1123,8 +1117,8 @@ body.locked {
 
 .about-check__info {
   -webkit-box-flex: 0;
-      -ms-flex: 0 1 50%;
-          flex: 0 1 50%;
+      -ms-flex: 0 1 25%;
+          flex: 0 1 25%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1183,11 +1177,16 @@ body.locked {
 }
 
 .about-check__balance {
+  grid-column: span 3;
   position: relative;
-  padding: 30px 30px 100px 30px;
+  height: 250px;
   background-color: var(--white-color);
   border-radius: 10px;
+}
+
+.about-check__balance-inner {
   height: 250px;
+  padding: 30px 30px 100px 30px;
 }
 
 .about-check__balance-labels {
@@ -1241,6 +1240,7 @@ body.locked {
 }
 
 .about-check__balance-sum {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1250,6 +1250,7 @@ body.locked {
   font-weight: 500;
   font-size: 64px;
   line-height: 120%;
+  z-index: 2;
 }
 
 .about-check__balance-sum span {
@@ -1274,7 +1275,15 @@ body.locked {
   margin: -25px auto 0;
 }
 
+.about-deposit {
+  grid-column: span 3;
+  margin-left: 15px;
+}
+
 .about-deposit__header {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 50%;
+          flex: 0 1 50%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1287,7 +1296,6 @@ body.locked {
   -webkit-column-gap: 25px;
      -moz-column-gap: 25px;
           column-gap: 25px;
-  margin-bottom: 25px;
   padding: 20px 15px;
   background-color: var(--white-color);
   border-radius: 10px;
@@ -1306,6 +1314,7 @@ body.locked {
   font-weight: 600;
   font-size: 16px;
   line-height: 120%;
+  white-space: nowrap;
 }
 
 .about-deposit__header-notif span {
@@ -1332,7 +1341,7 @@ body.locked {
 
 .about-deposit__generation {
   padding: 30px 30px 60px;
-  background-color: rgba(209, 209, 209, 0.2);
+  background-color: #f6f6f6;
   border-radius: 10px;
   height: 250px;
 }
@@ -1347,7 +1356,6 @@ body.locked {
   padding: 10px 15px;
   background-color: transparent !important;
   border-radius: 10px;
-  border: 1px solid var(--grey-color);
 }
 
 .about-deposit__generation-select:not(:last-child) {
@@ -1508,9 +1516,6 @@ body.locked {
   overflow-y: auto;
   background-color: var(--white-color);
   border-radius: 0 0 10px 10px;
-  border-bottom: 1px solid var(--grey-color);
-  border-left: 1px solid var(--grey-color);
-  border-right: 1px solid var(--grey-color);
   padding-bottom: 10px;
   opacity: 0;
   pointer-events: none;
@@ -1557,6 +1562,10 @@ body.locked {
   border-right: 1px solid #D1D1D1;
 }
 
+.generate__link {
+  display: none;
+}
+
 .history-operations__label {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1583,6 +1592,7 @@ body.locked {
   -webkit-column-gap: 10px;
      -moz-column-gap: 10px;
           column-gap: 10px;
+  white-space: nowrap;
   color: var(--text-color);
   -webkit-transition: font-weight 0.2s linear;
   -o-transition: font-weight 0.2s linear;
@@ -1654,7 +1664,7 @@ body.locked {
 }
 
 .history-operations__container {
-  max-height: 80px;
+  max-height: 132px;
   overflow-y: auto;
 }
 
@@ -1681,27 +1691,37 @@ body.locked {
       -ms-flex-direction: column;
           flex-direction: column;
   row-gap: 10px;
-  margin-right: 20px;
   padding-top: 10px;
 }
 
 .history-operations__item {
   display: grid;
-  grid-auto-flow: column;
-  -webkit-column-gap: 46px;
-     -moz-column-gap: 46px;
-          column-gap: 46px;
+  grid-template-columns: repeat(8, 1fr);
+  -webkit-column-gap: 20px;
+     -moz-column-gap: 20px;
+          column-gap: 20px;
   padding-bottom: 10px;
 }
 
 .history-operations__item > * {
-  width: 130px;
-  min-width: 130px;
+  width: 80px;
+  min-width: 80px;
 }
 
 .history-operations__item-header {
-  margin-right: 35px;
   border-bottom: 1px solid var(--bg-grey-color);
+}
+
+.history-operations__item-header > * {
+  white-space: nowrap;
+}
+
+.history-operations__item-sum {
+  min-width: 130px;
+}
+
+.history-operations__item-details {
+  min-width: 110px;
 }
 
 .my-actives {
@@ -1756,7 +1776,7 @@ body.locked {
   -webkit-column-gap: 25px;
      -moz-column-gap: 25px;
           column-gap: 25px;
-  padding: 15px;
+  padding: 19px 15px;
   background-color: var(--white-color);
   border-radius: 10px;
 }
@@ -3500,6 +3520,55 @@ body.locked {
   display: none;
 }
 
+.active-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 100%;
+}
+
+.page-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 15px;
+     -moz-column-gap: 15px;
+          column-gap: 15px;
+}
+
+.page-list__item.active .page-list__link {
+  color: var(--text-color);
+}
+
+.page-list__item.active .page-list__link::before {
+  content: "[";
+}
+
+.page-list__item.active .page-list__link::after {
+  content: "]";
+}
+
+.page-list__item.last .page-list__link {
+  color: var(--text-color);
+}
+
+.page-list__link {
+  color: var(--grey-color);
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -3805,6 +3874,16 @@ body.locked {
   color: var(--grey-color-2);
 }
 
+@media (max-width: 1750px) {
+  .about-check__balance-sum {
+    font-size: 48px;
+  }
+
+  .about-deposit__header-info {
+    font-size: 13px;
+  }
+}
+
 @media (max-width: 1719.98px) {
   .wrapper {
     padding: 40px 30px 40px 0;
@@ -3815,6 +3894,29 @@ body.locked {
     -webkit-box-direction: reverse;
         -ms-flex-direction: row-reverse;
             flex-direction: row-reverse;
+  }
+
+  .about-check__info {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 33.333333%;
+            flex: 0 1 33.333333%;
+  }
+
+  .about-check__info-label:nth-child(1) {
+    width: 164px;
+  }
+
+  .about-deposit__header {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 33.3333%;
+            flex: 0 1 33.3333%;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+
+  .about-deposit__header-info {
+    display: none;
   }
 
   .deposits__item-header {
@@ -3891,12 +3993,6 @@ body.locked {
     margin-bottom: 15px;
   }
 
-  .main-content__header {
-    -webkit-column-gap: 15px;
-       -moz-column-gap: 15px;
-            column-gap: 15px;
-  }
-
   .about-check__info {
     padding: 10px 15px;
   }
@@ -3911,19 +4007,12 @@ body.locked {
     line-height: 120%;
   }
 
-  .about-check__info-label:nth-child(1) {
-    width: 164px;
-  }
-
   .about-check__info-label {
     font-size: 13px;
     line-height: 120%;
   }
 
   .about-deposit__header {
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
     padding: 10px 15px;
   }
 
@@ -3932,12 +4021,16 @@ body.locked {
     line-height: 120%;
   }
 
-  .about-deposit__header-info {
-    display: none;
-  }
-
   .about-deposit__generation-curr {
     font-size: 24px;
+  }
+
+  .history-operations__link {
+    font-size: 13px;
+  }
+
+  .my-actives__check {
+    padding: 14px 15px;
   }
 
   .my-projects__item {
@@ -4135,6 +4228,87 @@ body.locked {
   }
 
   .sidebar {
+    font-size: 13px;
+  }
+
+  .about-check__info {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 50%;
+            flex: 0 1 50%;
+  }
+
+  .about-check__info-title {
+    width: 140px;
+  }
+
+  .about-check__info-label:nth-child(1) {
+    max-width: 150px;
+    width: auto;
+  }
+
+  .about-check__balance-labels {
+    margin-bottom: 10px;
+  }
+
+  .about-check__balance-statistic {
+    font-size: 13px;
+  }
+
+  .about-check__balance-sum {
+    font-size: 36px;
+  }
+
+  .about-check__balance-sum span {
+    font-size: 30px;
+  }
+
+  .about-check__graphic-img {
+    width: inherit;
+  }
+
+  .about-deposit__header {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 94px;
+            flex: 0 0 94px;
+    -webkit-column-gap: 5px;
+       -moz-column-gap: 5px;
+            column-gap: 5px;
+    padding: 10px 15px;
+    background-color: var(--second-color);
+  }
+
+  .about-deposit__header-notif {
+    font-size: 0;
+    line-height: 0;
+  }
+
+  .about-deposit__header-notif span {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 120%;
+  }
+
+  .history-operations__select-label {
+    font-size: 13px;
+  }
+
+  .history-operations__select-selected {
+    font-size: 13px;
+  }
+
+  .history-operations__item {
+    font-size: 13px;
+  }
+
+  .my-actives__check-title {
+    font-size: 13px;
+  }
+
+  .my-actives__check-detail {
+    font-size: 13px;
+  }
+
+  .my-actives__check-sums {
     font-size: 13px;
   }
 
@@ -4352,6 +4526,105 @@ body.locked {
     -webkit-transition: max-height 0.4s linear;
     -o-transition: max-height 0.4s linear;
     transition: max-height 0.4s linear;
+  }
+
+  .about-check__header {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 10px;
+    -webkit-column-gap: 10px;
+       -moz-column-gap: 10px;
+            column-gap: 10px;
+  }
+
+  .about-check__info {
+    -webkit-box-flex: 2;
+        -ms-flex: 2 1 50%;
+            flex: 2 1 50%;
+  }
+
+  .about-check__info:nth-child(1) {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+  }
+
+  .about-check__info:nth-child(2) {
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+
+  .about-check__balance {
+    grid-column: span 6;
+  }
+
+  .about-check__graphic-img {
+    width: auto;
+  }
+
+  .about-deposit {
+    display: none;
+  }
+
+  .about-deposit__header {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 160px;
+            flex: 0 0 160px;
+  }
+
+  .generate__link {
+    -webkit-box-ordinal-group: 5;
+        -ms-flex-order: 4;
+            order: 4;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 160px;
+            flex: 0 0 160px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-column-gap: 6px;
+       -moz-column-gap: 6px;
+            column-gap: 6px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--text-color);
+    font-size: 13px;
+    line-height: 120%;
+    font-weight: 600;
+    color: var(--white-color);
+  }
+
+  .history-operations__header {
+    -webkit-column-gap: 5px;
+       -moz-column-gap: 5px;
+            column-gap: 5px;
+    margin-bottom: 25px;
+  }
+
+  .history-operations__select::before {
+    top: 20px;
+    right: 5px;
+  }
+
+  .history-operations__select {
+    padding: 5px 20px 5px 5px;
+  }
+
+  .my-actives__check-info {
+    -webkit-column-gap: 16px;
+       -moz-column-gap: 16px;
+            column-gap: 16px;
+  }
+
+  .my-actives__check-operations {
+    display: none;
   }
 
   .my-projects__item {
@@ -4818,6 +5091,57 @@ body.locked {
 
   .sidebar-mobile__main {
     padding: 0 10px 40px;
+  }
+}
+
+@media (max-width: 419px) {
+  .about-check__info {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 100%;
+            flex: 0 1 100%;
+  }
+
+  .about-check__info:nth-child(1) {
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+
+  .about-check__info:nth-child(2) {
+    -webkit-box-ordinal-group: 5;
+        -ms-flex-order: 4;
+            order: 4;
+  }
+
+  .about-check__balance-sum {
+    font-size: 32px;
+  }
+
+  .about-check__balance-sum span {
+    margin-bottom: -3px;
+    font-size: 24px;
+  }
+
+  .about-check__graphic-img {
+    width: 100%;
+  }
+
+  .about-deposit__header {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+    -webkit-box-flex: 2;
+        -ms-flex: 2 1 40%;
+            flex: 2 1 40%;
+  }
+
+  .generate__link {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    -webkit-box-flex: 2;
+        -ms-flex: 2 1 40%;
+            flex: 2 1 40%;
   }
 }
 
