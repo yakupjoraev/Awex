@@ -430,6 +430,8 @@
       </span>
     </div>
   </div>
+
+
   <div class="deposits__filters">
     <div class="deposits__filter-select" data-select-wrapper>
       <div class="deposits__filter-label">
@@ -467,7 +469,7 @@
       </ul>
     </div>
 
-    <div class="deposits__filter-select" data-select-wrapper>
+    <div class="deposits__filter-select deposits__filter-select--datapicker" data-select-wrapper>
       <div class="deposits__filter-label">
         Дата
       </div>
@@ -485,48 +487,52 @@
       </ul>
     </div>
 
-    <div class="deposits__filter-search search-group">
-      <input class="deposits__filter-src search-input" type="search" placeholder="Поиск по ID или комментарию">
-      <img class="deposits__filter-search-img search-img" src="./img/icons/search.svg" alt="Поиск">
-    </div>
+
+  </div>
+  <div class="deposits__filter-search search-group">
+    <input class="deposits__filter-src search-input" type="search" placeholder="Поиск по ID или комментарию">
+    <img class="deposits__filter-search-img search-img" src="./img/icons/search.svg" alt="Поиск">
   </div>
 
-  <ul class="deposits__list">
-    <li class="deposits__item-header">
-      <div class="deposits__item-status"></div>
-      <div class="deposits__item-id">Имя/ID</div>
-      <div class="deposits__item-data">Дата</div>
-      <div class="deposits__item-status-deposite">Статус депозита</div>
-      <div class="deposits__item-sum">Сумма </div>
-      <div class="deposits__item-data-end">Дата окончания</div>
-      <div class="deposits__item-status-application">Статус заявки</div>
-      <div class="deposits__item-commets">Комментарий</div>
-    </li>
+  <div class="deposits__list-container">
+    <ul class="deposits__list">
+      <li class="deposits__item-header">
+        <div class="deposits__item-status"></div>
+        <div class="deposits__item-id">Имя/ID</div>
+        <div class="deposits__item-data">Дата</div>
+        <div class="deposits__item-status-deposite">Статус депозита</div>
+        <div class="deposits__item-sum">Сумма </div>
+        <div class="deposits__item-data-end">Дата окончания</div>
+        <div class="deposits__item-status-application">Статус заявки</div>
+        <div class="deposits__item-commets">Комментарий</div>
+      </li>
 
-    <li class="deposits__item deposits__item-rejected">
-      <div class="deposits__item-status">
-        <img src="./img/icons/rejected.svg" alt="">
-      </div>
-      <div class="deposits__item-id">ID345678</div>
-      <div class="deposits__item-data">10/01/23</div>
-      <div class="deposits__item-status-deposite">Ожидает действий</div>
-      <div class="deposits__item-sum">100 USDT </div>
-      <div class="deposits__item-data-end">10/01/23</div>
-      <div class="deposits__item-status-application">Отклонена</div>
-      <div class="deposits__item-commets">Автомобиль Mercedes-Benz А123АА123...</div>
-    </li>
+      <li class="deposits__item deposits__item-rejected">
+        <div class="deposits__item-status">
+          <img src="./img/icons/rejected.svg" alt="">
+        </div>
+        <div class="deposits__item-id">ID345678</div>
+        <div class="deposits__item-data">10/01/23</div>
+        <div class="deposits__item-status-deposite">Ожидает действий</div>
+        <div class="deposits__item-sum">100 USDT </div>
+        <div class="deposits__item-data-end">10/01/23</div>
+        <div class="deposits__item-status-application">Отклонена</div>
+        <div class="deposits__item-commets">Автомобиль Mercedes-Benz А123АА123...</div>
+      </li>
 
-    <li class="deposits__item">
-      <div class="deposits__item-status"></div>
-      <div class="deposits__item-id">ID345678</div>
-      <div class="deposits__item-data">10/01/23</div>
-      <div class="deposits__item-status-deposite">Активна</div>
-      <div class="deposits__item-sum">100 USDT </div>
-      <div class="deposits__item-data-end">10/01/23</div>
-      <div class="deposits__item-status-application">На проверке</div>
-      <div class="deposits__item-commets">Автомобиль Mercedes-Benz А123АА123...</div>
-    </li>
-  </ul>
+      <li class="deposits__item">
+        <div class="deposits__item-status"></div>
+        <div class="deposits__item-id">ID345678</div>
+        <div class="deposits__item-data">10/01/23</div>
+        <div class="deposits__item-status-deposite">Активна</div>
+        <div class="deposits__item-sum">100 USDT </div>
+        <div class="deposits__item-data-end">10/01/23</div>
+        <div class="deposits__item-status-application">На проверке</div>
+        <div class="deposits__item-commets">Автомобиль Mercedes-Benz А123АА123...</div>
+      </li>
+    </ul>
+  </div>
+
 </section>
     </div>
   </main>

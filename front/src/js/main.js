@@ -128,6 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function paymentDetails() {
   const btn = document.querySelector('[data-payment-details-btn]');
+
+  if (!btn) {
+    return null
+  }
   const content = document.querySelector('[data-payment-details-content]');
 
   btn.addEventListener('click', () => {

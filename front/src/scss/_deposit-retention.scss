@@ -6,6 +6,10 @@
     padding: 30px;
     background-color: var(--white-color);
     border-radius: 10px;
+
+    @media (max-width: $breakpoint768) {
+      padding: 10px;
+    }
   }
 
   // .deposit-retention__info
@@ -16,12 +20,29 @@
     justify-content: space-between;
     column-gap: 30px;
     margin-bottom: 30px;
+
+    @media (max-width: $breakpoint768) {
+      flex-direction: column;
+      row-gap: 30px;
+    }
+  }
+
+  &__info--1200 {
+    @media (max-width: $breakpoint1200) {
+      flex-direction: column;
+      row-gap: 30px;
+    }
   }
 
   // .deposit-retention__deposit
 
   &__deposit {
     margin-right: 50px;
+
+    @media (max-width: $breakpoint1300) {
+      margin-right: 0;
+    }
+
   }
 
   // .deposit-retention__deposit-label
@@ -36,13 +57,21 @@
     display: flex;
     align-items: center;
     font-weight: 500;
-    font-size: 64px;
+    font-size: 48px;
     line-height: 120%;
 
     span {
       margin-bottom: -5px;
       font-size: 40px;
       color: var(--grey-color-2);
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 36px;
+
+      span {
+        font-size: 30px;
+      }
     }
   }
 
@@ -57,6 +86,10 @@
   &__project-label {
     font-weight: 600;
     margin-bottom: 10px;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposit-retention__project-name
@@ -64,12 +97,20 @@
   &__project-name {
     margin-bottom: 5px;
     font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposit-retention__project-link
 
   &__project-link {
     color: var(--text-color);
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposit-retention__about
@@ -79,6 +120,12 @@
     // flex-direction: column;
     column-gap: 30px;
     row-gap: 20px;
+
+    @media (max-width: $breakpoint1200) {
+      flex-direction: column;
+      row-gap: 30px;
+      width: 100%;
+    }
   }
 
   // .deposit-retention__id
@@ -90,12 +137,20 @@
   &__label {
     margin-bottom: 10px;
     font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposit-retention__descr
 
   &__descr {
     max-width: 540px;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposit-retention__comments
@@ -109,13 +164,14 @@
     flex-direction: column;
     row-gap: 15px;
 
-    // &.show .deposit-retention__item-btns--first {
-    //   display: none;
-    // }
+    @media (max-width: $breakpoint1200) {
+      flex-direction: row;
+      column-gap: 15px;
+    }
 
-    // &.show .deposit-retention__checked-moment {
-    //   display: block;
-    // }
+    @media (max-width: $breakpoint768) {
+      flex-direction: column;
+    }
   }
 
   // .deposit-retention__checks-view
@@ -143,17 +199,23 @@
     align-items: center;
     justify-content: center;
     column-gap: 10px;
+
+    @media (max-width: $breakpoint1200) {
+      width: 100%;
+    }
   }
 
   // .deposit-retention__btn
 
   &__btn {
     width: 100%;
+    white-space: nowrap;
   }
 
   // .deposit-retention__checked-moment
 
   &__checked-moment {
+
     // display: none;
 
     .deposit-retention__btn {
@@ -171,6 +233,12 @@
 
     .about-deposit__generation-select:not(:last-child) {
       margin-bottom: 0;
+    }
+
+    @media (max-width: $breakpoint1200) {
+      grid-template-columns: repeat(1, 1fr);
+      row-gap: 15px;
+      margin-bottom: 15px;
     }
   }
 
@@ -204,6 +272,10 @@
     font-size: 16px;
     line-height: 120%;
     cursor: pointer;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposit-retention__file-text
@@ -228,6 +300,9 @@
   flex-direction: column;
   row-gap: 15px;
 
+  // @media (max-width: $breakpoint1200) {
+  //   flex: 0 1 300px;
+  // }
 }
 
 .deposit-retention__info-group {
@@ -237,6 +312,16 @@
 
   p+p {
     margin-top: 5px;
+  }
+
+
+  @media (max-width: $breakpoint1450) {
+    column-gap: 20px;
+  }
+
+  @media (max-width: 359px) {
+    flex-direction: column;
+    row-gap: 15px;
   }
 }
 

@@ -72,7 +72,7 @@
     <div class="deposit-retention__checked-moment">
       <div class="deposit-retention__groups">
         <div class="about-deposit__generation-select invoice__generation-select">
-          <div class="about-deposit__generation-selected">
+          <div class="about-deposit__generation-selected about-deposit__generation-selected--not-reverse">
             <div class="about-deposit__generation-info">
               <h5 class="about-deposit__generation-title">
                 Сумма удержания:
@@ -81,20 +81,14 @@
               <input class="about-deposit__generation-input" type="number" placeholder="Напишите сумму">
             </div>
 
-            <div class="about-deposit__generation-currency" data-select-wrapper>
+            <div class="about-deposit__generation-currency  open-modal-btn" data-modal-id="select-modal">
 
-              <div class="about-deposit__generation-curr" data-select-value>
+              <div class="about-deposit__generation-curr">
                 RUB
               </div>
 
-              <img class="about-deposit__generation-img" src="./img/icons/arrow-down.svg" alt="arrow-down"
-                data-select-arrow>
+              <img class="about-deposit__generation-img" src="./img/icons/arrow-down.svg" alt="arrow-down">
 
-              <ul class="about-deposit__generation-list" data-select-list>
-                <li class="about-deposit__generation-item" data-select-item>RUB</li>
-                <li class="about-deposit__generation-item" data-select-item>RUB</li>
-                <li class="about-deposit__generation-item" data-select-item>RUB</li>
-              </ul>
             </div>
           </div>
         </div>

@@ -7,10 +7,14 @@
   & .project-textarea {
     padding: 20px 0;
   }
+
+  @media (max-width: $breakpoint1200) {
+    margin-bottom: 15px;
+  }
 }
 
 .invoice__generation-select {
-  margin-bottom: 36px !important;
+  margin-bottom: 36px;
   padding: 10px;
   background: var(--bg-grey-color);
   border-radius: 10px;

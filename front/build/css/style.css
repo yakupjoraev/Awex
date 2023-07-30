@@ -144,6 +144,7 @@ body {
 .wrapper {
   width: 100%;
   padding: 60px 60px 60px 0;
+  overflow-x: hidden;
 }
 
 .wrapper-payment {
@@ -1940,8 +1941,8 @@ body.locked {
 
 .my-projects__item-info {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 222px;
-          flex: 0 0 222px;
+      -ms-flex: 0 1 222px;
+          flex: 0 1 222px;
 }
 
 .my-projects__item-title {
@@ -1962,6 +1963,7 @@ body.locked {
 
 .my-projects__item-icon {
   margin-top: -3px;
+  cursor: pointer;
 }
 
 .my-projects__item-address {
@@ -1970,8 +1972,8 @@ body.locked {
 
 .my-projects__item-convertion {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 400px;
-          flex: 0 0 400px;
+      -ms-flex: 0 1 400px;
+          flex: 0 1 400px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2042,6 +2044,7 @@ body.locked {
 }
 
 .my-projects__item-wrapper .my-projects__item {
+  padding: 0;
   margin-bottom: 60px;
 }
 
@@ -2049,6 +2052,10 @@ body.locked {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 50%;
           flex: 0 1 50%;
+}
+
+.my-projects__radios {
+  margin-bottom: 10px;
 }
 
 .my-projects__radio {
@@ -2189,7 +2196,7 @@ body.locked {
   -webkit-column-gap: 20px;
      -moz-column-gap: 20px;
           column-gap: 20px;
-  padding: 15px;
+  padding: 15px 30px;
   background-color: var(--white-color);
   border-radius: 10px;
 }
@@ -2260,7 +2267,7 @@ body.locked {
 }
 
 .invoice__generation-select {
-  margin-bottom: 36px !important;
+  margin-bottom: 36px;
   padding: 10px;
   background: var(--bg-grey-color);
   border-radius: 10px;
@@ -2423,7 +2430,7 @@ body.locked {
       -ms-flex-align: center;
           align-items: center;
   font-weight: 500;
-  font-size: 64px;
+  font-size: 48px;
   line-height: 120%;
 }
 
@@ -2502,6 +2509,7 @@ body.locked {
 
 .deposit-retention__btn {
   width: 100%;
+  white-space: nowrap;
 }
 
 .deposit-retention__checked-moment .deposit-retention__btn {
@@ -2690,6 +2698,7 @@ body.locked {
   padding: 5px;
   background-color: var(--error-color);
   border-radius: 100%;
+  line-height: 120%;
   color: var(--white-color);
 }
 
@@ -2731,9 +2740,7 @@ body.locked {
      -moz-column-gap: 20px;
           column-gap: 20px;
   row-gap: 20px;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .deposits__filter-select {
@@ -2791,6 +2798,7 @@ body.locked {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 100%;
           flex: 0 1 100%;
+  margin-bottom: 20px;
 }
 
 .deposits__list {
@@ -2802,16 +2810,37 @@ body.locked {
       -ms-flex-direction: column;
           flex-direction: column;
   row-gap: 10px;
+  min-width: 1044px;
+  margin-bottom: 5px;
+}
+
+.deposits__list-container {
+  overflow-x: auto;
+}
+
+.deposits__list-container::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+
+.deposits__list-container::-webkit-scrollbar-track {
+  background: #F6F6F6;
+  border-radius: 5px;
+}
+
+.deposits__list-container::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: var(--grey-color);
 }
 
 .deposits__item-header {
   display: grid;
-  grid-template-columns: 26px 72px 74px 150px 80px 124px 1fr 1fr;
+  grid-template-columns: 26px 140px 1fr 1fr 1fr 1fr 1fr 1fr;
   -webkit-column-gap: 35px;
      -moz-column-gap: 35px;
           column-gap: 35px;
-  justify-items: center;
-  padding: 0 30px;
+  justify-items: flex-start;
+  padding: 0 15px;
 }
 
 .deposits__item-commets {
@@ -2832,15 +2861,22 @@ body.locked {
 
 .deposits__item {
   display: grid;
-  grid-template-columns: 26px 72px 74px 150px 80px 124px 1fr 1fr;
+  grid-template-columns: 26px 140px 1fr 1fr 1fr 1fr 1fr 1fr;
   -webkit-column-gap: 35px;
      -moz-column-gap: 35px;
           column-gap: 35px;
-  justify-items: center;
+  justify-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 15px;
   border: 2px solid var(--white-color);
   background-color: var(--white-color);
   border-radius: 10px;
+}
+
+.deposits__item div:not(:first-child) {
+  min-width: 100px;
 }
 
 .deposits__item-rejected {
@@ -2866,11 +2902,8 @@ body.locked {
           column-gap: 10px;
 }
 
-.settings__inner {
-  padding: 30px;
-}
-
 .settings__list {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2884,6 +2917,7 @@ body.locked {
 }
 
 .settings__item {
+  white-space: nowrap;
   font-weight: 600;
   font-size: 24px;
   line-height: 120%;
@@ -2911,6 +2945,10 @@ body.locked {
   -webkit-column-gap: 10px;
      -moz-column-gap: 10px;
           column-gap: 10px;
+}
+
+.settings__list-arrow {
+  display: none;
 }
 
 .payment {
@@ -3476,6 +3514,7 @@ body.locked {
   -webkit-transition: opacity 0.3s ease-in-out;
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
+  z-index: 11;
 }
 
 .open-modal-btn {
@@ -3638,6 +3677,7 @@ body.locked {
 .modal-content__qr--big img {
   width: 100%;
   max-width: 100%;
+  height: auto;
 }
 
 .modal-content--select-list {
@@ -3765,12 +3805,24 @@ body.locked {
   color: var(--grey-color-2);
 }
 
-@media (max-width: 1749.98px) {
+@media (max-width: 1719.98px) {
+  .wrapper {
+    padding: 40px 30px 40px 0;
+  }
+
   .sidebar__themes {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: reverse;
         -ms-flex-direction: row-reverse;
             flex-direction: row-reverse;
+  }
+
+  .deposits__item-header {
+    font-size: 13px;
+  }
+
+  .deposits__item {
+    font-size: 13px;
   }
 }
 
@@ -3778,11 +3830,61 @@ body.locked {
   .sidebar {
     margin-right: 30px;
   }
+
+  .my-projects__item-wrapper .my-projects__item {
+    margin-bottom: 30px;
+  }
+
+  .my-projects__radio-label {
+    font-size: 16px;
+  }
+
+  .my-projects__group-selected {
+    font-size: 13px;
+  }
+
+  .my-projects__group-item {
+    font-size: 13px;
+  }
+
+  .my-projects__checkbox-text {
+    font-size: 13px;
+  }
+
+  .my-projects__item-btns {
+    margin: 30px auto 0;
+  }
+
+  .deposit-retention__info-group {
+    -webkit-column-gap: 20px;
+       -moz-column-gap: 20px;
+            column-gap: 20px;
+  }
 }
 
 @media (max-width: 1299.98px) {
+  .main--grid {
+    grid-template-columns: 350px 1fr;
+  }
+
+  .wrapper {
+    padding: 40px 30px 40px 0;
+  }
+
   .main-title {
     font-size: 16px;
+  }
+
+  .main-btn {
+    font-size: 13px;
+  }
+
+  .second-btn {
+    font-size: 13px;
+  }
+
+  .third-btn {
+    font-size: 13px;
   }
 
   .main-content__title {
@@ -3836,6 +3938,113 @@ body.locked {
 
   .about-deposit__generation-curr {
     font-size: 24px;
+  }
+
+  .my-projects__item {
+    -webkit-column-gap: 50px;
+       -moz-column-gap: 50px;
+            column-gap: 50px;
+    padding: 15px 20px;
+  }
+
+  .my-projects__item-address {
+    font-size: 13px;
+  }
+
+  .my-projects__item-text {
+    font-size: 13px;
+  }
+
+  .my-projects__item-currency {
+    font-size: 13px;
+  }
+
+  .my-projects__item-client {
+    font-size: 13px;
+  }
+
+  .successfully-invoice__item {
+    padding: 10px 20px;
+  }
+
+  .successfully-invoice__item-code {
+    font-size: 13px;
+  }
+
+  .deposit-retention__deposit {
+    margin-right: 0;
+  }
+
+  .deposit-retention__deposit-sum {
+    font-size: 36px;
+  }
+
+  .deposit-retention__deposit-sum span {
+    font-size: 30px;
+  }
+
+  .deposit-retention__project-label {
+    font-size: 13px;
+  }
+
+  .deposit-retention__project-name {
+    font-size: 13px;
+  }
+
+  .deposit-retention__project-link {
+    font-size: 13px;
+  }
+
+  .deposit-retention__label {
+    font-size: 13px;
+  }
+
+  .deposit-retention__descr {
+    font-size: 13px;
+  }
+
+  .deposit-retention__file-label {
+    font-size: 13px;
+  }
+
+  .deposits__info {
+    padding: 10px 15px;
+  }
+
+  .deposits__info-name {
+    font-size: 13px;
+  }
+
+  .deposits__info-count {
+    font-size: 13px;
+  }
+
+  .deposits__info-count--red {
+    font-size: 13px;
+  }
+
+  .deposits__in-sum {
+    font-size: 48px;
+  }
+
+  .deposits__in-sum span {
+    font-size: 40px;
+  }
+
+  .deposits__filter-label {
+    font-size: 13px;
+  }
+
+  .deposits__filter-selected {
+    font-size: 13px;
+  }
+
+  .deposits__filter-item {
+    font-size: 13px;
+  }
+
+  .settings__item {
+    font-size: 16px;
   }
 
   .payment-form__group {
@@ -3902,6 +4111,14 @@ body.locked {
   .payment-details__qr-descr {
     font-size: 13px;
   }
+
+  .modal-content__header h2 {
+    font-size: 16px;
+  }
+
+  .modal-content__subtitle {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 1199.98px) {
@@ -3921,6 +4138,72 @@ body.locked {
     font-size: 13px;
   }
 
+  .my-projects__groups--second {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 100%;
+    row-gap: 20px;
+  }
+
+  .my-projects__groups--second .my-projects__group {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+    width: 100%;
+  }
+
+  .invoice__group-textarea {
+    margin-bottom: 15px;
+  }
+
+  .deposit-retention__info--1200 {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    row-gap: 30px;
+  }
+
+  .deposit-retention__about {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    row-gap: 30px;
+    width: 100%;
+  }
+
+  .deposit-retention__form {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-column-gap: 15px;
+       -moz-column-gap: 15px;
+            column-gap: 15px;
+  }
+
+  .deposit-retention__item-btns {
+    width: 100%;
+  }
+
+  .deposit-retention__groups {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  .deposits__in-sum {
+    font-size: 36px;
+  }
+
+  .deposits__in-sum span {
+    font-size: 30px;
+    margin-top: 0;
+  }
+
   .payment {
     padding: 60px 60px 60px 40px;
   }
@@ -3931,6 +4214,14 @@ body.locked {
 }
 
 @media (max-width: 991.98px) {
+  .main--grid {
+    grid-template-columns: 110px 1fr;
+  }
+
+  .wrapper {
+    padding: 40px 15px 40px 0;
+  }
+
   .sidebar {
     width: 80px;
     min-width: 80px;
@@ -4016,11 +4307,21 @@ body.locked {
     grid-template-columns: repeat(1, 1fr);
   }
 
+  .wrapper {
+    padding: 40px 12px 140px;
+  }
+
   .wrapper-payment {
     -webkit-box-orient: vertical;
     -webkit-box-direction: reverse;
         -ms-flex-direction: column-reverse;
             flex-direction: column-reverse;
+  }
+
+  .project-label {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 10px;
   }
 
   .sidebar {
@@ -4047,9 +4348,238 @@ body.locked {
     border-radius: 10px 10px 0px 0px;
     max-height: 115px;
     overflow: hidden;
+    z-index: 10;
     -webkit-transition: max-height 0.4s linear;
     -o-transition: max-height 0.4s linear;
     transition: max-height 0.4s linear;
+  }
+
+  .my-projects__item {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    row-gap: 25px;
+  }
+
+  .my-projects__item-info {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+    width: 100%;
+  }
+
+  .my-projects__item-title {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+
+  .my-projects__item-convertion {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+  }
+
+  .my-projects__item-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .my-projects__item-wrapper {
+    padding: 20px 10px;
+  }
+
+  .my-projects__groups {
+    margin-bottom: 20px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .my-projects__group {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+    width: 100%;
+  }
+
+  .my-projects__radio-container {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 100%;
+            flex: 0 1 100%;
+  }
+
+  .my-projects__checkboxes-list {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 15px;
+  }
+
+  .successfully-invoice__item-status {
+    width: 26px;
+    height: 26px;
+    font-size: 0;
+    line-height: 0;
+    border-radius: 100%;
+  }
+
+  .successfully-invoice__item-link {
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    font-size: 0;
+    line-height: 0;
+    background-image: url("../img/icons/link.svg");
+    background-repeat: no-repeat;
+  }
+
+  .deposit-retention__inner {
+    padding: 10px;
+  }
+
+  .deposit-retention__info {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    row-gap: 30px;
+  }
+
+  .deposit-retention__form {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
+  .deposits__infos {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 10px;
+    row-gap: 10px;
+    -webkit-column-gap: 10px;
+       -moz-column-gap: 10px;
+            column-gap: 10px;
+  }
+
+  .deposits__in {
+    padding: 20px;
+  }
+
+  .deposits__filters {
+    -webkit-column-gap: 10px;
+       -moz-column-gap: 10px;
+            column-gap: 10px;
+  }
+
+  .deposits__info--black {
+    grid-column: span 2;
+  }
+
+  .deposits__filter-select--datapicker {
+    margin-left: auto;
+    font-size: 0;
+    line-height: 0;
+    background-color: transparent;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    background-image: url("../img/icons/calendar.svg");
+    background-repeat: no-repeat;
+  }
+
+  .deposits__filter-select--datapicker:hover {
+    background-color: transparent;
+  }
+
+  .deposits__filter-select--datapicker .deposits__filter-arrow {
+    display: none;
+  }
+
+  .deposits__filter-select--datapicker .deposits__filter-label,
+  .deposits__filter-select--datapicker .deposits__filter-selected,
+  .deposits__filter-select--datapicker .deposits__filter-item {
+    font-size: 0;
+  }
+
+  .settings__list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    max-height: 40px;
+    overflow: hidden;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: var(--text-color);
+    -webkit-transition: max-height 0.3s linear, overflow 1s linear;
+    -o-transition: max-height 0.3s linear, overflow 1s linear;
+    transition: max-height 0.3s linear, overflow 1s linear;
+  }
+
+  .settings__list.show {
+    max-height: 300px;
+    overflow: visible;
+  }
+
+  .settings__list.show .settings__list-arrow {
+    -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+
+  .settings__item.active {
+    color: var(--white-color);
+  }
+
+  .settings__item:hover {
+    color: var(--white-color);
+  }
+
+  .settings__item {
+    padding: 15px 0;
+    width: 100%;
+  }
+
+  .settings__item:not(:first-child) {
+    border-bottom: 1px solid var(--grey-color-2);
+  }
+
+  .settings__item:first-child {
+    padding: 0 0 10px;
+  }
+
+  .settings__item:last-child {
+    border-bottom: 1px solid transparent;
+    padding-bottom: 10px;
+  }
+
+  .settings__list-arrow {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-transition: -webkit-transform 0.2s linear;
+    transition: -webkit-transform 0.2s linear;
+    -o-transition: transform 0.2s linear;
+    transition: transform 0.2s linear;
+    transition: transform 0.2s linear, -webkit-transform 0.2s linear;
   }
 
   .payment {
@@ -4245,6 +4775,15 @@ body.locked {
   .payment-details__block-wrapper .payment-details__label {
     display: none;
   }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  .modal-content__qr--big {
+    width: auto;
+    height: auto;
+  }
 }
 
 @media (max-width: 479.98px) {
@@ -4279,5 +4818,41 @@ body.locked {
 
   .sidebar-mobile__main {
     padding: 0 10px 40px;
+  }
+}
+
+@media (max-width: 400px) {
+  .deposits__infos {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .deposits__filter-select {
+    padding: 10px 28px 10px 15px;
+  }
+}
+
+@media (max-width: 400px) and (max-width: 767.98px) {
+  .deposits__info--black {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 359px) {
+  .my-projects__checkboxes-list {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+
+  .deposit-retention__info-group {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    row-gap: 15px;
   }
 }

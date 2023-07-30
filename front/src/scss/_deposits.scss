@@ -21,6 +21,17 @@
     grid-template-columns: repeat(3, 1fr);
     column-gap: 15px;
     margin-bottom: 25px;
+
+    @media (max-width: $breakpoint768) {
+      grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 10px;
+      row-gap: 10px;
+      column-gap: 10px;
+    }
+
+    @media (max-width: 400px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   // .deposits__info
@@ -34,6 +45,10 @@
     padding: 20px 15px;
     background-color: var(--white-color);
     border-radius: 10px;
+
+    @media (max-width: $breakpoint1300) {
+      padding: 10px 15px;
+    }
   }
 
   // .deposits__info-row
@@ -49,12 +64,20 @@
 
   &__info-name {
     font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposits__info-count
 
   &__info-count {
     font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposits__info-label
@@ -78,7 +101,12 @@
     padding: 5px;
     background-color: var(--error-color);
     border-radius: 100%;
+    line-height: 120%;
     color: var(--white-color);
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposits__in
@@ -89,6 +117,11 @@
     background-color: var(--white-color);
     border-radius: 10px;
     margin-bottom: 25px;
+
+    @media (max-width: $breakpoint768) {
+      padding: 20px;
+
+    }
   }
 
   // .deposits__in-label
@@ -110,6 +143,23 @@
       font-size: 40px;
       color: var(--grey-color-2);
     }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 48px;
+
+      span {
+        font-size: 40px;
+      }
+    }
+
+    @media (max-width: $breakpoint1200) {
+      font-size: 36px;
+
+      span {
+        font-size: 30px;
+        margin-top: 0;
+      }
+    }
   }
 
   // .deposits__filters
@@ -119,8 +169,12 @@
     align-items: center;
     column-gap: 20px;
     row-gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
+    // flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    @media (max-width: $breakpoint768) {
+      column-gap: 10px;
+    }
   }
 
   // .deposits__filter-select
@@ -138,12 +192,20 @@
     &:hover {
       background-color: rgba(209, 209, 209, 0.50);
     }
+
+    @media (max-width: 400px) {
+      padding: 10px 28px 10px 15px;
+    }
   }
 
   // .deposits__filter-label
 
   &__filter-label {
     color: var(--grey-color-2);
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposits__filter-selected
@@ -152,6 +214,10 @@
     white-space: nowrap;
     font-weight: 600;
     color: var(--text-color);
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   // .deposits__filter-arrow
@@ -175,12 +241,17 @@
 
   // .deposits__filter-item
 
-  &__filter-item {}
+  &__filter-item {
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+  }
 
   // .deposits__filter-search
 
   &__filter-search {
     flex: 0 1 100%;
+    margin-bottom: 20px;
   }
 
   // .deposits__filter-src
@@ -197,16 +268,43 @@
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    min-width: 1044px;
+    margin-bottom: 5px;
+
+  }
+
+  &__list-container {
+    overflow-x: auto;
+
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #F6F6F6;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: var(--grey-color);
+    }
   }
 
   // .deposits__item-header
 
   &__item-header {
     display: grid;
-    grid-template-columns: 26px 72px 74px 150px 80px 124px 1fr 1fr;
+    grid-template-columns: 26px 140px 1fr 1fr 1fr 1fr 1fr 1fr;
     column-gap: 35px;
-    justify-items: center;
-    padding: 0 30px;
+    justify-items: flex-start;
+    padding: 0 15px;
+
+    @media (max-width: $breakpoint1720) {
+      font-size: 13px;
+    }
   }
 
   // .deposits__item-status
@@ -260,13 +358,22 @@
 
   &__item {
     display: grid;
-    grid-template-columns: 26px 72px 74px 150px 80px 124px 1fr 1fr;
+    grid-template-columns: 26px 140px 1fr 1fr 1fr 1fr 1fr 1fr;
     column-gap: 35px;
-    justify-items: center;
+    justify-items: flex-start;
+    align-items: center;
     padding: 15px;
     border: 2px solid var(--white-color);
     background-color: var(--white-color);
     border-radius: 10px;
+
+    & div:not(:first-child) {
+      min-width: 100px;
+    }
+
+    @media (max-width: $breakpoint1720) {
+      font-size: 13px;
+    }
   }
 
   // .deposits__item-rejected
@@ -284,9 +391,54 @@
 .deposits__info--black {
   background-color: var(--text-color);
   color: var(--white-color);
+
+  @media (max-width: $breakpoint768) {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 400px) {
+    @media (max-width: $breakpoint768) {
+      grid-column: span 1;
+    }
+  }
 }
 
 .deposits__header--start {
   justify-content: flex-start;
   column-gap: 10px;
+}
+
+.deposits__filter-select--datapicker {
+
+
+
+  @media (max-width: $breakpoint768) {
+    margin-left: auto;
+    font-size: 0;
+    line-height: 0;
+    background-color: transparent;
+    padding: 0;
+
+    width: 24px;
+    height: 24px;
+    background-image: url('../img/icons/calendar.svg');
+    background-repeat: no-repeat;
+
+
+    &:hover {
+      background-color: transparent;
+    }
+
+
+    .deposits__filter-arrow {
+      display: none;
+    }
+
+    .deposits__filter-label,
+    .deposits__filter-selected,
+    .deposits__filter-item {
+      font-size: 0;
+    }
+
+  }
 }
