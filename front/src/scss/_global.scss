@@ -124,6 +124,10 @@ body {
   }
 }
 
+.main__body--white {
+  background-color: var(--white-color);
+}
+
 // Animations
 // Fade
 @keyframes fade {
