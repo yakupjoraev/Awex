@@ -71,7 +71,7 @@
     }
 
     &.pending {
-      background-color: var(--bg-grey-color);
+      background-color: rgba(209, 209, 209, 0.50);
       color: var(--text-color);
     }
 
@@ -125,10 +125,3 @@
     }
   }
 }
-
-.paid {}
-
-
-.expired {}
-
-.pending {}

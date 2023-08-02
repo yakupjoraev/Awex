@@ -96,9 +96,12 @@
     color: var(--grey-color);
   }
 
-  &:active,
-  &:focus {
+  &:active {
     color: var(--grey-color-2);
+  }
+
+  &:focus {
+    color: var(--grey-color);
   }
 
   @media (max-width: $breakpoint1300) {

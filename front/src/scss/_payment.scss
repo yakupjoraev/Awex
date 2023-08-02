@@ -158,6 +158,12 @@
   &__btn {
     height: 46px;
     padding: 10px;
+
+    transition: transform 0.2s linear;
+
+    &:hover {
+      transform: scale(1.06);
+    }
   }
 
   // .payment-form__footer

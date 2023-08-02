@@ -422,7 +422,7 @@
   &__generation-select {
     position: relative;
     padding: 10px 15px;
-    background-color: transparent !important;
+    // background-color: transparent !important;
     border-radius: 10px;
     // border: 1px solid var(--grey-color);
 
@@ -442,8 +442,6 @@
   }
 
   &__generation-selected--not-reverse {
-
-    background-color: var(--white-color) !important;
 
     .about-deposit__generation-selected {
       flex-direction: row;
@@ -615,4 +613,21 @@
     order: 2;
     flex: 2 1 40%;
   }
+}
+
+.main-content__logo {
+  display: none;
+
+  @media (max-width: $breakpoint768) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px;
+  }
+}
+
+.main-content__logo-pic {}
+
+.about-deposit__generation-selected--white {
+  background-color: var(--white-color);
 }

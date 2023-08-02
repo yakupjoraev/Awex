@@ -337,9 +337,12 @@ body.locked {
   color: var(--grey-color);
 }
 
-.main-btn:active,
-.main-btn:focus {
+.main-btn:active {
   color: var(--grey-color-2);
+}
+
+.main-btn:focus {
+  color: var(--grey-color);
 }
 
 .second-btn {
@@ -685,6 +688,19 @@ body.locked {
           column-gap: 24px;
 }
 
+.sidebar__user-icon {
+  -webkit-transition: -webkit-filter 0.2s linear;
+  transition: -webkit-filter 0.2s linear;
+  -o-transition: filter 0.2s linear;
+  transition: filter 0.2s linear;
+  transition: filter 0.2s linear, -webkit-filter 0.2s linear;
+}
+
+.sidebar__user-icon:hover {
+  -webkit-filter: invert(1);
+          filter: invert(1);
+}
+
 .sidebar__currency {
   position: relative;
   padding: 20px 30px;
@@ -716,6 +732,7 @@ body.locked {
           column-gap: 10px;
   font-weight: 600;
   font-size: 24px;
+  cursor: pointer;
 }
 
 .sidebar__menu-item.show > .sidebar__menu-sublist {
@@ -758,6 +775,10 @@ body.locked {
   padding: 10px 20px;
   border-right: 3px solid transparent;
   color: var(--grey-color-2);
+}
+
+.sidebar__menu-link > * {
+  z-index: 2;
 }
 
 .sidebar__menu-link:hover {
@@ -824,6 +845,7 @@ body.locked {
   -webkit-transition: height 0.4s linear, padding 0.4s linear;
   -o-transition: height 0.4s linear, padding 0.4s linear;
   transition: height 0.4s linear, padding 0.4s linear;
+  z-index: 1;
 }
 
 .sidebar__menu-sublink:hover {
@@ -840,6 +862,7 @@ body.locked {
   background: var(--bg-grey-color);
   border-right: 3px solid var(--second-color);
   border-radius: 10px 0px 0px 10px;
+  z-index: -1;
 }
 
 .sidebar__menu-sublink svg path {
@@ -1359,7 +1382,6 @@ body.locked {
 .about-deposit__generation-select {
   position: relative;
   padding: 10px 15px;
-  background-color: transparent !important;
   border-radius: 10px;
 }
 
@@ -1384,10 +1406,6 @@ body.locked {
   -webkit-column-gap: 20px;
      -moz-column-gap: 20px;
           column-gap: 20px;
-}
-
-.about-deposit__generation-selected--not-reverse {
-  background-color: var(--white-color) !important;
 }
 
 .about-deposit__generation-selected--not-reverse .about-deposit__generation-selected {
@@ -1571,6 +1589,14 @@ body.locked {
   display: none;
 }
 
+.main-content__logo {
+  display: none;
+}
+
+.about-deposit__generation-selected--white {
+  background-color: var(--white-color);
+}
+
 .history-operations__label {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1715,6 +1741,7 @@ body.locked {
 
 .history-operations__item-header {
   border-bottom: 1px solid var(--bg-grey-color);
+  font-weight: 600;
 }
 
 .history-operations__item-header > * {
@@ -2265,7 +2292,7 @@ body.locked {
 }
 
 .successfully-invoice__item-status.pending {
-  background-color: var(--bg-grey-color);
+  background-color: rgba(209, 209, 209, 0.5);
   color: var(--text-color);
 }
 
@@ -2333,6 +2360,7 @@ body.locked {
 .invoice__header-img {
   width: 25px;
   height: 25px;
+  cursor: pointer;
 }
 
 .invoice__header-link {
@@ -2415,6 +2443,19 @@ body.locked {
 
 .invoice-project__radio:checked ~ .invoice-project__radio-label {
   color: var(--text-color);
+}
+
+.invoice-project__label-pic {
+  cursor: pointer;
+}
+
+.invoice-project__group-selected--not-beetwen {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-column-gap: 10px;
+     -moz-column-gap: 10px;
+          column-gap: 10px;
 }
 
 .deposit-retention__inner {
@@ -2779,7 +2820,7 @@ body.locked {
           flex-direction: column;
   row-gap: 5px;
   padding: 10px 35px 10px 15px;
-  background-color: rgba(209, 209, 209, 0.2);
+  background-color: var(--bg-grey-color);
   border-radius: 10px;
   -webkit-transition: background-color 0.2s linear;
   -o-transition: background-color 0.2s linear;
@@ -3077,6 +3118,17 @@ body.locked {
 .payment-form__btn {
   height: 46px;
   padding: 10px;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.payment-form__btn:hover {
+  -webkit-transform: scale(1.06);
+      -ms-transform: scale(1.06);
+          transform: scale(1.06);
 }
 
 .payment-form__footer a {
@@ -3886,7 +3938,6 @@ body.locked {
 }
 
 .modal {
-  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -3896,9 +3947,19 @@ body.locked {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
-  -webkit-transition: opacity 0.3s ease-in-out;
-  -o-transition: opacity 0.3s ease-in-out;
-  transition: opacity 0.3s ease-in-out;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  -webkit-transform: scale(0.6);
+      -ms-transform: scale(0.6);
+          transform: scale(0.6);
+  -webkit-transition: opacity 0.2s ease-in-out, -webkit-transform 0.2s linear;
+  transition: opacity 0.2s ease-in-out, -webkit-transform 0.2s linear;
+  -o-transition: opacity 0.2s ease-in-out, transform 0.2s linear;
+  transition: opacity 0.2s ease-in-out, transform 0.2s linear;
+  transition: opacity 0.2s ease-in-out, transform 0.2s linear, -webkit-transform 0.2s linear;
   z-index: 11;
 }
 
@@ -3917,6 +3978,14 @@ body.locked {
       -ms-flex-align: center;
           align-items: center;
   opacity: 1;
+  -webkit-user-select: auto;
+     -moz-user-select: auto;
+      -ms-user-select: auto;
+          user-select: auto;
+  pointer-events: visible;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
 }
 
 .modal-content {
@@ -4378,6 +4447,10 @@ body.locked {
 
   .successfully-invoice__item-code {
     font-size: 13px;
+  }
+
+  .invoice-project__radio-label {
+    font-size: 16px;
   }
 
   .deposit-retention__deposit {
@@ -4880,7 +4953,7 @@ body.locked {
     height: auto;
     background-color: var(--text-color);
     border-radius: 10px 10px 0px 0px;
-    max-height: 115px;
+    max-height: 111px;
     overflow: hidden;
     z-index: 10;
     -webkit-transition: max-height 0.4s linear;
@@ -4961,11 +5034,27 @@ body.locked {
     color: var(--white-color);
   }
 
+  .main-content__logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin: 0 auto 15px;
+  }
+
   .history-operations__header {
     -webkit-column-gap: 5px;
        -moz-column-gap: 5px;
             column-gap: 5px;
     margin-bottom: 25px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 
   .history-operations__select::before {
@@ -5075,6 +5164,26 @@ body.locked {
     background-repeat: no-repeat;
   }
 
+  .invoice__wrapper {
+    padding: 20px 10px;
+  }
+
+  .invoice-project__groups {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    row-gap: 15px;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    width: 100%;
+  }
+
+  .invoice-project__group {
+    width: 100%;
+  }
+
   .deposit-retention__inner {
     padding: 10px;
   }
@@ -5118,11 +5227,10 @@ body.locked {
   }
 
   .deposits__filter-select--datapicker {
-    margin-left: auto;
     font-size: 0;
     line-height: 0;
     background-color: transparent;
-    padding: 0;
+    padding: 0 !important;
     width: 24px;
     height: 24px;
     background-image: url("../img/icons/calendar.svg");
@@ -5481,6 +5589,17 @@ body.locked {
 
   .sidebar-mobile__main {
     padding: 0 10px 40px;
+  }
+
+  .invoice__header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    row-gap: 25px;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
   }
 }
 

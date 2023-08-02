@@ -54,6 +54,7 @@
     @media (max-width: $breakpoint768) {
       column-gap: 5px;
       margin-bottom: 25px;
+      align-items: center;
     }
   }
 
@@ -170,6 +171,7 @@
   &__item-header {
     // margin-right: 35px;
     border-bottom: 1px solid var(--bg-grey-color);
+    font-weight: 600;
 
     &>* {
       white-space: nowrap;

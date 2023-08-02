@@ -185,7 +185,7 @@
     flex-direction: column;
     row-gap: 5px;
     padding: 10px 35px 10px 15px;
-    background-color: rgba(209, 209, 209, 0.20);
+    background-color: var(--bg-grey-color);
     border-radius: 10px;
     transition: background-color 0.2s linear;
 
@@ -413,11 +413,11 @@
 
 
   @media (max-width: $breakpoint768) {
-    margin-left: auto;
+    // margin-left: auto;
     font-size: 0;
     line-height: 0;
     background-color: transparent;
-    padding: 0;
+    padding: 0 !important;
 
     width: 24px;
     height: 24px;

@@ -69,7 +69,7 @@
           Валюта:
         </span>
 
-        <div class="sidebar__currency-select">
+        <div class="sidebar__currency-select open-modal-btn" data-modal-id="select-modal">
           <span>
             USD
           </span>
@@ -199,6 +199,23 @@
               <a class="sidebar__menu-sublink" href="#">ООО “Второй”</a>
             </li>
           </ul>
+        </li>
+
+        <li class="sidebar__menu-item">
+          <a href="#" class="sidebar__menu-link">
+            <span class="sidebar__menu-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 1.25C6.072 1.25 1.25 6.072 1.25 12C1.25 17.928 6.072 22.75 12 22.75C17.928 22.75 22.75 17.928 22.75 12C22.75 6.072 17.928 1.25 12 1.25ZM12 21.25C6.899 21.25 2.75 17.101 2.75 12C2.75 6.899 6.899 2.75 12 2.75C17.101 2.75 21.25 6.899 21.25 12C21.25 17.101 17.101 21.25 12 21.25ZM15.53 14.47C15.823 14.763 15.823 15.238 15.53 15.531C15.384 15.677 15.192 15.751 15 15.751C14.808 15.751 14.616 15.678 14.47 15.531L11.47 12.531C11.329 12.39 11.25 12.199 11.25 12.001V7.00098C11.25 6.58698 11.586 6.25098 12 6.25098C12.414 6.25098 12.75 6.58698 12.75 7.00098V11.6899L15.53 14.47Z"
+                  fill="#6F6F6F" />
+              </svg>
+
+            </span>
+
+            <span class="sidebar__menu-name">
+              История
+            </span>
+          </a>
         </li>
 
         <li class="sidebar__menu-item" data-menu-item>
@@ -389,11 +406,10 @@
 
   <div class="invoice__wrapper">
     <div class="invoice__group-select invoice__group-textarea" data-select-wrapper>
-      <div class="invoice__group-selected invoice-project__group-selected">
+      <div class="invoice__group-selected invoice-project__group-selected" data-select-arrow>
         Выбор проекта
 
-        <img class="invoice__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down"
-          data-select-arrow>
+        <img class="invoice__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down">
       </div>
 
       <ul class="invoice__group-list select-list" data-select-list>
@@ -412,19 +428,19 @@
               <img class="invoice-project__label-img" src="./img/icons/checkbox-circle-checked.svg"
                 alt="checkbox-circle-checked">
 
-              <p class="invoice-project__label-descr project-label-descr">Конвертировать оплату в:</p>
+              <p class="invoice-project__label-descr project-label-descr">Конвертировать в:</p>
 
               <div class="invoice-project__radio-container">
                 <div class="invoice-project__radio-group">
                   <input class="invoice-project__radio" type="radio" name="marka" id="radio10" checked>
 
-                  <label class="invoice-project__radio-label" for="radio10">Стейблкоин</label>
+                  <label class="invoice-project__radio-label" for="radio10">Фиат</label>
                 </div>
 
                 <div class="invoice-project__radio-group">
                   <input class="invoice-project__radio" type="radio" name="marka" id="radio11">
 
-                  <label class="invoice-project__radio-label" for="radio11">Фиат</label>
+                  <label class="invoice-project__radio-label" for="radio11">Крипто</label>
                 </div>
               </div>
             </div>
@@ -432,11 +448,11 @@
           </div>
 
           <div class="invoice-project__group-select" data-select-wrapper>
-            <div class="invoice-project__group-selected">
-              Валюта
+            <div class="invoice-project__group-selected invoice-project__group-selected--not-beetwen" data-select-arrow>
+              Выберете валюту
 
               <img class="invoice-project__group-select-arrow" src="./img/icons/mini-arrow-down.svg"
-                alt="mini-arrow-down" data-select-arrow>
+                alt="mini-arrow-down">
             </div>
 
             <ul class="invoice-project__group-list select-list" data-select-list>
@@ -501,7 +517,9 @@
 
     <div class="invoice-project__group project-group invoice__group-textarea">
       <label class="invoice-project__label project-label" for="#">
-        Название проекта
+        Наименование товара или услуги
+
+        <img class="invoice-project__label-pic" src="./img/icons/tooltip.svg" alt="tooltip">
       </label>
 
       <textarea class="invoice-project__textarea project-textarea"

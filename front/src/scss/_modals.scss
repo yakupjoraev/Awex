@@ -2,7 +2,7 @@
 // ************************ Модальное окно ************************ //
 
 .modal {
-  display: none;
+  // display: none;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -12,7 +12,11 @@
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  user-select: none;
+  pointer-events: none;
+  transform: scale(0.6);
+  transition: opacity 0.2s ease-in-out, transform 0.2s linear;
+  // animation: fade 0.3s linear;
 
   z-index: 11;
 }
@@ -26,6 +30,9 @@
   justify-content: center;
   align-items: center;
   opacity: 1;
+  user-select: auto;
+  pointer-events: visible;
+  transform: scale(1)
 }
 
 .modal-content {
