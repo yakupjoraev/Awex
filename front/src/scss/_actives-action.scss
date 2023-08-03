@@ -158,11 +158,20 @@
 
   // .actives-action__withdrawal-group
 
-  &__withdrawal-group {}
+  &__withdrawal-group {
+    margin-bottom: 10px;
+  }
 
   // .actives-action__withdrawal-label
 
-  &__withdrawal-label {}
+  &__withdrawal-label {
+    font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+
+  }
 
   // .actives-action__withdrawal-input
 
@@ -170,39 +179,91 @@
 
   // .actives-action__withdrawal-exchange
 
-  &__withdrawal-exchange {}
+  &__withdrawal-exchange {
+    padding: 10px 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    background-color: var(--grey-color-3);
+  }
 
   // .actives-action__withdrawal-header
 
-  &__withdrawal-header {}
+  &__withdrawal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 10px;
+    margin-bottom: 10px;
+  }
 
   // .actives-action__withdrawal-sum
 
-  &__withdrawal-sum {}
+  &__withdrawal-sum {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 120%;
+    color: var(--grey-color-2);
+
+    span {
+      text-decoration: underline;
+    }
+  }
 
   // .actives-action__withdrawal-deceives
 
-  &__withdrawal-deceives {}
+  &__withdrawal-deceives {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 20px;
+    margin-bottom: 5px;
+  }
 
   // .actives-action__withdrawal-deceive
 
-  &__withdrawal-deceive {}
+  &__withdrawal-deceive {
+    font-weight: 400;
+    line-height: 120%;
+    font-size: 36px;
+
+    @media (max-width: $breakpoint992) {
+      font-size: 24px;
+    }
+
+  }
 
   // .actives-action__withdrawal-deceives-sum
 
-  &__withdrawal-deceives-sum {}
+  &__withdrawal-deceives-sum {
+    font-weight: 600;
+    line-height: 120%;
+    font-size: 13px;
+    color: var(--grey-color-2);
+  }
 
   // .actives-action__withdrawal-btn
 
-  &__withdrawal-btn {}
+  &__withdrawal-btn {
+    @media (max-width: $breakpoint768) {
+      margin: 0 auto;
+    }
+  }
 
   // .actives-action__inforamation
 
-  &__inforamation {}
+  &__inforamation {
+    padding: 30px;
+  }
 
   // .actives-action__inforamation-header
 
-  &__inforamation-header {}
+  &__inforamation-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 16px;
+    margin-bottom: 20px;
+  }
 
   // .actives-action__inforamation-pic
 
@@ -210,53 +271,24 @@
 
   // .actives-action__inforamation-title
 
-  &__inforamation-title {}
+  &__inforamation-title {
+    font-weight: 600;
+    line-height: 120%;
+    font-size: 16px;
+  }
 
   // .actives-action__inforamation-descr
 
-  &__inforamation-descr {}
+  &__inforamation-descr {
+    max-width: 340px;
+    margin: 0 auto 20px;
+    text-align: center;
+  }
 
   // .actives-action__inforamation-btn
 
-  &__inforamation-btn {}
-}
-
-.actives-check {
-
-  // .actives-check__back
-
-  &__back {}
-
-  // .actives-check__back-pic
-
-  &__back-pic {}
-}
-
-.project-group {}
-
-.project-label {}
-
-.project-input {}
-
-.invoice-project {
-
-  // .invoice-project__group-select
-
-  &__group-select {}
-
-  // .invoice-project__group-selected
-
-  &__group-selected {}
-
-  // .invoice-project__group-select-arrow
-
-  &__group-select-arrow {}
-
-  // .invoice-project__group-list
-
-  &__group-list {}
-
-  // .invoice-project__group-item
-
-  &__group-item {}
+  &__inforamation-btn {
+    width: fit-content;
+    margin: 0 auto;
+  }
 }
