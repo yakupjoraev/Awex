@@ -7,6 +7,7 @@ import { HomePage } from "./pages/HomePage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { MyProjectsPage } from "./pages/MyProjectsPage";
 import { EditProjectPage } from "./pages/EditProjectPage";
+import { UserAreaLayout } from "./layouts/UserAreaLayout";
 
 export function App() {
   return (
@@ -14,10 +15,12 @@ export function App() {
       <Helmet titleTemplate="%s - Awex" defaultTitle="Awex"></Helmet>
       <Routes>
         <Route path="/" element={<IndexPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/projects" element={<MyProjectsPage />} />
-        <Route path="/projects/:projectId" element={<EditProjectPage />} />
-        <Route path="/settings/*" element={<SettingsPage />} />
+        <Route element={<UserAreaLayout />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/projects" element={<MyProjectsPage />} />
+          <Route path="/projects/:projectId" element={<EditProjectPage />} />
+          <Route path="/settings/*" element={<SettingsPage />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

@@ -1,5 +1,4 @@
 import react from "react";
-import { UserAreaLayout } from "../../layouts/UserArea";
 import { projects } from "../../state-defaults/projects";
 import { ProjectItem } from "./ProjectItem";
 import { Helmet } from "react-helmet-async";
@@ -10,7 +9,7 @@ export function MyProjectsPage() {
   };
 
   return (
-    <UserAreaLayout>
+    <>
       <Helmet title="Мои проекты" />
       <section className="my-projects">
         <div className="my-projects__header">
@@ -167,6 +166,6 @@ export function MyProjectsPage() {
           </ul>
         </div>
       </section>
-    </UserAreaLayout>
+    </>
   );
 }

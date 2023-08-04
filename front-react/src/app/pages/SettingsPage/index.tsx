@@ -6,12 +6,11 @@ import { RequisitesTab } from "./RequisitesTab";
 import { SafetyTab } from "./SafetyTab";
 import { NotificationsTab } from "./NotificationsTab";
 import { PermissionManagementTab } from "./PermissionManagementTab";
-import { UserAreaLayout } from "../../layouts/UserArea";
 import { Helmet } from "react-helmet-async";
 
 export function SettingsPage() {
   return (
-    <UserAreaLayout>
+    <>
       <Helmet title="Настройки" />
       <Routes>
         <Route element={<SettingsPageLayout />}>
@@ -25,6 +24,6 @@ export function SettingsPage() {
           />
         </Route>
       </Routes>
-    </UserAreaLayout>
+    </>
   );
 }
