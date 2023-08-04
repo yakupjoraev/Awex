@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { IndexPage } from "./pages/IndexPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { HomePage } from "./pages/HomePage";
+import { SettingsPage } from "./pages/SettingsPage";
 
 export function App() {
   return (
@@ -12,6 +13,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<IndexPage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/settings/*" element={<SettingsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

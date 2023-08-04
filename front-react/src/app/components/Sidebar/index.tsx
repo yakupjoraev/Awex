@@ -1,5 +1,7 @@
 import React from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import classNames from "classnames";
 import { HOME_PAGE_PATH } from "../../constants/path-locations";
 
 interface SidebarProps {
@@ -8,6 +10,38 @@ interface SidebarProps {
 }
 
 export function Sidebar(props: SidebarProps) {
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [menuOpened, setMenuOpened] = useState(false);
+
+  useEffect(() => {
+    if (!menuOpened) {
+      return;
+    }
+    const handleDocumentClick = (ev: MouseEvent) => {
+      if (
+        menuRef.current &&
+        ev.target instanceof Element &&
+        !menuRef.current.contains(ev.target)
+      ) {
+        setMenuOpened(false);
+      }
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, [menuOpened]);
+
+  const handleMenuIconClick = () => {
+    setMenuOpened(true);
+  };
+
+  const handleMenuItemClick = () => {
+    setMenuOpened(false);
+  };
+
   return (
     <aside className="sidebar">
       <div className="sidebar__inner">
@@ -27,21 +61,28 @@ export function Sidebar(props: SidebarProps) {
           </Link>
 
           <div className="sidebar__themes">
-            <div className="sidebar__user" data-select-wrapper="">
+            <div className="sidebar__user" data-select-wrapper="" ref={menuRef}>
               <img
-                className="sidebar__user-icon"
+                className={classNames("sidebar__user-icon", {
+                  active: menuOpened,
+                })}
                 src="/img/sidebar/user-black.svg"
                 alt="user"
+                data-select-arrow=""
+                onClick={handleMenuIconClick}
               />
 
               <div
-                className="sidebar__user-list select-list"
+                className={classNames("sidebar__user-list select-list", {
+                  active: menuOpened,
+                })}
                 data-select-list=""
               >
                 <a
                   href="#"
                   className="sidebar__user-item select-item"
                   data-select-item=""
+                  onClick={handleMenuItemClick}
                 >
                   <img
                     className="sidebar__user-item-img"
@@ -53,10 +94,11 @@ export function Sidebar(props: SidebarProps) {
                   </span>
                 </a>
 
-                <a
-                  href="#"
+                <Link
                   className="sidebar__user-item select-item"
                   data-select-item=""
+                  to="/settings"
+                  onClick={handleMenuItemClick}
                 >
                   <img
                     className="sidebar__user-item-img"
@@ -64,12 +106,15 @@ export function Sidebar(props: SidebarProps) {
                     alt="settings"
                   />
                   <span className="sidebar__user-item-text">Настройки</span>
-                </a>
+                </Link>
 
                 <div
                   className="sidebar__user-item sidebar__user-item--red select-item"
                   data-select-item=""
-                  onClick={props.onLogout}
+                  onClick={() => {
+                    handleMenuItemClick();
+                    props.onLogout();
+                  }}
                 >
                   <img
                     className="sidebar__user-item-img"

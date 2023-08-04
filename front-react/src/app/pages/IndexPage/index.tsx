@@ -89,9 +89,9 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a className="pages__link" href="settings.html" target="_blank">
+              <Link className="pages__link" to="/settings" target="_blank">
                 Настройки
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">
