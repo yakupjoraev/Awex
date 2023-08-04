@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import classNames from "classnames";
 import { HOME_PAGE_PATH } from "../../constants/path-locations";
+import { projects } from "../../state-defaults/projects";
 
 interface SidebarProps {
   userName: string;
@@ -11,10 +12,11 @@ interface SidebarProps {
 
 export function Sidebar(props: SidebarProps) {
   const menuRef = useRef<HTMLDivElement>(null);
-  const [menuOpened, setMenuOpened] = useState(false);
+  const [userMenuOpened, setUserMenuOpened] = useState(false);
+  const [projectsMenuOpened, setProjectsMenuOpened] = useState(false);
 
   useEffect(() => {
-    if (!menuOpened) {
+    if (!userMenuOpened) {
       return;
     }
     const handleDocumentClick = (ev: MouseEvent) => {
@@ -23,7 +25,7 @@ export function Sidebar(props: SidebarProps) {
         ev.target instanceof Element &&
         !menuRef.current.contains(ev.target)
       ) {
-        setMenuOpened(false);
+        setUserMenuOpened(false);
       }
     };
 
@@ -32,14 +34,14 @@ export function Sidebar(props: SidebarProps) {
     return () => {
       document.removeEventListener("click", handleDocumentClick);
     };
-  }, [menuOpened]);
+  }, [userMenuOpened]);
 
   const handleMenuIconClick = () => {
-    setMenuOpened(true);
+    setUserMenuOpened(true);
   };
 
   const handleMenuItemClick = () => {
-    setMenuOpened(false);
+    setUserMenuOpened(false);
   };
 
   return (
@@ -64,7 +66,7 @@ export function Sidebar(props: SidebarProps) {
             <div className="sidebar__user" data-select-wrapper="" ref={menuRef}>
               <img
                 className={classNames("sidebar__user-icon", {
-                  active: menuOpened,
+                  active: userMenuOpened,
                 })}
                 src="/img/sidebar/user-black.svg"
                 alt="user"
@@ -74,7 +76,7 @@ export function Sidebar(props: SidebarProps) {
 
               <div
                 className={classNames("sidebar__user-list select-list", {
-                  active: menuOpened,
+                  active: userMenuOpened,
                 })}
                 data-select-list=""
               >
@@ -212,7 +214,12 @@ export function Sidebar(props: SidebarProps) {
               </a>
             </li>
 
-            <li className="sidebar__menu-item" data-menu-item="">
+            <li
+              className={classNames("sidebar__menu-item", {
+                show: projectsMenuOpened,
+              })}
+              data-menu-item=""
+            >
               <div className="sidebar__menu-item-main">
                 <NavLink className="sidebar__menu-link" to="/projects" end>
                   <span className="sidebar__menu-icon">
@@ -245,6 +252,7 @@ export function Sidebar(props: SidebarProps) {
                   className="sidebar__menu-arrow"
                   src="/img/sidebar/arrow.svg"
                   alt="arrow"
+                  onClick={() => setProjectsMenuOpened(!projectsMenuOpened)}
                 />
               </div>
 
@@ -255,17 +263,22 @@ export function Sidebar(props: SidebarProps) {
                   </a>
                 </li>
 
-                <li className="sidebar__menu-subitem" data-menu-item="">
-                  <a className="sidebar__menu-sublink" href="#">
-                    ООО “Первый”
-                  </a>
-                </li>
-
-                <li className="sidebar__menu-subitem" data-menu-item="">
-                  <a className="sidebar__menu-sublink" href="#">
-                    ООО “Второй”
-                  </a>
-                </li>
+                {projects.map((project) => {
+                  return (
+                    <li
+                      className="sidebar__menu-subitem"
+                      data-menu-item=""
+                      key={project.id}
+                    >
+                      <NavLink
+                        className="sidebar__menu-sublink"
+                        to={"/projects/" + project.id}
+                      >
+                        {project.name}
+                      </NavLink>
+                    </li>
+                  );
+                })}
               </ul>
             </li>
 

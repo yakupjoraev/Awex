@@ -18,7 +18,7 @@ export const projects: Project[] = [
   },
   {
     id: "project2",
-    name: "ООО Второй",
+    name: "ООО ”Второй”",
     tokenIcon: "actives-2.png",
     tokenSymbol: "USDT",
     url: "https://www.gemini.com/",

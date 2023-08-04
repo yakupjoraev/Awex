@@ -23,13 +23,13 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a
+              <Link
                 className="pages__link"
-                href="my-projects-2.html"
+                to="/projects/project2"
                 target="_blank"
               >
                 Мои проекты 2
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">

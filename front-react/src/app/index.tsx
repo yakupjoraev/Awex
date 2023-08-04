@@ -6,6 +6,7 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { HomePage } from "./pages/HomePage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { MyProjectsPage } from "./pages/MyProjectsPage";
+import { EditProjectPage } from "./pages/EditProjectPage";
 
 export function App() {
   return (
@@ -15,6 +16,7 @@ export function App() {
         <Route path="/" element={<IndexPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/projects" element={<MyProjectsPage />} />
+        <Route path="/projects/:projectId" element={<EditProjectPage />} />
         <Route path="/settings/*" element={<SettingsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
