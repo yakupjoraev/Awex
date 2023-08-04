@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames";
 import { Project, projects } from "../../../state-defaults/projects";
+import { SelectCurrencyModal } from "../../../components/SelectCurrenyModal";
 
 interface AboutCheckDepositProps {
   projects: { id: string; name: string }[];
@@ -10,6 +11,7 @@ interface AboutCheckDepositProps {
 export function AboutCheckDeposit(props: AboutCheckDepositProps) {
   const projectSelectorRef = useRef<HTMLDivElement>(null);
   const [projectSelectorOpened, setProjectSelectorOpened] = useState(false);
+  const [currencySelectorOpened, setCurrencySelectorOpened] = useState(false);
   const [project, setProject] = useState<Project | null>(projects[0]);
 
   useEffect(() => {
@@ -44,6 +46,10 @@ export function AboutCheckDeposit(props: AboutCheckDepositProps) {
     }
 
     setProjectSelectorOpened(false);
+  };
+
+  const handleCurrencySelectorClose = () => {
+    setCurrencySelectorOpened(false);
   };
 
   return (
@@ -116,7 +122,7 @@ export function AboutCheckDeposit(props: AboutCheckDepositProps) {
 
             <div
               className="about-deposit__generation-currency open-modal-btn"
-              data-modal-id="select-modal"
+              onClick={() => setCurrencySelectorOpened(true)}
             >
               <div className="about-deposit__generation-curr">USD</div>
 
@@ -137,6 +143,10 @@ export function AboutCheckDeposit(props: AboutCheckDepositProps) {
       >
         Сгенерировать платежную ссылку
       </button>
+      <SelectCurrencyModal
+        open={currencySelectorOpened}
+        onClose={handleCurrencySelectorClose}
+      />
     </div>
   );
 }
