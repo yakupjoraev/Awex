@@ -9,6 +9,7 @@ import { MyProjectsPage } from "./pages/MyProjectsPage";
 import { EditProjectPage } from "./pages/EditProjectPage";
 import { UserAreaLayout } from "./layouts/UserAreaLayout";
 import { CreateProjectPage } from "./pages/CreateProjectPage";
+import { InvoicePage } from "./pages/InvoicePage";
 
 export function App() {
   return (
@@ -18,6 +19,7 @@ export function App() {
         <Route path="/" element={<IndexPage />} />
         <Route element={<UserAreaLayout />}>
           <Route path="/home" element={<HomePage />} />
+          <Route path="/invoice" element={<InvoicePage />} />
           <Route path="/projects" element={<MyProjectsPage />} />
           <Route path="/projects/:projectId" element={<EditProjectPage />} />
           <Route path="/projects/new-project" element={<CreateProjectPage />} />

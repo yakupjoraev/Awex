@@ -173,7 +173,7 @@ export function Sidebar(props: SidebarProps) {
             </li>
 
             <li className="sidebar__menu-item">
-              <a href="#" className="sidebar__menu-link">
+              <NavLink className="sidebar__menu-link" to="/invoice">
                 <span className="sidebar__menu-icon">
                   <svg
                     width="24"
@@ -190,7 +190,7 @@ export function Sidebar(props: SidebarProps) {
                 </span>
 
                 <span className="sidebar__menu-name">Выставить счет</span>
-              </a>
+              </NavLink>
             </li>
 
             <li className="sidebar__menu-item">

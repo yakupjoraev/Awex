@@ -53,9 +53,9 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a className="pages__link" href="invoice.html" target="_blank">
+              <Link className="pages__link" target="_blank" to="/invoice">
                 ЛК эквайринг (выставление счета)
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">
