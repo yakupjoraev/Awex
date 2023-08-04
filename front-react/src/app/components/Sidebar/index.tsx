@@ -214,7 +214,7 @@ export function Sidebar(props: SidebarProps) {
 
             <li className="sidebar__menu-item" data-menu-item="">
               <div className="sidebar__menu-item-main">
-                <a href="#" className="sidebar__menu-link">
+                <NavLink className="sidebar__menu-link" to="/projects" end>
                   <span className="sidebar__menu-icon">
                     <svg
                       width="24"
@@ -239,7 +239,7 @@ export function Sidebar(props: SidebarProps) {
                   </span>
 
                   <span className="sidebar__menu-name">Мои проекты</span>
-                </a>
+                </NavLink>
 
                 <img
                   className="sidebar__menu-arrow"

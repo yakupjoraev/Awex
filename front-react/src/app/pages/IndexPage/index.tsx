@@ -17,13 +17,9 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a
-                className="pages__link"
-                href="my-projects-1.html"
-                target="_blank"
-              >
+              <Link className="pages__link" to="/projects" target="_blank">
                 Мои проекты 1
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">
