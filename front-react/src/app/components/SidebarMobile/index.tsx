@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import classNames from "classnames";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { HOME_PAGE_PATH } from "../../constants/path-locations";
 
 interface SidebarMobileProps {
@@ -133,7 +133,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
             <p className="sidebar-mobile__item-text">Депозиты</p>
           </a>
 
-          <a href="#" className="sidebar-mobile__item">
+          <NavLink className="sidebar-mobile__item" to="/projects">
             <img
               className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/menu-left-alt.svg"
@@ -141,7 +141,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
             />
 
             <p className="sidebar-mobile__item-text">Проекты</p>
-          </a>
+          </NavLink>
 
           <div
             className="sidebar-mobile__item"
