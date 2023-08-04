@@ -35,7 +35,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
             <p className="sidebar-mobile__user-name">{props.userName}</p>
           </a>
 
-          <a href="#" className="sidebar-mobile__settings">
+          <Link className="sidebar-mobile__settings" to="/settings">
             <div className="sidebar-mobile__settings-icon">
               <img
                 className="sidebar-mobile__pic"
@@ -45,7 +45,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
             </div>
 
             <p className="sidebar-mobile__settings-name">Настройки</p>
-          </a>
+          </Link>
 
           <a href="#" className="sidebar-mobile__log-out">
             <div className="sidebar-mobile__log-out-icon">
