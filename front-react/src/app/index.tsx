@@ -8,6 +8,7 @@ import { SettingsPage } from "./pages/SettingsPage";
 import { MyProjectsPage } from "./pages/MyProjectsPage";
 import { EditProjectPage } from "./pages/EditProjectPage";
 import { UserAreaLayout } from "./layouts/UserAreaLayout";
+import { CreateProjectPage } from "./pages/CreateProjectPage";
 
 export function App() {
   return (
@@ -19,6 +20,7 @@ export function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/projects" element={<MyProjectsPage />} />
           <Route path="/projects/:projectId" element={<EditProjectPage />} />
+          <Route path="/projects/new-project" element={<CreateProjectPage />} />
           <Route path="/settings/*" element={<SettingsPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />

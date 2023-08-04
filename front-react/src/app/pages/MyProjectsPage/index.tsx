@@ -2,8 +2,11 @@ import react from "react";
 import { projects } from "../../state-defaults/projects";
 import { ProjectItem } from "./ProjectItem";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 export function MyProjectsPage() {
+  const navigate = useNavigate();
+
   const handleGeneratePaymentLink = () => {
     alert("NOT IMPLEMENTED");
   };
@@ -15,7 +18,11 @@ export function MyProjectsPage() {
         <div className="my-projects__header">
           <h1 className="my-projects__title main-title">Мои проекты</h1>
 
-          <div className="my-projects__added">
+          <div
+            className="my-projects__added"
+            role="button"
+            onClick={() => navigate("/projects/new-project")}
+          >
             <img
               className="my-projects__added-img"
               src="/img/icons/plus-circle.svg"

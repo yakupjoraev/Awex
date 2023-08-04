@@ -258,9 +258,12 @@ export function Sidebar(props: SidebarProps) {
 
               <ul className="sidebar__menu-sublist" data-menu-list="">
                 <li className="sidebar__menu-subitem" data-menu-item="">
-                  <a className="sidebar__menu-sublink" href="#">
+                  <NavLink
+                    className="sidebar__menu-sublink"
+                    to="/projects/new-project"
+                  >
                     Добавить проект
-                  </a>
+                  </NavLink>
                 </li>
 
                 {projects.map((project) => {
