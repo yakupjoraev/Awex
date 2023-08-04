@@ -252,7 +252,12 @@
   // .actives-action__inforamation
 
   &__inforamation {
+    display: none;
     padding: 30px;
+
+    @media (max-width: $breakpoint768) {
+      display: block;
+    }
   }
 
   // .actives-action__inforamation-header
@@ -290,5 +295,107 @@
   &__inforamation-btn {
     width: fit-content;
     margin: 0 auto;
+  }
+}
+
+.actives-action__withdrawal-swaps {
+  position: relative;
+  margin-bottom: 25px;
+
+
+
+  .invoice__generation-select {
+    margin-bottom: 0;
+  }
+}
+
+.actives-action__withdrawal-swap {
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .about-deposit__generation-info {
+    width: 100%;
+  }
+
+  .about-deposit__generation-input {
+    font-size: 36px;
+
+
+    @media (max-width: $breakpoint992) {
+      font-size: 24px;
+    }
+  }
+
+  .about-deposit__generation-input {
+    width: 96%;
+  }
+}
+
+.actives-action__withdrawal-swap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 368px;
+}
+
+.actives-action__withdrawal-swap-text {
+  font-weight: 600;
+  line-height: 120%;
+  font-size: 12px;
+  color: var(--grey-color-2);
+
+  span {
+    color: var(--grey-color-2);
+    text-decoration-line: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.actives-action__withdrawal-swap-decor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.actives-action__withdrawal-comissions {
+  margin-bottom: 25px;
+}
+
+.actives-action__withdrawal-comission {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--white-color);
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+.actives-action__withdrawal-comission-label {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+  font-weight: 600;
+  line-height: 120%;
+  font-size: 13px;
+  color: var(--grey-color-2);
+}
+
+.actives-action__withdrawal-comission-green {
+  padding: 5px 15px;
+  border-radius: 15px;
+  background: rgba(51, 160, 44, 0.20);
+  color: var(--green-color);
+
+  @media (max-width: 359px) {
+    font-size: 12px;
   }
 }

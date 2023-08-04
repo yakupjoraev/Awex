@@ -509,6 +509,9 @@
   // .about-deposit__generation-curr
 
   &__generation-curr {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
     font-size: 36px;
     line-height: 120%;
 

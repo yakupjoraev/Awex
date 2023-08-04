@@ -1517,6 +1517,15 @@ body.locked {
 }
 
 .about-deposit__generation-curr {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+     -moz-column-gap: 5px;
+          column-gap: 5px;
   font-size: 36px;
   line-height: 120%;
 }
@@ -3628,8 +3637,8 @@ body.locked {
 
 .actives-check {
   -webkit-box-flex: 0;
-      -ms-flex: 0 1 502px;
-          flex: 0 1 502px;
+      -ms-flex: 0 0 502px;
+          flex: 0 0 502px;
   width: 100%;
   padding: 70px 30px;
 }
@@ -3771,6 +3780,10 @@ body.locked {
 
 .actives-check__action:hover {
   background-color: var(--second-color);
+}
+
+.actives-check__action-text {
+  text-align: center;
 }
 
 .actives-check__history-label {
@@ -4009,6 +4022,7 @@ body.locked {
 }
 
 .actives-action__inforamation {
+  display: none;
   padding: 30px;
 }
 
@@ -4045,6 +4059,117 @@ body.locked {
   width: -moz-fit-content;
   width: fit-content;
   margin: 0 auto;
+}
+
+.actives-action__withdrawal-swaps {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.actives-action__withdrawal-swaps .invoice__generation-select {
+  margin-bottom: 0;
+}
+
+.actives-action__withdrawal-swap:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.actives-action__withdrawal-swap .about-deposit__generation-info {
+  width: 100%;
+}
+
+.actives-action__withdrawal-swap .about-deposit__generation-input {
+  font-size: 36px;
+}
+
+.actives-action__withdrawal-swap .about-deposit__generation-input {
+  width: 96%;
+}
+
+.actives-action__withdrawal-swap-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 368px;
+}
+
+.actives-action__withdrawal-swap-text {
+  font-weight: 600;
+  line-height: 120%;
+  font-size: 12px;
+  color: var(--grey-color-2);
+}
+
+.actives-action__withdrawal-swap-text span {
+  color: var(--grey-color-2);
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+  text-underline-offset: 3px;
+}
+
+.actives-action__withdrawal-swap-decor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.actives-action__withdrawal-comissions {
+  margin-bottom: 25px;
+}
+
+.actives-action__withdrawal-comission {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-column-gap: 10px;
+     -moz-column-gap: 10px;
+          column-gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--white-color);
+}
+
+.actives-action__withdrawal-comission:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.actives-action__withdrawal-comission-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 15px;
+     -moz-column-gap: 15px;
+          column-gap: 15px;
+  font-weight: 600;
+  line-height: 120%;
+  font-size: 13px;
+  color: var(--grey-color-2);
+}
+
+.actives-action__withdrawal-comission-green {
+  padding: 5px 15px;
+  border-radius: 15px;
+  background: rgba(51, 160, 44, 0.2);
+  color: var(--green-color);
 }
 
 .modal {
@@ -4420,6 +4545,12 @@ body.locked {
 
   .deposits__item {
     font-size: 13px;
+  }
+
+  .actives-check {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 442px;
+            flex: 0 0 442px;
   }
 }
 
@@ -5023,6 +5154,10 @@ body.locked {
   }
 
   .actives-action__withdrawal-deceive {
+    font-size: 24px;
+  }
+
+  .actives-action__withdrawal-swap .about-deposit__generation-input {
     font-size: 24px;
   }
 }
@@ -5669,6 +5804,10 @@ body.locked {
     margin: 0 auto;
   }
 
+  .actives-action__inforamation {
+    display: block;
+  }
+
   .modal-content {
     width: 90%;
   }
@@ -5826,5 +5965,9 @@ body.locked {
         -ms-flex-direction: column;
             flex-direction: column;
     row-gap: 15px;
+  }
+
+  .actives-action__withdrawal-comission-green {
+    font-size: 12px;
   }
 }

@@ -1,7 +1,11 @@
 .actives-check {
-  flex: 0 1 502px;
+  flex: 0 0 502px;
   width: 100%;
   padding: 70px 30px;
+
+  @media (max-width: $breakpoint1720) {
+    flex: 0 0 442px;
+  }
 
   @media (max-width: $breakpoint1300) {
     flex: 0 0 400px;
@@ -174,7 +178,9 @@
 
   // .actives-check__action-text
 
-  &__action-text {}
+  &__action-text {
+    text-align: center;
+  }
 
   // .actives-check__history
 
