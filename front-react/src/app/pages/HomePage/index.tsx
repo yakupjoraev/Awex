@@ -74,7 +74,10 @@ export function HomePage() {
                 </div>
               </div>
 
-              <div className="generate__link">
+              <div
+                className="generate__link"
+                onClick={handleGeneratePaymentLink}
+              >
                 <img src="/img/icons/link-white.svg" alt="" />
                 Сгенерировать ссылку
               </div>
