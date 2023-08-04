@@ -47,7 +47,11 @@ export function SidebarMobile(props: SidebarMobileProps) {
             <p className="sidebar-mobile__settings-name">Настройки</p>
           </Link>
 
-          <a href="#" className="sidebar-mobile__log-out">
+          <div
+            className="sidebar-mobile__log-out"
+            role="button"
+            onClick={props.onLogout}
+          >
             <div className="sidebar-mobile__log-out-icon">
               <img
                 className="sidebar-mobile__pic"
@@ -57,7 +61,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
             </div>
 
             <p className="sidebar-mobile__log-out-name">Выйти</p>
-          </a>
+          </div>
         </div>
 
         <div className="sidebar-mobile__middle">
