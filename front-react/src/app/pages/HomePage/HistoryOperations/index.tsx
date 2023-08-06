@@ -1,8 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
+import { DepositsFiltersSelect } from "../../../components/DepositsFilterSelect";
+
+const projectFilterOptions = [
+  { value: "0", label: "Приход" },
+  { value: "1", label: "Приход" },
+  { value: "2", label: "Приход" },
+];
+
+const currencyFilterOptions = [
+  { value: "0", label: "Все" },
+  { value: "1", label: "Все" },
+  { value: "2", label: "Все" },
+];
+
+const operationFilterOptions = [
+  { value: "0", label: "Приход" },
+  { value: "1", label: "Приход" },
+  { value: "2", label: "Приход" },
+];
+
+const dateFilterOptions = [
+  { value: "0", label: "01/06/2022-13/06/2023" },
+  { value: "1", label: "01/06/2022-13/06/2023" },
+  { value: "2", label: "01/06/2022-13/06/2023" },
+];
 
 interface HistoryOperationsProps {}
 
 export function HistoryOperations(props: HistoryOperationsProps) {
+  const [projectFilter, setProjectFilter] = useState("0");
+  const [currencyFilter, setCurrencyFilter] = useState("0");
+  const [operationFilter, setOperationFilter] = useState("0");
+  const [dateFilter, setDateFilter] = useState("0");
+
+  const handleProjectFilterChange = (value: string) => {
+    setProjectFilter(value);
+  };
+
+  const handleCurrencyFilterChange = (value: string) => {
+    setCurrencyFilter(value);
+  };
+
+  const handleOperationFilterChange = (value: string) => {
+    setOperationFilter(value);
+  };
+
+  const handleDateFilterChange = (value: string) => {
+    setDateFilter(value);
+  };
+
   return (
     <div className="history-operations">
       <div className="history-operations__label">
@@ -21,62 +67,34 @@ export function HistoryOperations(props: HistoryOperationsProps) {
       </div>
 
       <div className="history-operations__header">
-        <div className="history-operations__select">
-          <div className="history-operations__select-label">Проект</div>
+        <DepositsFiltersSelect
+          label="Проект"
+          options={projectFilterOptions}
+          value={projectFilter}
+          onChange={handleProjectFilterChange}
+        />
 
-          <div className="history-operations__select-selected">Приход</div>
-        </div>
+        <DepositsFiltersSelect
+          label="Валюта"
+          options={currencyFilterOptions}
+          value={currencyFilter}
+          onChange={handleCurrencyFilterChange}
+        />
 
-        <div className="history-operations__select">
-          <div className="history-operations__select-label">Валюта</div>
+        <DepositsFiltersSelect
+          label="Тип операции"
+          options={operationFilterOptions}
+          value={operationFilter}
+          onChange={handleOperationFilterChange}
+        />
 
-          <div className="history-operations__select-selected">Все</div>
-        </div>
-
-        <div className="history-operations__select">
-          <div className="history-operations__select-label">Тип операции</div>
-
-          <div className="history-operations__select-selected">Приход</div>
-        </div>
-
-        <div
+        <DepositsFiltersSelect
           className="deposits__filter-select deposits__filter-select--datapicker"
-          data-select-wrapper=""
-        >
-          <div className="deposits__filter-label">Дата</div>
-
-          <div className="deposits__filter-selected" data-select-value="">
-            01/06/2022-13/06/2023
-          </div>
-
-          <img
-            className="deposits__filter-arrow"
-            src="/img/icons/mini-arrow-down.svg"
-            alt="mini-arrow-down"
-            data-select-arrow=""
-          />
-
-          <ul className="deposits__filter-list select-list" data-select-list="">
-            <li
-              className="deposits__filter-item select-item"
-              data-select-item=""
-            >
-              01/06/2022-13/06/2023
-            </li>
-            <li
-              className="deposits__filter-item select-item"
-              data-select-item=""
-            >
-              01/06/2022-13/06/2023
-            </li>
-            <li
-              className="deposits__filter-item select-item"
-              data-select-item=""
-            >
-              01/06/2022-13/06/2023
-            </li>
-          </ul>
-        </div>
+          label="Дата"
+          options={dateFilterOptions}
+          value={dateFilter}
+          onChange={handleDateFilterChange}
+        />
       </div>
 
       <div className="history-operations__container">
