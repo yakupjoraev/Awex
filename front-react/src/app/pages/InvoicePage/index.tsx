@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDropdown } from "../../hooks/useDropdown";
 import classNames from "classnames";
 import { SelectCurrencyModal } from "../../components/SelectCurrenyModal";
+import { Helmet } from "react-helmet-async";
 
 export function InvoicePage() {
   const projectDropdown = useDropdown<HTMLDivElement>();
@@ -14,6 +15,7 @@ export function InvoicePage() {
 
   return (
     <section className="invoice">
+      <Helmet title="Выставление счета" />
       <div className="invoice__header">
         <div className="invoice__header-label">
           <h1 className="invoice__title main-title">Выставление счета</h1>
