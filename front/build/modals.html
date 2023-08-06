@@ -392,406 +392,716 @@
 </div>
     <div class="wrapper">
       <!-- Modal -->
+<div class="modals-wrapper">
+  <button class="open-modal-btn" data-modal-id="modal1">Open Modal 1</button>
 
-<button class="open-modal-btn" data-modal-id="modal1">Open Modal 1</button>
+  <div class="modal" id="modal1">
+    <form action="#" class="modal-content">
+      <div class="modal-content__header">
+        <h2>Платежная ссылка</h2>
 
-<div class="modal" id="modal1">
-  <form action="#" class="modal-content">
-    <div class="modal-content__header">
-      <h2>Платежная ссылка</h2>
-
-      <button class="close-modal-btn">
-        <img src="./img/icons/close-modal.svg" alt="">
-      </button>
-    </div>
-
-    <div class="modal-content__main">
-      <div class="modal-content__checked">
-        <img class="modal-content__checked-img" src="./img/icons/modal-content-checked.svg" alt="">
-      </div>
-
-      <h3 class="modal-content__subtitle">
-        Ваша ссылка сгенерирована!
-      </h3>
-
-      <div class="modal-content__qr">
-        <img class="modal-content__qr-img" src="./img/qr.png" alt="">
-      </div>
-
-      <div class="modal-content__copy">
-        <div class="modal-content__copy-text">
-          TH567K92379
-        </div>
-
-        <button class="modal-content__copy-btn">
-          <img class="modal-content__copy-img" src="./img/icons/copy.svg" alt="">
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
         </button>
       </div>
-    </div>
 
-    <button type="button" class="modal-content__btn second-btn">Поделиться</button>
+      <div class="modal-content__main">
+        <div class="modal-content__checked">
+          <img class="modal-content__checked-img" src="./img/icons/modal-content-checked.svg" alt="">
+        </div>
 
-  </form>
-</div>
+        <h3 class="modal-content__subtitle">
+          Ваша ссылка сгенерирована!
+        </h3>
 
-<button class="open-modal-btn" data-modal-id="modal2">Open Modal 2</button>
+        <div class="modal-content__qr">
+          <img class="modal-content__qr-img" src="./img/qr.png" alt="">
+        </div>
 
-<div class="modal" id="modal2">
-  <form action="#" class="modal-content">
-    <div class="modal-content__header">
-      <button class="close-modal-btn">
-        <img src="./img/icons/close-modal.svg" alt="">
-      </button>
-    </div>
+        <div class="modal-content__copy">
+          <div class="modal-content__copy-text">
+            TH567K92379
+          </div>
 
-    <div class="modal-content__main">
-      <div class="modal-content__qr modal-content__qr--big">
-        <img class="modal-content__qr-img" src="./img/qr.png" alt="">
+          <button class="modal-content__copy-btn">
+            <img class="modal-content__copy-img" src="./img/icons/copy.svg" alt="">
+          </button>
+        </div>
       </div>
 
-    </div>
+      <button type="button" class="modal-content__btn second-btn">Поделиться</button>
 
-  </form>
-</div>
+    </form>
+  </div>
+
+  <button class="open-modal-btn" data-modal-id="modal2">Open Modal 2</button>
+
+  <div class="modal" id="modal2">
+    <form action="#" class="modal-content">
+      <div class="modal-content__header">
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+      <div class="modal-content__main">
+        <div class="modal-content__qr modal-content__qr--big">
+          <img class="modal-content__qr-img" src="./img/qr.png" alt="">
+        </div>
+
+      </div>
+
+    </form>
+  </div>
 
 
-<button class="open-modal-btn" data-modal-id="select-modal">Open Modal select-modal</button>
+  <button class="open-modal-btn" data-modal-id="select-modal">Open Modal select-modal</button>
 
-<div class="modal" id="select-modal">
-  <form action="#" class="modal-content modal-content--select-list">
+  <div class="modal select-modal" id="select-modal">
+    <form action="#" class="modal-content modal-content--select-list">
 
-    <div class="modal-content__header">
-      <h4 class="modal-content__title">
-        Выберете криптовалюту:
-      </h4>
+      <div class="modal-content__header">
+        <h4 class="modal-content__title">
+          Выберете криптовалюту:
+        </h4>
 
-      <button class="close-modal-btn">
-        <img src="./img/icons/close-modal.svg" alt="">
-      </button>
-    </div>
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
 
-    <div class="deposits__filter-search search-group">
-      <input class="deposits__filter-src search-input" type="search" placeholder="Поиск">
-      <img class="deposits__filter-search-img search-img" src="./img/icons/search.svg" alt="Поиск">
-    </div>
+      <div class="deposits__filter-search search-group">
+        <input class="deposits__filter-src search-input" type="search" placeholder="Поиск">
+        <img class="deposits__filter-search-img search-img" src="./img/icons/search.svg" alt="Поиск">
+      </div>
 
-    <div class="modal-content__main">
-      <ul class="crypto__list">
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+      <div class="modal-content__main">
+        <ul class="crypto__list">
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
 
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
 
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
             </div>
 
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
 
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
 
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
 
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
-            </div>
-
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
-            </div>
-          </div>
-        </li>
-
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
-
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
-
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
             </div>
 
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
 
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
 
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
 
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
-            </div>
-
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
-            </div>
-          </div>
-        </li>
-
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
-
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
-
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
             </div>
 
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
 
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
 
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
 
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
-            </div>
-
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
-            </div>
-          </div>
-        </li>
-
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
-
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
-
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
             </div>
 
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
 
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
 
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
 
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
-            </div>
-
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
-            </div>
-          </div>
-        </li>
-
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
-
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
-
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
             </div>
 
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
 
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
 
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
 
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
-            </div>
-
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
-            </div>
-          </div>
-        </li>
-
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
-
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
-
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
             </div>
 
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
 
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
 
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
 
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
-            </div>
-
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
-            </div>
-          </div>
-        </li>
-
-        <li class="crypto___item">
-          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
-
-          <div class="crypto__item-info">
-            <h4 class="crypto__item-name">
-              Green Metaverse Token
-            </h4>
-
-            <h5 class="crypto__item-subname">
-              BTC
-            </h5>
-          </div>
-
-          <div class="crypto__item-counts">
-            <div class="crypto__item-count--main">
-              1.578697
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
             </div>
 
-            <div class="crypto__item-count--second">
-              ~131567.654 USD
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
+            </div>
+          </li>
+
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
+
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
+            </div>
+
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
+            </div>
+          </li>
+
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
+
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
+            </div>
+
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
+            </div>
+          </li>
+
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
+
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
+            </div>
+
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
+            </div>
+          </li>
+
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
+
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
+            </div>
+
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
+            </div>
+          </li>
+
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
+
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
+            </div>
+
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
+            </div>
+          </li>
+
+          <li class="crypto___item">
+            <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+            <div class="crypto__item-info">
+              <h4 class="crypto__item-name">
+                Green Metaverse Token
+              </h4>
+
+              <h5 class="crypto__item-subname">
+                BTC
+              </h5>
+            </div>
+
+            <div class="crypto__item-counts">
+              <div class="crypto__item-count--main">
+                1.578697
+              </div>
+
+              <div class="crypto__item-count--second">
+                ~131567.654 USD
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </form>
+  </div>
+
+
+
+  <button class="open-modal-btn" data-modal-id="fast-genation-links">Open Modal fast-genation-links</button>
+
+  <div class="modal modal-genation-links" id="fast-genation-links">
+    <form action="#" class="modal-content">
+
+      <div class="modal-content__header">
+        <h4 class="modal-content__title">
+          Быстрая генерация ссылки
+        </h4>
+
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+
+      <div class="modal-content__main">
+        <div
+          class="about-deposit__generation-select about-deposit__generation-selected--not-reverse about-deposit__generation-selected--white"
+          data-select-wrapper>
+          <div class="about-deposit__generation-selected" data-select-arrow>
+            <div class="about-deposit__generation-info">
+              <h5 class="about-deposit__generation-title">
+                Выбор проекта
+              </h5>
+            </div>
+
+            <div class="about-deposit__generation-currency">
+
+
+              <img class="about-deposit__generation-img" src="./img/icons/arrow-down.svg" alt="arrow-down">
             </div>
           </div>
-        </li>
-      </ul>
-    </div>
 
-  </form>
+          <ul class="about-deposit__generation-list" data-select-list>
+            <li class="about-deposit__generation-item" data-select-item>Выбор проекта</li>
+            <li class="about-deposit__generation-item" data-select-item>Выбор проекта</li>
+            <li class="about-deposit__generation-item" data-select-item>Выбор проекта</li>
+          </ul>
+        </div>
+
+        <div
+          class="about-deposit__generation-select about-deposit__generation-selected--not-reverse about-deposit__generation-selected--white">
+          <div class="about-deposit__generation-selected">
+            <div class="about-deposit__generation-info">
+              <h5 class="about-deposit__generation-title">
+                Сумма
+              </h5>
+
+              <input class="about-deposit__generation-input" type="number" placeholder="Введите сумму">
+            </div>
+
+            <div class="about-deposit__generation-currency open-modal-btn" data-modal-id="select-modal">
+
+              <div class="about-deposit__generation-curr">
+                USD
+              </div>
+
+              <img class="about-deposit__generation-img" src="./img/icons/arrow-down.svg" alt="arrow-down">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="modal-content__btn second-btn">Сгенерировать платежную ссылку</button>
+    </form>
+  </div>
+
+
+
+  <button class="open-modal-btn" data-modal-id="notifications">Open Modal notifications</button>
+
+  <div class="modal modal-notifications modal-genation-links" id="notifications">
+    <form action="#" class="modal-content">
+
+      <div class="modal-content__header">
+        <h4 class="modal-content__title">
+          Быстрая генерация ссылки
+
+          <span>
+            350
+          </span>
+        </h4>
+
+
+
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+
+      <!-- Accordion -->
+      <div class="notifications__accordion accordion">
+        <div class="accordion__item" data-accordion-item>
+          <div class="accordion__header">Закончился срок депозита по заявке №1233473 ожидает действий</div>
+          <div class="accordion__content">
+            <p class="accordion__content-text">
+              Закончился срок депозита по заявке №1233473 ожидает действий. Заявка отклонена из-за несовпадения данных
+              заявленного удержания с подтверждающими документами. Заново заполните заявку и отправьте ее на проверку.
+              При
+              возникновении вопросов - обратитесь в службу поддерки.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion__item" data-accordion-item>
+          <div class="accordion__header">Закончился срок депозита по заявке №1233473 ожидает действий</div>
+          <div class="accordion__content">
+            <p class="accordion__content-text">
+              Закончился срок депозита по заявке №1233473 ожидает действий. Заявка отклонена из-за несовпадения данных
+              заявленного удержания с подтверждающими документами. Заново заполните заявку и отправьте ее на проверку.
+              При
+              возникновении вопросов - обратитесь в службу поддерки.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion__item" data-accordion-item>
+          <div class="accordion__header">Заявка возврата депозита по заявке №1233473 была отклонена</div>
+          <div class="accordion__content">
+            <p class="accordion__content-text">
+              Закончился срок депозита по заявке №1233473 ожидает действий. Заявка отклонена из-за несовпадения данных
+              заявленного удержания с подтверждающими документами. Заново заполните заявку и отправьте ее на проверку.
+              При
+              возникновении вопросов - обратитесь в службу поддерки.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion__item" data-accordion-item>
+          <div class="accordion__header">Заявка возврата депозита по заявке №1233473 была отклонена</div>
+          <div class="accordion__content">
+            <p class="accordion__content-text">
+              Закончился срок депозита по заявке №1233473 ожидает действий. Заявка отклонена из-за несовпадения данных
+              заявленного удержания с подтверждающими документами. Заново заполните заявку и отправьте ее на проверку.
+              При
+              возникновении вопросов - обратитесь в службу поддерки.
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <button type="button" class="modal-content__btn third-btn">Открыть все</button>
+    </form>
+  </div>
+
+
+  <button class="open-modal-btn" data-modal-id="link-generated">Open Modal link-generated</button>
+
+  <div class="modal modal-link-generated modal-genation-links" id="link-generated">
+    <form action="#" class="modal-content">
+
+      <div class="modal-content__header">
+        <h4 class="modal-content__title">
+          <svg width="36" height="35" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M18 1.82227C9.35502 1.82227 2.32294 8.85581 2.32294 17.4993C2.32294 26.1429 9.35502 33.1764 18 33.1764C26.645 33.1764 33.6771 26.1429 33.6771 17.4993C33.6771 8.85581 26.645 1.82227 18 1.82227ZM18 30.9889C10.5611 30.9889 4.51044 24.9383 4.51044 17.4993C4.51044 10.0604 10.5611 4.00977 18 4.00977C25.439 4.00977 31.4896 10.0604 31.4896 17.4993C31.4896 24.9383 25.439 30.9889 18 30.9889ZM23.8771 13.3227C24.3044 13.75 24.3044 14.4427 23.8771 14.87L17.0711 21.676C16.8582 21.889 16.5782 21.9968 16.2982 21.9968C16.0182 21.9968 15.7382 21.8904 15.5252 21.676L12.1229 18.2737C11.6956 17.8464 11.6956 17.1537 12.1229 16.7264C12.5502 16.2991 13.2429 16.2991 13.6702 16.7264L16.2996 19.3558L22.3313 13.3242C22.7586 12.8969 23.4498 12.8968 23.8771 13.3227Z"
+              fill="#25314C" />
+          </svg>
+
+
+          Ваша ссылка сгенерирована!
+        </h4>
+
+        <!-- <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button> -->
+      </div>
+
+      <div class="modal-content__main">
+        <div class="modal-content__code">
+          <div class="modal-content__code-num">
+            TH567K92379
+          </div>
+
+          <button type="button" class="modal-content__code-copy">
+            <img src="./img/icons/copy.svg" alt="copy">
+          </button>
+
+          <button type="button" class="modal-content__code-copy">
+            <img src="./img/icons/scan-qr.svg" alt="copy">
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-content__btns">
+        <button type="button" class="modal-content__btn third-btn">Вернуться</button>
+        <button type="button" class="modal-content__btn second-btn">Поделиться</button>
+      </div>
+    </form>
+  </div>
+
+
+
+  <button class="open-modal-btn" data-modal-id="application-sent">Open Modal application-sent</button>
+
+  <div class="modal modal-link-generated modal-genation-links" id="application-sent">
+    <form action="#" class="modal-content">
+
+      <div class="modal-content__header">
+        <h4 class="modal-content__title">
+          <svg width="36" height="35" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M18 1.82227C9.35502 1.82227 2.32294 8.85581 2.32294 17.4993C2.32294 26.1429 9.35502 33.1764 18 33.1764C26.645 33.1764 33.6771 26.1429 33.6771 17.4993C33.6771 8.85581 26.645 1.82227 18 1.82227ZM18 30.9889C10.5611 30.9889 4.51044 24.9383 4.51044 17.4993C4.51044 10.0604 10.5611 4.00977 18 4.00977C25.439 4.00977 31.4896 10.0604 31.4896 17.4993C31.4896 24.9383 25.439 30.9889 18 30.9889ZM23.8771 13.3227C24.3044 13.75 24.3044 14.4427 23.8771 14.87L17.0711 21.676C16.8582 21.889 16.5782 21.9968 16.2982 21.9968C16.0182 21.9968 15.7382 21.8904 15.5252 21.676L12.1229 18.2737C11.6956 17.8464 11.6956 17.1537 12.1229 16.7264C12.5502 16.2991 13.2429 16.2991 13.6702 16.7264L16.2996 19.3558L22.3313 13.3242C22.7586 12.8969 23.4498 12.8968 23.8771 13.3227Z"
+              fill="#25314C" />
+          </svg>
+
+
+          Ваша заявка отправлена!
+        </h4>
+
+        <!-- <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button> -->
+      </div>
+
+      <div class="modal-content__main">
+        <p class="modal-content__text">
+          Ожидайте сообщения от курьера
+        </p>
+      </div>
+      <button type="button" class="modal-content__btn third-btn">Закрыть</button>
+    </form>
+  </div>
+
+
+
+  <button class="open-modal-btn" data-modal-id="cash-to-office">Open Modal cash to office</button>
+
+  <div class="modal modal-cash-to-office modal-link-generated modal-genation-links" id="cash-to-office">
+    <form action="#" class="modal-content">
+
+      <div class="modal-content__header">
+        <h4 class="modal-content__title">
+          Заказ наличных в офис
+        </h4>
+
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+      <div class="modal-content__main">
+        <div class="actives-action__withdrawal-group invoice-project__group-select" data-select-wrapper>
+          <div class="invoice-project__group-selected" data-select-arrow>
+            <div class="invoice-project__group-currency">
+              <img src="./img/rub.png" alt="">
+
+              <span>AED</span>
+            </div>
+
+
+            <div class="invoice-project__group-currency">
+              Доступно: 100.000.000
+
+              <img class="invoice-project__group-select-arrow" src="./img/icons/mini-arrow-down.svg"
+                alt="mini-arrow-down">
+            </div>
+
+          </div>
+
+          <ul class="invoice-project__group-list select-list" data-select-list>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
+          </ul>
+        </div>
+
+        <div class="actives-action__withdrawal-header">
+          <div class="actives-action__withdrawal-sum">
+            мин. <span>200 USD</span>
+          </div>
+
+          <div class="actives-action__withdrawal-sum">
+            макс. <span>200.000 USD</span>
+          </div>
+        </div>
+
+        <div class="modal-content__main-sum">
+          <label class="modal-content__main-label" for="">
+            Сумма
+          </label>
+
+          <input class="modal-content__main-input" type="text" value="100.000.000">
+        </div>
+
+        <div class="actives-action__withdrawal-group invoice-project__group-select" data-select-wrapper>
+          <div class="invoice-project__group-selected" data-select-arrow>
+            Выберете офис
+
+            <img class="invoice-project__group-select-arrow" src="./img/icons/mini-arrow-down.svg"
+              alt="mini-arrow-down">
+          </div>
+
+          <ul class="invoice-project__group-list select-list" data-select-list>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
+            <li class="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
+          </ul>
+        </div>
+      </div>
+
+
+      <button type="button" class="modal-content__btn second-btn">Заказать</button>
+    </form>
+  </div>
 </div>
     </div>
   </main>

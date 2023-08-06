@@ -223,3 +223,19 @@
   justify-content: flex-start;
   column-gap: 10px;
 }
+
+.invoice-project__group-currency {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 13px;
+
+  span {
+    font-weight: 600;
+    line-height: 120%;
+    font-size: 13px;
+  }
+}
