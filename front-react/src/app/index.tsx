@@ -13,6 +13,7 @@ import { InvoicePage } from "./pages/InvoicePage";
 import { SuccessfullyInvoicePage } from "./pages/SuccessfullyInvoicePage";
 import { Toaster } from "react-hot-toast";
 import { DepositsPage } from "./pages/DepositsPage";
+import { DepositRetentionPage } from "./pages/DepositRetentionPage";
 
 export function App() {
   return (
@@ -28,6 +29,7 @@ export function App() {
             element={<SuccessfullyInvoicePage />}
           />
           <Route path="/deposits" element={<DepositsPage />} />
+          <Route path="/deposit-retention" element={<DepositRetentionPage />} />
           <Route path="/projects" element={<MyProjectsPage />} />
           <Route path="/projects/:projectId" element={<EditProjectPage />} />
           <Route path="/projects/new-project" element={<CreateProjectPage />} />
