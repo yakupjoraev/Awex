@@ -33,13 +33,13 @@ const invoices: {
 ];
 
 export function SuccessfullyInvoicePage() {
-  const [projectFilter, setDepositsFilter] = useState("0");
+  const [projectFilter, setProjectFilter] = useState("0");
   const [statusFilter, setStatusFilter] = useState("0");
   const [dateFilter, setDateFilter] = useState("0");
   const [qrModalOpened, setQrModalOpened] = useState(false);
 
   const handleProjectFilterChange = (value: string) => {
-    setDepositsFilter(value);
+    setProjectFilter(value);
   };
 
   const handleStatusFilterChange = (value: string) => {
