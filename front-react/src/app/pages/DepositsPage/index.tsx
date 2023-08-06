@@ -51,12 +51,12 @@ const deposits: {
 ];
 
 export function DepositsPage() {
-  const [projectFilter, setDepositsFilter] = useState("0");
+  const [projectFilter, setProjectFilter] = useState("0");
   const [statusFilter, setStatusFilter] = useState("0");
   const [dateFilter, setDateFilter] = useState("0");
 
   const handleProjectFilterChange = (value: string) => {
-    setDepositsFilter(value);
+    setProjectFilter(value);
   };
 
   const handleStatusFilterChange = (value: string) => {
