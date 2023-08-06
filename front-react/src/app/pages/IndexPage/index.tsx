@@ -59,9 +59,9 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a className="pages__link" href="deposits.html" target="_blank">
+              <Link className="pages__link" target="_blank" to="/deposits">
                 Депозиты
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">

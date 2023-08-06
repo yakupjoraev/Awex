@@ -12,6 +12,7 @@ import { CreateProjectPage } from "./pages/CreateProjectPage";
 import { InvoicePage } from "./pages/InvoicePage";
 import { SuccessfullyInvoicePage } from "./pages/SuccessfullyInvoicePage";
 import { Toaster } from "react-hot-toast";
+import { DepositsPage } from "./pages/DepositsPage";
 
 export function App() {
   return (
@@ -26,6 +27,7 @@ export function App() {
             path="/successfully-invoice"
             element={<SuccessfullyInvoicePage />}
           />
+          <Route path="/deposits" element={<DepositsPage />} />
           <Route path="/projects" element={<MyProjectsPage />} />
           <Route path="/projects/:projectId" element={<EditProjectPage />} />
           <Route path="/projects/new-project" element={<CreateProjectPage />} />
@@ -33,7 +35,7 @@ export function App() {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Toaster/>
+      <Toaster />
     </BrowserRouter>
   );
 }
