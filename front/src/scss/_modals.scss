@@ -1,5 +1,10 @@
 // ************************ Модальное окно ************************ //
 // ************************ Модальное окно ************************ //
+.modals-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
 
 .modal {
   // display: none;
@@ -19,6 +24,10 @@
   // animation: fade 0.3s linear;
 
   z-index: 11;
+}
+
+.modal.select-modal {
+  z-index: 12;
 }
 
 .open-modal-btn {
@@ -306,4 +315,164 @@
   font-weight: 400;
   line-height: 120%;
   color: var(--grey-color-2);
+}
+
+
+.modal-genation-links {
+
+  .about-deposit__generation-select {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .modal-content__title {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    font-size: 16px;
+
+    span {
+      padding: 5px;
+      border-radius: 100px;
+      background-color: var(--second-color);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 120%;
+    }
+
+    @media (max-width: 359px) {
+      font-size: 14px;
+    }
+  }
+
+  .modal-content__btn {
+    width: 100%;
+  }
+}
+
+
+.modal-notifications {
+
+  .modal-content {
+    max-width: 400px;
+  }
+
+  .accordion__item {
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .modal-content__title {
+
+    @media (max-width: 420px) {
+      display: inline;
+      padding-right: 60px;
+      font-size: 13px;
+
+      span {
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+.modal-content__code {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background: var(--grey-color-3);
+}
+
+.modal-content__code-num {
+  margin-right: auto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 120%;
+  text-decoration-line: underline;
+  color: var(--grey-color-2);
+}
+
+.modal-content__code-copy {
+  background-color: transparent;
+}
+
+.modal-content__btns {
+  display: flex;
+  column-gap: 10px;
+}
+
+.modal-link-generated {
+  .modal-content__header {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.modal-content__text {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+
+.modal-content {
+
+  .invoice-project__group-selected {
+    background-color: var(--white-color);
+  }
+
+  .actives-action__withdrawal-header {
+    width: 100%;
+  }
+
+  .actives-action__withdrawal-group {
+    margin-bottom: 20px;
+  }
+
+  .modal-content__main-sum {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: var(--white-color);
+    padding: 10px 15px;
+    border-radius: 10px;
+  }
+
+  .modal-content__main-label {
+    display: inline-flex;
+    padding-right: 15px;
+    margin-right: 15px;
+
+    border-right: 1px solid var(--grey-color-3);
+
+    font-weight: 600;
+    line-height: 120%;
+    font-size: 13px;
+  }
+
+  .modal-content__main-input {
+    width: 100%;
+    font-weight: 400;
+    line-height: 120%;
+    font-size: 24px;
+    color: var(--text-color);
+
+    outline: 0;
+    border: 0;
+  }
+}
+
+.modal-cash-to-office {
+
+  .modal-content {
+    @media (max-width: 420px) {
+      width: 96%;
+      padding: 10px;
+    }
+  }
 }
