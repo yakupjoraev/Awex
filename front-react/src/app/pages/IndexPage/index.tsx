@@ -43,13 +43,13 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a
+              <Link
                 className="pages__link"
-                href="successfully-invoice.html"
                 target="_blank"
+                to="/successfully-invoice"
               >
                 ЛК эквайринг (успешно выставленный счет)
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">
@@ -59,19 +59,19 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a className="pages__link" href="deposits.html" target="_blank">
+              <Link className="pages__link" target="_blank" to="/deposits">
                 Депозиты
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">
-              <a
+              <Link
                 className="pages__link"
-                href="deposit-retention.html"
                 target="_blank"
+                to="/deposit-retention"
               >
                 удержание депозита
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">
