@@ -857,6 +857,9 @@ body.locked {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-column-gap: 10px;
+     -moz-column-gap: 10px;
+          column-gap: 10px;
   padding: 0 0 0 40px;
   height: 0;
   width: 100%;
@@ -2259,6 +2262,18 @@ body.locked {
   margin: 60px auto 0;
 }
 
+.my-projects__card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 25px;
+     -moz-column-gap: 25px;
+          column-gap: 25px;
+}
+
 .successfully-invoice__header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3011,6 +3026,11 @@ body.locked {
           column-gap: 35px;
   justify-items: flex-start;
   padding: 0 15px;
+  font-weight: 600;
+}
+
+.deposits__item-header .deposits__item-status-application:hover {
+  text-decoration: none;
 }
 
 .deposits__item-status-application {
@@ -3062,7 +3082,6 @@ body.locked {
 }
 
 .deposits__item-rejected .deposits__item-status-application {
-  text-decoration: underline;
   color: var(--error-color);
 }
 
@@ -3152,7 +3171,7 @@ body.locked {
 }
 
 .payment-form__group {
-  margin-bottom: 60px;
+  margin-bottom: 45px;
 }
 
 .payment-form__label {
@@ -3468,6 +3487,11 @@ body.locked {
 
 [data-tooltip-length=medium]:after {
   width: 300px;
+}
+
+.about-deposit__generation-select--white {
+  background-color: var(--white-color);
+  border: 1px solid var(--grey-color);
 }
 
 .payment-details {

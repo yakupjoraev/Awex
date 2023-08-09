@@ -301,6 +301,11 @@
     column-gap: 35px;
     justify-items: flex-start;
     padding: 0 15px;
+    font-weight: 600;
+
+    .deposits__item-status-application:hover {
+      text-decoration: none;
+    }
 
     @media (max-width: $breakpoint1720) {
       font-size: 13px;
@@ -388,7 +393,7 @@
     border: 2px solid var(--error-color);
 
     .deposits__item-status-application {
-      text-decoration: underline;
+      // text-decoration: underline;
       color: var(--error-color);
     }
   }

@@ -53,7 +53,7 @@
   // .payment-form__group
 
   &__group {
-    margin-bottom: 60px;
+    margin-bottom: 45px;
 
     @media (max-width: $breakpoint1300) {
       margin-bottom: 35px;
@@ -413,4 +413,9 @@
 
 [data-tooltip-length="medium"]:after {
   width: 300px;
+}
+
+.about-deposit__generation-select--white {
+  background-color: var(--white-color);
+  border: 1px solid var(--grey-color);
 }
