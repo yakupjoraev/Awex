@@ -187,9 +187,7 @@
           </div>
 
           <ul class="sidebar__menu-sublist" data-menu-list>
-            <li class="sidebar__menu-subitem" data-menu-item>
-              <a class="sidebar__menu-sublink" href="#">Добавить проект</a>
-            </li>
+
 
             <li class="sidebar__menu-subitem" data-menu-item>
               <a class="sidebar__menu-sublink" href="#">ООО “Первый”</a>
@@ -197,6 +195,19 @@
 
             <li class="sidebar__menu-subitem" data-menu-item>
               <a class="sidebar__menu-sublink" href="#">ООО “Второй”</a>
+            </li>
+
+            <li class="sidebar__menu-subitem" data-menu-item>
+
+              <a class="sidebar__menu-sublink" href="#">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 1.25C6.072 1.25 1.25 6.073 1.25 12C1.25 17.927 6.072 22.75 12 22.75C17.928 22.75 22.75 17.927 22.75 12C22.75 6.073 17.928 1.25 12 1.25ZM12 21.25C6.899 21.25 2.75 17.101 2.75 12C2.75 6.899 6.899 2.75 12 2.75C17.101 2.75 21.25 6.899 21.25 12C21.25 17.101 17.101 21.25 12 21.25ZM16.25 12C16.25 12.414 15.914 12.75 15.5 12.75H12.75V15.5C12.75 15.914 12.414 16.25 12 16.25C11.586 16.25 11.25 15.914 11.25 15.5V12.75H8.5C8.086 12.75 7.75 12.414 7.75 12C7.75 11.586 8.086 11.25 8.5 11.25H11.25V8.5C11.25 8.086 11.586 7.75 12 7.75C12.414 7.75 12.75 8.086 12.75 8.5V11.25H15.5C15.914 11.25 16.25 11.586 16.25 12Z"
+                    fill="#292421" />
+                </svg>
+
+
+                Добавить проект</a>
             </li>
           </ul>
         </li>
@@ -398,7 +409,10 @@
         Выставление счета
       </h1>
 
-      <img class="invoice__header-img" src="./img/icons/tooltip.svg" alt="tooltip">
+      <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+        data-tooltip-length="medium">
+        <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+      </div>
     </div>
 
     <a class="invoice__header-link second-btn" href="#">Выбрать шаблон</a>
@@ -469,7 +483,10 @@
           <label class="invoice-project__label project-label" for="#">
             Комиссию оплачивает:
 
-            <img class="invoice-project__label-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+            <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+              data-tooltip-length="medium">
+              <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+            </div>
           </label>
 
           <div class="invoice-project__radio-container">
@@ -519,7 +536,10 @@
       <label class="invoice-project__label project-label" for="#">
         Наименование товара или услуги
 
-        <img class="invoice-project__label-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+        <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+          data-tooltip-length="medium">
+          <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+        </div>
       </label>
 
       <textarea class="invoice-project__textarea project-textarea"
@@ -889,6 +909,342 @@
     </div>
   </div>
 </section>
+      <div class="modal" id="select-modal">
+  <form action="#" class="modal-content modal-content--select-list">
+
+    <div class="modal-content__header">
+      <h4 class="modal-content__title">
+        Выберете криптовалюту:
+      </h4>
+
+      <button class="close-modal-btn">
+        <img src="./img/icons/close-modal.svg" alt="">
+      </button>
+    </div>
+
+    <div class="deposits__filter-search search-group">
+      <input class="deposits__filter-src search-input" type="search" placeholder="Поиск">
+      <img class="deposits__filter-search-img search-img" src="./img/icons/search.svg" alt="Поиск">
+    </div>
+
+    <div class="modal-content__main">
+      <ul class="crypto__list">
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+
+        <li class="crypto___item">
+          <img class="crypto__item-pic" src="./img/actives/actives-2.png" alt="">
+
+          <div class="crypto__item-info">
+            <h4 class="crypto__item-name">
+              Green Metaverse Token
+            </h4>
+
+            <h5 class="crypto__item-subname">
+              BTC
+            </h5>
+          </div>
+
+          <div class="crypto__item-counts">
+            <div class="crypto__item-count--main">
+              1.578697
+            </div>
+
+            <div class="crypto__item-count--second">
+              ~131567.654 USD
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </form>
+</div>
     </div>
   </main>
 

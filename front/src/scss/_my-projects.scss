@@ -104,13 +104,24 @@
 
   &__item-icon {
     margin-top: -3px;
+
+    transition: transform 0.2s linear;
     cursor: pointer;
+
+    &:hover {
+      transform: scale(1.06);
+    }
   }
 
   // .my-projects__item-address
 
   &__item-address {
     color: var(--text-color);
+    transition: color 0.2s linear;
+
+    &:hover {
+      color: var(--second-color);
+    }
 
     @media (max-width: $breakpoint1300) {
       font-size: 13px;
@@ -461,3 +472,13 @@
     }
   }
 }
+
+.my-projects__card {
+  display: flex;
+  align-items: center;
+  column-gap: 25px;
+}
+
+.my-projects__card-num {}
+
+.my-projects__card-name {}
