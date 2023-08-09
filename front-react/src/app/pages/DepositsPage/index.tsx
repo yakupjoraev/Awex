@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { DepositsFiltersSelect } from "../../components/DepositsFilterSelect";
+import {
+  DepositsFilterDate,
+  DateRange,
+} from "../../components/DepositsFilterDate";
 import { DepositItem } from "./DepositItem";
 
 const projectFilterOptions = [
@@ -15,11 +19,10 @@ const statusFilterOptions = [
   { value: "2", label: "Ожидает действий" },
 ];
 
-const dateFilterOptions = [
-  { value: "0", label: "01/06/2022-13/06/2023" },
-  { value: "1", label: "01/06/2022-13/06/2023" },
-  { value: "2", label: "01/06/2022-13/06/2023" },
-];
+const defaultDateFilterValue: DateRange = {
+  from: new Date("2022-01-05T22:00:00.000Z"),
+  to: new Date("2023-06-05T22:00:00.000Z"),
+};
 
 const deposits: {
   id: string;
@@ -53,7 +56,9 @@ const deposits: {
 export function DepositsPage() {
   const [projectFilter, setProjectFilter] = useState("0");
   const [statusFilter, setStatusFilter] = useState("0");
-  const [dateFilter, setDateFilter] = useState("0");
+  const [dateFilter, setDateFilter] = useState<DateRange | undefined>(
+    defaultDateFilterValue
+  );
 
   const handleProjectFilterChange = (value: string) => {
     setProjectFilter(value);
@@ -63,7 +68,7 @@ export function DepositsPage() {
     setStatusFilter(value);
   };
 
-  const handleDateFilterChange = (value: string) => {
+  const handleDateFilterChange = (value?: DateRange) => {
     setDateFilter(value);
   };
 
@@ -133,10 +138,8 @@ export function DepositsPage() {
           onChange={handleStatusFilterChange}
         />
 
-        <DepositsFiltersSelect
-          className="deposits__filter-select deposits__filter-select--datapicker"
+        <DepositsFilterDate
           label="Дата"
-          options={dateFilterOptions}
           value={dateFilter}
           onChange={handleDateFilterChange}
         />
