@@ -74,6 +74,12 @@
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+
+  transition: transform 0.2s linear;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .modal-content {
@@ -168,11 +174,23 @@
   &__copy-text {
     text-decoration: underline;
     color: var(--grey-color-2);
+    cursor: pointer;
+    transition: color 0.2s linear;
+
+    &:hover {
+      color: var(--second-color);
+    }
   }
 
   // .modal-content__copy-btn
 
-  &__copy-btn {}
+  &__copy-btn {
+    transition: transform 0.2s linear;
+
+    &:hover {
+      transform: scale(1.08);
+    }
+  }
 
   // .modal-content__copy-img
 

@@ -235,10 +235,20 @@ body.locked {
   cursor: pointer;
 }
 
+.checkbox-label:hover .checkbox-text {
+  color: var(--second-color);
+}
+
 .checkbox-decor {
   width: 22px;
   height: 22px;
   background-image: url("../img/icons/checkbox-circle.svg");
+}
+
+.checkbox-text {
+  -webkit-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
 }
 
 .search-group {
@@ -481,6 +491,14 @@ body.locked {
   padding: 10px;
   background: var(--bg-grey-color);
   border-radius: 10px;
+  border: 1px solid transparent;
+  -webkit-transition: border 0.2s linear;
+  -o-transition: border 0.2s linear;
+  transition: border 0.2s linear;
+}
+
+.project-group:focus-within {
+  border: 1px solid #EEB90B;
 }
 
 .project-label {
@@ -2024,11 +2042,29 @@ body.locked {
 
 .my-projects__item-icon {
   margin-top: -3px;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
   cursor: pointer;
+}
+
+.my-projects__item-icon:hover {
+  -webkit-transform: scale(1.06);
+      -ms-transform: scale(1.06);
+          transform: scale(1.06);
 }
 
 .my-projects__item-address {
   color: var(--text-color);
+  -webkit-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+
+.my-projects__item-address:hover {
+  color: var(--second-color);
 }
 
 .my-projects__item-convertion {
@@ -2307,6 +2343,44 @@ body.locked {
 
 .successfully-invoice__item-code {
   text-decoration: underline;
+  -webkit-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+  cursor: pointer;
+}
+
+.successfully-invoice__item-code:hover {
+  color: var(--second-color);
+}
+
+.successfully-invoice__item-copy {
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.successfully-invoice__item-copy:hover {
+  -webkit-transform: scale(1.08);
+      -ms-transform: scale(1.08);
+          transform: scale(1.08);
+}
+
+.successfully-invoice__item-scan {
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.successfully-invoice__item-scan:hover {
+  -webkit-transform: scale(1.08);
+      -ms-transform: scale(1.08);
+          transform: scale(1.08);
 }
 
 .successfully-invoice__item-link {
@@ -2937,6 +3011,14 @@ body.locked {
           column-gap: 35px;
   justify-items: flex-start;
   padding: 0 15px;
+}
+
+.deposits__item-status-application {
+  color: var(--text-color);
+}
+
+.deposits__item-status-application:hover {
+  text-decoration: underline;
 }
 
 .deposits__item-commets {
@@ -4386,6 +4468,17 @@ body.locked {
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.close-modal-btn:hover {
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .modal-content__header {
@@ -4471,6 +4564,28 @@ body.locked {
 .modal-content__copy-text {
   text-decoration: underline;
   color: var(--grey-color-2);
+  cursor: pointer;
+  -webkit-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+
+.modal-content__copy-text:hover {
+  color: var(--second-color);
+}
+
+.modal-content__copy-btn {
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.modal-content__copy-btn:hover {
+  -webkit-transform: scale(1.08);
+      -ms-transform: scale(1.08);
+          transform: scale(1.08);
 }
 
 .modal-content__btn {

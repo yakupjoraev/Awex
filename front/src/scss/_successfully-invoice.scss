@@ -88,6 +88,12 @@
 
   &__item-code {
     text-decoration: underline;
+    transition: color 0.2s linear;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--second-color);
+    }
 
     @media (max-width: $breakpoint1300) {
       font-size: 13px;
@@ -96,11 +102,25 @@
 
   // .successfully-invoice__item-copy
 
-  &__item-copy {}
+  &__item-copy {
+    cursor: pointer;
+    transition: transform 0.2s linear;
+
+    &:hover {
+      transform: scale(1.08);
+    }
+  }
 
   // .successfully-invoice__item-scan
 
-  &__item-scan {}
+  &__item-scan {
+    cursor: pointer;
+    transition: transform 0.2s linear;
+
+    &:hover {
+      transform: scale(1.08);
+    }
+  }
 
   // .successfully-invoice__item-link
 

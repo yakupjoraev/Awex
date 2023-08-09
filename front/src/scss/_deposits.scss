@@ -333,7 +333,13 @@
 
   // .deposits__item-status-application
 
-  &__item-status-application {}
+  &__item-status-application {
+    color: var(--text-color);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
   // .deposits__item-commets
 
