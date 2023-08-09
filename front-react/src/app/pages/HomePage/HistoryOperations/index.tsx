@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { DepositsFiltersSelect } from "../../../components/DepositsFilterSelect";
+import {
+  DepositsFilterDate,
+  DateRange,
+} from "../../../components/DepositsFilterDate";
 
 const projectFilterOptions = [
   { value: "0", label: "Приход" },
@@ -25,13 +29,20 @@ const dateFilterOptions = [
   { value: "2", label: "01/06/2022-13/06/2023" },
 ];
 
+const defaultDateFilterValue: DateRange = {
+  from: new Date("2022-01-05T22:00:00.000Z"),
+  to: new Date("2023-06-05T22:00:00.000Z"),
+};
+
 interface HistoryOperationsProps {}
 
 export function HistoryOperations(props: HistoryOperationsProps) {
   const [projectFilter, setProjectFilter] = useState("0");
   const [currencyFilter, setCurrencyFilter] = useState("0");
   const [operationFilter, setOperationFilter] = useState("0");
-  const [dateFilter, setDateFilter] = useState("0");
+  const [dateFilter, setDateFilter] = useState<DateRange | undefined>(
+    defaultDateFilterValue
+  );
 
   const handleProjectFilterChange = (value: string) => {
     setProjectFilter(value);
@@ -45,7 +56,7 @@ export function HistoryOperations(props: HistoryOperationsProps) {
     setOperationFilter(value);
   };
 
-  const handleDateFilterChange = (value: string) => {
+  const handleDateFilterChange = (value?: DateRange) => {
     setDateFilter(value);
   };
 
@@ -88,10 +99,8 @@ export function HistoryOperations(props: HistoryOperationsProps) {
           onChange={handleOperationFilterChange}
         />
 
-        <DepositsFiltersSelect
-          className="deposits__filter-select deposits__filter-select--datapicker"
+        <DepositsFilterDate
           label="Дата"
-          options={dateFilterOptions}
           value={dateFilter}
           onChange={handleDateFilterChange}
         />
