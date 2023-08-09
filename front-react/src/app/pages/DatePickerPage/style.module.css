@@ -1,0 +1,8 @@
+.date-picker-page {
+  padding-top: 300px;
+  display: flex;
+}
+
+.date-picker-page__select {
+  min-width: 300px;
+}

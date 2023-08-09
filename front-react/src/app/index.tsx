@@ -14,6 +14,7 @@ import { SuccessfullyInvoicePage } from "./pages/SuccessfullyInvoicePage";
 import { Toaster } from "react-hot-toast";
 import { DepositsPage } from "./pages/DepositsPage";
 import { DepositRetentionPage } from "./pages/DepositRetentionPage";
+import { DatePickerPage } from "./pages/DatePickerPage";
 
 export function App() {
   return (
@@ -34,6 +35,7 @@ export function App() {
           <Route path="/projects/:projectId" element={<EditProjectPage />} />
           <Route path="/projects/new-project" element={<CreateProjectPage />} />
           <Route path="/settings/*" element={<SettingsPage />} />
+          <Route path="/date-picker" element={<DatePickerPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

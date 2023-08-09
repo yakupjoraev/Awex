@@ -1,0 +1,195 @@
+.calendar {
+  display: inline-block;
+  border-radius: 10px;
+  border: 1px solid var(--light-grey, #d1d1d1);
+  background: #fff;
+  padding: 32px 16px;
+  margin: 0;
+}
+
+.calendar__caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.calendar__caption-label {
+  font-variant-numeric: lining-nums proportional-nums;
+  font-feature-settings: "liga" off;
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  color: #292421;
+  text-transform: capitalize;
+}
+
+.calendar__nav-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background-color: transparent;
+  color: #292421;
+  cursor: pointer;
+}
+.calendar__nav-btn:disabled {
+  color: #6f6f6f;
+  cursor: default;
+}
+
+.calendar__day.rdp-day {
+  position: relative;
+  border-width: 0;
+  border-radius: unset;
+  max-width: unset;
+  width: 54px;
+  height: 36px;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-feature-settings: "liga" off;
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  color: var(--medium-grey, #6f6f6f);
+}
+
+.calendar__day.rdp-button:focus-visible:not([disabled]) {
+  color: inherit;
+  background-color: unset;
+  border: none;
+}
+.calendar__day.rdp-button:focus-visible:not([disabled]) {
+  background-color: unset;
+}
+.calendar__day.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  background-color: unset;
+}
+.calendar__day.rdp-button:hover:not([disabled]):not(.rdp-day_selected)
+  .calendar__day-content {
+  background-color: #faf2c8;
+}
+.calendar__day.rdp-button:focus-visible:not([disabled]):not(.rdp-day_selected)
+  .calendar__day-content {
+  background-color: #faf2c8;
+}
+
+.calendar__day.rdp-day_outside {
+  color: var(--light-grey, #d1d1d1);
+}
+
+.calendar__day.rdp-day_selected,
+.calendar__day.rdp-day_selected:focus-visible,
+.calendar__day.rdp-day_selected:hover {
+  background-color: transparent;
+}
+.calendar__day.rdp-day_selected:focus-visible {
+  outline: 2px solid orange;
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.calendar__day.rdp-day_range_end.rdp-day_range_start {
+  border-radius: unset;
+}
+.calendar__day.rdp-day_range_start {
+  border-radius: unset;
+}
+.calendar__day.rdp-day_range_end {
+  border-radius: unset;
+}
+.calendar__day.rdp-day_range_start::before,
+.calendar__day.rdp-day_range_end::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  background-color: #faf2c8;
+  border-top: 0.5px solid var(--second-color, #fed602);
+  border-bottom: 0.5px solid var(--second-color, #fed602);
+}
+.calendar__day.rdp-day_range_start::before {
+  right: 0;
+}
+.calendar__day.rdp-day_range_end::before {
+  left: 0;
+}
+.calendar__day.rdp-day_range_start.rdp-day_range_end::before {
+  content: none;
+}
+
+.calendar__day-content {
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  position: absolute;
+  line-height: 36px;
+  text-align: center;
+}
+.calendar__day-content--range-start.calendar__day-content--range-end {
+  background-color: var(--second-color, #fed602);
+  border-radius: 100%;
+}
+.calendar__day-content--range-start {
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--second-color, #fed602);
+  border-radius: 100%;
+}
+.calendar__day-content--range-end {
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--second-color, #fed602);
+  border-radius: 100%;
+}
+
+.calendar__day.rdp-day_today {
+  font-weight: 400;
+}
+.calendar__day.rdp-day_today::after {
+  content: "";
+  width: 3px;
+  height: 3px;
+  position: absolute;
+  bottom: 0;
+  background-color: var(--second-color, #fed602);
+  border-radius: 100%;
+}
+.calendar__day.rdp-day_today.rdp-day_selected.rdp-day_range_start::after {
+  background-color: white;
+}
+.calendar__day.rdp-day_today.rdp-day_selected.rdp-day_range_end::after {
+  background-color: white;
+}
+
+.calendar__day.rdp-day_range_middle::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: #faf2c8;
+  border-top: 0.5px solid var(--second-color, #fed602);
+  border-bottom: 0.5px solid var(--second-color, #fed602);
+}
+
+.calendar__head-cell,
+.calendar__cell {
+  width: 54px;
+  height: 36px;
+  color: var(--light-grey, #d1d1d1);
+  text-align: center;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-feature-settings: "liga" off;
+  font-family: Raleway;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.calendar__table {
+  max-width: calc(54px * 7);
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}

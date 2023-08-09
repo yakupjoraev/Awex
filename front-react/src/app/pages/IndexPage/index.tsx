@@ -223,6 +223,12 @@ export function IndexPage() {
                 Действия с активом - фиатным вывод
               </a>
             </li>
+
+            <li className="pages__item">
+              <Link className="pages__link" target="_blank" to="/date-picker">
+                Компонент выбора даты
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
