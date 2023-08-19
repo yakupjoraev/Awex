@@ -97,34 +97,34 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a
+              <Link
                 className="pages__link"
-                href="payment-crypto-1.html"
+                to="/payment-crypto/stage1"
                 target="_blank"
               >
                 Платежная ссылка у клиента (крипто) 1
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">
-              <a
+              <Link
                 className="pages__link"
-                href="payment-crypto-2.html"
+                to="/payment-crypto/stage2"
                 target="_blank"
               >
                 Платежная ссылка у клиента (крипто) шаг2
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">
-              <a
+              <Link
                 className="pages__link"
-                href="payment-crypto-3.html"
+                to="/payment-crypto/stage3"
                 target="_blank"
               >
                 Платежная ссылка у клиента (крипто) ожидание транзакции
                 последний шаг
-              </a>
+              </Link>
             </li>
 
             <li className="pages__item">

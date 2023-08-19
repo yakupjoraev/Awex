@@ -15,6 +15,7 @@ import { Toaster } from "react-hot-toast";
 import { DepositsPage } from "./pages/DepositsPage";
 import { DepositRetentionPage } from "./pages/DepositRetentionPage";
 import { DatePickerPage } from "./pages/DatePickerPage";
+import { PaymentCryptoPage } from "./pages/PaymentCryptoPage";
 
 export function App() {
   return (
@@ -37,6 +38,7 @@ export function App() {
           <Route path="/settings/*" element={<SettingsPage />} />
           <Route path="/date-picker" element={<DatePickerPage />} />
         </Route>
+        <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Toaster />
