@@ -241,6 +241,7 @@ body.locked {
 
 .checkbox-decor {
   width: 22px;
+  min-width: 22px;
   height: 22px;
   background-image: url("../img/icons/checkbox-circle.svg");
 }
@@ -485,6 +486,7 @@ body.locked {
 }
 
 .project-group {
+  position: relative;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 50%;
           flex: 0 1 50%;
@@ -499,6 +501,70 @@ body.locked {
 
 .project-group:focus-within {
   border: 1px solid #EEB90B;
+}
+
+.project-group--successfully {
+  border: 1px solid var(--green-color);
+}
+
+.project-group--successfully:focus-within {
+  border: 1px solid var(--green-color);
+}
+
+.project-group--error {
+  border: 1px solid var(--error-color);
+}
+
+.project-group--error:focus-within {
+  border: 1px solid var(--error-color);
+}
+
+.project-input__see {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  -webkit-transform: translateY(-10%);
+      -ms-transform: translateY(-10%);
+          transform: translateY(-10%);
+  background-color: transparent;
+}
+
+.project-password__complexity {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-column-gap: 10px;
+     -moz-column-gap: 10px;
+          column-gap: 10px;
+  width: 100%;
+  text-align: left;
+  font-size: 13px;
+  color: var(--grey-color-2);
+}
+
+.project-password__complexity-circle {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  border-radius: 100%;
+}
+
+.project-password__complexity--bad .project-password__complexity-circle {
+  background-color: var(--error-color);
+}
+
+.project-password__complexity--middle .project-password__complexity-circle {
+  background-color: var(--second-color);
+}
+
+.project-password__complexity--perfect .project-password__complexity-circle {
+  background-color: var(--green-color);
 }
 
 .project-label {
@@ -4904,6 +4970,121 @@ body.locked {
   color: var(--text-color);
   outline: 0;
   border: 0;
+}
+
+.modal-enter .modal-content {
+  max-width: 400px;
+}
+
+.modal-enter .modal-content__header h2 {
+  font-size: 16px;
+}
+
+.modal-enter .project-group {
+  width: 100%;
+  background-color: var(--white-color);
+}
+
+.modal-enter .modal-content__main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-enter .modal-content__btn {
+  width: 100%;
+}
+
+.modal-enter .modal-content__btn:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.modal-enter .modal-content__text {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.modal-enter .project-textarea {
+  height: 150px;
+}
+
+.modal-content__checkbox {
+  font-size: 13px;
+}
+
+.modal-content__checkbox .checkbox-label:hover a {
+  color: var(--second-color);
+}
+
+.modal-content__checkbox a {
+  color: var(--text-color);
+  text-decoration: underline;
+  -webkit-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+
+.modal-content__header-logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 10px;
+     -moz-column-gap: 10px;
+          column-gap: 10px;
+  padding-right: 20px;
+}
+
+.modal-content__enter-forget {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-left: auto;
+  color: var(--grey-color-2);
+  font-size: 13px;
+  line-height: 120%;
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
+.modal-content__enter-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+     -moz-column-gap: 5px;
+          column-gap: 5px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 20px auto 0;
+}
+
+.modal-content__enter-footer p {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 120%;
+  color: var(--grey-color-2);
+}
+
+.modal-content__enter-footer a {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 120%;
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+  color: var(--main-color);
 }
 
 @media (max-width: 1750px) {
