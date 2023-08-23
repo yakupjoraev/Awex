@@ -1,0 +1,67 @@
+.profile-filling {
+  flex: 0 1 690px;
+  width: 100%;
+  padding: 0 10px;
+  margin: 80px auto 120px;
+
+  @media (max-width: $breakpoint768) {
+    margin: 30px 0;
+  }
+
+  // .profile-filling__container
+
+  &__container {}
+
+  // .profile-filling__form
+
+  &__form {}
+
+  // .profile-filling__top
+
+  &__top {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  // .profile-filling__title
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  // .profile-filling__main
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-bottom: 20px;
+
+    & * {
+      background-color: var(--white-color);
+    }
+
+    .project-groups {
+      column-gap: 10px;
+      margin-bottom: 0;
+      background-color: transparent;
+    }
+
+    .actives-action__withdrawal-group {
+      margin-bottom: 0;
+    }
+
+    .project-input::placeholder {
+      color: var(--grey-color-2);
+    }
+  }
+
+  // .profile-filling__btn
+
+  &__btn {
+    margin: 0 auto;
+  }
+}

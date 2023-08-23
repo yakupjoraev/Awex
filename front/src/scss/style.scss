@@ -5,7 +5,7 @@
 @import './global';
 
 // Sections or Pages SCSS-files imports
-// @import './header';
+@import './header';
 @import './base';
 @import './sidebar';
 @import './main-content';
@@ -24,7 +24,8 @@
 @import './notifications';
 @import './actives-action';
 @import './modals';
-// @import './footer';
+@import './profile-filling';
+@import './footer';
 
 // Libs
 // @import './libs/swiper';

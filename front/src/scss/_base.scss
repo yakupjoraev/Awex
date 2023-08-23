@@ -265,11 +265,21 @@
   }
 }
 
+.project-group--justify {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .project-label {
+    margin-bottom: 0;
+  }
+}
+
 .project-input__see {
   position: absolute;
   top: 50%;
   right: 10px;
-  transform: translateY(-10%);
+  transform: translateY(-50%);
   background-color: transparent;
 }
 

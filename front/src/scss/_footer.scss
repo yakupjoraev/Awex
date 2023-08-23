@@ -1,4 +1,154 @@
 // Footer
-footer {
-    display: block;
+.footer {
+  padding: 50px;
+  background-color: var(--white-color);
+
+  @media (max-width: $breakpoint768) {
+    display: none;
+  }
+
+  // .footer__container
+
+  &__container {
+    max-width: 1220px;
+    width: 100%;
+    padding: 0 10px;
+    margin: 0 auto;
+  }
+
+  // .footer__inner
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+  }
+
+  // .footer__lists
+
+  &__lists {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 40px;
+
+    @media (max-width: $breakpoint1200) {
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 40px;
+    }
+  }
+
+  // .footer__list
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  // .footer__item
+
+  &__item {}
+
+  // .footer__item--header
+
+  &__item--header {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  // .footer__link
+
+  &__link {
+    white-space: nowrap;
+    font-size: 14px;
+    color: var(--grey-color-2);
+
+    &:hover {
+      color: var(--text-color);
+    }
+  }
+
+  // .footer__socials
+
+  &__socials {
+    grid-column: span 2;
+
+    max-width: 175px;
+    margin-left: auto;
+
+    @media (max-width: $breakpoint1200) {
+      max-width: 100%;
+      width: 46%;
+    }
+  }
+
+  // .footer__socials-title
+
+  &__socials-title {
+    margin-bottom: 35px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  // .footer__socials-list
+
+  &__socials-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 15px;
+    column-gap: 12px;
+    margin-bottom: 35px;
+  }
+
+  // .footer__socials-item
+
+  &__socials-item {
+    transition: transform 0.2s linear;
+
+    &:hover {
+      transform: scale(1.08);
+    }
+  }
+
+  // .footer__socials-link
+
+  &__socials-link {
+    width: 100%;
+    height: 36px;
+  }
+
+  // .footer__copys
+
+  &__copys {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid #D1D1D133;
+  }
+
+  // .footer__copy-name
+
+  &__copy-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--grey-color-2);
+  }
+
+  // .footer__copy-text
+
+  &__copy-text {
+    font-size: 14px;
+    color: var(--grey-color-2);
+
+    a {
+      color: var(--grey-color-2);
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--text-color);
+      }
+    }
+  }
 }

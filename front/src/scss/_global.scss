@@ -68,6 +68,19 @@ body {
 
 }
 
+.main--profile-filling {
+  justify-content: center;
+  min-height: auto;
+
+  .sidebar {
+    display: none;
+
+    @media (max-width: $breakpoint768) {
+      // display: block;
+    }
+  }
+}
+
 .wrapper {
   // max-width: 1560px;
   width: 100%;
