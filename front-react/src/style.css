@@ -5,3 +5,7 @@
   color: red;
   margin-top: 10px;
 }
+
+.sidebar__menu-sublink.active::before {
+  z-index: -1;
+}
