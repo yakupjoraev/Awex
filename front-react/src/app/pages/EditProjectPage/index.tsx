@@ -35,6 +35,7 @@ export function EditProjectPage() {
   const handleDeleteBtnClick = () => {
     if (projectId) {
       dispatch(deleteProject({ id: projectId }));
+      toast("Проект удален!");
     }
     navigate("/projects");
   };
