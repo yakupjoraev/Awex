@@ -53,7 +53,7 @@ export function MyProjectsPage() {
                     id={id}
                     name={project.name}
                     tokenIcon="actives-1.png"
-                    tokenSymbol="USDT"
+                    tokenSymbol="..."
                     url={project.urlWeb || "#"}
                     commissionPaidBy={project.feePayee ? "merchant" : "client"}
                     key={id}
