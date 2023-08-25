@@ -1,16 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDropdown } from "../../hooks/useDropdown";
 import classNames from "classnames";
 import { SelectCurrencyModal } from "../../components/SelectCurrenyModal";
 import { Helmet } from "react-helmet-async";
+import { useAppSelector } from "@store/hooks";
+import { Project } from "@awex-api";
+
+const DEFAULT_PROJECTS: Record<string, Project> = {};
 
 export function InvoicePage() {
+  const [currencySelectorOpened, setCurrencySelectorOpened] = useState(false);
+  const [project, setProject] = useState<Project | null>(null);
+
+  const projects = useAppSelector(
+    (state) => state.projects.data || DEFAULT_PROJECTS
+  );
+
   const projectDropdown = useDropdown<HTMLDivElement>();
   const currencyDropdown = useDropdown<HTMLDivElement>();
-  const [currencySelectorOpened, setCurrencySelectorOpened] = useState(false);
+
+  useEffect(() => {
+    const allProjects = Object.values(projects);
+    const nextProject: Project | null = allProjects.length
+      ? allProjects[0]
+      : null;
+    setProject(nextProject);
+  }, [projects]);
 
   const handleCurrencySelectorClose = () => {
     setCurrencySelectorOpened(false);
+  };
+
+  const handleProjectChange = (
+    ev: React.MouseEvent<HTMLLIElement, MouseEvent>
+  ) => {
+    const projectId = ev.currentTarget.getAttribute("data-project-id");
+    if (projectId === null) {
+      return;
+    }
+    const nextProject = projects[projectId];
+    if (nextProject) {
+      setProject(nextProject);
+    }
+    projectDropdown.toggle(false);
   };
 
   return (
@@ -45,7 +77,7 @@ export function InvoicePage() {
             data-select-arrow
             onClick={() => projectDropdown.toggle()}
           >
-            Выбор проекта
+            {project === null ? "..." : project.name}
             <img
               className="invoice__group-select-arrow"
               src="/img/icons/mini-arrow-down.svg"
@@ -59,27 +91,18 @@ export function InvoicePage() {
             })}
             data-select-list
           >
-            <li
-              className="invoice__group-item select-item"
-              data-select-item
-              onClick={() => projectDropdown.toggle(false)}
-            >
-              Выбор проекта
-            </li>
-            <li
-              className="invoice__group-item select-item"
-              data-select-item
-              onClick={() => projectDropdown.toggle(false)}
-            >
-              Выбор проекта
-            </li>
-            <li
-              className="invoice__group-item select-item"
-              data-select-item
-              onClick={() => projectDropdown.toggle(false)}
-            >
-              Выбор проекта
-            </li>
+            {Object.entries(projects).map(([id, project]) => {
+              return (
+                <li
+                  className="invoice__group-item select-item"
+                  data-select-item
+                  data-project-id={id}
+                  onClick={handleProjectChange}
+                >
+                  {project.name}
+                </li>
+              );
+            })}
           </ul>
         </div>
 
