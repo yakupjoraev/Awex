@@ -192,20 +192,29 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    column-gap: 10px;
-    margin-bottom: 10px;
+    column-gap: 8px;
+    margin: 10px 0;
   }
 
   // .actives-action__withdrawal-sum
 
   &__withdrawal-sum {
-    font-size: 13px;
+    flex: 0 1 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    background: var(--light-grey-50, rgba(209, 209, 209, 0.50));
+    font-size: 12px;
     font-weight: 600;
     line-height: 120%;
-    color: var(--grey-color-2);
+    color: var(--text-color);
 
     span {
-      text-decoration: underline;
+      font-size: 12px;
+      color: var(--grey-color-2);
     }
   }
 
@@ -397,5 +406,135 @@
 
   @media (max-width: 359px) {
     font-size: 12px;
+  }
+}
+
+
+
+
+
+
+
+.actives-action {
+
+  // .actives-action__exchanges
+
+  &__exchanges {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  // .actives-action__exchange
+
+  &__exchange {
+    display: grid;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--white-color);
+  }
+
+  // .actives-action__exchange-label
+
+  &__exchange-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #9A9A9A;
+  }
+
+  // .actives-action__exchange-price
+
+  &__exchange-price {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin: 10px 0 12px 0;
+    white-space: nowrap;
+  }
+
+  // .actives-action__exchange-price-sum
+
+  &__exchange-price-sum {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  // .actives-action__exchange-price-currency
+
+  &__exchange-price-currency {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--grey-color);
+  }
+
+  // .actives-action__exchange-price-rypto
+
+  &__exchange-price-rypto {
+    margin-bottom: -10px;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--grey-color);
+  }
+
+  // .actives-action__exchange-office
+
+  &__exchange-office {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 12px;
+    font-weight: 600;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  // .actives-action__exchange-adderess
+
+  &__exchange-adderess {
+    margin-bottom: 12px;
+    font-weight: 400;
+    font-size: 12px;
+    color: #9A9A9A;
+  }
+
+  // .actives-action__exchang-limites
+
+  &__exchang-limites {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  // .actives-action__exchang-limit
+
+  &__exchang-limit {
+    font-size: 12px;
+    color: #9A9A9A;
+
+    font-weight: 600;
+  }
+}
+
+.actives-action__withdrawal {
+
+  .about-deposit__generation-input {
+    font-size: 36px;
+
+
+    &::placeholder {
+      font-size: 36px;
+    }
+  }
+
+  .about-deposit__generation-curr {
+    @media (max-width: $breakpoint1300) {
+      font-size: 36px;
+    }
+
   }
 }
