@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@awex-api": ["src/generated/awex-api"],
+      "@store/*": ["src/store/*"],
+      "@components/*": ["src/app/components/*"]
+    }
+  }
+}
