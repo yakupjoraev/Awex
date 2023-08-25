@@ -1,11 +1,18 @@
-import react from "react";
-import { projects } from "../../state-defaults/projects";
+import { useEffect } from "react";
 import { ProjectItem } from "./ProjectItem";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { getProjects } from "@store/projects/slice";
 
 export function MyProjectsPage() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const projects = useAppSelector((state) => state.projects.data);
+
+  useEffect(() => {
+    dispatch(getProjects());
+  }, [dispatch]);
 
   const handleGeneratePaymentLink = () => {
     alert("NOT IMPLEMENTED");
@@ -39,137 +46,21 @@ export function MyProjectsPage() {
 
         <div className="my-projects__items-wrapper">
           <ul className="my-projects__items">
-            {projects.map((project) => {
-              return (
-                <ProjectItem
-                  {...project}
-                  key={project.id}
-                  onGeneratePaymentLink={handleGeneratePaymentLink}
-                />
-              );
-            })}
-            {/* <li className="my-projects__item">
-              <div className="my-projects__item-info">
-                <h3 className="my-projects__item-title main-title">
-                  ООО ”Первый”
-                  <img
-                    className="my-projects__item-icon"
-                    src="/img/icons/pen.svg"
-                    alt="pen"
+            {projects &&
+              Object.entries(projects).map(([id, project]) => {
+                return (
+                  <ProjectItem
+                    id={id}
+                    name={project.name}
+                    tokenIcon="actives-1.png"
+                    tokenSymbol="USDT"
+                    url={project.urlWeb || "#"}
+                    commissionPaidBy={project.feePayee ? "merchant" : "client"}
+                    key={id}
+                    onGeneratePaymentLink={handleGeneratePaymentLink}
                   />
-                </h3>
-
-                <a href="#" className="my-projects__item-address">
-                  https://www.gemini.com/
-                </a>
-              </div>
-
-              <div className="my-projects__item-convertion">
-                <div className="my-projects__item-for">
-                  <div className="my-projects__item-text">конвертация в:</div>
-                  <div className="my-projects__item-currency">
-                    <img
-                      className="my-projects__item-pic"
-                      src="/img/actives/actives-1.png"
-                      alt=""
-                    />
-
-                    <span className="my-projects__item-curr">USDT</span>
-                  </div>
-                </div>
-
-                <div className="my-projects__item-to">
-                  <div className="my-projects__item-text">комиссию платит:</div>
-                  <div className="my-projects__item-client">клиент</div>
-                </div>
-              </div>
-
-              <a className="my-projects__item-btn second-btn" href="#">
-                Сгенерировать платежную ссылку
-              </a>
-            </li>
-
-            <li className="my-projects__item">
-              <div className="my-projects__item-info">
-                <h3 className="my-projects__item-title main-title">
-                  ООО Второй
-                  <img
-                    className="my-projects__item-icon"
-                    src="/img/icons/pen.svg"
-                    alt="pen"
-                  />
-                </h3>
-
-                <a href="#" className="my-projects__item-address">
-                  https://www.gemini.com/
-                </a>
-              </div>
-
-              <div className="my-projects__item-convertion">
-                <div className="my-projects__item-for">
-                  <div className="my-projects__item-text">конвертация в:</div>
-                  <div className="my-projects__item-currency">
-                    <img
-                      className="my-projects__item-pic"
-                      src="/img/actives/actives-2.png"
-                      alt=""
-                    />
-
-                    <span className="my-projects__item-curr">USDT</span>
-                  </div>
-                </div>
-
-                <div className="my-projects__item-to">
-                  <div className="my-projects__item-text">комиссию платит:</div>
-                  <div className="my-projects__item-client">клиент</div>
-                </div>
-              </div>
-
-              <a className="my-projects__item-btn second-btn" href="#">
-                Сгенерировать платежную ссылку
-              </a>
-            </li>
-
-            <li className="my-projects__item">
-              <div className="my-projects__item-info">
-                <h3 className="my-projects__item-title main-title">
-                  ООО Третий
-                  <img
-                    className="my-projects__item-icon"
-                    src="/img/icons/pen.svg"
-                    alt="pen"
-                  />
-                </h3>
-
-                <a href="#" className="my-projects__item-address">
-                  https://www.gemini.com/
-                </a>
-              </div>
-
-              <div className="my-projects__item-convertion">
-                <div className="my-projects__item-for">
-                  <div className="my-projects__item-text">конвертация в:</div>
-                  <div className="my-projects__item-currency">
-                    <img
-                      className="my-projects__item-pic"
-                      src="/img/actives/actives-3.png"
-                      alt=""
-                    />
-
-                    <span className="my-projects__item-curr">USDT</span>
-                  </div>
-                </div>
-
-                <div className="my-projects__item-to">
-                  <div className="my-projects__item-text">комиссию платит:</div>
-                  <div className="my-projects__item-client">мерчант</div>
-                </div>
-              </div>
-
-              <a className="my-projects__item-btn second-btn" href="#">
-                Сгенерировать платежную ссылку
-              </a>
-            </li> */}
+                );
+              })}
           </ul>
         </div>
       </section>
