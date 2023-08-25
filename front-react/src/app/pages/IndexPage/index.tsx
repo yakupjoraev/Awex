@@ -22,7 +22,6 @@ export function IndexPage() {
               </Link>
             </li>
 
-
             <li className="pages__item">
               <Link
                 className="pages__link"
@@ -56,25 +55,9 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a
-                className="pages__link"
-                href="deposit-retention-2.html"
-                target="_blank"
-              >
-                удержание депозита 2
-              </a>
-            </li>
-
-            <li className="pages__item">
               <Link className="pages__link" to="/settings" target="_blank">
                 Настройки
               </Link>
-            </li>
-
-            <li className="pages__item">
-              <a className="pages__link" href="modals.html" target="_blank">
-                Модалки
-              </a>
             </li>
 
             <li className="pages__item">
@@ -106,103 +89,6 @@ export function IndexPage() {
                 Платежная ссылка у клиента (крипто) ожидание транзакции
                 последний шаг
               </Link>
-            </li>
-
-            <li className="pages__item">
-              <a
-                className="pages__link"
-                href="payment-cash-1.html"
-                target="_blank"
-              >
-                Платежная ссылка у клиента (наличный расчет) 1
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a
-                className="pages__link"
-                href="payment-cash-2.html"
-                target="_blank"
-              >
-                Платежная ссылка у клиента (наличные) шаг2
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a
-                className="pages__link"
-                href="payment-cash-3.html"
-                target="_blank"
-              >
-                Платежная ссылка у клиента (наличные) ожидание транзакции
-                финальный шаг
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a className="pages__link" href="payment-rf.html" target="_blank">
-                Платежная ссылка у клиента (Карта РФ)
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a
-                className="pages__link"
-                href="payment-awix.html"
-                target="_blank"
-              >
-                Платежная ссылка у клиента (Awix)
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a
-                className="pages__link"
-                href="payment-deadline.html"
-                target="_blank"
-              >
-                Счет после истечения срока оплаты
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a
-                className="pages__link"
-                href="active-page.html"
-                target="_blank"
-              >
-                Страница активов
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a className="pages__link" href="actives-1.html" target="_blank">
-                Действия с активом - ПРОДАТЬ
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a className="pages__link" href="actives-2.html" target="_blank">
-                Действия с активом - ВЫВОД
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a className="pages__link" href="actives-3.html" target="_blank">
-                Действия с активом - SWAP
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a className="pages__link" href="actives-4.html" target="_blank">
-                Действия с активом - фиатным Заказ в офис
-              </a>
-            </li>
-
-            <li className="pages__item">
-              <a className="pages__link" href="actives-5.html" target="_blank">
-                Действия с активом - фиатным вывод
-              </a>
             </li>
 
             <li className="pages__item">
