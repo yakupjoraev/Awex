@@ -18,29 +18,10 @@ export function IndexPage() {
 
             <li className="pages__item">
               <Link className="pages__link" to="/projects" target="_blank">
-                Мои проекты 1
+                Мои проекты
               </Link>
             </li>
 
-            <li className="pages__item">
-              <Link
-                className="pages__link"
-                to="/projects/project2"
-                target="_blank"
-              >
-                Мои проекты 2
-              </Link>
-            </li>
-
-            <li className="pages__item">
-              <Link
-                className="pages__link"
-                target="_blank"
-                to="/projects/new-project"
-              >
-                Мои проекты 3
-              </Link>
-            </li>
 
             <li className="pages__item">
               <Link

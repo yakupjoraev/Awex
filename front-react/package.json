@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
@@ -11,13 +12,16 @@
     "react-day-picker": "^8.8.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
+    "react-hook-form": "^7.45.4",
     "react-hot-toast": "^2.4.1",
+    "react-redux": "^8.1.2",
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
     "react-tiny-popover": "^7.2.4",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@craco/craco": "^7.1.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -27,13 +31,16 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.2.7",
     "cross-env": "^7.0.3",
+    "openapi-typescript-codegen": "^0.25.0",
+    "react-app-alias": "^2.2.2",
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "start": "cross-env PORT=8080 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "cross-env PORT=8080 craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
+    "generate-api": "npx openapi --input ./api.spec.yaml --output ./src/generated/awex-api"
   },
   "eslintConfig": {
     "extends": [

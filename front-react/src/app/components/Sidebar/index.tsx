@@ -3,10 +3,11 @@ import { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import classNames from "classnames";
 import { HOME_PAGE_PATH } from "../../constants/path-locations";
-import { projects } from "../../state-defaults/projects";
+import { Project } from "@awex-api";
 
 interface SidebarProps {
   userName: string;
+  projects: Record<number, Project>;
   onLogout: () => void;
 }
 
@@ -266,16 +267,16 @@ export function Sidebar(props: SidebarProps) {
                   </NavLink>
                 </li>
 
-                {projects.map((project) => {
+                {Object.entries(props.projects).map(([id, project]) => {
                   return (
                     <li
                       className="sidebar__menu-subitem"
                       data-menu-item=""
-                      key={project.id}
+                      key={id}
                     >
                       <NavLink
                         className="sidebar__menu-sublink"
-                        to={"/projects/" + project.id}
+                        to={"/projects/" + id}
                       >
                         {project.name}
                       </NavLink>
