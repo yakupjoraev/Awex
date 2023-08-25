@@ -12,51 +12,36 @@
 
     <form action="#" class="actives-action__withdrawal">
 
-
-      <div class="actives-action__withdrawal-group invoice-project__group-select" data-select-wrapper>
-        <div class="invoice-project__group-selected" data-select-arrow>
-          Выберете валюту
-
-          <img class="invoice-project__group-select-arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down">
-        </div>
-
-        <ul class="invoice-project__group-list select-list" data-select-list>
-          <li class="invoice-project__group-item select-item" data-select-item>Выберете валюту</li>
-          <li class="invoice-project__group-item select-item" data-select-item>Выберете валюту</li>
-          <li class="invoice-project__group-item select-item" data-select-item>Выберете валюту</li>
-        </ul>
-      </div>
-
-
       <div class="about-deposit__generation-select invoice__generation-select">
         <div class="about-deposit__generation-selected about-deposit__generation-selected--not-reverse">
           <div class="about-deposit__generation-info">
-            <h5 class="about-deposit__generation-title">
+            <label class="about-deposit__generation-title">
               Сумма
-            </h5>
+            </label>
 
-            <input class="about-deposit__generation-input" type="number" placeholder="Введите сумму">
+            <input class="about-deposit__generation-input" type="number" placeholder="Введите сумму" value="27.000">
+
+            <p class="about-deposit__generation-crypt">=1 BTC</p>
           </div>
 
           <div class="about-deposit__generation-currency  open-modal-btn" data-modal-id="select-modal">
 
             <div class="about-deposit__generation-curr">
-              USD
+              RUB
             </div>
 
-            <img class="about-deposit__generation-img" src="./img/icons/arrow-down.svg" alt="arrow-down">
-
           </div>
-        </div>
-      </div>
 
-      <div class="actives-action__withdrawal-header">
-        <div class="actives-action__withdrawal-sum">
-          мин. <span>200 USD</span>
         </div>
 
-        <div class="actives-action__withdrawal-sum">
-          макс. <span>200.000 USD</span>
+        <div class="actives-action__withdrawal-header">
+          <div class="actives-action__withdrawal-sum">
+            Мин. <span>200 USD</span>
+          </div>
+
+          <div class="actives-action__withdrawal-sum">
+            Мax. <span>200.000 USD</span>
+          </div>
         </div>
       </div>
 
