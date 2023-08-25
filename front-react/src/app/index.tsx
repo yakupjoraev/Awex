@@ -22,9 +22,8 @@ export function App() {
     <BrowserRouter>
       <Helmet titleTemplate="%s - Awex" defaultTitle="Awex"></Helmet>
       <Routes>
-        <Route path="/" element={<IndexPage />} />
         <Route element={<UserAreaLayout />}>
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/invoice" element={<InvoicePage />} />
           <Route
             path="/successfully-invoice"
@@ -40,6 +39,7 @@ export function App() {
         </Route>
         <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/index" element={<IndexPage />} />
       </Routes>
       <Toaster />
     </BrowserRouter>
