@@ -7,6 +7,7 @@ import { App } from "./app";
 import store from "./store";
 import { Provider } from "react-redux";
 import { JWT_KEY } from "./config";
+import "./style.css";
 
 OpenAPI.TOKEN = JWT_KEY;
 
