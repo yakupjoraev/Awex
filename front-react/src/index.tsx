@@ -4,6 +4,8 @@ import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import reportWebVitals from "./reportWebVitals";
 import { App } from "./app";
+import store from "./store";
+import { Provider } from "react-redux";
 import { JWT_KEY } from "./config";
 
 OpenAPI.TOKEN = JWT_KEY;
@@ -15,7 +17,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <HelmetProvider>
     <React.StrictMode>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </React.StrictMode>
   </HelmetProvider>
 );
