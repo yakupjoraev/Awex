@@ -1,0 +1,296 @@
+<!-- Modal -->
+<div class="modals-wrapper">
+
+
+
+
+
+
+
+  <button class="open-modal-btn" data-modal-id="modal-enter">Модальное окно ВХОД</button>
+
+  <div class="modal modal-enter" id="modal-enter">
+    <form action="#" class="modal-content">
+      <div class="modal-content__header">
+        <div class="modal-content__header-logo">
+          <img src="./img/icons/logo-mini.svg" alt="">
+
+          <h2>Вход</h2>
+        </div>
+
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+      <div class="modal-content__main">
+        <div class="my-projects__group project-group">
+          <label class="my-projects__label project-label" for="#">
+            Логин
+          </label>
+
+          <input class="my-projects__input project-input" type="text" placeholder="Введите e-mail или логин AWEX">
+        </div>
+
+        <a class="modal-content__enter-forget" href="#">Не помните пароль? </a>
+
+        <div class="my-projects__group project-group">
+          <label class="my-projects__label project-label" for="#">
+            Пароль
+          </label>
+
+          <input class="my-projects__input project-input" type="password" placeholder="Введите пароль">
+        </div>
+      </div>
+
+      <button type="button" class="modal-content__btn second-btn">Войти в аккаунт</button>
+
+      <div class="modal-content__enter-footer">
+        <p>Нет аккаунта?</p>
+        <a href="#">Регистрация</a>
+      </div>
+
+      <div class="modal-content__enter-footer">
+        <a href="#">Не могу получить доступ</a>
+      </div>
+
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+
+  <button class="open-modal-btn" data-modal-id="emergency-blocking">Модальное окно Экстренная блокировка</button>
+
+  <div class="modal modal-enter" id="emergency-blocking">
+    <form action="#" class="modal-content">
+      <div class="modal-content__header">
+        <div class="modal-content__header-logo">
+          <img src="./img/icons/logo-mini.svg" alt="">
+
+          <h2>Экстренная блокировка</h2>
+        </div>
+
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+      <div class="modal-content__main">
+        <p class="modal-content__text">
+          Введя секретное слово вы полностью заблокируете аккаунт, и все операции связанные с ним до восстановления
+          доступа через службу поддержки
+        </p>
+
+        <div class="my-projects__group project-group">
+          <label class="my-projects__label project-label" for="#">
+            Секретное слово
+          </label>
+
+          <input class="my-projects__input project-input" type="text" placeholder="Введите слово">
+        </div>
+
+      </div>
+
+      <button type="button" class="modal-content__btn second-btn">Заблокировать</button>
+      <button type="button" class="modal-content__btn third-btn">Отмена</button>
+
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+
+  <button class="open-modal-btn" data-modal-id="modal-describe-problem">Модальное окно Опишите проблему</button>
+
+  <div class="modal modal-enter" id="modal-describe-problem">
+    <form action="#" class="modal-content">
+      <div class="modal-content__header">
+        <div class="modal-content__header-logo">
+          <img src="./img/icons/logo-mini.svg" alt="">
+
+          <h2>Опишите проблему</h2>
+        </div>
+
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+      <div class="modal-content__main">
+        <p class="modal-content__text">
+          Это форма экстренной обратной связи, опишите здесь проблемы и напишите E-mail, по которому с вами можно
+          безопасно связаться. Если вы подозревает взлом основного E-mail - заведите новый.
+        </p>
+
+        <p class="modal-content__text">
+          Постарайтесь подробно рассказать о проблеме и уязвимостях, будьте внимательны к деталям.
+        </p>
+
+        <div class="my-projects__group project-group">
+
+          <textarea class="my-projects__input project-textarea" type="text" placeholder="Опишите проблему"></textarea>
+        </div>
+
+      </div>
+
+      <button type="button" class="modal-content__btn second-btn">Отправить</button>
+
+    </form>
+  </div>
+
+
+
+
+
+  <button class="open-modal-btn" data-modal-id="modal-registration">Модальное окно Регистрация</button>
+
+  <div class="modal modal-enter" id="modal-registration">
+    <form action="#" class="modal-content">
+      <div class="modal-content__header">
+        <div class="modal-content__header-logo">
+          <img src="./img/icons/logo-mini.svg" alt="">
+
+          <h2>Регистрация</h2>
+        </div>
+
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+      <div class="modal-content__main">
+        <div class="my-projects__group project-group">
+          <label class="my-projects__label project-label" for="#">
+            E-mail
+          </label>
+
+          <input class="my-projects__input project-input" type="email" placeholder="Введите e-mail">
+        </div>
+
+
+
+        <!-- несколько вариантов  -->
+
+
+        <div class="my-projects__group project-group project-group--successfully">
+          <label class="my-projects__label project-label" for="#">
+            Пароль
+          </label>
+
+          <input class="my-projects__input project-input" type="password" placeholder="Введите пароль">
+
+          <button type="button" class="project-input__see">
+            <img src="./img/icons/eye-open.svg" alt="">
+          </button>
+        </div>
+
+        <div class="my-projects__group project-group project-group--error">
+          <label class="my-projects__label project-label" for="#">
+            Пароль
+          </label>
+
+          <input class="my-projects__input project-input" type="password" placeholder="Введите пароль">
+
+          <button type="button" class="project-input__see">
+            <img src="./img/icons/eye-open.svg" alt="">
+          </button>
+        </div>
+
+        <div class="project-password__complexity project-password__complexity--bad">
+          <div class="project-password__complexity-circle"></div>
+
+          <p class="project-password__complexity-text">Плохой пароль</p>
+        </div>
+
+        <div class="project-password__complexity project-password__complexity--middle">
+          <div class="project-password__complexity-circle"></div>
+
+          <p class="project-password__complexity-text">Средний пароль</p>
+        </div>
+        <div class="project-password__complexity project-password__complexity--perfect">
+          <div class="project-password__complexity-circle"></div>
+
+          <p class="project-password__complexity-text">Хороший пароль</p>
+        </div>
+
+
+        <div class="my-projects__group project-group">
+          <label class="my-projects__label project-label" for="#">
+            Повторите пароль
+          </label>
+
+          <input class="my-projects__input project-input" type="password" placeholder="Введите пароль">
+
+          <button type="button" class="project-input__see">
+            <img src="./img/icons/eye-open.svg" alt="">
+          </button>
+        </div>
+
+        <div class="my-projects__checkbox-view checkbox-group modal-content__checkbox">
+          <input class="my-projects__checkbox-checkbox checkbox-input" type="checkbox" id="modal-checkbox" checked>
+
+          <label class="my-projects__checkbox-label checkbox-label" for="modal-checkbox">
+            <div class="my-projects__checkbox-decor checkbox-decor"></div>
+            <div class="my-projects__checkbox-text checkbox-text">Я принимаю <a href="#" target="_blank">Условия
+                пользовательского соглашения</a></div>
+          </label>
+        </div>
+      </div>
+
+      <button type="button" class="modal-content__btn second-btn">Создать аккаунт</button>
+
+    </form>
+  </div>
+
+
+
+
+
+
+  <button class="open-modal-btn" data-modal-id="password-reset">Модальное окно Сброс пароля</button>
+
+  <div class="modal modal-enter" id="password-reset">
+    <form action="#" class="modal-content">
+      <div class="modal-content__header">
+        <div class="modal-content__header-logo">
+          <img src="./img/icons/logo-mini.svg" alt="">
+
+          <h2>Сброс пароля</h2>
+        </div>
+
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+      <div class="modal-content__main">
+        <p class="modal-content__text">
+          Введите email аккаунта. Новый пароль будет отправлен на указанную почту.
+        </p>
+
+        <div class="my-projects__group project-group">
+          <label class="my-projects__label project-label" for="#">
+            E-mail
+          </label>
+
+          <input class="my-projects__input project-input" type="email" placeholder="Введите e-mail">
+        </div>
+
+      </div>
+
+      <button type="button" class="modal-content__btn second-btn">Отправить пароль</button>
+
+    </form>
+  </div>
+</div>

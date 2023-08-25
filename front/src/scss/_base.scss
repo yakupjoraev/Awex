@@ -40,6 +40,7 @@
 
 .checkbox-decor {
   width: 22px;
+  min-width: 22px;
   height: 22px;
   background-image: url('../img/icons/checkbox-circle.svg');
 }
@@ -233,6 +234,7 @@
 }
 
 .project-group {
+  position: relative;
   flex: 0 1 50%;
   padding: 10px;
   background: var(--bg-grey-color);
@@ -244,6 +246,72 @@
   &:focus-within {
     border: 1px solid #EEB90B;
   }
+}
+
+.project-group--successfully {
+  border: 1px solid var(--green-color);
+
+  &:focus-within {
+    border: 1px solid var(--green-color);
+  }
+}
+
+.project-group--error {
+
+  border: 1px solid var(--error-color);
+
+  &:focus-within {
+    border: 1px solid var(--error-color);
+  }
+}
+
+.project-group--justify {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .project-label {
+    margin-bottom: 0;
+  }
+}
+
+.project-input__see {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: transparent;
+}
+
+.project-password__complexity {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 10px;
+  width: 100%;
+  text-align: left;
+
+  font-size: 13px;
+  color: var(--grey-color-2);
+}
+
+.project-password__complexity-circle {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  border-radius: 100%;
+}
+
+.project-password__complexity--bad .project-password__complexity-circle {
+  background-color: var(--error-color);
+}
+
+.project-password__complexity--middle .project-password__complexity-circle {
+  background-color: var(--second-color);
+}
+
+.project-password__complexity--perfect .project-password__complexity-circle {
+  background-color: var(--green-color);
 }
 
 .project-label {
