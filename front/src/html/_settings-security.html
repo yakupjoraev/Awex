@@ -25,6 +25,11 @@
           <div class="settings-security__header">
             <h3 class="settings-security__title">Сменить пароль</h3>
 
+            <button
+              class="settings-security__header-btn settings-security__header-btn--password third-btn">Изменить</button>
+          </div>
+
+          <div class="settings-security__middle">
             <div class="my-projects__group project-group">
               <label class="my-projects__label project-label" for="#">
                 Старый пароль
@@ -48,9 +53,8 @@
 
               <input class="my-projects__input project-input" type="password" placeholder="Введите новый пароль">
             </div>
-
-            <button type="button" class="settings-security__btn main-btn">Сохранить</button>
           </div>
+          <button type="button" class="settings-security__btn main-btn">Сохранить</button>
         </div>
 
         <div class="settings-profile__select">
@@ -59,24 +63,92 @@
               Последние входы
             </h3>
 
-            <button class="settings-security__btn third-btn">Выйти со всех устройств</button>
+            <button class="settings-security__header-btn third-btn">Выйти со всех устройств</button>
           </div>
 
-          .settings-security
+          <div class="settings-security__middle">
+            <div class="settings-security__enters">
+              <div class="settings-security__enter settings-security__enter--green">
+                <img src="./img/icons/globe.svg" alt="globe">
+
+                <div class="settings-security__enter-info">
+                  <h4 class="settings-security__enter-label">
+                    Windows 10.0, Google Chrome 105.0.0.0
+                  </h4>
+
+                  <p class="settings-security__enter-text">
+                    WEB, TEST-RU, Russia, Moscow (213.134.209.99)<br>
+                    активность 8 ноя 2022 20:21:42 +4 по 8 ноя 2022 20:21:44 +4<br>
+                    активная сессия (текущая)
+                  </p>
+                </div>
+              </div>
+
+              <div class="settings-security__enter">
+                <img src="./img/icons/mobile.svg" alt="mobile">
+
+                <div class="settings-security__enter-info">
+                  <h4 class="settings-security__enter-label">
+                    Mobile App AWEX, 202.345.0.0.0
+                  </h4>
+
+                  <p class="settings-security__enter-text">
+                    WEB, TEST-RU, Russia, Moscow (213.134.209.99)<br>
+                    активность 8 ноя 2022 20:21:42 +4 по 8 ноя 2022 20:21:44 +4<br>
+                    активная сессия (текущая)
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="settings-security__pages">
+            <li class="settings-security__page">
+              <a class="settings-security__page-link" href="#">1</a>
+            </li>
+
+            <li class="settings-security__page">
+              2
+            </li>
+
+            <li class="settings-security__page">
+              <a class="settings-security__page-link" href="#">3 </a>
+            </li>
+          </ul>
         </div>
       </div>
 
       <div class="settings-profile__selects">
         <div class="settings-profile__select">
           <div class="settings-security__header">
-            <h3 class="settings-security__title"></h3>
+            <h3 class="settings-security__title">Привязка IP</h3>
           </div>
+
+          <div class="settings-security__middle">
+            <p class="settings-security__text">
+              Фактор позволяет существенно поднять уровень безопасности аккаунта, разрешая выполнять определённые
+              операции
+              исключительно с привязанного IP
+            </p>
+
+          </div>
+
+          <button type="button" class="settings-security__btn main-btn">Привязать</button>
         </div>
 
         <div class="settings-profile__select">
           <div class="settings-security__header">
-            <h3 class="settings-security__title"></h3>
+            <h3 class="settings-security__title">Google 2FA</h3>
           </div>
+
+          <div class="settings-security__middle">
+            <p class="settings-security__text">
+              Обязательный второй фактор для выполнения ответственных операций и авторизации на вашем аккаунте. После
+              настройки, для подтверждения важных действий потребуется вводить коды, генерируемые в приложении.
+            </p>
+          </div>
+
+
+          <button type="button" class="settings-security__btn main-btn">Привязать</button>
         </div>
       </div>
     </form>
