@@ -10,10 +10,12 @@ export async function listAllProjects() {
     if (nextPage.list) {
       const normalizedList = nextPage.list as unknown as {
         id: number;
-        data: Project;
+        data: Project | null;
       }[];
       normalizedList.forEach(({ id, data }) => {
-        projects[id.toString()] = data;
+        if (data) {
+          projects[id.toString()] = data;
+        }
       });
     }
     i++;
