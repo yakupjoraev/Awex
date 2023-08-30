@@ -16,13 +16,21 @@ import { DepositsPage } from "./pages/DepositsPage";
 import { DepositRetentionPage } from "./pages/DepositRetentionPage";
 import { DatePickerPage } from "./pages/DatePickerPage";
 import { PaymentCryptoPage } from "./pages/PaymentCryptoPage";
+import { AuthPage } from "./pages/AuthPage";
+import { PrivateRoute } from "@components/PrivateRoute";
 
 export function App() {
   return (
     <BrowserRouter>
       <Helmet titleTemplate="%s - Awex" defaultTitle="Awex"></Helmet>
       <Routes>
-        <Route element={<UserAreaLayout />}>
+        <Route
+          element={
+            <PrivateRoute>
+              <UserAreaLayout />
+            </PrivateRoute>
+          }
+        >
           <Route path="/" element={<HomePage />} />
           <Route path="/invoice" element={<InvoicePage />} />
           <Route
@@ -40,6 +48,7 @@ export function App() {
         <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/index" element={<IndexPage />} />
+        <Route path="/auth" element={<AuthPage />} />
       </Routes>
       <Toaster />
     </BrowserRouter>

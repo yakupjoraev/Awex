@@ -9,3 +9,19 @@
 .sidebar__menu-sublink.active::before {
   z-index: -1;
 }
+
+.my-projects__error {
+  font-family: Raleway, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  color: red;
+  margin-top: 10px;
+}
+
+.modal-content__error {
+  font-family: Raleway, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  color: red;
+  margin-top: 10px;
+}

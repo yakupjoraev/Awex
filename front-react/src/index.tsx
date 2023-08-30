@@ -6,10 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { App } from "./app";
 import store from "./store";
 import { Provider } from "react-redux";
-import { JWT_KEY } from "./config";
 import "./style.css";
+import { getUser } from "./services/user.service";
 
-OpenAPI.TOKEN = JWT_KEY;
+const user = getUser();
+if (user) {
+  OpenAPI.TOKEN = user.token;
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

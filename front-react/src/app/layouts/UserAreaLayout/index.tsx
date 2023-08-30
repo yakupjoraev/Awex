@@ -5,6 +5,7 @@ import { SidebarMobile } from "../../components/SidebarMobile";
 import { Outlet } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { getProjects } from "@store/projects/slice";
+import { signOut } from "@store/auth/slice";
 
 type UserAreaLayoutProps = PropsWithChildren<{}>;
 
@@ -19,7 +20,7 @@ export function UserAreaLayout(props: UserAreaLayoutProps) {
   const userName = "Ivan Ivanov";
 
   const handleLogout = () => {
-    alert("NOT IMPLEMENTED!");
+    dispatch(signOut());
   };
 
   return (

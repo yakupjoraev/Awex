@@ -1,0 +1,21 @@
+.auth-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-page__card {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 20px;
+  min-width: 200px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.auth-page__home-link {
+  padding-top: 10px;
+  text-align: center;
+}
