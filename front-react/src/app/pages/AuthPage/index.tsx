@@ -6,12 +6,14 @@ import { signOut } from "@store/auth/slice";
 import "./style.css";
 import { Link } from "react-router-dom";
 import { HOME_PAGE_PATH } from "../../constants/path-locations";
+import { RecoverModalContainer } from "@containers/RecoverModalContainer";
 
 export function AuthPage() {
   const dispatch = useAppDispatch();
   const authentificated = useAppSelector((state) => !!state.auth.user);
   const [authModalOpened, setAuthModalOpened] = useState(false);
   const [registerModalOpened, setRegisterModalOpened] = useState(false);
+  const [recoverModalOpened, setRecoverModalOpened] = useState(false);
 
   const handleSignInBtnClick = () => {
     setAuthModalOpened(!authModalOpened);
@@ -25,6 +27,10 @@ export function AuthPage() {
     setRegisterModalOpened(!authModalOpened);
   };
 
+  const handleRecoverBtnClick = () => {
+    setRecoverModalOpened(!recoverModalOpened);
+  };
+
   const handleCloseAuthModal = () => {
     setAuthModalOpened(false);
   };
@@ -36,6 +42,11 @@ export function AuthPage() {
   const handleNavRegister = () => {
     setAuthModalOpened(false);
     setRegisterModalOpened(true);
+  };
+
+  const handleNavRecover = () => {
+    setAuthModalOpened(false);
+    setRecoverModalOpened(true);
   };
 
   return (
@@ -59,6 +70,15 @@ export function AuthPage() {
             Регистрация
           </button>
         )}
+        {!authentificated && (
+          <button
+            className="second-btn"
+            type="button"
+            onClick={handleRecoverBtnClick}
+          >
+            Сброс пароля
+          </button>
+        )}
         {authentificated && (
           <button
             className="main-btn"
@@ -79,10 +99,15 @@ export function AuthPage() {
         open={authModalOpened}
         onClose={handleCloseAuthModal}
         onNavRegister={handleNavRegister}
+        onNavRecover={handleNavRecover}
       />
       <RegisterModalContainer
         open={registerModalOpened}
         onClose={handleCloseRegisterModal}
+      />
+      <RecoverModalContainer
+        open={recoverModalOpened}
+        onClose={handleRecoverBtnClick}
       />
     </section>
   );

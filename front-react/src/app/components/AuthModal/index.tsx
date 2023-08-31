@@ -12,6 +12,7 @@ export interface AuthModalProps {
   onClose: () => void;
   onSignIn: (opts: { login: string; password: string }) => void;
   onNavRegister: () => void;
+  onNavRecover: () => void;
 }
 
 export type AuthModalFormData = {
@@ -105,7 +106,14 @@ export function AuthModal(props: AuthModalProps) {
             {renderFieldError(errors, "login")}
           </div>
 
-          <a className="modal-content__enter-forget" href="#">
+          <a
+            className="modal-content__enter-forget"
+            href="#"
+            onClick={(ev) => {
+              ev.preventDefault();
+              props.onNavRecover();
+            }}
+          >
             Не помните пароль?
           </a>
 
