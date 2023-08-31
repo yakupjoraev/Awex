@@ -57,6 +57,9 @@ body {
     grid-template-columns: 350px 1fr;
   }
 
+  @media (max-width: $breakpoint1200) {
+    grid-template-columns: 280px 1fr;
+  }
 
   @media (max-width: $breakpoint992) {
     grid-template-columns: 110px 1fr;
