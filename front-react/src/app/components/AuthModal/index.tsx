@@ -13,6 +13,7 @@ export interface AuthModalProps {
   onSignIn: (opts: { login: string; password: string }) => void;
   onNavRegister: () => void;
   onNavRecover: () => void;
+  onNavDescribeProblem: () => void;
 }
 
 export type AuthModalFormData = {
@@ -167,7 +168,15 @@ export function AuthModal(props: AuthModalProps) {
         </div>
 
         <div className="modal-content__enter-footer">
-          <a href="#">Не могу получить доступ</a>
+          <a
+            href="#"
+            onClick={(ev) => {
+              ev.preventDefault();
+              props.onNavDescribeProblem();
+            }}
+          >
+            Не могу получить доступ
+          </a>
         </div>
       </form>
     </div>

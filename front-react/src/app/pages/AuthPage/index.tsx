@@ -7,6 +7,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import { HOME_PAGE_PATH } from "../../constants/path-locations";
 import { RecoverModalContainer } from "@containers/RecoverModalContainer";
+import { DescribeProblemModalContainer } from "@containers/DescribeProblemModalContainer";
 
 export function AuthPage() {
   const dispatch = useAppDispatch();
@@ -14,6 +15,8 @@ export function AuthPage() {
   const [authModalOpened, setAuthModalOpened] = useState(false);
   const [registerModalOpened, setRegisterModalOpened] = useState(false);
   const [recoverModalOpened, setRecoverModalOpened] = useState(false);
+  const [describeProblemModalOpened, setDescribeProblemModalOpened] =
+    useState(false);
 
   const handleSignInBtnClick = () => {
     setAuthModalOpened(!authModalOpened);
@@ -31,12 +34,20 @@ export function AuthPage() {
     setRecoverModalOpened(!recoverModalOpened);
   };
 
+  const handleDescribeProblemBtnClick = () => {
+    setDescribeProblemModalOpened(!describeProblemModalOpened);
+  };
+
   const handleCloseAuthModal = () => {
     setAuthModalOpened(false);
   };
 
   const handleCloseRegisterModal = () => {
     setRegisterModalOpened(false);
+  };
+
+  const handleCloseDescribeProblemModal = () => {
+    setDescribeProblemModalOpened(false);
   };
 
   const handleNavRegister = () => {
@@ -47,6 +58,11 @@ export function AuthPage() {
   const handleNavRecover = () => {
     setAuthModalOpened(false);
     setRecoverModalOpened(true);
+  };
+
+  const handleNavDescribeProblem = () => {
+    setAuthModalOpened(false);
+    setDescribeProblemModalOpened(true);
   };
 
   return (
@@ -60,7 +76,7 @@ export function AuthPage() {
           >
             Войти
           </button>
-        )}{" "}
+        )}
         {!authentificated && (
           <button
             className="second-btn"
@@ -88,6 +104,13 @@ export function AuthPage() {
             Выйти
           </button>
         )}
+        <button
+          className="second-btn"
+          type="button"
+          onClick={handleDescribeProblemBtnClick}
+        >
+          Опишите проблему
+        </button>
         {authentificated && (
           <Link className="auth-page__home-link" to={HOME_PAGE_PATH}>
             Главная
@@ -100,6 +123,7 @@ export function AuthPage() {
         onClose={handleCloseAuthModal}
         onNavRegister={handleNavRegister}
         onNavRecover={handleNavRecover}
+        onNavDescribeProblem={handleNavDescribeProblem}
       />
       <RegisterModalContainer
         open={registerModalOpened}
@@ -108,6 +132,10 @@ export function AuthPage() {
       <RecoverModalContainer
         open={recoverModalOpened}
         onClose={handleRecoverBtnClick}
+      />
+      <DescribeProblemModalContainer
+        open={describeProblemModalOpened}
+        onClose={handleCloseDescribeProblemModal}
       />
     </section>
   );

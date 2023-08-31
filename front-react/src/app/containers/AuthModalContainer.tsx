@@ -9,6 +9,7 @@ export interface AuthModalContainerProps {
   onClose: () => void;
   onNavRegister: () => void;
   onNavRecover: () => void;
+  onNavDescribeProblem: () => void;
 }
 
 export function AuthModalContainer(props: AuthModalContainerProps) {
@@ -49,6 +50,7 @@ export function AuthModalContainer(props: AuthModalContainerProps) {
       onSignIn={handleSignIn}
       onNavRegister={props.onNavRegister}
       onNavRecover={props.onNavRecover}
+      onNavDescribeProblem={props.onNavDescribeProblem}
     />
   );
 }
