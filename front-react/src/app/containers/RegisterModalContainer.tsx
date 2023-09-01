@@ -1,5 +1,5 @@
 import { CommonService } from "@awex-api";
-import { RegisterModal } from "@components/RegisterModal";
+import { RegisterError, RegisterModal } from "@components/RegisterModal";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { signIn } from "@store/auth/slice";
 import { useAppDispatch } from "@store/hooks";
@@ -13,7 +13,7 @@ export interface RegisterModalContainerProps {
 export function RegisterModalContainer(props: RegisterModalContainerProps) {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<RegisterError | null>(null);
 
   useEffect(() => {
     setLoading(false);
@@ -31,15 +31,7 @@ export function RegisterModalContainer(props: RegisterModalContainerProps) {
         props.onClose();
       })
       .catch((error) => {
-        if (
-          typeof error === "object" &&
-          error !== null &&
-          typeof error.message === "string"
-        ) {
-          setError(error.message);
-        } else {
-          setError("unexpected error");
-        }
+        setError({ type: "GENERAL" });
       })
       .finally(() => {
         setLoading(false);

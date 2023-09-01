@@ -6,10 +6,12 @@ import { registerFormSchema } from "./validators";
 import { passwordStrength } from "check-password-strength";
 import { useDebounce } from "usehooks-ts";
 
+export type RegisterError = { type: "GENERAL" };
+
 export interface RegisterModalProps {
   open: boolean;
   loading: boolean;
-  error: string | null;
+  error: RegisterError | null;
   onClose: () => void;
   onRegister: (opts: { email: string; password: string }) => void;
 }
@@ -46,7 +48,7 @@ export function RegisterModal(props: RegisterModalProps) {
 
   useEffect(() => {
     if (props.error) {
-      setError("root", { message: "Ошибка рагистации!" });
+      setError("root", { message: "Ошибка регистации!" });
     }
   }, [props.error]);
 
