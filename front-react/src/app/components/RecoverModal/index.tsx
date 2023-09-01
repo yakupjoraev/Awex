@@ -4,10 +4,12 @@ import { FieldErrors, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classNames from "classnames";
 
+export type RecoverError = { type: "USER_NOT_FOUND" | "GENERAL" };
+
 export interface RecoverModalProps {
   open: boolean;
   loading: boolean;
-  error?: string;
+  error?: RecoverError;
   onClose: () => void;
   onRecover: (opts: { email: string }) => void;
 }
@@ -40,7 +42,11 @@ export function RecoverModal(props: RecoverModalProps) {
 
   useEffect(() => {
     if (props.error) {
-      setError("root", { message: "Ошибка соединения с AWEX!" });
+      if (props.error.type === "USER_NOT_FOUND") {
+        setError("root", { message: "Пользователь не найден!" });
+      } else {
+        setError("root", { message: "Ошибка соединения с AWEX!" });
+      }
     }
   }, [props.error]);
 

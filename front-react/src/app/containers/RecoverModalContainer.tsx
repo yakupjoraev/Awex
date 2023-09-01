@@ -1,5 +1,5 @@
-import { CommonService } from "@awex-api";
-import { RecoverModal } from "@components/RecoverModal";
+import { ApiError, CommonService } from "@awex-api";
+import { RecoverError, RecoverModal } from "@components/RecoverModal";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -10,7 +10,7 @@ export interface RecoverModalContainerProps {
 
 export function RecoverModalContainer(props: RecoverModalContainerProps) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<RecoverError | null>(null);
 
   useEffect(() => {
     setError(null);
@@ -24,10 +24,10 @@ export function RecoverModalContainer(props: RecoverModalContainerProps) {
         props.onClose();
       })
       .catch((error) => {
-        if (error instanceof Error) {
-          setError(error.message);
+        if (error instanceof ApiError && error.status === 404) {
+          setError({ type: "USER_NOT_FOUND" });
         } else {
-          setError("unexpected error");
+          setError({ type: "GENERAL" });
         }
       })
       .finally(() => {
