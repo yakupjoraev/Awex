@@ -1,10 +1,12 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 export function SettingsPageLayout() {
   const tabsRef = useRef<HTMLDivElement>(null);
   const [tabsOpened, setTabsOpened] = useState(false);
+
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!tabsOpened) {
@@ -33,7 +35,7 @@ export function SettingsPageLayout() {
   };
 
   return (
-    <section className="settings">
+    <section className={classNames("settings", getSectionModifier(pathname))}>
       <div className="deposits__header">
         <h1 className="deposits__title main-title">Настройки</h1>
       </div>
@@ -62,9 +64,6 @@ export function SettingsPageLayout() {
           <NavLink className="settings__item" to="/settings/safety">
             Безопасность
           </NavLink>
-          <NavLink className="settings__item" to="/settings/notifications">
-            Уведомления
-          </NavLink>
           <NavLink
             className="settings__item"
             to="/settings/permission-management"
@@ -73,10 +72,34 @@ export function SettingsPageLayout() {
           </NavLink>
         </div>
 
-        <div className="settings__content">
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     </section>
   );
+}
+
+function getSectionModifier(pathname: string) {
+  if (pathname.length <= 1) {
+    return null;
+  }
+  if (pathname.endsWith("/")) {
+    pathname = pathname.slice(0, -1);
+  }
+  switch (pathname) {
+    case "/settings": {
+      return "settings-profile";
+    }
+    case "/settings/requisites": {
+      return "settings-requisites";
+    }
+    case "/settings/safety": {
+      return "settings-security";
+    }
+    case "/settings/permission-management": {
+      return "settings-notifications";
+    }
+    default: {
+      return null;
+    }
+  }
 }

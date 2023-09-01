@@ -25,3 +25,7 @@
   color: red;
   margin-top: 10px;
 }
+
+.settings-profile__user-back {
+  cursor: pointer;
+}

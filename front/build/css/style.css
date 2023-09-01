@@ -5660,7 +5660,6 @@ body.locked {
 }
 
 .settings-profile__included-edit:active svg path,
-.settings-profile__included-edit:focus svg path,
 .settings-profile__included-edit:hover svg path {
   fill: var(--text-color);
 }

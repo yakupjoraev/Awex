@@ -235,7 +235,6 @@
     }
 
     &:active,
-    &:focus,
     &:hover {
       svg path {
         fill: var(--text-color);
