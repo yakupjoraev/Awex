@@ -1,0 +1,40 @@
+.page-404 {
+
+  // .page-404__inner
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 200px);
+  }
+
+  // .page-404__title
+
+  &__title {
+    margin-bottom: 15px;
+    font-size: 128px;
+    line-height: 120%;
+
+    @media (max-width: $breakpoint992) {
+      font-size: 96px;
+    }
+  }
+
+  // .page-404__descr
+
+  &__descr {
+    margin-bottom: 45px;
+    font-size: 24px;
+
+    @media (max-width: $breakpoint992) {
+      font-size: 20px;
+    }
+  }
+
+  // .page-404__link
+
+  &__link {}
+}
