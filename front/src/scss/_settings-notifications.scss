@@ -46,7 +46,13 @@
 
 .settings-notifications__levels-item {}
 
-.settings-notifications__levels-link {}
+.settings-notifications__levels-radio {
+  display: none;
+}
+
+.settings-notifications__levels-link {
+  cursor: pointer;
+}
 
 .settings-notifications__checkboxes {
   display: grid;

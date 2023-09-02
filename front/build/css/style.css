@@ -5932,6 +5932,14 @@ body.locked {
           column-gap: 10px;
 }
 
+.settings-notifications__levels-radio {
+  display: none;
+}
+
+.settings-notifications__levels-link {
+  cursor: pointer;
+}
+
 .settings-notifications__checkboxes {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
