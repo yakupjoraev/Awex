@@ -96,6 +96,48 @@ export function IndexPage() {
                 Компонент выбора даты
               </Link>
             </li>
+
+            <li className="pages__item">
+              <a className="pages__link" href="/auth" target="_blank">
+                Модалки Вход и Регистрация
+              </a>
+            </li>
+
+            <li className="pages__item">
+              <a className="pages__link" href="/settings" target="_blank">
+                Настройки Профиль Главная вкладка
+              </a>
+            </li>
+
+            <li className="pages__item">
+              <a
+                className="pages__link"
+                href="/settings/requisites"
+                target="_blank"
+              >
+                Настройки Реквизиты
+              </a>
+            </li>
+
+            <li className="pages__item">
+              <a
+                className="pages__link"
+                href="/settings/safety"
+                target="_blank"
+              >
+                Настройки Безопасность
+              </a>
+            </li>
+
+            <li className="pages__item">
+              <a
+                className="pages__link"
+                href="/settings/permission-management"
+                target="_blank"
+              >
+                Управление правами
+              </a>
+            </li>
           </ul>
         </div>
       </div>
