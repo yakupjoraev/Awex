@@ -57,7 +57,7 @@ export function AddEmployeeForm() {
             {...register("email")}
           />
           {errors.email && errors.email.message && (
-            <div className="my-projects__error">{errors.email.message}</div>
+            <div className="project-error">{errors.email.message}</div>
           )}
         </div>
 

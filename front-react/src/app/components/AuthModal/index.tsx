@@ -191,5 +191,5 @@ function renderFieldError(
   if (!error || !error.message) {
     return null;
   }
-  return <div className="my-projects__error">{error.message}</div>;
+  return <div className="project-error">{error.message}</div>;
 }

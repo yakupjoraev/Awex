@@ -84,7 +84,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
             {...register("name", { required: true })}
           />
           {errors.name?.type === "required" && (
-            <div className="project-group__error">{MESSAGE_FIELD_REQUIRED}</div>
+            <div className="project-error">{MESSAGE_FIELD_REQUIRED}</div>
           )}
         </div>
 
@@ -104,7 +104,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
             {...register("activity", { required: true })}
           />
           {errors.activity?.type === "required" && (
-            <div className="project-group__error">{MESSAGE_FIELD_REQUIRED}</div>
+            <div className="project-error">{MESSAGE_FIELD_REQUIRED}</div>
           )}
         </div>
       </div>
@@ -124,7 +124,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
             {...register("description", { required: true })}
           ></textarea>{" "}
           {errors.description?.type === "required" && (
-            <div className="project-group__error">{MESSAGE_FIELD_REQUIRED}</div>
+            <div className="project-error">{MESSAGE_FIELD_REQUIRED}</div>
           )}
         </div>
 
@@ -474,7 +474,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
             {...register("urlWeb", { required: true })}
           />
           {errors.urlWeb?.type === "required" && (
-            <div className="project-group__error">{MESSAGE_FIELD_REQUIRED}</div>
+            <div className="project-error">{MESSAGE_FIELD_REQUIRED}</div>
           )}
         </div>
 
@@ -499,7 +499,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
             {...register("urlPaymentSuccess", { required: true })}
           />
           {errors.urlPaymentSuccess?.type === "required" && (
-            <div className="project-group__error">{MESSAGE_FIELD_REQUIRED}</div>
+            <div className="project-error">{MESSAGE_FIELD_REQUIRED}</div>
           )}
         </div>
       </div>
@@ -526,7 +526,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
             {...register("urlNotification", { required: true })}
           />
           {errors.urlNotification?.type === "required" && (
-            <div className="project-group__error">{MESSAGE_FIELD_REQUIRED}</div>
+            <div className="project-error">{MESSAGE_FIELD_REQUIRED}</div>
           )}
         </div>
 
@@ -550,7 +550,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
             {...register("urlPaymentFailure", { required: true })}
           />
           {errors.urlPaymentFailure?.type === "required" && (
-            <div className="project-group__error">{MESSAGE_FIELD_REQUIRED}</div>
+            <div className="project-error">{MESSAGE_FIELD_REQUIRED}</div>
           )}
         </div>
       </div>
