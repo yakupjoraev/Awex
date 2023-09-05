@@ -1,11 +1,20 @@
-import React from "react";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+import { HOME_PAGE_PATH } from "../../constants/path-locations";
 
 export function NotFoundPage() {
   return (
-    <>
+    <section className="page-404">
       <Helmet title="Страница не найдена" />
-      <h1>Page Not Found</h1>
-    </>
+      <div className="page-404__inner">
+        <h1 className="page-404__title">404</h1>
+
+        <p className="page-404__descr">что-то пошло не так</p>
+
+        <Link className="page-404__link main-btn" to={HOME_PAGE_PATH}>
+          Вернуться на Главную
+        </Link>
+      </div>
+    </section>
   );
 }

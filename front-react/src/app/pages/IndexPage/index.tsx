@@ -138,6 +138,12 @@ export function IndexPage() {
                 Управление правами
               </a>
             </li>
+
+            <li className="pages__item">
+              <a className="pages__link" href="/no-page" target="_blank">
+                404
+              </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -44,9 +44,9 @@ export function App() {
           <Route path="/projects/new-project" element={<CreateProjectPage />} />
           <Route path="/settings/*" element={<SettingsPage />} />
           <Route path="/date-picker" element={<DatePickerPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
         <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />
-        <Route path="*" element={<NotFoundPage />} />
         <Route path="/index" element={<IndexPage />} />
         <Route path="/auth" element={<AuthPage />} />
       </Routes>
