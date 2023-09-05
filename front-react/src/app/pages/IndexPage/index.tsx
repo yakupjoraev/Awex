@@ -140,6 +140,12 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
+              <a className="pages__link" href="/infocenter" target="_blank">
+                Инфоцентр
+              </a>
+            </li>
+
+            <li className="pages__item">
               <a className="pages__link" href="/no-page" target="_blank">
                 404
               </a>

@@ -18,6 +18,7 @@ import { DatePickerPage } from "./pages/DatePickerPage";
 import { PaymentCryptoPage } from "./pages/PaymentCryptoPage";
 import { AuthPage } from "./pages/AuthPage";
 import { PrivateRoute } from "@components/PrivateRoute";
+import { InfocenterPage } from "./pages/InfocenterPage";
 
 export function App() {
   return (
@@ -43,6 +44,7 @@ export function App() {
           <Route path="/projects/:projectId" element={<EditProjectPage />} />
           <Route path="/projects/new-project" element={<CreateProjectPage />} />
           <Route path="/settings/*" element={<SettingsPage />} />
+          <Route path="/infocenter" element={<InfocenterPage />} />
           <Route path="/date-picker" element={<DatePickerPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

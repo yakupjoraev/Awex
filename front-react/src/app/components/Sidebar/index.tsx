@@ -357,7 +357,7 @@ export function Sidebar(props: SidebarProps) {
             </li>
 
             <li className="sidebar__menu-item">
-              <a href="#" className="sidebar__menu-link">
+              <Link className="sidebar__menu-link" to="/infocenter">
                 <span className="sidebar__menu-icon">
                   <svg
                     width="24"
@@ -374,7 +374,7 @@ export function Sidebar(props: SidebarProps) {
                 </span>
 
                 <span className="sidebar__menu-name">Информационный центр</span>
-              </a>
+              </Link>
             </li>
 
             <li className="sidebar__menu-item">

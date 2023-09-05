@@ -87,7 +87,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
             <p className="sidebar-mobile__item-text">Интеграция</p>
           </a>
 
-          <a href="#" className="sidebar-mobile__item">
+          <Link className="sidebar-mobile__item" to="/infocenter">
             <img
               className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/chat-dots.svg"
@@ -95,7 +95,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
             />
 
             <p className="sidebar-mobile__item-text">Инфоцентр</p>
-          </a>
+          </Link>
 
           <a href="#" className="sidebar-mobile__item">
             <img
