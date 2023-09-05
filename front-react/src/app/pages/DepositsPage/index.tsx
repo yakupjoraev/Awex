@@ -73,113 +73,114 @@ export function DepositsPage() {
   };
 
   return (
-    <section className="deposits">
+    <div className="wrapper">
       <Helmet title="Депозиты" />
-      <div className="deposits__header">
-        <h1 className="deposits__title main-title">Депозиты</h1>
-      </div>
+      <section className="deposits">
+        <div className="deposits__header">
+          <h1 className="deposits__title main-title">Депозиты</h1>
+        </div>
 
-      <div className="deposits__infos">
-        <div className="deposits__info deposits__info--black">
-          <div className="deposits__info-row">
-            <div className="deposits__info-name">Заявки на возврат:</div>
-            <div className="deposits__info-count deposits__info-count--red">
-              50
+        <div className="deposits__infos">
+          <div className="deposits__info deposits__info--black">
+            <div className="deposits__info-row">
+              <div className="deposits__info-name">Заявки на возврат:</div>
+              <div className="deposits__info-count deposits__info-count--red">
+                50
+              </div>
+            </div>
+
+            <div className="deposits__info-row">
+              <div className="deposits__info-label">На сумму:</div>
+              <div className="deposits__info-sum">500.000</div>
             </div>
           </div>
 
-          <div className="deposits__info-row">
-            <div className="deposits__info-label">На сумму:</div>
-            <div className="deposits__info-sum">500.000</div>
-          </div>
-        </div>
-
-        <div className="deposits__info">
-          <div className="deposits__info-row">
-            <div className="deposits__info-name">Активные депозиты:</div>
-            <div className="deposits__info-count">350</div>
-          </div>
-
-          <div className="deposits__info-row">
-            <div className="deposits__info-label">На сумму:</div>
-            <div className="deposits__info-sum">1.789.567.57</div>
-          </div>
-        </div>
-
-        <div className="deposits__info">
-          <div className="deposits__info-row">
-            <div className="deposits__info-name">На проверке:</div>
-            <div className="deposits__info-count">50</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="deposits__in">
-        <p className="deposits__in-label">На депозитах:</p>
-
-        <div className="deposits__in-sum">
-          2.565.678
-          <span>,456$</span>
-        </div>
-      </div>
-
-      <div className="deposits__filters">
-        <DepositsFiltersSelect
-          label="Проект"
-          options={projectFilterOptions}
-          value={projectFilter}
-          onChange={handleProjectFilterChange}
-        />
-
-        <DepositsFiltersSelect
-          label="Статус"
-          options={statusFilterOptions}
-          value={statusFilter}
-          onChange={handleStatusFilterChange}
-        />
-
-        <DepositsFilterDate
-          label="Дата"
-          value={dateFilter}
-          onChange={handleDateFilterChange}
-        />
-      </div>
-
-      <div className="deposits__filter-search search-group">
-        <input
-          className="deposits__filter-src search-input"
-          type="search"
-          placeholder="Поиск по ID или комментарию"
-        />
-        <img
-          className="deposits__filter-search-img search-img"
-          src="./img/icons/search.svg"
-          alt="Поиск"
-        />
-      </div>
-
-      <div className="deposits__list-container">
-        <ul className="deposits__list">
-          <li className="deposits__item-header">
-            <div className="deposits__item-status"></div>
-            <div className="deposits__item-id">Имя/ID</div>
-            <div className="deposits__item-data">Дата</div>
-            <div className="deposits__item-status-deposite">
-              Статус депозита
+          <div className="deposits__info">
+            <div className="deposits__info-row">
+              <div className="deposits__info-name">Активные депозиты:</div>
+              <div className="deposits__info-count">350</div>
             </div>
-            <div className="deposits__item-sum">Сумма </div>
-            <div className="deposits__item-data-end">Дата окончания</div>
-            <div className="deposits__item-status-application">
-              Статус заявки
+
+            <div className="deposits__info-row">
+              <div className="deposits__info-label">На сумму:</div>
+              <div className="deposits__info-sum">1.789.567.57</div>
             </div>
-            <div className="deposits__item-commets">Комментарий</div>
-          </li>
+          </div>
 
-          {deposits.map((deposit) => {
-            return <DepositItem {...deposit} key={deposit.id} />;
-          })}
+          <div className="deposits__info">
+            <div className="deposits__info-row">
+              <div className="deposits__info-name">На проверке:</div>
+              <div className="deposits__info-count">50</div>
+            </div>
+          </div>
+        </div>
 
-          {/* <li className="deposits__item deposits__item-rejected">
+        <div className="deposits__in">
+          <p className="deposits__in-label">На депозитах:</p>
+
+          <div className="deposits__in-sum">
+            2.565.678
+            <span>,456$</span>
+          </div>
+        </div>
+
+        <div className="deposits__filters">
+          <DepositsFiltersSelect
+            label="Проект"
+            options={projectFilterOptions}
+            value={projectFilter}
+            onChange={handleProjectFilterChange}
+          />
+
+          <DepositsFiltersSelect
+            label="Статус"
+            options={statusFilterOptions}
+            value={statusFilter}
+            onChange={handleStatusFilterChange}
+          />
+
+          <DepositsFilterDate
+            label="Дата"
+            value={dateFilter}
+            onChange={handleDateFilterChange}
+          />
+        </div>
+
+        <div className="deposits__filter-search search-group">
+          <input
+            className="deposits__filter-src search-input"
+            type="search"
+            placeholder="Поиск по ID или комментарию"
+          />
+          <img
+            className="deposits__filter-search-img search-img"
+            src="./img/icons/search.svg"
+            alt="Поиск"
+          />
+        </div>
+
+        <div className="deposits__list-container">
+          <ul className="deposits__list">
+            <li className="deposits__item-header">
+              <div className="deposits__item-status"></div>
+              <div className="deposits__item-id">Имя/ID</div>
+              <div className="deposits__item-data">Дата</div>
+              <div className="deposits__item-status-deposite">
+                Статус депозита
+              </div>
+              <div className="deposits__item-sum">Сумма </div>
+              <div className="deposits__item-data-end">Дата окончания</div>
+              <div className="deposits__item-status-application">
+                Статус заявки
+              </div>
+              <div className="deposits__item-commets">Комментарий</div>
+            </li>
+
+            {deposits.map((deposit) => {
+              return <DepositItem {...deposit} key={deposit.id} />;
+            })}
+
+            {/* <li className="deposits__item deposits__item-rejected">
             <div className="deposits__item-status">
               <img src="./img/icons/rejected.svg" alt="" />
             </div>
@@ -208,8 +209,9 @@ export function DepositsPage() {
               Автомобиль Mercedes-Benz А123АА123...
             </div>
           </li> */}
-        </ul>
-      </div>
-    </section>
+          </ul>
+        </div>
+      </section>
+    </div>
   );
 }

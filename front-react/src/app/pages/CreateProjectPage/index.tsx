@@ -24,20 +24,22 @@ export function CreateProjectPage() {
   };
 
   return (
-    <section className="my-projects">
+    <div className="wrapper">
       <Helmet title="Добавление проекта" />
-      <div className="my-projects__header">
-        <h1 className="my-projects__title main-title">Добавление проекта</h1>
-      </div>
+      <section className="my-projects">
+        <div className="my-projects__header">
+          <h1 className="my-projects__title main-title">Добавление проекта</h1>
+        </div>
 
-      <h2 className="main-title" hidden>
-        окно проекта
-      </h2>
+        <h2 className="main-title" hidden>
+          окно проекта
+        </h2>
 
-      <EditProjectForm
-        footer={<CreateProjectFooter onCancel={handleCancelBtnClick} />}
-        onSubmit={handleSubmit}
-      />
-    </section>
+        <EditProjectForm
+          footer={<CreateProjectFooter onCancel={handleCancelBtnClick} />}
+          onSubmit={handleSubmit}
+        />
+      </section>
+    </div>
   );
 }

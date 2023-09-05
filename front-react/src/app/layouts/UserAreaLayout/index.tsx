@@ -35,9 +35,7 @@ export function UserAreaLayout(props: UserAreaLayoutProps) {
         onLogout={handleLogout}
         projects={projects || {}}
       />
-      <div className="wrapper">
-        <Outlet />
-      </div>
+      <Outlet />
     </main>
   );
 }

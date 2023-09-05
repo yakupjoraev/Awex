@@ -45,23 +45,27 @@ const applications: {
 
 export function DepositRetentionPage() {
   return (
-    <section className="deposit-retention">
+    <div className="wrapper">
       <Helmet title="Заявка на возврат депозита" />
-      <div className="deposits__header deposits__header--start">
-        <h1 className="deposits__title main-title">
-          Заявка на возврат депозита
-        </h1>
+      <section className="deposit-retention">
+        <div className="deposits__header deposits__header--start">
+          <h1 className="deposits__title main-title">
+            Заявка на возврат депозита
+          </h1>
 
-        <div className="deposits__info-count deposits__info-count--red">
-          {applications.length}
+          <div className="deposits__info-count deposits__info-count--red">
+            {applications.length}
+          </div>
         </div>
-      </div>
 
-      <ul className="deposit-retention__list">
-        {applications.map((application) => {
-          return <DepositRetentionItem {...application} key={application.id} />;
-        })}
-      </ul>
-    </section>
+        <ul className="deposit-retention__list">
+          {applications.map((application) => {
+            return (
+              <DepositRetentionItem {...application} key={application.id} />
+            );
+          })}
+        </ul>
+      </section>
+    </div>
   );
 }

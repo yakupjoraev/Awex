@@ -19,7 +19,7 @@ export function MyProjectsPage() {
   };
 
   return (
-    <>
+    <div className="wrapper">
       <Helmet title="Мои проекты" />
       <section className="my-projects">
         <div className="my-projects__header">
@@ -64,6 +64,6 @@ export function MyProjectsPage() {
           </ul>
         </div>
       </section>
-    </>
+    </div>
   );
 }

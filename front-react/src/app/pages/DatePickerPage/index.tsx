@@ -21,16 +21,18 @@ export function DatePickerPage() {
   };
 
   return (
-    <section className="main-content">
+    <div className="wrapper">
       <Helmet title="Date picker" />
-      <div className={style["date-picker-page"]}>
-        <DepositsFilterDate
-          className={style["date-picker-page__select"]}
-          label="Дата"
-          value={dateFilter}
-          onChange={handleDateFilterChange}
-        />
-      </div>
-    </section>
+      <section className="main-content">
+        <div className={style["date-picker-page"]}>
+          <DepositsFilterDate
+            className={style["date-picker-page__select"]}
+            label="Дата"
+            value={dateFilter}
+            onChange={handleDateFilterChange}
+          />
+        </div>
+      </section>
+    </div>
   );
 }

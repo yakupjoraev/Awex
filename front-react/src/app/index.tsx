@@ -19,6 +19,7 @@ import { PaymentCryptoPage } from "./pages/PaymentCryptoPage";
 import { AuthPage } from "./pages/AuthPage";
 import { PrivateRoute } from "@components/PrivateRoute";
 import { InfocenterPage } from "./pages/InfocenterPage";
+import { MyActivesPage } from "./pages/MyActivesPage";
 
 export function App() {
   return (
@@ -44,6 +45,7 @@ export function App() {
           <Route path="/projects/:projectId" element={<EditProjectPage />} />
           <Route path="/projects/new-project" element={<CreateProjectPage />} />
           <Route path="/settings/*" element={<SettingsPage />} />
+          <Route path="/actives" element={<MyActivesPage />} />
           <Route path="/infocenter" element={<InfocenterPage />} />
           <Route path="/date-picker" element={<DatePickerPage />} />
           <Route path="*" element={<NotFoundPage />} />

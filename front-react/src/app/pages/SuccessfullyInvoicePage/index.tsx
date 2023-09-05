@@ -59,55 +59,57 @@ export function SuccessfullyInvoicePage() {
   };
 
   return (
-    <section className="successfully-invoice">
-      <Helmet title="Счета" />
-      <div className="successfully-invoice__header">
-        <h1 className="successfully-invoice__title main-title">Счета</h1>
+    <div className="wrapper">
+      <section className="successfully-invoice">
+        <Helmet title="Счета" />
+        <div className="successfully-invoice__header">
+          <h1 className="successfully-invoice__title main-title">Счета</h1>
 
-        <img
-          className="successfully-invoice__header-img"
-          src="./img/icons/tooltip.svg"
-          alt="tooltip"
-        />
-      </div>
+          <img
+            className="successfully-invoice__header-img"
+            src="./img/icons/tooltip.svg"
+            alt="tooltip"
+          />
+        </div>
 
-      <div className="deposits__filters">
-        <DepositsFiltersSelect
-          label="Проект"
-          options={projectFilterOptions}
-          value={projectFilter}
-          onChange={handleProjectFilterChange}
-        />
+        <div className="deposits__filters">
+          <DepositsFiltersSelect
+            label="Проект"
+            options={projectFilterOptions}
+            value={projectFilter}
+            onChange={handleProjectFilterChange}
+          />
 
-        <DepositsFiltersSelect
-          label="Статус"
-          options={statusFilterOptions}
-          value={statusFilter}
-          onChange={handleStatusFilterChange}
-        />
+          <DepositsFiltersSelect
+            label="Статус"
+            options={statusFilterOptions}
+            value={statusFilter}
+            onChange={handleStatusFilterChange}
+          />
 
-        <DepositsFiltersSelect
-          className="deposits__filter-select deposits__filter-select--datapicker"
-          label="Дата"
-          options={dateFilterOptions}
-          value={dateFilter}
-          onChange={handleDateFilterChange}
-        />
-      </div>
+          <DepositsFiltersSelect
+            className="deposits__filter-select deposits__filter-select--datapicker"
+            label="Дата"
+            options={dateFilterOptions}
+            value={dateFilter}
+            onChange={handleDateFilterChange}
+          />
+        </div>
 
-      <ul className="successfully-invoice__list">
-        {invoices.map((invoice) => {
-          return (
-            <SuccessfullyInvoiceItem
-              code={invoice.code}
-              status={invoice.status}
-              key={invoice.id}
-              onShowQr={handleShowQr}
-            />
-          );
-        })}
-      </ul>
-      <QrModal open={qrModalOpened} onClose={handleCloseQrModal} />
-    </section>
+        <ul className="successfully-invoice__list">
+          {invoices.map((invoice) => {
+            return (
+              <SuccessfullyInvoiceItem
+                code={invoice.code}
+                status={invoice.status}
+                key={invoice.id}
+                onShowQr={handleShowQr}
+              />
+            );
+          })}
+        </ul>
+        <QrModal open={qrModalOpened} onClose={handleCloseQrModal} />
+      </section>
+    </div>
   );
 }

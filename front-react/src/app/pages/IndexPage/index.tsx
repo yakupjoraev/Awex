@@ -92,6 +92,12 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
+              <a className="pages__link" href="/actives" target="_blank">
+                Страница активов
+              </a>
+            </li>
+
+            <li className="pages__item">
               <Link className="pages__link" target="_blank" to="/date-picker">
                 Компонент выбора даты
               </Link>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export function MyActives() {
   return (
@@ -6,14 +7,14 @@ export function MyActives() {
       <div className="my-actives__header">
         <h2 className="my-actives__title main-title">Мои активы:</h2>
 
-        <a className="history-operations__link" href="#">
+        <Link className="history-operations__link" to="/actives">
           Все активы
           <img
             className="history-operations__link-img"
             src="/img/icons/arrow-right.svg"
             alt="Перейти в Операции"
           />
-        </a>
+        </Link>
       </div>
 
       <div className="my-actives__checks-container">

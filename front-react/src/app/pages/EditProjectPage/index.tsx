@@ -53,35 +53,37 @@ export function EditProjectPage() {
   }
 
   return (
-    <section className="my-projects">
-      <div className="my-projects__header">
-        <h1 className="my-projects__title main-title">Мои проекты</h1>
+    <div className="wrapper">
+      <section className="my-projects">
+        <div className="my-projects__header">
+          <h1 className="my-projects__title main-title">Мои проекты</h1>
 
-        <div
-          className="my-projects__added"
-          role="button"
-          onClick={handleDeleteBtnClick}
-        >
-          <img
-            className="my-projects__added-img"
-            src="/img/icons/trash.svg"
-            alt="trash"
-          />
+          <div
+            className="my-projects__added"
+            role="button"
+            onClick={handleDeleteBtnClick}
+          >
+            <img
+              className="my-projects__added-img"
+              src="/img/icons/trash.svg"
+              alt="trash"
+            />
 
-          <span className="my-projects__added-descr">Удалить проект</span>
+            <span className="my-projects__added-descr">Удалить проект</span>
+          </div>
         </div>
-      </div>
 
-      <h2 className="main-title" hidden>
-        окно проекта
-      </h2>
+        <h2 className="main-title" hidden>
+          окно проекта
+        </h2>
 
-      <EditProjectForm
-        project={project}
-        onSubmit={handleSubmit}
-        header={<EditProjectHeader project={project} />}
-        footer={<EditProjectFooter />}
-      />
-    </section>
+        <EditProjectForm
+          project={project}
+          onSubmit={handleSubmit}
+          header={<EditProjectHeader project={project} />}
+          footer={<EditProjectFooter />}
+        />
+      </section>
+    </div>
   );
 }

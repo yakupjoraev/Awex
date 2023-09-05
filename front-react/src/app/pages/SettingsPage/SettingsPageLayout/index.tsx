@@ -35,46 +35,48 @@ export function SettingsPageLayout() {
   };
 
   return (
-    <section className={classNames("settings", getSectionModifier(pathname))}>
-      <div className="deposits__header">
-        <h1 className="deposits__title main-title">Настройки</h1>
-      </div>
-
-      <div className="settings__inner">
-        <div
-          className={classNames("settings__list", { show: tabsOpened })}
-          data-payment-details-content
-          ref={tabsRef}
-        >
-          <NavLink className="settings__item" to="/settings" end>
-            Профиль
-          </NavLink>
-
-          <img
-            className="settings__list-arrow"
-            src="/img/icons/arrow-down-white.svg"
-            alt=""
-            data-payment-details-btn
-            onClick={handleTabsArrowClick}
-          />
-
-          <NavLink className="settings__item" to="/settings/requisites">
-            Реквизиты
-          </NavLink>
-          <NavLink className="settings__item" to="/settings/safety">
-            Безопасность
-          </NavLink>
-          <NavLink
-            className="settings__item"
-            to="/settings/permission-management"
-          >
-            Управление правами
-          </NavLink>
+    <div className="wrapper">
+      <section className={classNames("settings", getSectionModifier(pathname))}>
+        <div className="deposits__header">
+          <h1 className="deposits__title main-title">Настройки</h1>
         </div>
 
-        <Outlet />
-      </div>
-    </section>
+        <div className="settings__inner">
+          <div
+            className={classNames("settings__list", { show: tabsOpened })}
+            data-payment-details-content
+            ref={tabsRef}
+          >
+            <NavLink className="settings__item" to="/settings" end>
+              Профиль
+            </NavLink>
+
+            <img
+              className="settings__list-arrow"
+              src="/img/icons/arrow-down-white.svg"
+              alt=""
+              data-payment-details-btn
+              onClick={handleTabsArrowClick}
+            />
+
+            <NavLink className="settings__item" to="/settings/requisites">
+              Реквизиты
+            </NavLink>
+            <NavLink className="settings__item" to="/settings/safety">
+              Безопасность
+            </NavLink>
+            <NavLink
+              className="settings__item"
+              to="/settings/permission-management"
+            >
+              Управление правами
+            </NavLink>
+          </div>
+
+          <Outlet />
+        </div>
+      </section>
+    </div>
   );
 }
 
