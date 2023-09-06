@@ -208,5 +208,3 @@ window.addEventListener('click', (event) => {
     event.target.classList.remove('show');
   }
 });
-
-

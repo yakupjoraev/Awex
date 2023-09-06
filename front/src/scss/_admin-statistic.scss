@@ -1,0 +1,246 @@
+.admin-statistic {
+  width: 100%;
+  margin-top: 50px;
+
+  // .admin-statistic__container
+
+  &__container {
+    max-width: 1550px;
+    margin: 0 auto;
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  // .admin-statistic__inner
+
+  &__inner {}
+
+  // .admin-statistic__header
+
+  &__header {}
+
+  // .admin-statistic__title
+
+  &__title {
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  // .admin-statistic__form
+
+  &__form {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    margin-bottom: 35px;
+
+    .deposits__filter-search {
+      margin-bottom: 0;
+    }
+  }
+
+  // .admin-statistic__form-group
+
+  &__form-group {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    padding: 10px 15px;
+    background-color: rgba(209, 209, 209, 0.20);
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  // .admin-statistic__form-label
+
+  &__form-label {
+    color: var(--grey-color-2);
+  }
+
+  // .admin-statistic__form-selected
+
+  &__form-selected {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  // .admin-statistic__form-selected-text
+
+  &__form-selected-text {
+    font-weight: 600;
+  }
+
+  // .admin-statistic__list
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  // .admin-statistic__item
+
+  &__item {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: flex-start;
+    column-gap: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background-color: var(--grey-color-3);
+  }
+
+  // .admin-statistic__item-detal
+
+  &__item-detal {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    font-weight: 600;
+
+    span {
+      display: block;
+      margin-top: 5px;
+      font-size: 13px;
+    }
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  &__item-id {}
+
+  // .admin-statistic__item-actions
+
+  &__item-actions {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: var(--white-color);
+  }
+
+  // .admin-statistic__item-action
+
+  &__item-action {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+}
+
+.admin-statistic {
+
+  // .admin-statistic__detal
+
+  &__detal {}
+
+  // .admin-statistic__detal-header
+
+  &__detal-header {}
+
+  // .admin-statistic__detal-back
+
+  &__detal-back {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    column-gap: 15px;
+    font-weight: 600;
+    color: #000;
+  }
+
+  // .admin-statistic__detal-label
+
+  &__detal-label {
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+
+  // .admin-statistic__detal-list
+
+  &__detal-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 25px;
+    row-gap: 25px;
+
+    @media (max-width: $breakpoint1300) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  // .admin-statistic__detal-item
+
+  &__detal-item {
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-color);
+    background: var(--grey-color-3);
+  }
+
+  // .admin-statistic__detal-top
+
+  &__detal-top {
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  // .admin-statistic__detal-item-label
+
+  &__detal-item-label {
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  // .admin-statistic__detal-item-volume
+
+  &__detal-item-volume {
+    margin-bottom: 5px;
+  }
+
+  // .admin-statistic__detal-item-sum
+
+  &__detal-item-sum {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 120%;
+  }
+
+  // .admin-statistic__detal-bottom
+
+  &__detal-bottom {}
+
+  // .admin-statistic__detal-infos
+
+  &__detal-infos {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // .admin-statistic__detal-info
+
+  &__detal-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    padding: 10px 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--grey-color);
+    }
+
+    b {
+      font-weight: 600;
+    }
+  }
+}

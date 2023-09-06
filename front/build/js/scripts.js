@@ -210,5 +210,3 @@ window.addEventListener('click', (event) => {
   }
 });
 
-
-
