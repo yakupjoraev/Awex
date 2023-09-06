@@ -30,7 +30,7 @@ export function NotificationsForm(props: NotificationsFormProps) {
             <li className="settings-profile__included-item">
               <img
                 className="settings-profile__included-icon"
-                src="./img/icons/mail.svg"
+                src="/img/icons/mail.svg"
                 alt=""
               />
 
@@ -47,7 +47,7 @@ export function NotificationsForm(props: NotificationsFormProps) {
             <li className="settings-profile__included-item">
               <img
                 className="settings-profile__included-icon"
-                src="./img/icons/telegram.svg"
+                src="/img/icons/telegram.svg"
                 alt=""
               />
 
@@ -62,7 +62,7 @@ export function NotificationsForm(props: NotificationsFormProps) {
             <li className="settings-profile__included-item">
               <img
                 className="settings-profile__included-icon"
-                src="./img/icons/vk.svg"
+                src="/img/icons/vk.svg"
                 alt=""
               />
 
@@ -77,7 +77,7 @@ export function NotificationsForm(props: NotificationsFormProps) {
             <li className="settings-profile__included-item">
               <img
                 className="settings-profile__included-icon"
-                src="./img/icons/google-svgrepo-com 1.svg"
+                src="/img/icons/google-svgrepo-com 1.svg"
                 alt=""
               />
 
@@ -94,7 +94,7 @@ export function NotificationsForm(props: NotificationsFormProps) {
             <li className="settings-profile__included-item">
               <img
                 className="settings-profile__included-icon"
-                src="./img/icons/icloud.svg"
+                src="/img/icons/icloud.svg"
                 alt=""
               />
 

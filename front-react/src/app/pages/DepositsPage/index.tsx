@@ -154,7 +154,7 @@ export function DepositsPage() {
           />
           <img
             className="deposits__filter-search-img search-img"
-            src="./img/icons/search.svg"
+            src="/img/icons/search.svg"
             alt="Поиск"
           />
         </div>
@@ -182,7 +182,7 @@ export function DepositsPage() {
 
             {/* <li className="deposits__item deposits__item-rejected">
             <div className="deposits__item-status">
-              <img src="./img/icons/rejected.svg" alt="" />
+              <img src="/img/icons/rejected.svg" alt="" />
             </div>
             <div className="deposits__item-id">ID345678</div>
             <div className="deposits__item-data">10/01/23</div>

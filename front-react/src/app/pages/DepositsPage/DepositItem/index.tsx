@@ -45,7 +45,7 @@ export function DepositItem(props: DepositItemProps) {
     >
       <div className="deposits__item-status">
         {props.applicationStatus === "rejected" && (
-          <img src="./img/icons/rejected.svg" alt="" />
+          <img src="/img/icons/rejected.svg" alt="" />
         )}
       </div>
       <div className="deposits__item-id">{props.id}</div>

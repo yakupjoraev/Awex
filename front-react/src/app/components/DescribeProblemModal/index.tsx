@@ -54,7 +54,7 @@ export function DescribeProblemModal(props: DescribeProblemModalProps) {
       >
         <div className="modal-content__header">
           <div className="modal-content__header-logo">
-            <img src="./img/icons/logo-mini.svg" alt="" />
+            <img src="/img/icons/logo-mini.svg" alt="" />
 
             <h2>Опишите проблему</h2>
           </div>
@@ -64,7 +64,7 @@ export function DescribeProblemModal(props: DescribeProblemModalProps) {
             className="close-modal-btn"
             onClick={props.onClose}
           >
-            <img src="./img/icons/close-modal.svg" alt="" />
+            <img src="/img/icons/close-modal.svg" alt="" />
           </button>
         </div>
 

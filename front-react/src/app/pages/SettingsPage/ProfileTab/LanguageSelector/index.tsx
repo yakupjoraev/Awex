@@ -23,9 +23,9 @@ export function LanguageSelector() {
       >
         Выбор языка
         <div className="settings-profile__language-selected">
-          <img src="./img/icons/Lang.svg" alt="" />
+          <img src="/img/icons/Lang.svg" alt="" />
 
-          <img src="./img/icons/arrow-down.svg" alt="arrow-down" />
+          <img src="/img/icons/arrow-down.svg" alt="arrow-down" />
         </div>
       </div>
       <ul
@@ -39,21 +39,21 @@ export function LanguageSelector() {
           data-select-item=""
           onClick={handleOptionClick}
         >
-          <img src="./img/icons/Lang.svg" alt="" />
+          <img src="/img/icons/Lang.svg" alt="" />
         </li>
 
         <li
           className="invoice-project__group-item select-item"
           data-select-item=""
         >
-          <img src="./img/icons/Lang.svg" alt="" />
+          <img src="/img/icons/Lang.svg" alt="" />
         </li>
 
         <li
           className="invoice-project__group-item select-item"
           data-select-item=""
         >
-          <img src="./img/icons/Lang.svg" alt="" />
+          <img src="/img/icons/Lang.svg" alt="" />
         </li>
       </ul>
     </div>

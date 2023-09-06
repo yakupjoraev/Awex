@@ -82,13 +82,13 @@ export function InfocenterPage() {
           <div className="infocenter__news">
             <h3 className="infocenter__new-title main-title">
               Новости
-              <img src="./img/icons/angle-right-circle.svg" alt="" />
+              <img src="/img/icons/angle-right-circle.svg" alt="" />
             </h3>
             <ul className="infocenter__news-list">
               <li className="infocenter__news-item">
                 <a className="infocenter__news-link" href="#">
                   <div className="infocenter__news-info">
-                    <img src="./img/icons/mobile.svg" alt="mobile" />
+                    <img src="/img/icons/mobile.svg" alt="mobile" />
                     <div className="infocenter__news-titles">
                       <h4 className="infocenter__news-label">
                         Запуск нового сервиса TG WebApp - узнай о новых
@@ -97,13 +97,13 @@ export function InfocenterPage() {
                       <p className="infocenter__news-descr">25.07.2023</p>
                     </div>
                   </div>
-                  <img src="./img/icons/arrow-right.svg" alt="arrow-right" />
+                  <img src="/img/icons/arrow-right.svg" alt="arrow-right" />
                 </a>
               </li>
               <li className="infocenter__news-item">
                 <a className="infocenter__news-link" href="#">
                   <div className="infocenter__news-info">
-                    <img src="./img/icons/mobile.svg" alt="mobile" />
+                    <img src="/img/icons/mobile.svg" alt="mobile" />
                     <div className="infocenter__news-titles">
                       <h4 className="infocenter__news-label">
                         Запуск нового сервиса TG WebApp - узнай о новых
@@ -112,13 +112,13 @@ export function InfocenterPage() {
                       <p className="infocenter__news-descr">25.07.2023</p>
                     </div>
                   </div>
-                  <img src="./img/icons/arrow-right.svg" alt="arrow-right" />
+                  <img src="/img/icons/arrow-right.svg" alt="arrow-right" />
                 </a>
               </li>
               <li className="infocenter__news-item">
                 <a className="infocenter__news-link" href="#">
                   <div className="infocenter__news-info">
-                    <img src="./img/icons/mobile.svg" alt="mobile" />
+                    <img src="/img/icons/mobile.svg" alt="mobile" />
                     <div className="infocenter__news-titles">
                       <h4 className="infocenter__news-label">
                         Запуск нового сервиса TG WebApp - узнай о новых
@@ -127,7 +127,7 @@ export function InfocenterPage() {
                       <p className="infocenter__news-descr">25.07.2023</p>
                     </div>
                   </div>
-                  <img src="./img/icons/arrow-right.svg" alt="arrow-right" />
+                  <img src="/img/icons/arrow-right.svg" alt="arrow-right" />
                 </a>
               </li>
             </ul>

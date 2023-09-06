@@ -59,7 +59,7 @@ export function RecoverModal(props: RecoverModalProps) {
       <form className="modal-content" onSubmit={handleRecoverFormSumbit}>
         <div className="modal-content__header">
           <div className="modal-content__header-logo">
-            <img src="./img/icons/logo-mini.svg" alt="" />
+            <img src="/img/icons/logo-mini.svg" alt="" />
 
             <h2>Сброс пароля</h2>
           </div>
@@ -69,7 +69,7 @@ export function RecoverModal(props: RecoverModalProps) {
             className="close-modal-btn"
             onClick={props.onClose}
           >
-            <img src="./img/icons/close-modal.svg" alt="" />
+            <img src="/img/icons/close-modal.svg" alt="" />
           </button>
         </div>
 

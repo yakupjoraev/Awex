@@ -67,7 +67,7 @@ export function ProfileTab() {
       <div className="settings-profile__user">
         <div className="settings-profile__user-infos">
           <div className="settings-profile__user-icon">
-            <img src="./img/icons/user-alt.svg" alt="" />
+            <img src="/img/icons/user-alt.svg" alt="" />
           </div>
 
           <div className="settings-profile__user-info">
@@ -82,7 +82,7 @@ export function ProfileTab() {
           role="button"
           onClick={hanldeLogoutBtnClick}
         >
-          <img src="./img/icons/log-out.svg" alt="log-out" />
+          <img src="/img/icons/log-out.svg" alt="log-out" />
           Выйти
         </div>
       </div>
@@ -109,7 +109,7 @@ export function ProfileTab() {
               <li className="settings-profile__included-item">
                 <img
                   className="settings-profile__included-icon"
-                  src="./img/icons/mail.svg"
+                  src="/img/icons/mail.svg"
                   alt=""
                 />
 
@@ -136,7 +136,7 @@ export function ProfileTab() {
               <li className="settings-profile__included-item">
                 <img
                   className="settings-profile__included-icon"
-                  src="./img/icons/telegram.svg"
+                  src="/img/icons/telegram.svg"
                   alt=""
                 />
 
@@ -161,7 +161,7 @@ export function ProfileTab() {
               <li className="settings-profile__included-item">
                 <img
                   className="settings-profile__included-icon"
-                  src="./img/icons/vk.svg"
+                  src="/img/icons/vk.svg"
                   alt=""
                 />
 
@@ -186,7 +186,7 @@ export function ProfileTab() {
               <li className="settings-profile__included-item">
                 <img
                   className="settings-profile__included-icon"
-                  src="./img/icons/google-svgrepo-com 1.svg"
+                  src="/img/icons/google-svgrepo-com 1.svg"
                   alt=""
                 />
 
@@ -213,7 +213,7 @@ export function ProfileTab() {
               <li className="settings-profile__included-item">
                 <img
                   className="settings-profile__included-icon"
-                  src="./img/icons/icloud.svg"
+                  src="/img/icons/icloud.svg"
                   alt=""
                 />
 
@@ -259,7 +259,7 @@ export function ProfileTab() {
 
                 <div className="settings-profile__notifications-links">
                   <div className="settings-profile__notifications-link">
-                    <img src="./img/icons/mail.svg" alt="" />
+                    <img src="/img/icons/mail.svg" alt="" />
 
                     <span>Почта</span>
                   </div>
@@ -286,7 +286,7 @@ export function ProfileTab() {
 
                 <div className="settings-profile__notifications-links">
                   <div className="settings-profile__notifications-link">
-                    <img src="./img/icons/telegram.svg" alt="" />
+                    <img src="/img/icons/telegram.svg" alt="" />
 
                     <span>Telegram</span>
                   </div>

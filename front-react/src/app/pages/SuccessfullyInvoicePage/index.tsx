@@ -67,7 +67,7 @@ export function SuccessfullyInvoicePage() {
 
           <img
             className="successfully-invoice__header-img"
-            src="./img/icons/tooltip.svg"
+            src="/img/icons/tooltip.svg"
             alt="tooltip"
           />
         </div>
