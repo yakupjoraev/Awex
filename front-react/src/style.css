@@ -33,3 +33,15 @@
 .settings-security__input-error {
   margin-bottom: 10px;
 }
+
+.resend-btn {
+  background-color: unset;
+  cursor: pointer;
+  color: var(--text-color);
+  display: block;
+  margin-top: 5px;
+}
+
+.resend-btn:hover {
+  color: var(--second-color);
+}

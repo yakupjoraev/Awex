@@ -68,47 +68,6 @@ export const signIn = createAsyncThunk(
   }
 );
 
-export const register = createAsyncThunk(
-  "auth/register",
-  async (opts: { email: string; password: string }) => {
-    try {
-      await CommonService.registration({
-        email: opts.email,
-        password: opts.password,
-      });
-    } catch (error) {
-      if (error instanceof ApiError) {
-        throw makeSerializedError(error, { code: GENERAL_REGISTER_ERROR });
-      }
-      throw error;
-    }
-    let authDetails;
-    try {
-      authDetails = await CommonService.login({
-        email: opts.email,
-        password: opts.password,
-      });
-    } catch (error) {
-      if (error instanceof ApiError && error.status === 401) {
-        throw makeSerializedError(error, { code: AUTH_SIGN_IN_ERROR });
-      }
-      if (error instanceof Error) {
-        throw makeSerializedError(error, { code: GENERAL_SIGN_IN_ERROR });
-      }
-      throw error;
-    }
-    const user = {
-      email: opts.email,
-      verified: authDetails.verified || false,
-      token: authDetails.token || "",
-      expiration: authDetails.expiration || 0,
-    };
-    setUser(user);
-    OpenAPI.TOKEN = user.token;
-    return user;
-  }
-);
-
 export const signOut = createAsyncThunk("auth/signOut", async () => {
   removeUser();
 });
@@ -145,34 +104,6 @@ const slice = createSlice({
       state.signInStatus = "idle";
       state.user = undefined;
       state.signInError = undefined;
-    });
-    builder.addCase(register.fulfilled, (state, action) => {
-      state.signInStatus = "succeed";
-      state.user = action.payload;
-      state.registerError = undefined;
-    });
-    builder.addCase(register.pending, (state) => {
-      state.registerStatus = "pending";
-      state.registerError = undefined;
-    });
-    builder.addCase(register.rejected, (state, action) => {
-      state.registerStatus = "failed";
-      if (action.error.code === AUTH_SIGN_IN_ERROR) {
-        state.registerError = {
-          code: AUTH_SIGN_IN_ERROR,
-          message: action.error.message || "unknown",
-        };
-      } else if (action.error.code === GENERAL_SIGN_IN_ERROR) {
-        state.registerError = {
-          code: GENERAL_SIGN_IN_ERROR,
-          message: action.error.message || "unknown",
-        };
-      } else {
-        state.registerError = {
-          code: GENERAL_REGISTER_ERROR,
-          message: error(action.error),
-        };
-      }
     });
   },
 });
