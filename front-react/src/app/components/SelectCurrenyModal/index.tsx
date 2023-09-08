@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import classNames from "classnames";
 
 interface SelectCurrencyModalProps {
@@ -7,15 +7,32 @@ interface SelectCurrencyModalProps {
 }
 
 export function SelectCurrencyModal(props: SelectCurrencyModalProps) {
+  const modalContentRef = useRef<HTMLFormElement>(null);
   const [searchText, setSeacrhText] = useState("");
+
+  const handleCoverClick = (ev: React.MouseEvent<HTMLDivElement>) => {
+    if (
+      modalContentRef.current &&
+      ev.target instanceof Element &&
+      !modalContentRef.current.contains(ev.target)
+    ) {
+      props.onClose();
+    }
+  };
 
   const handleSearchInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setSeacrhText(ev.currentTarget.value);
   };
 
   return (
-    <div className={classNames("modal", { show: props.open })}>
-      <form className="modal-content modal-content--select-list">
+    <div
+      className={classNames("modal", { show: props.open })}
+      onClick={handleCoverClick}
+    >
+      <form
+        className="modal-content modal-content--select-list"
+        ref={modalContentRef}
+      >
         <div className="modal-content__header">
           <h4 className="modal-content__title">Выберете криптовалюту:</h4>
 
