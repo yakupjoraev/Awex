@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { HOME_PAGE_PATH } from "../../constants/path-locations";
+import { ACTIVES_ROUTE, HOME_PAGE_PATH } from "../../constants/path-locations";
 
 export function IndexPage() {
   return (
@@ -92,7 +92,7 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a className="pages__link" href="/actives" target="_blank">
+              <a className="pages__link" href={ACTIVES_ROUTE} target="_blank">
                 Страница активов
               </a>
             </li>

@@ -5,13 +5,14 @@ import { useEffect, useId, useMemo, useState } from "react";
 import { ActivePaginator } from "./ActivePaginator";
 import { useDebounce } from "usehooks-ts";
 import escapeRegExp from "lodash/escapeRegExp";
-import { toast } from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 const PAGE_LENGTH = 4;
 const SEARCH_THROTTLE = 200;
 
 export function MyActivesPage() {
+  const navigate = useNavigate();
   const zeroBalancesCheckboxId = useId();
   const [hideZeroBalances, setHideZeroBalances] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,13 +27,13 @@ export function MyActivesPage() {
     const normalizedSearchText = debouncedSearchText.trim().toLowerCase();
     if (normalizedSearchText.length === 0) {
       if (hideZeroBalances) {
-        return actives.filter((active) => active.balance > 0);
+        return Object.values(actives).filter((active) => active.balance > 0);
       } else {
-        return actives;
+        return Object.values(actives);
       }
     }
     const searchRe = new RegExp(escapeRegExp(normalizedSearchText), "i");
-    return actives.filter((active) => {
+    return Object.values(actives).filter((active) => {
       if (hideZeroBalances && active.balance === 0) {
         return false;
       }
@@ -61,10 +62,6 @@ export function MyActivesPage() {
     const offset = (normalizedCurrentPage - 1) * PAGE_LENGTH;
     return filteredActives.slice(offset, offset + PAGE_LENGTH);
   }, [filteredActives, normalizedCurrentPage]);
-
-  const handleNotImplemented = () => {
-    toast("NOT IMPLEMENTED!");
-  };
 
   const handleHideZeroBalancesChange = () => {
     setHideZeroBalances(!hideZeroBalances);
@@ -126,14 +123,20 @@ export function MyActivesPage() {
           <div className="my-actives__checks-container">
             <MyActivesChecks>
               {visibleActives.map((active) => {
-                const { id: key, ...rest } = active;
+                const { id, ...rest } = active;
                 return (
                   <MyActivesCheck
                     {...rest}
-                    onSell={handleNotImplemented}
-                    onSwap={handleNotImplemented}
-                    onWithdraw={handleNotImplemented}
-                    key={key}
+                    onWithdraw={() => {
+                      navigate(`/actives/${id}/withdraw`);
+                    }}
+                    onSell={() => {
+                      navigate(`/actives/${id}/sell`);
+                    }}
+                    onSwap={() => {
+                      navigate(`/actives/${id}/swap`);
+                    }}
+                    key={id}
                   />
                 );
               })}

@@ -1,23 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { actives } from "../../../../data/actives";
 import { MyActivesChecks } from "@components/MyActivesChecks";
 import { MyActivesCheck } from "@components/MyActivesCheck";
 import { toast } from "react-hot-toast";
+import { ACTIVES_ROUTE } from "../../../constants/path-locations";
 
-const VISIBLE_ACTIVES = actives.slice(0, 4);
+const VISIBLE_ACTIVES = Object.values(actives).slice(0, 4);
 
 export function MyActives() {
-  const handleNotImplemented = () => {
-    toast("NOT IMPLEMENTED!");
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="my-actives">
       <div className="my-actives__header">
         <h2 className="my-actives__title main-title">Мои активы:</h2>
 
-        <Link className="history-operations__link" to="/actives">
+        <Link className="history-operations__link" to={ACTIVES_ROUTE}>
           Все активы
           <img
             className="history-operations__link-img"
@@ -30,14 +29,16 @@ export function MyActives() {
       <div className="my-actives__checks-container">
         <MyActivesChecks>
           {VISIBLE_ACTIVES.map((active) => {
-            const { id: key, ...rest } = active;
+            const { id, ...rest } = active;
             return (
               <MyActivesCheck
                 {...rest}
-                key={key}
-                onWithdraw={handleNotImplemented}
-                onSell={handleNotImplemented}
-                onSwap={handleNotImplemented}
+                onWithdraw={() => navigate(`${ACTIVES_ROUTE}/${id}/withdraw`)}
+                onSell={() => {
+                  navigate(`${ACTIVES_ROUTE}/${id}/sell`);
+                }}
+                onSwap={() => navigate(`${ACTIVES_ROUTE}/${id}/swap`)}
+                key={id}
               />
             );
           })}
