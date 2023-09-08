@@ -1,18 +1,18 @@
 import { useEffect, useId } from "react";
-import { RegisterError } from "..";
 import { useForm, FieldErrors } from "react-hook-form";
 import { confirmFormSchema } from "./validators";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classNames from "classnames";
 
-export interface ConfirmModalContentProps {
+export interface ConfirmEmailModalContentProps {
   open: boolean;
   loading: boolean;
-  error: RegisterError | null;
+  title: string;
+  error?: { type: "unknown"; message?: string };
   verifyEmail: string;
   onClose: () => void;
   onResendCode: () => void;
-  onConfirm: (code: string) => void;
+  onConfirmCode: (code: string) => void;
 }
 
 interface ConfirmModalFormData {
@@ -23,7 +23,7 @@ const DEFAULT_FORM_DATA: ConfirmModalFormData = {
   code: "",
 };
 
-export function ConfirmModalContent(props: ConfirmModalContentProps) {
+export function ConfirmEmailModalContent(props: ConfirmEmailModalContentProps) {
   const codeId = useId();
   const {
     register,
@@ -39,7 +39,7 @@ export function ConfirmModalContent(props: ConfirmModalContentProps) {
   useEffect(() => {
     if (props.error) {
       setError("root", {
-        message: props.error.message || "Ошибка регистрации!",
+        message: props.error.message || "Ошибка верификации!",
       });
     }
   }, [props.error]);
@@ -56,7 +56,7 @@ export function ConfirmModalContent(props: ConfirmModalContentProps) {
   };
 
   const handleConfirmFormSubmit = handleSubmit((formData) => {
-    props.onConfirm(formData.code);
+    props.onConfirmCode(formData.code);
   });
 
   return (
@@ -64,7 +64,7 @@ export function ConfirmModalContent(props: ConfirmModalContentProps) {
       <div className="modal-content__header">
         <div className="modal-content__header-logo">
           <img src="/img/icons/logo-mini.svg" alt="" />
-          <h2>Регистрация</h2>
+          <h2>{props.title}</h2>
         </div>
         <button className="close-modal-btn" onClick={props.onClose}>
           <img src="/img/icons/close-modal.svg" alt="" />
@@ -96,10 +96,14 @@ export function ConfirmModalContent(props: ConfirmModalContentProps) {
             id={codeId}
             type="text"
             placeholder="Введите секретный код"
+            autoComplete="off"
             {...register("code")}
           />
           {renderFieldError(errors, "code")}
         </div>
+        {errors.root && errors.root.message && (
+          <div className="modal-content__error">{errors.root.message}</div>
+        )}
       </div>
       <button
         type="submit"

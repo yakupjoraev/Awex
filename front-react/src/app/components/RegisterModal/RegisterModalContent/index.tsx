@@ -5,12 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { registerFormSchema } from "./validators";
 import { passwordStrength } from "check-password-strength";
 import { useDebounce } from "usehooks-ts";
-import { RegisterError } from "..";
 
 export interface RegisterModalContentProps {
   open: boolean;
   loading: boolean;
-  error: RegisterError | null;
+  error?: { type: "unknown"; message?: string };
   onClose: () => void;
   onRegister: (opts: { email: string; password: string }) => void;
 }

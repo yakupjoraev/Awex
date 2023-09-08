@@ -2,7 +2,6 @@ import { object, string, boolean, number } from "yup";
 
 const userSchema = object({
   email: string().required(),
-  verified: boolean().required(),
   token: string().required(),
   expiration: number().required(),
 });
@@ -11,7 +10,6 @@ const USER_KEY = "user";
 
 export interface User {
   email: string;
-  verified: boolean;
   token: string;
   expiration: number;
 }

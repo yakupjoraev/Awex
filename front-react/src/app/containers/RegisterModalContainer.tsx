@@ -1,9 +1,5 @@
 import { ApiError, CommonService } from "@awex-api";
-import {
-  RegisterError,
-  RegisterModal,
-  RegisterStage,
-} from "@components/RegisterModal";
+import { RegisterModal, RegisterStage } from "@components/RegisterModal";
 import { signIn } from "@store/auth/slice";
 import { useAppDispatch } from "@store/hooks";
 import { useEffect, useState } from "react";
@@ -22,13 +18,18 @@ export interface RegisterModalContainerProps {
 export function RegisterModalContainer(props: RegisterModalContainerProps) {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<RegisterError | null>(null);
   const [stage, setStage] = useState<RegisterStage>("register");
   const [authData, setAuthData] = useState<AuthData | null>(null);
+  const [registerError, setRegisterError] = useState<
+    { type: "unknown"; message?: string } | undefined
+  >(undefined);
+  const [verifyError, setVerifyError] = useState<
+    { type: "unknown"; message?: string } | undefined
+  >(undefined);
 
   useEffect(() => {
     setLoading(false);
-    setError(null);
+    setRegisterError(undefined);
     setStage("register");
     setAuthData(null);
   }, [props.open]);
@@ -46,7 +47,7 @@ export function RegisterModalContainer(props: RegisterModalContainerProps) {
       })
       .catch((error) => {
         console.error(error);
-        setError(makeRegisterError(error));
+        setRegisterError(makeUnknownError(error));
       })
       .finally(() => {
         setLoading(false);
@@ -94,7 +95,9 @@ export function RegisterModalContainer(props: RegisterModalContainerProps) {
     setLoading(true);
     CommonService.confirm({ code: code })
       .then(() => {
-        dispatch(signIn({ login: authData.email, password: authData.password }))
+        return dispatch(
+          signIn({ login: authData.email, password: authData.password })
+        )
           .unwrap()
           .then(() => {
             props.onClose();
@@ -104,8 +107,12 @@ export function RegisterModalContainer(props: RegisterModalContainerProps) {
             if (error && typeof error.message === "string") {
               message = error.message;
             }
-            setError({ type: "GENERAL", message });
+            setRegisterError({ type: "unknown", message });
           });
+      })
+      .catch((error) => {
+        console.error(error);
+        setVerifyError(makeUnknownError(error));
       })
       .finally(() => {
         setLoading(false);
@@ -116,9 +123,10 @@ export function RegisterModalContainer(props: RegisterModalContainerProps) {
     <RegisterModal
       open={props.open}
       loading={loading}
-      error={error}
+      registerError={registerError}
       stage={stage}
       verifyEmail={authData ? authData.email : ""}
+      verifyError={verifyError}
       onClose={props.onClose}
       onRegister={handleRegister}
       onConfirm={handleConfirm}
@@ -127,7 +135,10 @@ export function RegisterModalContainer(props: RegisterModalContainerProps) {
   );
 }
 
-function makeRegisterError(error: unknown): RegisterError {
+function makeUnknownError(error: unknown): {
+  type: "unknown";
+  message?: string;
+} {
   if (
     error instanceof ApiError &&
     typeof error.body === "object" &&
@@ -135,7 +146,7 @@ function makeRegisterError(error: unknown): RegisterError {
     error.body.errors.length
   ) {
     const firstError = error.body.errors[0];
-    return { type: "GENERAL", message: firstError };
+    return { type: "unknown", message: firstError };
   }
-  return { type: "GENERAL" };
+  return { type: "unknown" };
 }

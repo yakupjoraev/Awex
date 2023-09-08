@@ -1,17 +1,16 @@
 import classNames from "classnames";
 import { RegisterModalContent } from "./RegisterModalContent";
-import { ConfirmModalContent } from "./ConfirmModalContent";
-
-export type RegisterError = { type: "GENERAL", message?: string };
+import { ConfirmEmailModalContent } from "@components/ConfirmEmailModalContent";
 
 export type RegisterStage = "register" | "verify";
 
 export interface RegisterModalProps {
   open: boolean;
-  loading: boolean;
-  error: RegisterError | null;
   stage: RegisterStage;
+  loading: boolean;
+  registerError?: { type: "unknown"; message?: string };
   verifyEmail: string;
+  verifyError?: { type: "unknown"; message?: string };
   onClose: () => void;
   onRegister: (opts: { email: string; password: string }) => void;
   onConfirm: (code: string) => void;
@@ -26,7 +25,7 @@ export function RegisterModal(props: RegisterModalProps) {
         <RegisterModalContent
           open={props.open}
           loading={props.loading}
-          error={props.error}
+          error={props.registerError}
           onClose={props.onClose}
           onRegister={props.onRegister}
         />
@@ -35,13 +34,14 @@ export function RegisterModal(props: RegisterModalProps) {
     }
     case "verify": {
       modalContent = (
-        <ConfirmModalContent
+        <ConfirmEmailModalContent
           open={props.open}
           loading={props.loading}
-          error={props.error}
+          title="Регистрация"
+          error={props.verifyError}
           verifyEmail={props.verifyEmail}
           onClose={props.onClose}
-          onConfirm={props.onConfirm}
+          onConfirmCode={props.onConfirm}
           onResendCode={props.onResendCode}
         />
       );

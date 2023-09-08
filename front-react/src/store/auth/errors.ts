@@ -1,10 +1,17 @@
-export const GENERAL_SIGN_IN_ERROR = "GENERAL_SIGN_IN_ERROR";
+export const UNKNOWN_SIGN_IN_ERROR = "UNKNOWN_SIGN_IN_ERROR";
 export const AUTH_SIGN_IN_ERROR = "AUTH_SIGN_IN_ERROR";
+export const VER_REQ_SIGN_IN_ERROR = "VER_REQ_SIGN_IN_ERROR";
 
-export const GENERAL_REGISTER_ERROR = "GENERAL_REGISTER_ERROR";
-
-export type SIGN_IN_ERROR_CODE =
-  | typeof GENERAL_SIGN_IN_ERROR
-  | typeof AUTH_SIGN_IN_ERROR;
-
-export type REGISTER_ERROR_CODE =  typeof GENERAL_REGISTER_ERROR | SIGN_IN_ERROR_CODE;
+export type SignInError =
+  | {
+      code: typeof UNKNOWN_SIGN_IN_ERROR;
+      message: string;
+    }
+  | {
+      code: typeof AUTH_SIGN_IN_ERROR;
+      message: string;
+    }
+  | {
+      code: typeof VER_REQ_SIGN_IN_ERROR;
+      message: string;
+    };

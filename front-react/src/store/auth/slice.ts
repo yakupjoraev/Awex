@@ -8,24 +8,24 @@ import { ApiError, CommonService, OpenAPI } from "@awex-api";
 import { getUser, removeUser, setUser } from "../../services/user.service";
 import {
   AUTH_SIGN_IN_ERROR,
-  GENERAL_REGISTER_ERROR,
-  GENERAL_SIGN_IN_ERROR,
-  REGISTER_ERROR_CODE,
-  SIGN_IN_ERROR_CODE,
+  SignInError,
+  UNKNOWN_SIGN_IN_ERROR,
+  VER_REQ_SIGN_IN_ERROR,
 } from "./errors";
-import { makeSerializedError } from "./utils/makeSerializableError";
+
+interface LoginPayload {
+  login: string;
+  password: string;
+}
 
 export interface AuthState {
   user?: {
     email: string;
     token: string;
-    verified: boolean;
     expiration: number;
   };
   signInStatus: "idle" | "pending" | "succeed" | "failed";
-  signInError?: { code: SIGN_IN_ERROR_CODE; message: string };
-  registerStatus: "idle" | "pending" | "succeed" | "failed";
-  registerError?: { code: REGISTER_ERROR_CODE; message: string };
+  signInError?: SignInError;
 }
 
 const user = getUser();
@@ -34,13 +34,17 @@ const initialState: AuthState = {
   user: user || undefined,
   signInStatus: "idle",
   signInError: undefined,
-  registerStatus: "idle",
-  registerError: undefined,
 };
 
-export const signIn = createAsyncThunk(
+export const signIn = createAsyncThunk<
+  { email: string; token: string; expiration: number },
+  { login: string; password: string },
+  {
+    rejectValue: SignInError;
+  }
+>(
   "auth/signIn",
-  async (opts: { login: string; password: string }) => {
+  async (opts: { login: string; password: string }, thunkApi) => {
     let authDetails;
     try {
       authDetails = await CommonService.login({
@@ -49,16 +53,28 @@ export const signIn = createAsyncThunk(
       });
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) {
-        throw makeSerializedError(error, { code: AUTH_SIGN_IN_ERROR });
+        return thunkApi.rejectWithValue({
+          code: AUTH_SIGN_IN_ERROR,
+          message: "wrong login or password",
+        });
       }
       if (error instanceof Error) {
-        throw makeSerializedError(error, { code: GENERAL_SIGN_IN_ERROR });
+        return thunkApi.rejectWithValue({
+          code: UNKNOWN_SIGN_IN_ERROR,
+          message: error.message,
+        });
       }
       throw error;
     }
+    if (authDetails.verified === false) {
+      return thunkApi.rejectWithValue({
+        code: VER_REQ_SIGN_IN_ERROR,
+        message: "verification required",
+      });
+    }
+
     const user = {
       email: opts.login,
-      verified: authDetails.verified || false,
       token: authDetails.token || "",
       expiration: authDetails.expiration || 0,
     };
@@ -88,14 +104,11 @@ const slice = createSlice({
     });
     builder.addCase(signIn.rejected, (state, action) => {
       state.signInStatus = "failed";
-      if (action.error.code === AUTH_SIGN_IN_ERROR) {
-        state.signInError = {
-          code: AUTH_SIGN_IN_ERROR,
-          message: action.error.message || "unknown",
-        };
+      if (action.payload) {
+        state.signInError = action.payload;
       } else {
         state.signInError = {
-          code: GENERAL_SIGN_IN_ERROR,
+          code: UNKNOWN_SIGN_IN_ERROR,
           message: error(action.error),
         };
       }
