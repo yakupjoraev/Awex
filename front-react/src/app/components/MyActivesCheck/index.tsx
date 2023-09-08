@@ -35,8 +35,8 @@ export function MyActivesCheck(props: MyActivesCheckProps) {
         </div>
       </div>
 
-      <div className="my-actives__check-operations" onClick={props.onWithdraw}>
-        <div className="my-actives__check-operation">
+      <div className="my-actives__check-operations">
+        <div className="my-actives__check-operation" onClick={props.onWithdraw}>
           <img
             className="my-actives__check-operation-img"
             src="/img/icons/conclusion.svg"
