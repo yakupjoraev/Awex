@@ -19,10 +19,6 @@ export function MyActivesPage() {
   const [searchText, setSearchText] = useState<string>("");
   const debouncedSearchText = useDebounce(searchText, SEARCH_THROTTLE);
 
-  useEffect(() => {
-    console.log(hideZeroBalances, currentPage, debouncedSearchText);
-  }, [hideZeroBalances, currentPage, debouncedSearchText]);
-
   const filteredActives = useMemo(() => {
     const normalizedSearchText = debouncedSearchText.trim().toLowerCase();
     if (normalizedSearchText.length === 0) {
@@ -44,10 +40,6 @@ export function MyActivesPage() {
       );
     });
   }, [debouncedSearchText, hideZeroBalances]);
-
-  useEffect(() => {
-    console.log(filteredActives);
-  }, [filteredActives]);
 
   const totalPages = useMemo(() => {
     return filteredActives.length === 0
