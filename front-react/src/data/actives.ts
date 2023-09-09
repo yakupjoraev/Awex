@@ -6,6 +6,7 @@ export interface Active {
   balance: number;
   swap: boolean;
   sell: boolean;
+  cash: boolean;
 }
 
 export const actives: Record<string, Active> = {
@@ -17,6 +18,7 @@ export const actives: Record<string, Active> = {
     balance: 178956757,
     swap: false,
     sell: false,
+    cash: true,
   },
   id1: {
     id: "id1",
@@ -26,6 +28,7 @@ export const actives: Record<string, Active> = {
     balance: 178956757,
     swap: true,
     sell: true,
+    cash: false,
   },
   id2: {
     id: "id2",
@@ -35,6 +38,7 @@ export const actives: Record<string, Active> = {
     balance: 178956757,
     swap: true,
     sell: true,
+    cash: false,
   },
   id3: {
     id: "id3",
@@ -44,6 +48,7 @@ export const actives: Record<string, Active> = {
     balance: 178956757,
     swap: true,
     sell: true,
+    cash: false,
   },
   id4: {
     id: "id4",
@@ -53,6 +58,7 @@ export const actives: Record<string, Active> = {
     balance: 0,
     swap: true,
     sell: true,
+    cash: false,
   },
   id5: {
     id: "id5",
@@ -62,6 +68,7 @@ export const actives: Record<string, Active> = {
     balance: 654485475,
     swap: true,
     sell: true,
+    cash: false,
   },
   id6: {
     id: "id6",
@@ -71,5 +78,6 @@ export const actives: Record<string, Active> = {
     balance: 654485475,
     swap: true,
     sell: true,
+    cash: false,
   },
 };

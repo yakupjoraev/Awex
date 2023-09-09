@@ -7,8 +7,11 @@ import { actives } from "../../../data/actives";
 import { NotFoundPage } from "../NotFoundPage";
 import { ActiveDetails } from "./ActiveDetails";
 import { SecondaryPanel } from "./SecondaryPanel";
+import { OrderCashForm } from "./OrderCashForm";
 
 const SPLIT_VIEW_WIDTH = 768;
+
+type Action = "withdraw" | "sell" | "swap" | "orderCash";
 
 export function ActivePage() {
   const navigate = useNavigate();
@@ -28,7 +31,7 @@ export function ActivePage() {
     return <NotFoundPage />;
   }
 
-  const handleChangeAction = (action: "withdraw" | "sell" | "swap") => {
+  const handleChangeAction = (action: Action) => {
     navigate(`/actives/${activeId}/${action}`, {
       replace: true,
       state: { primary: false },
@@ -73,9 +76,9 @@ export function ActivePage() {
 }
 
 function renderLeftPanel(
-  action: "withdraw" | "sell" | "swap",
+  action: Action,
   handleNavBack: () => void
-) {
+): JSX.Element {
   let secondaryPanel;
   switch (action) {
     case "withdraw": {
@@ -102,17 +105,24 @@ function renderLeftPanel(
       );
       break;
     }
+    case "orderCash": {
+      secondaryPanel = (
+        <SecondaryPanel title="Заказ наличных в офис" onNavBack={handleNavBack}>
+          <OrderCashForm />
+        </SecondaryPanel>
+      );
+      break;
+    }
   }
   return secondaryPanel;
 }
 
-function isAction(
-  action: string | undefined
-): action is "withdraw" | "sell" | "swap" {
+function isAction(action: string | undefined): action is Action {
   switch (action) {
     case "withdraw":
     case "sell":
-    case "swap": {
+    case "swap":
+    case "orderCash": {
       return true;
     }
     default: {

@@ -6,8 +6,8 @@ import { ACTIVES_ROUTE } from "../../../constants/path-locations";
 
 export interface ActiveDetailsProps {
   active: Active;
-  action: "withdraw" | "sell" | "swap";
-  onNavigate: (action: "withdraw" | "sell" | "swap") => void;
+  action: "withdraw" | "sell" | "swap" | "orderCash";
+  onNavigate: (action: "withdraw" | "sell" | "swap" | "orderCash") => void;
 }
 
 export function ActiveDetails(props: ActiveDetailsProps) {
@@ -45,6 +45,24 @@ export function ActiveDetails(props: ActiveDetailsProps) {
           active
         )}`}
       >
+        {active.cash && (
+          <div
+            className={classNames("actives-check__action", {
+              active: action === "orderCash",
+            })}
+            onClick={() => {
+              onNavigate("orderCash");
+            }}
+          >
+            <img
+              className="actives-check__action-pic"
+              src="/img/icons/money-hand.svg"
+              alt="Продать"
+            />
+
+            <p className="actives-check__action-text">Заказ наличных в офис</p>
+          </div>
+        )}
         <div
           className={classNames("actives-check__action", {
             active: action === "withdraw",
@@ -102,7 +120,15 @@ export function ActiveDetails(props: ActiveDetailsProps) {
 }
 
 function countButtons(active: Active): number {
-  const { sell, swap } = active;
-  const buttonCount = 1 + Number(sell) + Number(swap);
+  const { cash, sell, swap } = active;
+
+  const widthdrawBtnCount = 1;
+  const cashBtnCount = Number(cash);
+  const sellBtnCount = Number(sell);
+  const swapBtnCOunt = Number(swap);
+
+  const buttonCount =
+    widthdrawBtnCount + cashBtnCount + sellBtnCount + swapBtnCOunt;
+
   return buttonCount;
 }
