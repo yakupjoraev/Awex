@@ -19,9 +19,9 @@ import { PaymentCryptoPage } from "./pages/PaymentCryptoPage";
 import { AuthPage } from "./pages/AuthPage";
 import { PrivateRoute } from "@components/PrivateRoute";
 import { InfocenterPage } from "./pages/InfocenterPage";
-import { MyActivesPage } from "./pages/MyActivesPage";
-import { ActivePage } from "./pages/ActivePage";
-import { ACTIVES_ROUTE } from "./constants/path-locations";
+import { MyAssetsPage } from "./pages/MyAssetsPage";
+import { AssetPage } from "./pages/AssetPage";
+import { ASSETS_ROUTE } from "./constants/path-locations";
 
 export function App() {
   return (
@@ -47,10 +47,10 @@ export function App() {
           <Route path="/projects/:projectId" element={<EditProjectPage />} />
           <Route path="/projects/new-project" element={<CreateProjectPage />} />
           <Route path="/settings/*" element={<SettingsPage />} />
-          <Route path={ACTIVES_ROUTE} element={<MyActivesPage />} />
+          <Route path={ASSETS_ROUTE} element={<MyAssetsPage />} />
           <Route
-            path={`${ACTIVES_ROUTE}/:activeId/:action?`}
-            element={<ActivePage />}
+            path={`${ASSETS_ROUTE}/:assetId/:action?`}
+            element={<AssetPage />}
           />
           <Route path="/infocenter" element={<InfocenterPage />} />
           <Route path="/date-picker" element={<DatePickerPage />} />

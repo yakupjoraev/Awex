@@ -1,8 +1,8 @@
 import { MyActivesCheck } from "@components/MyActivesCheck";
 import { MyActivesChecks } from "@components/MyActivesChecks";
-import { actives } from "../../../data/actives";
+import { assets } from "../../../data/assets";
 import { useEffect, useId, useMemo, useState } from "react";
-import { ActivePaginator } from "./ActivePaginator";
+import { AssetPaginator } from "./AssetPaginator";
 import { useDebounce } from "usehooks-ts";
 import escapeRegExp from "lodash/escapeRegExp";
 import { Helmet } from "react-helmet-async";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const PAGE_LENGTH = 4;
 const SEARCH_THROTTLE = 200;
 
-export function MyActivesPage() {
+export function MyAssetsPage() {
   const navigate = useNavigate();
   const zeroBalancesCheckboxId = useId();
   const [hideZeroBalances, setHideZeroBalances] = useState(false);
@@ -23,13 +23,13 @@ export function MyActivesPage() {
     const normalizedSearchText = debouncedSearchText.trim().toLowerCase();
     if (normalizedSearchText.length === 0) {
       if (hideZeroBalances) {
-        return Object.values(actives).filter((active) => active.balance > 0);
+        return Object.values(assets).filter((active) => active.balance > 0);
       } else {
-        return Object.values(actives);
+        return Object.values(assets);
       }
     }
     const searchRe = new RegExp(escapeRegExp(normalizedSearchText), "i");
-    return Object.values(actives).filter((active) => {
+    return Object.values(assets).filter((active) => {
       if (hideZeroBalances && active.balance === 0) {
         return false;
       }
@@ -136,7 +136,7 @@ export function MyActivesPage() {
           </div>
         </div>
         {totalPages > 1 && (
-          <ActivePaginator
+          <AssetPaginator
             currentPage={normalizedCurrentPage}
             totalPages={totalPages}
             onNavigate={handleNavigate}

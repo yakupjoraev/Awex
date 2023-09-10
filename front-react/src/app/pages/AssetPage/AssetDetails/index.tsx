@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { Active } from "../../../../data/actives";
+import { Asset } from "../../../../data/assets";
 import { HistoryList } from "../HistoryList";
-import { ACTIVES_ROUTE } from "../../../constants/path-locations";
+import { ASSETS_ROUTE } from "../../../constants/path-locations";
 
-export interface ActiveDetailsProps {
-  active: Active;
+export interface AssetDetailsProps {
+  active: Asset;
   action: "withdraw" | "sell" | "swap" | "orderCash";
   onNavigate: (action: "withdraw" | "sell" | "swap" | "orderCash") => void;
 }
 
-export function ActiveDetails(props: ActiveDetailsProps) {
-  const { active, action, onNavigate } = props;
+export function AssetDetails(props: AssetDetailsProps) {
+  const { active: asset, action, onNavigate } = props;
 
   return (
     <div className="actives-check">
-      <Link to={ACTIVES_ROUTE} className="actives-check__back">
+      <Link to={ASSETS_ROUTE} className="actives-check__back">
         <img
           className="actives-check__back-pic"
           src="/img/icons/arrow-left.svg"
@@ -27,13 +27,13 @@ export function ActiveDetails(props: ActiveDetailsProps) {
         <div className="actives-check__currency">
           <img
             className="actives-check__currency-pic"
-            src={`/img/actives/${active.currencyIcon}-big.png`}
+            src={`/img/actives/${asset.currencyIcon}-big.png`}
             alt="btc"
           />
           <h3 className="actives-check__currency-name">
-            {active.currencyDesc}
+            {asset.currencyDesc}
           </h3>
-          <h4 className="actives-check__currency-subname">{active.currency}</h4>
+          <h4 className="actives-check__currency-subname">{asset.currency}</h4>
           <div className="actives-check__count">
             0,5672314
             <span>~27.568.4565 USDT</span>
@@ -42,10 +42,10 @@ export function ActiveDetails(props: ActiveDetailsProps) {
       </div>
       <div
         className={`actives-check__actions actives-check__actions--${countButtons(
-          active
+          asset
         )}`}
       >
-        {active.cash && (
+        {asset.cash && (
           <div
             className={classNames("actives-check__action", {
               active: action === "orderCash",
@@ -78,7 +78,7 @@ export function ActiveDetails(props: ActiveDetailsProps) {
           />
           <p className="actives-check__action-text">Вывод</p>
         </div>
-        {active.sell && (
+        {asset.sell && (
           <div
             className={classNames("actives-check__action", {
               active: action === "sell",
@@ -94,7 +94,7 @@ export function ActiveDetails(props: ActiveDetailsProps) {
           </div>
         )}
 
-        {active.swap && (
+        {asset.swap && (
           <div
             className={classNames("actives-check__action", {
               active: action === "swap",
@@ -119,7 +119,7 @@ export function ActiveDetails(props: ActiveDetailsProps) {
   );
 }
 
-function countButtons(active: Active): number {
+function countButtons(active: Asset): number {
   const { cash, sell, swap } = active;
 
   const widthdrawBtnCount = 1;

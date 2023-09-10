@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { actives } from "../../../../data/actives";
+import { assets } from "../../../../data/assets";
 import { MyActivesChecks } from "@components/MyActivesChecks";
 import { MyActivesCheck } from "@components/MyActivesCheck";
 import { toast } from "react-hot-toast";
-import { ACTIVES_ROUTE } from "../../../constants/path-locations";
+import { ASSETS_ROUTE } from "../../../constants/path-locations";
 
-const VISIBLE_ACTIVES = Object.values(actives).slice(0, 4);
+const VISIBLE_ACTIVES = Object.values(assets).slice(0, 4);
 
 export function MyActives() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export function MyActives() {
       <div className="my-actives__header">
         <h2 className="my-actives__title main-title">Мои активы:</h2>
 
-        <Link className="history-operations__link" to={ACTIVES_ROUTE}>
+        <Link className="history-operations__link" to={ASSETS_ROUTE}>
           Все активы
           <img
             className="history-operations__link-img"
@@ -33,11 +33,11 @@ export function MyActives() {
             return (
               <MyActivesCheck
                 {...rest}
-                onWithdraw={() => navigate(`${ACTIVES_ROUTE}/${id}/withdraw`)}
+                onWithdraw={() => navigate(`${ASSETS_ROUTE}/${id}/withdraw`)}
                 onSell={() => {
-                  navigate(`${ACTIVES_ROUTE}/${id}/sell`);
+                  navigate(`${ASSETS_ROUTE}/${id}/sell`);
                 }}
-                onSwap={() => navigate(`${ACTIVES_ROUTE}/${id}/swap`)}
+                onSwap={() => navigate(`${ASSETS_ROUTE}/${id}/swap`)}
                 key={id}
               />
             );

@@ -3,9 +3,9 @@ import { WithdrawForm } from "./WIthdrawForm";
 import { useWindowSize } from "usehooks-ts";
 import { SellForm } from "./SellForm";
 import { SwapForm } from "./SwapForm";
-import { actives } from "../../../data/actives";
+import { assets } from "../../../data/assets";
 import { NotFoundPage } from "../NotFoundPage";
-import { ActiveDetails } from "./ActiveDetails";
+import { AssetDetails } from "./AssetDetails";
 import { SecondaryPanel } from "./SecondaryPanel";
 import { OrderCashForm } from "./OrderCashForm";
 
@@ -13,33 +13,33 @@ const SPLIT_VIEW_WIDTH = 768;
 
 type Action = "withdraw" | "sell" | "swap" | "orderCash";
 
-export function ActivePage() {
+export function AssetPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { width } = useWindowSize();
-  const { activeId, action: unsafeAction } = useParams();
+  const { activeId: assetId, action: unsafeAction } = useParams();
 
   const action = isAction(unsafeAction) ? unsafeAction : "withdraw";
 
-  if (!activeId) {
+  if (!assetId) {
     console.log("no activeId");
     return <NotFoundPage />;
   }
-  const active = actives[activeId];
+  const active = assets[assetId];
   if (!active) {
     console.log("no active");
     return <NotFoundPage />;
   }
 
   const handleChangeAction = (action: Action) => {
-    navigate(`/actives/${activeId}/${action}`, {
+    navigate(`/actives/${assetId}/${action}`, {
       replace: true,
       state: { primary: false },
     });
   };
 
   const handleNavDetails = () => {
-    navigate(`/actives/${activeId}/${action}`, {
+    navigate(`/actives/${assetId}/${action}`, {
       replace: true,
       state: { primary: true },
     });
@@ -50,7 +50,7 @@ export function ActivePage() {
   if (splitView) {
     return (
       <div className="wrapper-payment">
-        <ActiveDetails
+        <AssetDetails
           active={active}
           action={action}
           onNavigate={handleChangeAction}
@@ -62,7 +62,7 @@ export function ActivePage() {
     return (
       <div className="wrapper-payment">
         {state?.primary ? (
-          <ActiveDetails
+          <AssetDetails
             active={active}
             action={action}
             onNavigate={handleChangeAction}

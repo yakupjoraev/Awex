@@ -1,4 +1,4 @@
-export interface Active {
+export interface Asset {
   id: string;
   currency: string;
   currencyDesc: string;
@@ -9,7 +9,7 @@ export interface Active {
   cash: boolean;
 }
 
-export const actives: Record<string, Active> = {
+export const assets: Record<string, Asset> = {
   id0: {
     id: "id0",
     currency: "RUB",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ACTIVES_ROUTE, HOME_PAGE_PATH } from "../../constants/path-locations";
+import { ASSETS_ROUTE, HOME_PAGE_PATH } from "../../constants/path-locations";
 
 export function IndexPage() {
   return (
@@ -92,7 +92,7 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a className="pages__link" href={ACTIVES_ROUTE} target="_blank">
+              <a className="pages__link" href={ASSETS_ROUTE} target="_blank">
                 Страница активов
               </a>
             </li>
@@ -100,7 +100,7 @@ export function IndexPage() {
             <li className="pages__item">
               <a
                 className="pages__link"
-                href={`${ACTIVES_ROUTE}/id1/sell`}
+                href={`${ASSETS_ROUTE}/id1/sell`}
                 target="_blank"
               >
                 Действия с активом - ПРОДАТЬ
@@ -109,7 +109,7 @@ export function IndexPage() {
             <li className="pages__item">
               <a
                 className="pages__link"
-                href={`${ACTIVES_ROUTE}/id1/withdraw`}
+                href={`${ASSETS_ROUTE}/id1/withdraw`}
                 target="_blank"
               >
                 Действия с активом - ВЫВОД
@@ -118,7 +118,7 @@ export function IndexPage() {
             <li className="pages__item">
               <a
                 className="pages__link"
-                href={`${ACTIVES_ROUTE}/id1/swap`}
+                href={`${ASSETS_ROUTE}/id1/swap`}
                 target="_blank"
               >
                 Действия с активом - SWAP
@@ -127,7 +127,7 @@ export function IndexPage() {
             <li className="pages__item">
               <a
                 className="pages__link"
-                href={`${ACTIVES_ROUTE}/id0/withdraw`}
+                href={`${ASSETS_ROUTE}/id0/withdraw`}
                 target="_blank"
               >
                 Действия с активом - фиатным Заказ в офис
@@ -136,7 +136,7 @@ export function IndexPage() {
             <li className="pages__item">
               <a
                 className="pages__link"
-                href={`${ACTIVES_ROUTE}/id0/withdraw`}
+                href={`${ASSETS_ROUTE}/id0/withdraw`}
                 target="_blank"
               >
                 Действия с активом - фиатным вывод

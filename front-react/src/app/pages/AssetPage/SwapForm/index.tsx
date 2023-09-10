@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ACTIVES_ROUTE } from "../../../constants/path-locations";
+import { ASSETS_ROUTE } from "../../../constants/path-locations";
 import { SelectCurrencyModal } from "@components/SelectCurrenyModal";
 import { useState } from "react";
 import toast from "react-hot-toast";

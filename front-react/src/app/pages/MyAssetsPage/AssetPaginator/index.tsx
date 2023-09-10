@@ -2,13 +2,13 @@ import classNames from "classnames";
 import { useMemo } from "react";
 import { getPaginationModel, ITEM_TYPES } from "ultimate-pagination";
 
-interface ActivePaginatorProps {
+interface AssetPaginatorProps {
   currentPage: number;
   totalPages: number;
   onNavigate: (page: number) => void;
 }
 
-export function ActivePaginator(props: ActivePaginatorProps) {
+export function AssetPaginator(props: AssetPaginatorProps) {
   const model = useMemo(() => {
     return getPaginationModel({
       currentPage: props.currentPage,
