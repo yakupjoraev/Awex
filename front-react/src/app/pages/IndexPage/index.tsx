@@ -98,6 +98,51 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
+              <a
+                className="pages__link"
+                href={`${ACTIVES_ROUTE}/id1/sell`}
+                target="_blank"
+              >
+                Действия с активом - ПРОДАТЬ
+              </a>
+            </li>
+            <li className="pages__item">
+              <a
+                className="pages__link"
+                href={`${ACTIVES_ROUTE}/id1/withdraw`}
+                target="_blank"
+              >
+                Действия с активом - ВЫВОД
+              </a>
+            </li>
+            <li className="pages__item">
+              <a
+                className="pages__link"
+                href={`${ACTIVES_ROUTE}/id1/swap`}
+                target="_blank"
+              >
+                Действия с активом - SWAP
+              </a>
+            </li>
+            <li className="pages__item">
+              <a
+                className="pages__link"
+                href={`${ACTIVES_ROUTE}/id0/withdraw`}
+                target="_blank"
+              >
+                Действия с активом - фиатным Заказ в офис
+              </a>
+            </li>
+            <li className="pages__item">
+              <a
+                className="pages__link"
+                href={`${ACTIVES_ROUTE}/id0/withdraw`}
+                target="_blank"
+              >
+                Действия с активом - фиатным вывод
+              </a>
+            </li>
+            <li className="pages__item">
               <Link className="pages__link" target="_blank" to="/date-picker">
                 Компонент выбора даты
               </Link>
