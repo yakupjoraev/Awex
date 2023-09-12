@@ -131,9 +131,10 @@ paths:
                   expiration:
                     type: integer
                     description: unix timestamp until token is valid
-                  message:
-                    type: string
-                    description: optional, request result
+                  otpRequired:
+                    type: boolean
+                    description: true if 2FA is on, if true request to the
+                      | /account/otp/login with otp should be sent
         '400':
           description: request failed
           content:
@@ -428,13 +429,13 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/uri:
+  /account/otp/account/otp/set-google-authenticator:
     post:
       tags:
         - authenticated
-      summary: endpoint for otp uri requesting
-      operationId: otp-uri
-      description: otp uri
+      summary: endpoint for setting google authenticator as 2fa method
+      operationId: set-google-authenticator
+      description: set google authenticator
       security:
         - BearerAuth: []
       responses:
@@ -472,13 +473,13 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp:
+  /account/otp/account/otp/set-gmail:
     post:
       tags:
         - authenticated
-      summary: endpoint for 2FA enabling or disabling
-      operationId: otp-set
-      description: 2FA enabling or disabling
+      summary: endpoint for setting gmail as 2fa method
+      operationId: set-gmail
+      description: set gmail
       security:
         - BearerAuth: []
       requestBody:
@@ -488,15 +489,11 @@ paths:
             schema:
               type: object
               properties:
-                otp:
+                email:
                   type: string
-                  description: one time password from google authenticator
-                active:
-                  type: boolean
-                  description: enable 2FA if true, disable 2FA if false
+                  description: gmail account e-mail
               required:
-                - otp
-                - active
+                - email
       responses:
         '200':
           description: request succeeded
@@ -507,7 +504,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    description: request result
+                    description: request result description
         '400':
           description: request failed
           content:
@@ -532,14 +529,27 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-    get:
+  /account/otp/account/otp/set-facebook:
+    post:
       tags:
         - authenticated
-      summary: endpoint for obtaining 2FA state
-      operationId: otp-get
-      description: 2FA state
+      summary: endpoint for setting facebook as 2fa method
+      operationId: set-facebook
+      description: set facebook
       security:
         - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+                  description: code or access token obtained by the frontend
+              required:
+                - otp
       responses:
         '200':
           description: request succeeded
@@ -548,9 +558,21 @@ paths:
               schema:
                 type: object
                 properties:
-                  active:
-                    type: boolean
-                    description: true if 2FA is enabled, false otherwise
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
         '403':
           description: request failed
           content:
@@ -563,22 +585,32 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/{otp}:
-    get:
+  /account/otp/account/otp/enable:
+    post:
       tags:
         - authenticated
-      summary: endpoint for checking google authenticator one time password
-      operationId: otp-check
-      description: checking google authenticator one time password
+      summary: endpoint for enabling 2fa method
+      operationId: otp-enable
+      description: enabling 2fa method
       security:
         - BearerAuth: []
-      parameters:
-        - in: path
-          name: otp
-          description: one time password
-          required: true
-          schema:
-            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _2faType:
+                  type: string
+                  enum: [ 'googleAuthenticator', 'gmail', 'facebook' ]
+                  description: 2fa type
+                otp:
+                  type: string
+                  description: code or access token obtained by the frontend
+              required:
+                - _2faType
+                - otp
       responses:
         '200':
           description: request succeeded
@@ -587,9 +619,21 @@ paths:
               schema:
                 type: object
                 properties:
-                  valid:
-                    type: boolean
-                    description: true if otp is valid, false otherwise
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
         '403':
           description: request failed
           content:
@@ -602,7 +646,261 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+  /account/otp/account/otp/disable:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for disabling 2fa method
+      operationId: otp-disable
+      description: disabling 2fa method
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _2faType:
+                  type: string
+                  enum: [ 'googleAuthenticator', 'gmail', 'facebook' ]
+                  description: 2fa type
+              required:
+                - _2faType
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/otp/account/otp/enabled:
+    get:
+      tags:
+        - authenticated
+      summary: endpoint for getting of the list of enabled 2fa methods
+      operationId: otp-enabled
+      description: list of enabled 2fa methods
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                description: list of enabled 2fa methods
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/otp/account/otp/validate:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for validating of the otp code
+      operationId: otp-validate
+      description: validating of the otp code
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _2faType:
+                  type: string
+                  enum: [ 'googleAuthenticator', 'gmail', 'facebook' ]
+                  description: 2fa type
+                otp:
+                  type: string
+                  description: one time password or facebook token
+              required:
+                - _2faType
+                - otp
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/otp/account/otp/send-gmail:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for sending otp to the gmail
+      operationId: send-gmail
+      description: sending otp to the gmail
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/otp/account/otp/login:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for second 2fa step
+      operationId: otp-login
+      description: second 2fa step
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _2faType:
+                  type: string
+                  enum: [ 'googleAuthenticator', 'gmail', 'facebook' ]
+                  description: 2fa type
+                otp:
+                  type: string
+                  description: code or access token obtained by the frontend
+              required:
+                - _2faType
+                - otp
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
           description: request failed
           content:
             application/json:
@@ -634,7 +932,7 @@ paths:
                   type: array
                   items:
                     type: string
-                  description: array of whitelisted ip,
+                  description: list of whitelisted ip,
                     if empty - whitelisting is disabled
               required:
                 - ipWhitelist
@@ -696,7 +994,7 @@ paths:
                     type: array
                     items:
                       type: string
-                    description: array of whitelisted ip, 
+                    description: list of whitelisted ip, 
                       if empty - whitelisting is disabled
         '403':
           description: request failed
@@ -741,7 +1039,7 @@ paths:
                     description: pages number
                   list:
                     type: array
-                    description: array of sessions
+                    description: list of sessions
                     items:
                       $ref: '#/components/schemas/Session'
         '403':
@@ -911,6 +1209,83 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
+  /account/profile:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for updating user profile data
+      operationId: profile-set
+      description: updating user profile data
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileData'
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    get:
+      tags:
+        - authenticated
+      summary: endpoint for getting user profile data
+      operationId: profile-get
+      description: getting user profile data
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileData'
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
   /account/profile/notifications:
     post:
       tags:
@@ -988,6 +1363,611 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
+  /account/profile/currency:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for updating currency for displaying balance
+      operationId: currency-set
+      description: updating currency for displaying balance
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currency:
+                  type: string
+                  description: currency for displaying balance
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    get:
+      tags:
+        - authenticated
+      summary: endpoint for getting currency for displaying balance
+      operationId: currency-get
+      description: getting currency for displaying balance
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                    description: currency for displaying balance
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/config/settings:
+    get:
+      tags:
+        - authenticated
+      summary: endpoint for getting account settings (currencies list,
+        permissions list, countries list, labels list etc.)
+      operationId: settings-list
+      description: getting settings list
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    items:
+                      type: string
+                  countries:
+                    type: array
+                    items:
+                      type: string
+                  permissions:
+                    type: array
+                    items:
+                      type: string
+                  labels:
+                    type: array
+                    items:
+                      type: string
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/team:
+    get:
+      tags:
+        - authenticated
+      summary: endpoint for getting team members list
+      operationId: team-members-list
+      description: team members list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of projects
+                    items:
+                      $ref: '#/components/schemas/TeamMember'
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for team members adding
+      operationId: team-members-add
+      description: team members adding
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamMember'
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/team/confirm:
+    post:
+      tags:
+        - common
+      summary: endpoint for a team membership confirmation
+      operationId: team-membership-confirmation
+      description: team membership confirmation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: confirmation code from link sent to email
+              required:
+                - code
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '404':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/team/{id}:
+    get:
+      tags:
+        - authenticated
+      summary: endpoint for getting team member
+      operationId: team-member-get
+      description: getting team member
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: team membership id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMember'
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '404':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for team member settings updating
+      operationId: team-member-set
+      description: team member settings updating
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: project id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                permissions:
+                  type: array
+                  description: team member permissions
+                  items:
+                    type: string
+                label:
+                  type: string
+                  description: team member label
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '404':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/team/{id}/enable:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for a team member enabling
+      operationId: team-member-enable
+      description: team member enabling
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: team member id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '404':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/team/{id}/disable:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for a team member disabling
+      operationId: team-member-disable
+      description: team member disabling
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: team member id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '404':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/team/{id}/delete:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for a team member deleting
+      operationId: team-member-delete
+      description: team member deleting
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: team member id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '404':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
   /project:
     get:
       tags:
@@ -1019,7 +1999,7 @@ paths:
                     description: pages number
                   list:
                     type: array
-                    description: array of sessions
+                    description: list of projects
                     items:
                       $ref: '#/components/schemas/Project'
         '403':
@@ -1107,49 +2087,101 @@ paths:
               schema:
                 type: object
                 properties:
-                  name:
-                    type: string
-                    description: name
-                  description:
-                    type: string
-                    description: description
-                  feePayee:
-                    type: boolean
-                    description: true is merchant is fee payee
-                  paymentBills:
-                    type: boolean
-                    description: true if payment bills are enabled
-                  paymentWeb:
-                    type: boolean
-                    description: true if web payments are enabled
-                  paymentTelegram:
-                    type: boolean
-                    description: true if telegram payments are enabled
-                  activity:
-                    type: string
-                    description: activity
-                  convertTo:
-                    type: string
-                    enum: [ 'fiat', 'stablecoin' ]
-                    description: currency for payments to be converted to
-                  currency:
-                    type: string
-                    description: currency
-                  cms:
-                    type: string
-                    description: cms
-                  urlWeb:
-                    type: string
-                    description: web url
-                  urlNotification:
-                    type: string
-                    description: notification url
-                  urlPaymentSuccess:
-                    type: string
-                    description: Success payment hook url
-                  urlPaymentFailure:
-                    type: string
-                    description: Failure payment hook url
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: name
+                      description:
+                        type: string
+                        description: description
+                      feePayee:
+                        type: boolean
+                        description: true is merchant is fee payee
+                      paymentBills:
+                        type: boolean
+                        description: true if payment bills are enabled
+                      paymentWeb:
+                        type: boolean
+                        description: true if web payments are enabled
+                      paymentTelegram:
+                        type: boolean
+                        description: true if telegram payments are enabled
+                      activity:
+                        type: string
+                        description: activity
+                      convertTo:
+                        type: string
+                        enum: [ 'fiat', 'stablecoin' ]
+                        description: currency for payments to be converted to
+                      currency:
+                        type: string
+                        description: currency
+                      cms:
+                        type: string
+                        description: cms
+                      urlWeb:
+                        type: string
+                        description: web url
+                      urlNotification:
+                        type: string
+                        description: notification url
+                      urlPaymentSuccess:
+                        type: string
+                        description: Success payment hook url
+                      urlPaymentFailure:
+                        type: string
+                        description: Failure payment hook url
+                  draft:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: name
+                      description:
+                        type: string
+                        description: description
+                      feePayee:
+                        type: boolean
+                        description: true is merchant is fee payee
+                      paymentBills:
+                        type: boolean
+                        description: true if payment bills are enabled
+                      paymentWeb:
+                        type: boolean
+                        description: true if web payments are enabled
+                      paymentTelegram:
+                        type: boolean
+                        description: true if telegram payments are enabled
+                      activity:
+                        type: string
+                        description: activity
+                      convertTo:
+                        type: string
+                        enum: [ 'fiat', 'stablecoin' ]
+                        description: currency for payments to be converted to
+                      currency:
+                        type: string
+                        description: currency
+                      cms:
+                        type: string
+                        description: cms
+                      urlWeb:
+                        type: string
+                        description: web url
+                      urlNotification:
+                        type: string
+                        description: notification url
+                      urlPaymentSuccess:
+                        type: string
+                        description: Success payment hook url
+                      urlPaymentFailure:
+                        type: string
+                        description: Failure payment hook url
+                  validationRequestedAt:
+                    type: integer
+                    description: timestamp of the validation request
         '403':
           description: request failed
           content:
@@ -1242,6 +2274,81 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
+  /project/{id}/request-validation:
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for sending project for validation
+      operationId: project-validate
+      description: sending project for validation
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: project id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '404':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        409:
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
   /project/{id}/delete:
     post:
       tags:
@@ -1305,56 +2412,6 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /product:
-    post:
-      tags:
-        - authenticated
-      summary: endpoint for creating products
-      operationId: product-create
-      description: creating product
-      security:
-        - BearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Product'
-      responses:
-        '200':
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: request result
-        '400':
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        '403':
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
   /order:
     get:
       tags:
@@ -1386,7 +2443,7 @@ paths:
                     description: pages number
                   list:
                     type: array
-                    description: array of sessions
+                    description: list of orders
                     items:
                       $ref: '#/components/schemas/Order'
         '403':
@@ -1401,6 +2458,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
+  /order/invoice:
     post:
       tags:
         - authenticated
@@ -1416,22 +2474,26 @@ paths:
             schema:
               type: object
               properties:
-                productId:
+                name:
                   type: string
-                  description: purchased product identifier
-                type:
+                  description: order name
+                price:
+                  type: number
+                  description: order price in specified currency
+                currency:
                   type: string
-                  enum: [ 'fiat', 'crypto' ]
-                  description: payment type
-                networkId:
-                  type: string
-                  description: optional (for crypto type only), blockchain network identifier
-                coin:
-                  type: string
-                  description: optional (for crypto type only), asset identifier
-                quantity:
+                  description: price currency, 
+                    | payment amount will be recalculated to USDT
+                projectId:
                   type: integer
-                  description: number of purchased items
+                  description: project identifier
+                buyerIdentifier:
+                  type: string
+                  description: buyer identifier for reference
+              required:
+                - name
+                - price
+                - currency
       responses:
         '200':
           description: request succeeded
@@ -1440,6 +2502,12 @@ paths:
               schema:
                 type: object
                 properties:
+                  id:
+                    type: integer
+                    description: created order id
+                  uniqueId:
+                    type: string
+                    description: created order unique identifier for buyers
                   message:
                     type: string
                     description: request result
@@ -1491,15 +2559,25 @@ paths:
               schema:
                 type: object
                 properties:
-                  productId:
-                    type: integer
-                    description: purchased product id
-                  quantity:
-                    type: integer
-                    description: purchased items quantity
+                  name:
+                    type: string
+                    description: order name
+                  uniqueId:
+                    type: string
+                    description: created order unique identifier for buyers
                   amount:
                     type: number
                     description: quantity * product price
+                  buyerIdentifier:
+                    type: string
+                    description: buyer identifier for reference
+                  data:
+                    type: object
+                  payment_data:
+                    type: object
+                  paid:
+                    type: boolean
+                    description: true if order is paid
         '403':
           description: request failed
           content:
@@ -1524,19 +2602,17 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /order/{id}/payment:
+  /order/payment/{uniqueId}:
     get:
       tags:
-        - authenticated
+        - common
       summary: endpoint for getting payment data for order
       operationId: order-payment-get
       description: getting payment data for order
-      security:
-        - BearerAuth: []
       parameters:
         - in: path
-          name: id
-          description: project id
+          name: uniqueId
+          description: order public unique id
           required: true
           schema:
             type: string
@@ -1548,9 +2624,18 @@ paths:
               schema:
                 type: object
                 properties:
+                  amount:
+                    type: number
+                    description: amount to be paid
                   paymentData:
                     type: object
                     properties:
+                      coin:
+                        type: string
+                        description: payment asset name
+                      networkId:
+                        type: string
+                        description: payment asset network identifier
                       address:
                         type: string
                         description: payment address
@@ -1567,6 +2652,87 @@ paths:
                       type: string
                     description: errors descriptions
         '404':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - common
+      summary: endpoint for setting payment data for order
+      operationId: order-payment-set
+      description: setting payment data for order
+      parameters:
+        - in: path
+          name: uniqueId
+          description: order public unique id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [ 'fiat', 'crypto' ]
+                  description: payment type
+                coin:
+                  type: string
+                  description: payment asset name
+                networkId:
+                  type: string
+                  description: payment asset network identifier
+              required:
+                - type
+                - coin
+                - networkId
+      responses:
+        '200':
+          description: payment data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                    description: amount to be paid
+                  paymentData:
+                    type: object
+                    properties:
+                      coin:
+                        type: string
+                        description: payment asset name
+                      networkId:
+                        type: string
+                        description: payment asset network identifier
+                      address:
+                        type: string
+                        description: payment address
+        '400':
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        '403':
           description: request failed
           content:
             application/json:
@@ -1656,36 +2822,63 @@ components:
           description: Failure payment hook url
       required:
         - name
-    Product:
-      type: object
-      properties:
-        name:
-          type: string
-          description: name
-        price:
-          type: number
-          description: price for item
-        description:
-          type: string
-          description: description
-      required:
-        - name
-        - price
     Order:
       type: object
       properties:
-        productId:
-          type: string
-          description: product identifier
-        quantity:
+        id:
           type: integer
-          description: purchased items quantity
+          description: order id
+        data:
+          type: object
+          description: order data
+          properties:
+            name:
+              type: string
+              description: order name
+            price:
+              type: number
+              description: order price in specified currency
+            currency:
+              type: string
+              description: order currency
+            rate:
+              type: number
+              description: order currency rate to USDT
         amount:
           type: number
-          description: quantity * product price
+          description: price * rate
+        buyerIdentifier:
+          type: string
+          description: buyer identifier for reference
+    ProfileData:
+      type: object
+      description: profile display information
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        companyName:
+          type: string
+        phone:
+          type: string
+        telegram:
+          type: string
+        country:
+          type: string
+        url:
+          type: string
+        legalAddress:
+          type: string
       required:
-        - productId
-        - quantity
+        - name
+        - email
+        - companyName
+        - phone
+        - telegram
+        - country
+        - url
+        - legalAddress
     Notification:
       type: object
       properties:
@@ -1715,3 +2908,30 @@ components:
         - vk
         - google
         - apple
+    TeamMember:
+      type: object
+      description: team member data
+      properties:
+        name:
+          type: string
+          nullable: true
+        email:
+          type: string
+        permissions:
+          description: team member permissions
+          type: array
+          items:
+            type: string
+        label:
+          description: team member label
+          type: string
+        enabled:
+          description: true if team member enabled
+          type: boolean
+          nullable: true
+        confirmed_at:
+          type: integer
+          nullable: true
+      required:
+        - email
+        - label

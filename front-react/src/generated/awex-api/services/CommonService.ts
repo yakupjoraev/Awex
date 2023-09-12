@@ -87,9 +87,9 @@ token?: string;
  */
 expiration?: number;
 /**
- * optional, request result
+ * true if 2FA is on, if true request to the | /account/otp/login with otp should be sent
  */
-message?: string;
+otpRequired?: boolean;
 }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -305,6 +305,140 @@ message?: string;
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
+            },
+        });
+    }
+
+    /**
+     * endpoint for a team membership confirmation
+     * team membership confirmation
+     * @param requestBody 
+     * @returns any request succeeded
+     * @throws ApiError
+     */
+    public static teamMembershipConfirmation(
+requestBody: {
+/**
+ * confirmation code from link sent to email
+ */
+code: string;
+},
+): CancelablePromise<{
+/**
+ * request result description
+ */
+message?: string;
+}> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/account/team/confirm',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `request failed`,
+                403: `request failed`,
+                404: `request failed`,
+            },
+        });
+    }
+
+    /**
+     * endpoint for getting payment data for order
+     * getting payment data for order
+     * @param uniqueId order public unique id
+     * @returns any request succeeded
+     * @throws ApiError
+     */
+    public static orderPaymentGet(
+uniqueId: string,
+): CancelablePromise<{
+/**
+ * amount to be paid
+ */
+amount?: number;
+paymentData?: {
+/**
+ * payment asset name
+ */
+coin?: string;
+/**
+ * payment asset network identifier
+ */
+networkId?: string;
+/**
+ * payment address
+ */
+address?: string;
+};
+}> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/order/payment/{uniqueId}',
+            path: {
+                'uniqueId': uniqueId,
+            },
+            errors: {
+                403: `request failed`,
+                404: `request failed`,
+            },
+        });
+    }
+
+    /**
+     * endpoint for setting payment data for order
+     * setting payment data for order
+     * @param uniqueId order public unique id
+     * @param requestBody 
+     * @returns any payment data
+     * @throws ApiError
+     */
+    public static orderPaymentSet(
+uniqueId: string,
+requestBody: {
+/**
+ * payment type
+ */
+type: 'fiat' | 'crypto';
+/**
+ * payment asset name
+ */
+coin: string;
+/**
+ * payment asset network identifier
+ */
+networkId: string;
+},
+): CancelablePromise<{
+/**
+ * amount to be paid
+ */
+amount?: number;
+paymentData?: {
+/**
+ * payment asset name
+ */
+coin?: string;
+/**
+ * payment asset network identifier
+ */
+networkId?: string;
+/**
+ * payment address
+ */
+address?: string;
+};
+}> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/order/payment/{uniqueId}',
+            path: {
+                'uniqueId': uniqueId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `request failed`,
+                403: `request failed`,
             },
         });
     }

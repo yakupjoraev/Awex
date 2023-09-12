@@ -5,15 +5,36 @@
 
 export type Order = {
     /**
-     * product identifier
+     * order id
      */
-    productId: string;
+    id?: number;
     /**
-     * purchased items quantity
+     * order data
      */
-    quantity: number;
+    data?: {
+/**
+ * order name
+ */
+name?: string;
+/**
+ * order price in specified currency
+ */
+price?: number;
+/**
+ * order currency
+ */
+currency?: string;
+/**
+ * order currency rate to USDT
+ */
+rate?: number;
+};
     /**
-     * quantity * product price
+     * price * rate
      */
     amount?: number;
+    /**
+     * buyer identifier for reference
+     */
+    buyerIdentifier?: string;
 };
