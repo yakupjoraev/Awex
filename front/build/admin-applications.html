@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index</title>
+  <link rel="stylesheet" href="./css/style.min.css">
+</head>
+
+<body class="main__body main__body--white">
+  <!-- Header -->
+  <header class="header header--admin">
+  <!-- Navbar -->
+  <nav class="nav">
+    <div class="nav__container">
+      <div class="nav__list">
+        <div class="nav__logo"> <a href="#"> <img src="./img/sidebar/logo.svg" alt=""></a> </div>
+        <ul class="nav__menu">
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Мерчанты</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Заявки</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Комиссия</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Статистика</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Настройка прав</a>
+          </li>
+        </ul>
+
+        <div class="nav__others">
+
+          <div data-select-wrapper>
+            <div class="sidebar__user" data-select-arrow>
+              <img class="sidebar__user-icon" src="./img/sidebar/user-black.svg" alt="user">
+
+              <span>Администратор</span>
+
+              <div class="sidebar__user-list select-list" data-select-list>
+                <a href="#" class="sidebar__user-item select-item" data-select-item>
+                  <img class="sidebar__user-item-img" src="./img/sidebar/user.svg" alt="user">
+                  <span class="sidebar__user-item-text">Ivan Ivanov</span>
+                </a>
+
+                <a href="#" class="sidebar__user-item select-item" data-select-item>
+                  <img class="sidebar__user-item-img" src="./img/sidebar/settings.svg" alt="settings">
+                  <span class="sidebar__user-item-text">Настройки</span>
+                </a>
+
+                <a href="#" class="sidebar__user-item sidebar__user-item--red select-item" data-select-item>
+                  <img class="sidebar__user-item-img" src="./img/sidebar/log-out.svg" alt="log-out">
+                  <span class="sidebar__user-item-text">Выйти</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+  <!-- Main Page -->
+  <main class="main main--profile-filling">
+    <div class="admin-statistic admin-applications">
+  <div class="admin-statistic__container">
+
+    <form class="admin-applications__from" action="#">
+      <div class="admin-applications__search search-group">
+        <input class="admin-applications__src search-input" type="search" placeholder="Поиск по ID/названию/ИНН/адресу">
+        <img class="admin-applications__search-img search-img" src="./img/icons/search.svg" alt="Поиск">
+
+        <button type="button" class="admin-applications__datapicker">
+          <img src="./img/icons/calendar.svg" alt="calendar">
+        </button>
+      </div>
+    </form>
+
+    <div class="admin-applications__header">
+      <div class="admin-applications__header-item disabled">
+        <span>Обработка депозитов</span>
+        <span class="admin-applications__header-item-count">15</span>
+      </div>
+
+      <div class="admin-applications__header-item">
+        <span>Изменение/добавление юр. адреса</span>
+        <span class="admin-applications__header-item-count">15</span>
+      </div>
+
+      <div class="admin-applications__header-item">
+        <span>Изменение/добавление юр.счета</span>
+        <span class="admin-applications__header-item-count">15</span>
+      </div>
+
+      <div class="admin-applications__header-item active">
+        <span>Увеличение количества проектов</span>
+      </div>
+    </div>
+
+    <div class="admin-applications__main">
+      <ul class="admin-applications__list">
+        <li class="admin-applications__item admin-applications__item-header">
+          <div class="admin-applications__item-content">Номер</div>
+          <div class="admin-applications__item-content">Номер/ID мерчанта</div>
+          <div class="admin-applications__item-content">Дата заявки</div>
+          <div class="admin-applications__item-content"></div>
+        </li>
+
+        <li class="admin-applications__item">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+
+        <li class="admin-applications__item">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+
+        <li class="admin-applications__item">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+
+        <li class="admin-applications__item">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+
+        <li class="admin-applications__item">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+
+        <li class="admin-applications__item">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+
+        <li class="admin-applications__item">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+
+        <li class="admin-applications__item admin-applications__item--light">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+
+        <li class="admin-applications__item admin-applications__item--light">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+
+        <li class="admin-applications__item admin-applications__item--light">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">
+            <span>Подробнее</span>
+
+            <img src="./img/icons/arrow-down.svg" alt="">
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+  </main>
+
+  <!-- Footer -->
+  
+
+</body>
+
+<script src="./js/scripts.min.js"></script>
+
+</html>
