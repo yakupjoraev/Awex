@@ -1,0 +1,12 @@
+.panel {
+  display: block;
+}
+
+@media (max-width: 1449.98px) {
+  .panel {
+    display: none;
+  }
+  .panel--active {
+    display: block;
+  }
+}

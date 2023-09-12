@@ -4,11 +4,17 @@ import { Employee, employees } from "./data";
 import { EmployeeItem } from "../EmployeeItem";
 import { useDebounce } from "usehooks-ts";
 import escapeRegExp from "lodash/escapeRegExp";
+import classNames from "classnames";
+
+export interface EmployeeListProps {
+  className?: string;
+  onNavAddEmployee: () => void;
+}
 
 const PAGE_LENGTH = 3;
 const SEARCH_THROTTLE = 200;
 
-export function EmployeeList() {
+export function EmployeeList(props: EmployeeListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [allEmployees, setAllEmployees] = useState(employees);
   const [searchText, setSearchText] = useState<string>("");
@@ -66,11 +72,15 @@ export function EmployeeList() {
   };
 
   return (
-    <div className="settings-profile__select">
+    <div className={classNames("settings-profile__select", props.className)}>
       <div className="settings-security__header">
         <h3 className="settings-security__title">Мои сотрудники</h3>
 
-        <button className="settings-security__header-btn settings-security__header-btn--password main-btn">
+        <button
+          type="button"
+          className="settings-security__header-btn settings-security__header-btn--password main-btn"
+          onClick={props.onNavAddEmployee}
+        >
           + Добавить нового сотрудника
         </button>
       </div>

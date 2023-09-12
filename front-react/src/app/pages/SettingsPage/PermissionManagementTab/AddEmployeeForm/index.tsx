@@ -4,6 +4,11 @@ import { addEmployeeFormSchema } from "./validators";
 import classNames from "classnames";
 import { useId } from "react";
 
+export interface AddEmployeeFormProps {
+  className?: string;
+  onNavEmployeeList: () => void;
+}
+
 interface AddEmployeeFormData {
   email: string;
   role: "worker" | "manager" | "admin";
@@ -14,7 +19,7 @@ const DEFAULT_FORM_DATA: AddEmployeeFormData = {
   role: "worker",
 };
 
-export function AddEmployeeForm() {
+export function AddEmployeeForm(props: AddEmployeeFormProps) {
   const formId = useId();
 
   const {
@@ -33,13 +38,17 @@ export function AddEmployeeForm() {
 
   return (
     <form
-      className="settings-profile__select"
+      className={classNames("settings-profile__select", props.className)}
       onSubmit={handleAddEmployeeFormSubmit}
     >
       <div className="settings-security__header">
         <h3 className="settings-security__title">Добавить нового сотрудника</h3>
 
-        <button className="settings-security__header-btn settings-security__header-btn--password third-btn">
+        <button
+          className="settings-security__header-btn settings-security__header-btn--password third-btn"
+          type="button"
+          onClick={props.onNavEmployeeList}
+        >
           Отменить
         </button>
       </div>
