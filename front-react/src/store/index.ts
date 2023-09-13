@@ -1,11 +1,15 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import landingReducer from "./projects/slice";
 import authReducer from "./auth/slice";
+import accountConfigSettingsReducer from "./accountConfigSettings/slice";
+import accountProfileReducer from "./accountProfile/slice";
+import projectsReducer from "./projects/slice";
 
 const store = configureStore({
   reducer: {
-    projects: landingReducer,
     auth: authReducer,
+    accountConfigSettings: accountConfigSettingsReducer,
+    accountProfile: accountProfileReducer,
+    projects: projectsReducer,
   },
 });
 

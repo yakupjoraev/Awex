@@ -5,6 +5,7 @@ import { AuthenticatedService, Notification } from "@awex-api";
 import { useEffect, useState } from "react";
 import { ThemeSelector } from "./ThemeSelector";
 import { LanguageSelector } from "./LanguageSelector";
+import { ProfileFormContainer } from "./ProfileFormContainer";
 
 const DEFAULT_NOTIFICATION_SETTINGS: Notification = {
   email: false,
@@ -86,6 +87,8 @@ export function ProfileTab() {
           Выйти
         </div>
       </div>
+
+      <ProfileFormContainer/>
 
       <NotificationsForm
         loading={notificationSettingsLoading}
