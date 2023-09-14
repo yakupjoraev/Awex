@@ -184,6 +184,34 @@ accordionItems.forEach(item => item.addEventListener('click', toggleAccordion));
 
 
 
+// Получаем все элементы data-marchantsItems-item
+const marchantsItems = document.querySelectorAll('[data-marchants-item]');
+
+// Добавляем обработчик события клика для каждого элемента
+marchantsItems.forEach(item => {
+  const btn = item.querySelector('.admin-marchants__item-btn');
+
+  // Добавляем обработчик события клика для кнопки
+  btn.addEventListener('click', () => {
+    // Получаем родительский элемент data-marchantsItems-item
+    const parent = item;
+
+    // Переключаем класс active для родительского элемента
+    parent.classList.toggle('active');
+
+    // Получаем элемент span внутри кнопки
+    const span = btn.querySelector('span');
+
+    // Меняем текст в зависимости от наличия класса active
+    if (parent.classList.contains('active')) {
+      span.textContent = 'Скрыть';
+    } else {
+      span.textContent = 'Подробнее';
+    }
+  });
+});
+
+
 const openModalBtns = document.querySelectorAll('.open-modal-btn');
 const closeModalBtns = document.querySelectorAll('.close-modal-btn');
 const modals = document.querySelectorAll('.modal');

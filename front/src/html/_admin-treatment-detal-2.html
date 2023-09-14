@@ -1,0 +1,165 @@
+<div class="admin-statistic admin-applications-detal">
+  <div class="admin-statistic__container">
+
+    <form class="admin-applications__from" action="#">
+      <div class="admin-applications__search search-group">
+        <input class="admin-applications__src search-input" type="search" placeholder="Поиск по ID/названию/ИНН/адресу">
+        <img class="admin-applications__search-img search-img" src="./img/icons/search.svg" alt="Поиск">
+
+        <button type="button" class="admin-applications__datapicker">
+          <img src="./img/icons/calendar.svg" alt="calendar">
+        </button>
+      </div>
+    </form>
+
+
+    <a class="admin-applications__back" href="#">
+      <img src="./img/icons/angle-left-circle.svg" alt="angle-left-circle">
+
+      <span>Вернуться к Заявкам</span>
+    </a>
+
+    <div class="admin-applications__main">
+      <ul class="admin-applications__list admin-applications__list--six-column">
+        <li class="admin-applications__item admin-applications__item-header">
+          <div class="admin-applications__item-content">Номер</div>
+          <div class="admin-applications__item-content">Номер/ID мерчанта</div>
+          <div class="admin-applications__item-content">Дата заявки</div>
+          <div class="admin-applications__item-content"></div>
+        </li>
+
+        <li class="admin-applications__item">
+          <div class="admin-applications__item-content">123</div>
+
+          <div class="admin-applications__item-content">ID345678</div>
+
+          <div class="admin-applications__item-content">10/01/23</div>
+
+          <div class="admin-applications__item-content">Депозит <span>30.000</span></div>
+
+          <div class="admin-applications__item-content">Сумма удержания <span>30.000</span></div>
+
+          <div class="admin-applications__item-content">
+          </div>
+        </li>
+      </ul>
+
+      <form class="admin-applications__request" action="#">
+        <p class="admin-applications__request-label">
+          Запрос на добавление нового проекта №1234
+        </p>
+
+        <div class="admin-legal__infos">
+          <div class="admin-legal__info">
+            <div class="admin-legal__info-header">
+              <p class="admin-legal__info-descr">Депозит №1234465:</p>
+
+              <div class="admin-legal__info-deposite">
+                30.000<span>,00$</span>
+              </div>
+            </div>
+
+            <div class="admin-legal__info-blocks">
+              <div class="admin-legal__info-block">
+                <div class="admin-legal__info-top">
+                  <p class="admin-legal__info-label">Проект:</p>
+                  <p class="admin-legal__info-label">ООО ”Первый”</p>
+                  <a href="#" class="admin-legal__info-descr">https://www.gemini.com/</a>
+                </div>
+              </div>
+
+              <div class="admin-legal__info-block">
+                <div class="admin-legal__info-top">
+                  <p class="admin-legal__info-label">ID клиента:</p>
+                  <p class="admin-legal__info-descr">#124hy4590</p>
+                  <p class="admin-legal__info-descr">(Ivanov Ivan)</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-legal__info-comments">
+              <div class="admin-legal__info-top">
+                <p class="admin-legal__info-label">Комментарий:</p>
+                <p class="admin-legal__info-descr">Аренда автомобиля марки Mercedes-Benz E200 А123АА123 на 30 дней
+                  (депозит 21 день). И еще много слов возможно, протестируем вместимость окна.
+                  Может тут еще ФИО и ограничения и статус или еще что-то и что-то</p>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="admin-legal__documents-wrapper">
+            <div class="admin-legal__documents-header">
+              <div class="admin-legal__info-top">
+                <p class="admin-legal__info-label">Сумма депозита:</p>
+                <p class="admin-legal__info-descr">30.000 USD</p>
+              </div>
+
+              <div class="admin-legal__info-top">
+                <p class="admin-legal__info-label">Сумма удержания</p>
+                <p class="admin-legal__info-descr">30.000 USD</p>
+              </div>
+            </div>
+
+
+            <div class="admin-legal__documents">
+              <p class="admin-legal__documents-label">
+                Подтверждаюшие документы
+              </p>
+
+              <div class="admin-legal__document">
+                <span>png.png</span>
+
+                <img src="./img/icons/file-grey.svg" alt="">
+              </div>
+
+              <div class="admin-legal__document">
+                <span>png.png</span>
+
+                <img src="./img/icons/file-grey.svg" alt="">
+              </div>
+
+              <div class="admin-legal__document">
+                <span>png.png</span>
+
+                <img src="./img/icons/file-grey.svg" alt="">
+              </div>
+
+              <div class="admin-legal__document">
+                <span>png.png</span>
+
+                <img src="./img/icons/file-grey.svg" alt="">
+              </div>
+
+              <div class="admin-legal__document">
+                <span>png.png</span>
+
+                <img src="./img/icons/file-grey.svg" alt="">
+              </div>
+            </div>
+
+            <div class="admin-legal__documents-footer">
+              <div class="admin-legal__input-group project-group">
+                <label class="admin-legal__input-label project-label" for="#">
+                  Комментарий для клиента:
+                </label>
+
+                <textarea class="admin-legal__input-textarea project-textarea"
+                  placeholder="Нарушение правил, порча имущества и еще что-то и что-то"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="admin-applications__footer">
+          <button type="button" class="admin-applications__btn main-btn">Отклонить</button>
+          <button type="button" class="admin-applications__btn third-btn">Запросить информацию</button>
+          <button type="button" class="admin-applications__btn second-btn">Подтвердить</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
