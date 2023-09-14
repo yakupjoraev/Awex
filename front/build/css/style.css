@@ -5349,6 +5349,116 @@ body.locked {
   color: var(--main-color);
 }
 
+.modal-content {
+  max-width: 1200px;
+}
+
+.modal-content__slider {
+  margin: 0 40px;
+  overflow: hidden;
+}
+
+.modal-content .slider-button-next {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 30px;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.modal-content .slider-button-next svg path {
+  -webkit-transition: 0.2s linear;
+  -o-transition: 0.2s linear;
+  transition: 0.2s linear;
+}
+
+.modal-content .slider-button-next:hover {
+  -webkit-transform: translateY(-50%) scale(1.4);
+      -ms-transform: translateY(-50%) scale(1.4);
+          transform: translateY(-50%) scale(1.4);
+}
+
+.modal-content .slider-button-next:hover svg path {
+  fill: var(--second-color);
+}
+
+.modal-content .slider-button-prev {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 30px;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.modal-content .slider-button-prev svg path {
+  -webkit-transition: 0.2s linear;
+  -o-transition: 0.2s linear;
+  transition: 0.2s linear;
+}
+
+.modal-content .slider-button-prev:hover {
+  -webkit-transform: translateY(-50%) scale(1.4);
+      -ms-transform: translateY(-50%) scale(1.4);
+          transform: translateY(-50%) scale(1.4);
+}
+
+.modal-content .slider-button-prev:hover svg path {
+  fill: var(--second-color);
+}
+
+.modal-content .gallery-top {
+  margin-bottom: 25px;
+}
+
+.modal-content .gallery-top .swiper-slide {
+  width: 100%;
+}
+
+.modal-content .gallery-top .swiper-slide img {
+  border-radius: 10px;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.modal-content .gallery-thumbs .swiper-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.modal-content .gallery-thumbs .swiper-slide {
+  max-width: 150px;
+  cursor: pointer;
+}
+
+.modal-content .gallery-thumbs .swiper-slide img {
+  width: 150px;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+}
+
 .profile-filling {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 690px;
