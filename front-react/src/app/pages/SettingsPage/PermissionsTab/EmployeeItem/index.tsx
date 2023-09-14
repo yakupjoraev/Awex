@@ -1,10 +1,12 @@
 export interface EmployeeItemProps {
   employeeId: string;
-  role: "admin" | "manager" | "worker";
+  label: string;
   email: string;
   name: string;
+  enabled: boolean;
   onDelete: (employeeId: string) => void;
-  onBlock: (employeeId: string) => void;
+  onDisable: (employeeId: string) => void;
+  onEnable: (employeeId: string) => void;
   onEdit: (employeeId: string) => void;
 }
 
@@ -17,7 +19,7 @@ export function EmployeeItem(props: EmployeeItemProps) {
         </div>
 
         <div className="settings-security__user-texts">
-          {renderUserRoleLabel(props.role)}
+          {renderUserRoleLabel(props.label)}
 
           <p className="settings-security__user-name">{props.name}</p>
 
@@ -49,13 +51,24 @@ export function EmployeeItem(props: EmployeeItemProps) {
       </div>
 
       <div className="settings-security__user-action">
-        <button
-          type="button"
-          className="settings-security__user-btn third-btn"
-          onClick={() => props.onBlock(props.employeeId)}
-        >
-          Заблокировать
-        </button>
+        {props.enabled ? (
+          <button
+            type="button"
+            className="settings-security__user-btn third-btn"
+            onClick={() => props.onDisable(props.employeeId)}
+          >
+            Заблокировать
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="settings-security__user-btn third-btn"
+            onClick={() => props.onEnable(props.employeeId)}
+          >
+            Разблокировать
+          </button>
+        )}
+
         <button
           type="button"
           className="settings-security__user-btn settings-security__user-btn--delete"
@@ -69,26 +82,33 @@ export function EmployeeItem(props: EmployeeItemProps) {
   );
 }
 
-function renderUserRoleLabel(role: "admin" | "manager" | "worker") {
-  switch (role) {
-    case "admin": {
+function renderUserRoleLabel(label: string) {
+  switch (label) {
+    case "Админ": {
       return (
         <div className="settings-security__user-label settings-security__user-label--yellow">
           Админ
         </div>
       );
     }
-    case "manager": {
+    case "Управляющий": {
       return (
         <div className="settings-security__user-label settings-security__user-label--black">
           Управляющий
         </div>
       );
     }
-    case "worker": {
+    case "Работник": {
       return (
         <div className="settings-security__user-label settings-security__user-label--grey">
           Работник
+        </div>
+      );
+    }
+    default: {
+      return (
+        <div className="settings-security__user-label settings-security__user-label--grey">
+          {label}
         </div>
       );
     }

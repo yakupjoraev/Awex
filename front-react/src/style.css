@@ -22,6 +22,22 @@
   color: var(--grey-color-2);
 }
 
+.settings-notifications .project-group:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.settings-notifications__checkboxes-errored {
+  margin-bottom: 0;
+}
+.settings-notifications__checkboxes-error {
+  font-family: Raleway, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  color: red;
+  margin-top: 10px;
+  margin-bottom: 35px;
+}
+
 .modal-content__error {
   font-family: Raleway, sans-serif;
   font-weight: 400;
