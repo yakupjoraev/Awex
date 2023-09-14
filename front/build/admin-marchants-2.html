@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index</title>
+  <link rel="stylesheet" href="./css/style.min.css">
+</head>
+
+<body class="main__body main__body--white">
+  <!-- Header -->
+  <header class="header header--admin">
+  <!-- Navbar -->
+  <nav class="nav">
+    <div class="nav__container">
+      <div class="nav__list">
+        <div class="nav__logo"> <a href="#"> <img src="./img/sidebar/logo.svg" alt=""></a> </div>
+        <ul class="nav__menu">
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Мерчанты</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Заявки</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Комиссия</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Статистика</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__item-link" data-scroll>Настройка прав</a>
+          </li>
+        </ul>
+
+        <div class="nav__others">
+
+          <div data-select-wrapper>
+            <div class="sidebar__user" data-select-arrow>
+              <img class="sidebar__user-icon" src="./img/sidebar/user-black.svg" alt="user">
+
+              <span>Администратор</span>
+
+              <div class="sidebar__user-list select-list" data-select-list>
+                <a href="#" class="sidebar__user-item select-item" data-select-item>
+                  <img class="sidebar__user-item-img" src="./img/sidebar/user.svg" alt="user">
+                  <span class="sidebar__user-item-text">Ivan Ivanov</span>
+                </a>
+
+                <a href="#" class="sidebar__user-item select-item" data-select-item>
+                  <img class="sidebar__user-item-img" src="./img/sidebar/settings.svg" alt="settings">
+                  <span class="sidebar__user-item-text">Настройки</span>
+                </a>
+
+                <a href="#" class="sidebar__user-item sidebar__user-item--red select-item" data-select-item>
+                  <img class="sidebar__user-item-img" src="./img/sidebar/log-out.svg" alt="log-out">
+                  <span class="sidebar__user-item-text">Выйти</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+  <!-- Main Page -->
+  <main class="main main--profile-filling">
+    <div class="admin-statistic admin-marchants">
+  <div class="admin-statistic__container">
+
+    <a class="admin-applications__back" href="#">
+      <img src="./img/icons/angle-left-circle.svg" alt="angle-left-circle">
+
+      <span>Вернуться к Мерчантам</span>
+    </a>
+
+    <div class="admin-applications__main">
+      <div class="admin-applications__others">
+        <p class="admin-applications__others-label">
+          Другие проекты Мерчанта №123446
+        </p>
+
+        <div class="my-projects__items-wrapper">
+          <ul class="my-projects__items">
+
+            <li class="my-projects__item my-projects__item--opened">
+              <div class="my-projects__item-info">
+                <h3 class="my-projects__item-title main-title">
+                  ООО ”Второй”
+                </h3>
+
+                <a href="#" class="my-projects__item-address">https://www.gemini.com/</a>
+              </div>
+
+              <div class="my-projects__item-convertion my-projects__item-convertion--row">
+                <div class="my-projects__item-for">
+                  <div class="my-projects__item-text">конвертация в:</div>
+                  <div class="my-projects__item-currency">
+                    <img class="my-projects__item-pic" src="./img/actives/actives-1.png" alt="">
+
+                    <span class="my-projects__item-curr">USDT</span>
+                  </div>
+                </div>
+
+                <div class="my-projects__item-to">
+                  <div class="my-projects__item-text">комиссию платит:</div>
+                  <div class="my-projects__item-client">клиент</div>
+                </div>
+              </div>
+
+              <div class="my-projects__item-btn">
+                <img src="./img/icons/lock-grey.svg" alt="lock">
+                <img src="./img/icons/pen.svg" alt="pen">
+                <img src="./img/icons/trash.svg" alt="trash">
+
+                <a href="#">Статистика</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <form class="admin-applications__request" action="#">
+        <p class="admin-applications__request-label">
+          Редактирование проекта №120249023
+        </p>
+
+        <div class="my-projects__item">
+          <div class="my-projects__item-info">
+            <h3 class="my-projects__item-title main-title">
+              ООО ”Первый”
+
+              <img class="my-projects__item-icon" src="./img/icons/pen.svg" alt="pen">
+            </h3>
+
+            <a href="#" class="my-projects__item-address">https://www.gemini.com/</a>
+          </div>
+
+          <div class="my-projects__item-convertion">
+            <div class="my-projects__item-for">
+              <div class="my-projects__item-text">конвертация в:</div>
+              <div class="my-projects__item-currency">
+                <img class="my-projects__item-pic" src="./img/actives/actives-1.png" alt="">
+
+                <span class="my-projects__item-curr">USDT</span>
+              </div>
+            </div>
+
+            <div class="my-projects__item-to">
+              <div class="my-projects__item-text">комиссию платит:</div>
+              <div class="my-projects__item-client">клиент</div>
+            </div>
+          </div>
+
+          <!-- <a class="my-projects__item-btn second-btn" href="#">Сгенерировать платежную ссылку</a> -->
+        </div>
+
+        <div class="my-projects__groups project-groups">
+          <div class="my-projects__group project-group">
+            <label class="my-projects__label project-label" for="#">
+              Название проекта
+            </label>
+
+            <input class="my-projects__input project-input" type="text" placeholder="ООО “Первый”">
+          </div>
+
+          <div class="my-projects__group project-group">
+            <label class="my-projects__label project-label" for="#">
+              Деятельность
+            </label>
+
+            <input class="my-projects__input project-input" type="text" placeholder="Введите род деятельности">
+          </div>
+        </div>
+
+        <div class="my-projects__groups my-projects__groups--second project-groups">
+          <div class="my-projects__group project-group">
+            <label class="my-projects__label project-label" for="#">
+              Описание
+            </label>
+
+            <textarea class="my-projects__textarea project-textarea" placeholder="Строительство"></textarea>
+          </div>
+
+          <div class="my-projects__group my-projects__group-changes">
+            <div class="my-projects__radios">
+              <div class="my-projects__label project-label" for="#">
+                <img class="my-projects__label-img" src="./img/icons/checkbox-circle-checked.svg"
+                  alt="checkbox-circle-checked">
+
+                <p class="my-projects__label-descr project-label-descr">Конвертировать оплату в:</p>
+
+                <div class="my-projects__radio-container">
+                  <div class="my-projects__radio-group">
+                    <input class="my-projects__radio" type="radio" name="marka" id="radio1" checked>
+
+                    <label class="my-projects__radio-label" for="radio1">Стейблкоин</label>
+                  </div>
+
+                  <div class="my-projects__radio-group">
+                    <input class="my-projects__radio" type="radio" name="marka" id="radio2">
+
+                    <label class="my-projects__radio-label" for="radio2">Фиат</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="my-projects__group-select" data-select-wrapper>
+              <div class="my-projects__group-selected" data-select-arrow>
+                Валюта
+
+                <img class="my-projects__group-select-arrow" src="./img/icons/mini-arrow-down.svg"
+                  alt="mini-arrow-down">
+              </div>
+
+              <ul class="my-projects__group-list select-list" data-select-list>
+                <li class="my-projects__group-item select-item" data-select-item>Валюта</li>
+                <li class="my-projects__group-item select-item" data-select-item>Валюта</li>
+                <li class="my-projects__group-item select-item" data-select-item>Валюта</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-projects__groups project-groups">
+
+          <div class="my-projects__group my-projects__group--transparent project-group">
+            <div class="my-projects__radios">
+              <label class="my-projects__label project-label" for="#">
+                Комиссию оплачивает:
+
+                <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+                  data-tooltip-length="medium">
+                  <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+                </div>
+              </label>
+
+              <div class="my-projects__radio-container">
+                <div class="my-projects__radio-group">
+                  <input class="my-projects__radio" type="radio" name="pay" id="radio3" checked>
+
+                  <label class="my-projects__radio-label" for="radio3">Мерчант</label>
+                </div>
+
+                <div class="my-projects__radio-group">
+                  <input class="my-projects__radio" type="radio" name="pay" id="radio4">
+
+                  <label class="my-projects__radio-label" for="radio4">Клиент</label>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="my-projects__group my-projects__group--transparent project-group">
+            <div class="my-projects__group my-projects__group-changes">
+              <div class="my-projects__radios">
+                <div class="my-projects__label project-label" for="#">
+                  <img class="my-projects__label-img" src="./img/icons/checkbox-circle-checked.svg"
+                    alt="checkbox-circle-checked">
+
+                  <p class="my-projects__label-descr project-label-descr"> Использую CMS</p>
+
+                  <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+                    data-tooltip-length="medium">
+                    <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="my-projects__group-select" data-select-wrapper>
+                <div class="my-projects__group-selected" data-select-arrow>
+                  Выбрать CMS
+
+                  <img class="my-projects__group-select-arrow" src="./img/icons/mini-arrow-down.svg"
+                    alt="mini-arrow-down">
+                </div>
+
+                <ul class="my-projects__group-list select-list" data-select-list>
+                  <li class="my-projects__group-item select-item" data-select-item>Выбрать CMS</li>
+                  <li class="my-projects__group-item select-item" data-select-item>Выбрать CMS</li>
+                  <li class="my-projects__group-item select-item" data-select-item>Выбрать CMS</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="my-projects__checkboxes">
+          <p class="my-projects__checkboxes-label project-label">
+            Как вы планируете принимать платежи:
+          </p>
+
+          <div class="my-projects__checkboxes-list">
+            <div class="my-projects__checkbox-view checkbox-group">
+              <input class="my-projects__checkbox-checkbox checkbox-input" type="checkbox" id="checkbox2" checked>
+
+              <label class="my-projects__checkbox-label checkbox-label" for="checkbox2">
+                <div class="my-projects__checkbox-decor checkbox-decor"></div>
+                <span class="my-projects__checkbox-text checkbox-text">Выставлять счета</span>
+              </label>
+            </div>
+
+            <div class="my-projects__checkbox-view checkbox-group">
+              <input class="my-projects__checkbox-checkbox checkbox-input" type="checkbox" id="checkbox3">
+
+              <label class="my-projects__checkbox-label checkbox-label" for="checkbox3">
+                <div class="my-projects__checkbox-decor checkbox-decor"></div>
+                <span class="my-projects__checkbox-text checkbox-text">На сайте</span>
+              </label>
+            </div>
+
+            <div class="my-projects__checkbox-view checkbox-group">
+              <input class="my-projects__checkbox-checkbox checkbox-input" type="checkbox" id="checkbox4" checked>
+
+              <label class="my-projects__checkbox-label checkbox-label" for="checkbox4">
+                <div class="my-projects__checkbox-decor checkbox-decor"></div>
+                <span class="my-projects__checkbox-text checkbox-text">В Telegram</span>
+              </label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="my-projects__groups project-groups">
+          <div class="my-projects__group project-group">
+            <label class="my-projects__label project-label" for="#">
+              URL сайта или Telegram канала
+
+              <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+                data-tooltip-length="medium">
+                <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+              </div>
+            </label>
+
+            <input class="my-projects__input project-input" type="text" placeholder="https://www.gemini.com/">
+          </div>
+
+          <div class="my-projects__group project-group">
+            <label class="my-projects__label project-label" for="#">
+              URL успешной оплаты
+
+              <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+                data-tooltip-length="medium">
+                <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+              </div>
+            </label>
+
+            <input class="my-projects__input project-input" type="text" placeholder="Введите URL">
+          </div>
+        </div>
+
+        <div class="my-projects__groups project-groups">
+          <div class="my-projects__group project-group">
+            <label class="my-projects__label project-label" for="#">
+              URL уведомлений
+
+              <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+                data-tooltip-length="medium">
+                <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+              </div>
+            </label>
+
+            <input class="my-projects__input project-input" type="text" placeholder="Введите URL">
+          </div>
+
+          <div class="my-projects__group project-group">
+            <label class="my-projects__label project-label" for="#">
+              URL неудачной оплаты
+
+              <div class="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right"
+                data-tooltip-length="medium">
+                <img class="payment-form__radio-pic" src="./img/icons/tooltip.svg" alt="tooltip">
+              </div>
+            </label>
+
+            <input class="my-projects__input project-input" type="text" placeholder="Введите URL">
+          </div>
+        </div>
+
+        <div class="admin-applications__footer">
+          <button type="button" class="admin-applications__btn third-btn">Отменить изменения</button>
+          <button type="button" class="admin-applications__btn second-btn">Сохранить</button>
+        </div>
+      </form>
+
+      <div class="admin-applications__others">
+        <p class="admin-applications__others-label">
+          Другие проекты Мерчанта №123446
+        </p>
+
+        <div class="my-projects__items-wrapper">
+          <ul class="my-projects__items">
+
+            <li class="my-projects__item">
+              <div class="my-projects__item-info">
+                <h3 class="my-projects__item-title main-title">
+                  ООО ”Второй”
+                </h3>
+
+                <a href="#" class="my-projects__item-address">https://www.gemini.com/</a>
+              </div>
+
+              <div class="my-projects__item-convertion my-projects__item-convertion--row">
+                <div class="my-projects__item-for">
+                  <div class="my-projects__item-text">конвертация в:</div>
+                  <div class="my-projects__item-currency">
+                    <img class="my-projects__item-pic" src="./img/actives/actives-1.png" alt="">
+
+                    <span class="my-projects__item-curr">USDT</span>
+                  </div>
+                </div>
+
+                <div class="my-projects__item-to">
+                  <div class="my-projects__item-text">комиссию платит:</div>
+                  <div class="my-projects__item-client">клиент</div>
+                </div>
+              </div>
+
+              <div class="my-projects__item-btn">
+                <span>Подробнее</span>
+
+                <img src="./img/icons/arrow-down.svg" alt="">
+              </div>
+            </li>
+
+            <li class="my-projects__item">
+              <div class="my-projects__item-info">
+                <h3 class="my-projects__item-title main-title">
+                  ООО ”Третий”
+                </h3>
+
+                <a href="#" class="my-projects__item-address">https://www.gemini.com/</a>
+              </div>
+
+              <div class="my-projects__item-convertion my-projects__item-convertion--row">
+                <div class="my-projects__item-for">
+                  <div class="my-projects__item-text">конвертация в:</div>
+                  <div class="my-projects__item-currency">
+                    <img class="my-projects__item-pic" src="./img/actives/actives-1.png" alt="">
+
+                    <span class="my-projects__item-curr">USDT</span>
+                  </div>
+                </div>
+
+                <div class="my-projects__item-to">
+                  <div class="my-projects__item-text">комиссию платит:</div>
+                  <div class="my-projects__item-client">клиент</div>
+                </div>
+              </div>
+
+              <div class="my-projects__item-btn">
+                <span>Подробнее</span>
+
+                <img src="./img/icons/arrow-down.svg" alt="">
+              </div>
+            </li>
+
+            <li class="my-projects__item">
+              <div class="my-projects__item-info">
+                <h3 class="my-projects__item-title main-title">
+                  ООО ”Третий”
+                </h3>
+
+                <a href="#" class="my-projects__item-address">https://www.gemini.com/</a>
+              </div>
+
+              <div class="my-projects__item-convertion my-projects__item-convertion--row">
+                <div class="my-projects__item-for">
+                  <div class="my-projects__item-text">конвертация в:</div>
+                  <div class="my-projects__item-currency">
+                    <img class="my-projects__item-pic" src="./img/actives/actives-1.png" alt="">
+
+                    <span class="my-projects__item-curr">USDT</span>
+                  </div>
+                </div>
+
+                <div class="my-projects__item-to">
+                  <div class="my-projects__item-text">комиссию платит:</div>
+                  <div class="my-projects__item-client">клиент</div>
+                </div>
+              </div>
+
+              <div class="my-projects__item-btn">
+                <span>Подробнее</span>
+
+                <img src="./img/icons/arrow-down.svg" alt="">
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </main>
+
+  <!-- Footer -->
+  
+
+</body>
+
+<script src="./js/scripts.min.js"></script>
+
+</html>
