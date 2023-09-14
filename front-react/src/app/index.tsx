@@ -22,12 +22,23 @@ import { InfocenterPage } from "./pages/InfocenterPage";
 import { MyAssetsPage } from "./pages/MyAssetsPage";
 import { AssetPage } from "./pages/AssetPage";
 import { ASSETS_ROUTE } from "./constants/path-locations";
+import { AdminFeesPage } from "./pages/AdminFeesPage";
+import { AdminAreaLayout } from "./layouts/AdminAreaLayout";
 
 export function App() {
   return (
     <BrowserRouter>
       <Helmet titleTemplate="%s - Awex" defaultTitle="Awex"></Helmet>
       <Routes>
+        <Route
+          element={
+            <PrivateRoute>
+              <AdminAreaLayout />
+            </PrivateRoute>
+          }
+        >
+          <Route path="/admin/" element={<AdminFeesPage />} />
+        </Route>
         <Route
           element={
             <PrivateRoute>
@@ -59,6 +70,7 @@ export function App() {
         <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />
         <Route path="/index" element={<IndexPage />} />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/admin/auth" element />
       </Routes>
       <Toaster />
     </BrowserRouter>
