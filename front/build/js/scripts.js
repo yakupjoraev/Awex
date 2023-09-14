@@ -263,5 +263,3 @@ var galleryTop = new Swiper('.gallery-top', {
   },
 });
 
-// galleryTop.controller.control = galleryThumbs;
-// galleryThumbs.controller.control = galleryTop;
