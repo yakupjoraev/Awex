@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import authReducer from "./auth/slice";
 import accountConfigSettingsReducer from "./accountConfigSettings/slice";
+import accountTeamReducer from "./accountTeam/slice";
 import accountProfileReducer from "./accountProfile/slice";
 import projectsReducer from "./projects/slice";
 
@@ -9,6 +10,7 @@ const store = configureStore({
     auth: authReducer,
     accountConfigSettings: accountConfigSettingsReducer,
     accountProfile: accountProfileReducer,
+    accountTeam: accountTeamReducer,
     projects: projectsReducer,
   },
 });

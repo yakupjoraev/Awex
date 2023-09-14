@@ -1,14 +1,18 @@
 import { EmployeePaginator } from "../EmployeePaginator";
-import { useEffect, useMemo, useState } from "react";
-import { Employee, employees } from "./data";
+import { useMemo, useState } from "react";
 import { EmployeeItem } from "../EmployeeItem";
 import { useDebounce } from "usehooks-ts";
 import escapeRegExp from "lodash/escapeRegExp";
 import classNames from "classnames";
+import { AppTeamMember } from "@store/accountTeam/slice";
 
 export interface EmployeeListProps {
   className?: string;
+  employees: AppTeamMember[];
   onNavAddEmployee: () => void;
+  onDeleteEmployee: (employeeId: string) => void;
+  onEnableEmployee: (employeeId: string) => void;
+  onDisableEmployee: (employeeId: string) => void;
 }
 
 const PAGE_LENGTH = 3;
@@ -16,33 +20,35 @@ const SEARCH_THROTTLE = 200;
 
 export function EmployeeList(props: EmployeeListProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [allEmployees, setAllEmployees] = useState(employees);
   const [searchText, setSearchText] = useState<string>("");
   const debouncedSearchText = useDebounce(searchText, SEARCH_THROTTLE);
 
-  const foundEmployees = useMemo(() => {
+  const employeesBySearchText = useMemo(() => {
     const normalizedSearchText = debouncedSearchText.trim().toLowerCase();
     if (normalizedSearchText.length === 0) {
-      return allEmployees;
+      return props.employees;
     }
     const searchRe = new RegExp(escapeRegExp(normalizedSearchText), "i");
-    return allEmployees.filter(([, employee]) => {
-      return searchRe.test(employee.name) || searchRe.test(employee.email);
+    return props.employees.filter(({ name, email }) => {
+      return searchRe.test(name) || searchRe.test(email);
     });
-  }, [debouncedSearchText, allEmployees]);
+  }, [props.employees, debouncedSearchText]);
 
   const [pageEmployees, totalPages] = useMemo(() => {
     const totalPages =
-      foundEmployees.length === 0
+      employeesBySearchText.length === 0
         ? 1
-        : Math.ceil(foundEmployees.length / PAGE_LENGTH);
+        : Math.ceil(employeesBySearchText.length / PAGE_LENGTH);
 
     const normalizedCurrentPage =
       currentPage > totalPages ? totalPages : currentPage;
     const offset = (normalizedCurrentPage - 1) * PAGE_LENGTH;
-    const pageEmployees = foundEmployees.slice(offset, offset + PAGE_LENGTH);
+    const pageEmployees = employeesBySearchText.slice(
+      offset,
+      offset + PAGE_LENGTH
+    );
     return [pageEmployees, totalPages];
-  }, [foundEmployees, currentPage]);
+  }, [employeesBySearchText, currentPage]);
 
   const handleNavigate = (page: number) => {
     if (page < 0) {
@@ -50,15 +56,6 @@ export function EmployeeList(props: EmployeeListProps) {
     } else {
       setCurrentPage(page);
     }
-  };
-
-  const handleDeleteEmployee = (employeeId: string) => {
-    const nextAllEmployees = allEmployees.filter(([id]) => id !== employeeId);
-    setAllEmployees(nextAllEmployees);
-  };
-
-  const handleBlockEmployee = (_employeeId: string) => {
-    alert("NOT IMPLEMENTED");
   };
 
   const handleEditEmployee = (_employeeId: string) => {
@@ -101,16 +98,18 @@ export function EmployeeList(props: EmployeeListProps) {
         </div>
 
         <ul className="settings-security__users">
-          {pageEmployees.map(([id, employee]) => (
+          {pageEmployees.map((employee) => (
             <EmployeeItem
-              employeeId={id}
-              role={employee.role}
+              employeeId={employee.id}
+              label={employee.label}
               email={employee.email}
               name={employee.name}
-              onDelete={handleDeleteEmployee}
-              onBlock={handleBlockEmployee}
+              enabled={employee.enabled}
+              onEnable={props.onEnableEmployee}
+              onDisable={props.onDisableEmployee}
+              onDelete={props.onDeleteEmployee}
               onEdit={handleEditEmployee}
-              key={id}
+              key={employee.id}
             />
           ))}
         </ul>

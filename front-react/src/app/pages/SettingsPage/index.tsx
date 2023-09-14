@@ -5,7 +5,7 @@ import { ProfileTab } from "./ProfileTab";
 import { RequisitesTab } from "./RequisitesTab";
 import { SafetyTab } from "./SafetyTab";
 import { NotificationsTab } from "./NotificationsTab";
-import { PermissionManagementTab } from "./PermissionManagementTab";
+import { PermissionsTab } from "./PermissionsTab";
 import { Helmet } from "react-helmet-async";
 
 export function SettingsPage() {
@@ -18,10 +18,7 @@ export function SettingsPage() {
           <Route path="requisites" element={<RequisitesTab />} />
           <Route path="safety" element={<SafetyTab />} />
           <Route path="notifications" element={<NotificationsTab />} />
-          <Route
-            path="permission-management"
-            element={<PermissionManagementTab />}
-          />
+          <Route path="permission-management" element={<PermissionsTab />} />
         </Route>
       </Routes>
     </>
