@@ -24,6 +24,7 @@ import { AssetPage } from "./pages/AssetPage";
 import { ASSETS_ROUTE } from "./constants/path-locations";
 import { AdminFeesPage } from "./pages/AdminFeesPage";
 import { AdminAreaLayout } from "./layouts/AdminAreaLayout";
+import { AdminAuthPage } from "./pages/AdminAuthPage";
 
 export function App() {
   return (
@@ -70,7 +71,7 @@ export function App() {
         <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />
         <Route path="/index" element={<IndexPage />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/admin/auth" element />
+        <Route path="/admin/auth" element={<AdminAuthPage />} />
       </Routes>
       <Toaster />
     </BrowserRouter>

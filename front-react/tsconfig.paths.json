@@ -5,7 +5,8 @@
       "@awex-api": ["src/generated/awex-api"],
       "@store/*": ["src/store/*"],
       "@components/*": ["src/app/components/*"],
-      "@containers/*": ["src/app/containers/*"]
+      "@containers/*": ["src/app/containers/*"],
+      "@constants/*": ["src/app/constants/*"]
     }
   }
 }
