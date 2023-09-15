@@ -201,6 +201,12 @@ export function IndexPage() {
                 404
               </a>
             </li>
+            {"<------- СТРАНИЦЫ АДМИНКИ-------->"}
+            <li className="pages__item">
+              <a className="pages__link" href="/admin/auth" target="_blank">
+                Админ панель (вход)
+              </a>
+            </li>
           </ul>
         </div>
       </div>
