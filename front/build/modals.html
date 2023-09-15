@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Index</title>
+  <link rel="stylesheet" href="./css/swiper-bundle.min.css">
   <link rel="stylesheet" href="./css/style.min.css">
 </head>
 
@@ -1113,6 +1114,82 @@
       <button type="button" class="modal-content__btn second-btn">Заказать</button>
     </form>
   </div>
+
+
+  <button class="open-modal-btn" data-modal-id="slider-pictures">Open Modal slider-pictures in admin panel</button>
+
+  <div class="modal modal-slider-pictures" id="slider-pictures">
+    <form action="#" class="modal-content">
+
+      <div class="modal-content__header">
+        <h4 class="modal-content__title">
+          Файл png.png
+        </h4>
+
+        <button class="close-modal-btn">
+          <img src="./img/icons/close-modal.svg" alt="">
+        </button>
+      </div>
+
+      <div class="modal-content__slider">
+        <div class="swiper-container gallery-top">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="swiper-slide-container">
+                <img src="./img/swiper-slide.png" alt="swiper-slide">
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/swiper-slide.png" alt="swiper-slide">
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/swiper-slide.png" alt="swiper-slide">
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/swiper-slide.png" alt="swiper-slide">
+            </div>
+          </div>
+          <!-- Add Arrows -->
+          <div class="slider-button-next">
+            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12.5165 1.26953C6.58848 1.26953 1.76648 6.09153 1.76648 12.0195C1.76648 17.9475 6.58848 22.7695 12.5165 22.7695C18.4445 22.7695 23.2665 17.9475 23.2665 12.0195C23.2665 6.09153 18.4445 1.26953 12.5165 1.26953ZM12.5165 21.2695C7.41548 21.2695 3.26648 17.1205 3.26648 12.0195C3.26648 6.91853 7.41548 2.76953 12.5165 2.76953C17.6175 2.76953 21.7665 6.91853 21.7665 12.0195C21.7665 17.1205 17.6175 21.2695 12.5165 21.2695ZM15.0465 11.4895C15.3395 11.7825 15.3395 12.2575 15.0465 12.5505L12.0465 15.5505C11.9005 15.6965 11.7085 15.7705 11.5165 15.7705C11.3245 15.7705 11.1325 15.6975 10.9865 15.5505C10.6934 15.2575 10.6934 14.7825 10.9865 14.4895L13.4564 12.0195L10.9865 9.54956C10.6934 9.25656 10.6934 8.78153 10.9865 8.48853C11.2795 8.19553 11.7545 8.19553 12.0475 8.48853L15.0465 11.4895Z"
+                fill="#25314C" />
+            </svg>
+
+          </div>
+
+          <div class="slider-button-prev">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+              <path
+                d="M13.7153 9.54956L11.2454 12.0195L13.7153 14.4895C14.0083 14.7825 14.0083 15.2575 13.7153 15.5505C13.5693 15.6965 13.3773 15.7705 13.1853 15.7705C12.9933 15.7705 12.8013 15.6975 12.6553 15.5505L9.65527 12.5505C9.36227 12.2575 9.36227 11.7825 9.65527 11.4895L12.6553 8.4895C12.9483 8.1965 13.4233 8.1965 13.7163 8.4895C14.0093 8.7825 14.0083 9.25656 13.7153 9.54956ZM22.9353 12.0195C22.9353 17.9475 18.1133 22.7695 12.1853 22.7695C6.2573 22.7695 1.4353 17.9475 1.4353 12.0195C1.4353 6.09153 6.2573 1.26953 12.1853 1.26953C18.1133 1.26953 22.9353 6.09153 22.9353 12.0195ZM21.4353 12.0195C21.4353 6.91853 17.2863 2.76953 12.1853 2.76953C7.0843 2.76953 2.9353 6.91853 2.9353 12.0195C2.9353 17.1205 7.0843 21.2695 12.1853 21.2695C17.2863 21.2695 21.4353 17.1205 21.4353 12.0195Z"
+                fill="#25314C" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="swiper-container gallery-thumbs">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="./img/swiper-slide.png" alt="swiper-slide">
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/swiper-slide.png" alt="swiper-slide">
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/swiper-slide.png" alt="swiper-slide">
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/swiper-slide.png" alt="swiper-slide">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
 </div>
     </div>
   </main>
@@ -1121,7 +1198,7 @@
   
 
 </body>
-
+<script src="./js/swiper-bundle.min.js"></script>
 <script src="./js/scripts.min.js"></script>
 
 </html>

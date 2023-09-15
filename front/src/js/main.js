@@ -101,9 +101,9 @@ function simpleSelect() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  simpleSelect();
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//   simpleSelect();
+// });
 
 // function checkIntoView() {
 //   const container = document.querySelector('.deposit-retention__form');
@@ -235,4 +235,29 @@ window.addEventListener('click', (event) => {
   if (event.target.classList.contains('modal')) {
     event.target.classList.remove('show');
   }
+});
+
+var galleryThumbs = new Swiper('.gallery-thumbs', {
+  spaceBetween: 15,
+  // centeredSlides: true,
+  slidesPerView: 'auto',
+  touchRatio: 0.2,
+  slideToClickedSlide: true,
+  freeMode: true,
+  watchSlidesProgress: true,
+
+});
+
+var galleryTop = new Swiper('.gallery-top', {
+  spaceBetween: 10,
+  slidesPerView: 1,
+  centeredSlides: true,
+  navigation: {
+    nextEl: '.slider-button-next',
+    prevEl: '.slider-button-prev',
+  },
+
+  thumbs: {
+    swiper: galleryThumbs,
+  },
 });
