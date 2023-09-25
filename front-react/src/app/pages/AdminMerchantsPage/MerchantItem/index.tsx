@@ -20,6 +20,10 @@ export function MerchantItem(props: MerchantItemProps) {
     toast.success("Скопировано!");
   };
 
+  const handleNotImplemented = () => {
+    toast("NOT IMPLEMENTED!");
+  };
+
   return (
     <div
       className={classNames("admin-marchants__item", { active: expanded })}
@@ -28,24 +32,37 @@ export function MerchantItem(props: MerchantItemProps) {
       <div className="admin-marchants__item-header">
         <div className="admin-marchants__item-id">
           {`ID${props.merchantId}`}
-          <p className="admin-marchants__item-id-descr">
-            Merchant’s name Second Name and smth
-          </p>
+          <p className="admin-marchants__item-id-descr">...</p>
         </div>
         <div className="admin-marchants__item-data">10/01/23</div>
         <div className="admin-marchants__item-comission">0.1%</div>
         <div className="admin-marchants__item-action">
-          <button type="button" className="admin-marchants__item-action-btn">
+          <button
+            type="button"
+            className="admin-marchants__item-action-btn"
+            onClick={handleNotImplemented}
+          >
             <img src="/img/icons/lock.svg" alt="lock" />
           </button>
-          <button type="button" className="admin-marchants__item-action-btn">
+          <button
+            type="button"
+            className="admin-marchants__item-action-btn"
+            onClick={handleNotImplemented}
+          >
             <img src="/img/icons/pen.svg" alt="pen" />
           </button>
-          <button type="button" className="admin-marchants__item-action-btn">
+          <button
+            type="button"
+            className="admin-marchants__item-action-btn"
+            onClick={handleNotImplemented}
+          >
             <img src="/img/icons/trash.svg" alt="trash" />
           </button>
         </div>
-        <div className="admin-marchants__item-statistic">
+        <div
+          className="admin-marchants__item-statistic"
+          onClick={handleNotImplemented}
+        >
           <img src="/img/icons/chart-pie.svg" alt="chart-pie" />
           Статистика мерчанта
         </div>
@@ -136,10 +153,24 @@ export function MerchantItem(props: MerchantItemProps) {
                   </div>
                 </div>
                 <div className="my-projects__item-btn">
-                  <img src="/img/icons/lock-grey.svg" alt="lock" />
-                  <img src="/img/icons/pen.svg" alt="pen" />
-                  <img src="/img/icons/trash.svg" alt="trash" />
-                  <a href="#">Статистика</a>
+                  <img
+                    src="/img/icons/lock-grey.svg"
+                    alt="lock"
+                    onClick={handleNotImplemented}
+                  />
+                  <img
+                    src="/img/icons/pen.svg"
+                    alt="pen"
+                    onClick={handleNotImplemented}
+                  />
+                  <img
+                    src="/img/icons/trash.svg"
+                    alt="trash"
+                    onClick={handleNotImplemented}
+                  />
+                  <a href="#" onClick={handleNotImplemented}>
+                    Статистика
+                  </a>
                 </div>
               </li>
               <li className="my-projects__item">
@@ -171,10 +202,24 @@ export function MerchantItem(props: MerchantItemProps) {
                   </div>
                 </div>
                 <div className="my-projects__item-btn">
-                  <img src="/img/icons/lock-grey.svg" alt="lock" />
-                  <img src="/img/icons/pen.svg" alt="pen" />
-                  <img src="/img/icons/trash.svg" alt="trash" />
-                  <a href="#">Статистика</a>
+                  <img
+                    src="/img/icons/lock-grey.svg"
+                    alt="lock"
+                    onClick={handleNotImplemented}
+                  />
+                  <img
+                    src="/img/icons/pen.svg"
+                    alt="pen"
+                    onClick={handleNotImplemented}
+                  />
+                  <img
+                    src="/img/icons/trash.svg"
+                    alt="trash"
+                    onClick={handleNotImplemented}
+                  />
+                  <a href="#" onClick={handleNotImplemented}>
+                    Статистика
+                  </a>
                 </div>
               </li>
               <li className="my-projects__item">
@@ -206,10 +251,24 @@ export function MerchantItem(props: MerchantItemProps) {
                   </div>
                 </div>
                 <div className="my-projects__item-btn">
-                  <img src="/img/icons/lock-grey.svg" alt="lock" />
-                  <img src="/img/icons/pen.svg" alt="pen" />
-                  <img src="/img/icons/trash.svg" alt="trash" />
-                  <a href="#">Статистика</a>
+                  <img
+                    src="/img/icons/lock-grey.svg"
+                    alt="lock"
+                    onClick={handleNotImplemented}
+                  />
+                  <img
+                    src="/img/icons/pen.svg"
+                    alt="pen"
+                    onClick={handleNotImplemented}
+                  />
+                  <img
+                    src="/img/icons/trash.svg"
+                    alt="trash"
+                    onClick={handleNotImplemented}
+                  />
+                  <a href="#" onClick={handleNotImplemented}>
+                    Статистика
+                  </a>
                 </div>
               </li>
             </ul>
