@@ -19,6 +19,13 @@ export interface AppTeamMember {
   confirmed_at: number | null;
 }
 
+export interface CreateTeamMemberRequest {
+  name?: string | undefined;
+  email: string;
+  permissions?: string[] | undefined;
+  label: string;
+}
+
 interface AccountTeamState {
   data: EntityState<AppTeamMember>;
   loading: boolean;
@@ -37,14 +44,12 @@ const initialState: AccountTeamState = {
 
 export const addTeamMember = createAsyncThunk(
   "accountTeam/addTeamMember",
-  async (teamMember: TeamMember) => {
+  async (teamMember: CreateTeamMemberRequest) => {
     await AuthenticatedService.teamMembersAdd({
-      name: teamMember.name,
+      name: teamMember.name || undefined,
       email: teamMember.email,
       permissions: teamMember.permissions,
       label: teamMember.label,
-      enabled: teamMember.enabled,
-      confirmed_at: teamMember.confirmed_at,
     });
     const teamMembers = await listAllTeamMembers();
     const appTeamMembers: AppTeamMember[] =

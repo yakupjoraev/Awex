@@ -9,10 +9,8 @@
 export type ProfileData = {
     name: string;
     email: string;
-    companyName: string;
-    phone: string;
     telegram: string;
-    country: string;
-    url: string;
+    displayCurrency: string;
+    companyName: string;
     legalAddress: string;
 };

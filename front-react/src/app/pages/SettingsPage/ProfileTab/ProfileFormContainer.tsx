@@ -32,11 +32,9 @@ export function ProfileFormContainer() {
       name: opts.name,
       email: opts.email,
       companyName: opts.companyName,
-      phone: opts.phone,
       telegram: opts.telegram,
-      country: opts.country,
-      url: opts.url,
       legalAddress: opts.legalAddress,
+      displayCurrency: "rub",
     };
     dispatch(setAccountProfile(requests))
       .unwrap()

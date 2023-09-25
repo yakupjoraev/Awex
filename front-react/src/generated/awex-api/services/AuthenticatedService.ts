@@ -6,6 +6,8 @@ import type { Notification } from '../models/Notification';
 import type { Order } from '../models/Order';
 import type { ProfileData } from '../models/ProfileData';
 import type { Project } from '../models/Project';
+import type { ProjectItem } from '../models/ProjectItem';
+import type { ProjectList } from '../models/ProjectList';
 import type { Session } from '../models/Session';
 import type { TeamMember } from '../models/TeamMember';
 
@@ -661,7 +663,24 @@ list?: Array<TeamMember>;
      * @throws ApiError
      */
     public static teamMembersAdd(
-requestBody: TeamMember,
+requestBody: {
+/**
+ * user name (is ignored for existing users)
+ */
+name?: string;
+/**
+ * user's email
+ */
+email: string;
+/**
+ * team member permissions
+ */
+permissions?: Array<string>;
+/**
+ * team member label
+ */
+label: string;
+},
 ): CancelablePromise<{
 /**
  * request result
@@ -853,7 +872,7 @@ pages?: number;
 /**
  * list of projects
  */
-list?: Array<Project>;
+list?: Array<ProjectList>;
 }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -875,7 +894,7 @@ list?: Array<Project>;
      * @throws ApiError
      */
     public static projectCreate(
-requestBody: Project,
+requestBody: ProjectItem,
 ): CancelablePromise<{
 /**
  * request result
@@ -898,133 +917,12 @@ message?: string;
      * endpoint for getting project
      * getting project
      * @param id project id
-     * @returns any request succeeded
+     * @returns ProjectItem request succeeded
      * @throws ApiError
      */
     public static projectGet(
 id: string,
-): CancelablePromise<{
-data?: {
-/**
- * name
- */
-name?: string;
-/**
- * description
- */
-description?: string;
-/**
- * true is merchant is fee payee
- */
-feePayee?: boolean;
-/**
- * true if payment bills are enabled
- */
-paymentBills?: boolean;
-/**
- * true if web payments are enabled
- */
-paymentWeb?: boolean;
-/**
- * true if telegram payments are enabled
- */
-paymentTelegram?: boolean;
-/**
- * activity
- */
-activity?: string;
-/**
- * currency for payments to be converted to
- */
-convertTo?: 'fiat' | 'stablecoin';
-/**
- * currency
- */
-currency?: string;
-/**
- * cms
- */
-cms?: string;
-/**
- * web url
- */
-urlWeb?: string;
-/**
- * notification url
- */
-urlNotification?: string;
-/**
- * Success payment hook url
- */
-urlPaymentSuccess?: string;
-/**
- * Failure payment hook url
- */
-urlPaymentFailure?: string;
-};
-draft?: {
-/**
- * name
- */
-name?: string;
-/**
- * description
- */
-description?: string;
-/**
- * true is merchant is fee payee
- */
-feePayee?: boolean;
-/**
- * true if payment bills are enabled
- */
-paymentBills?: boolean;
-/**
- * true if web payments are enabled
- */
-paymentWeb?: boolean;
-/**
- * true if telegram payments are enabled
- */
-paymentTelegram?: boolean;
-/**
- * activity
- */
-activity?: string;
-/**
- * currency for payments to be converted to
- */
-convertTo?: 'fiat' | 'stablecoin';
-/**
- * currency
- */
-currency?: string;
-/**
- * cms
- */
-cms?: string;
-/**
- * web url
- */
-urlWeb?: string;
-/**
- * notification url
- */
-urlNotification?: string;
-/**
- * Success payment hook url
- */
-urlPaymentSuccess?: string;
-/**
- * Failure payment hook url
- */
-urlPaymentFailure?: string;
-};
-/**
- * timestamp of the validation request
- */
-validationRequestedAt?: number;
-}> {
+): CancelablePromise<ProjectItem> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/project/{id}',
@@ -1263,6 +1161,43 @@ paid?: boolean;
             errors: {
                 403: `request failed`,
                 404: `request failed`,
+            },
+        });
+    }
+
+    /**
+     * endpoint for creating users by admin with granting admin roles
+     * creating users by admin with granting admin roles
+     * @param requestBody 
+     * @returns any request succeeded
+     * @throws ApiError
+     */
+    public static userCreate(
+requestBody: {
+/**
+ * user email
+ */
+email?: string;
+/**
+ * user name
+ */
+name?: string;
+roles?: Array<string>;
+},
+): CancelablePromise<{
+/**
+ * request result
+ */
+message?: string;
+}> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/account/admin',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `request failed`,
+                403: `request failed`,
             },
         });
     }

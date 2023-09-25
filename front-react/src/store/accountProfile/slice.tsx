@@ -8,17 +8,6 @@ interface AccountConfigSettingsState {
   loadingError?: string;
 }
 
-const defaultProfileData: ProfileData = {
-  name: "",
-  email: "",
-  companyName: "",
-  phone: "",
-  telegram: "",
-  country: "",
-  url: "",
-  legalAddress: "",
-};
-
 const initialState: AccountConfigSettingsState = {
   data: undefined,
   loadingStatus: "idle",

@@ -77,11 +77,9 @@ export function ProfileForm(props: ProfileFormProps) {
       name: formData.name,
       email: formData.email || "",
       companyName: formData.companyName || "",
-      phone: formData.phone || "",
       telegram: formData.telegram || "",
-      country: formData.country || "",
-      url: formData.url || "",
       legalAddress: formData.legalAddress || "",
+      displayCurrency: "rub",
     };
     props.onUpdateProfile(update);
   });

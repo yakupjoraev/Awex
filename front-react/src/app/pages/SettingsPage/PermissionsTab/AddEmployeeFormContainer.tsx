@@ -40,7 +40,6 @@ export function AddEmployeeFormContainer(props: AddEmployeeFormContainerProps) {
           email: request.email,
           permissions: request.permissions,
           label: request.label,
-          enabled: true,
         })
       );
     } finally {

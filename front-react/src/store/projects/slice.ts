@@ -18,7 +18,7 @@ const initialState: ProjectsState = {
 export const createProject = createAsyncThunk(
   "projects/createProject",
   async (opts: { project: Project }) => {
-    await AuthenticatedService.projectCreate(opts.project);
+    await AuthenticatedService.projectCreate({ data: opts.project });
     return await listAllProjects();
   }
 );

@@ -25,7 +25,7 @@ paths:
       summary: API Information
       operationId: info
       responses:
-        '200':
+        "200":
           description: API Information
           content:
             application/json:
@@ -66,7 +66,7 @@ paths:
                 - password
                 - email
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -76,7 +76,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -112,7 +112,7 @@ paths:
                 - password
                 - email
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -121,7 +121,7 @@ paths:
                 properties:
                   verified:
                     type: boolean
-                    description: either email is verified or not, 
+                    description: either email is verified or not,
                       if true - jwt token is provided
                   token:
                     type: string
@@ -135,7 +135,7 @@ paths:
                     type: boolean
                     description: true if 2FA is on, if true request to the
                       | /account/otp/login with otp should be sent
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -167,7 +167,7 @@ paths:
               required:
                 - password
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -183,7 +183,7 @@ paths:
                   valid:
                     type: boolean
                     description: true if valid for usage in application (medium, strong)
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -215,7 +215,7 @@ paths:
               required:
                 - code
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -225,7 +225,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -257,7 +257,7 @@ paths:
               required:
                 - email
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -267,7 +267,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -299,7 +299,7 @@ paths:
               required:
                 - email
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -309,7 +309,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -321,7 +321,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '409':
+        "409":
           description: request failed
           content:
             application/json:
@@ -353,7 +353,7 @@ paths:
               required:
                 - code
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -367,7 +367,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -407,7 +407,7 @@ paths:
                 - resetToken
                 - oldPassword
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -417,7 +417,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -439,7 +439,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -449,7 +449,7 @@ paths:
                   uri:
                     type: string
                     description: google authenticator connection uri for QR generation
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -461,7 +461,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -495,7 +495,7 @@ paths:
               required:
                 - email
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -505,7 +505,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -517,7 +517,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -551,7 +551,7 @@ paths:
               required:
                 - otp
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -561,7 +561,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -573,7 +573,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -603,7 +603,7 @@ paths:
               properties:
                 _2faType:
                   type: string
-                  enum: [ 'googleAuthenticator', 'gmail', 'facebook' ]
+                  enum: ["googleAuthenticator", "gmail", "facebook"]
                   description: 2fa type
                 otp:
                   type: string
@@ -612,7 +612,7 @@ paths:
                 - _2faType
                 - otp
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -622,7 +622,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -634,7 +634,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -664,12 +664,12 @@ paths:
               properties:
                 _2faType:
                   type: string
-                  enum: [ 'googleAuthenticator', 'gmail', 'facebook' ]
+                  enum: ["googleAuthenticator", "gmail", "facebook"]
                   description: 2fa type
               required:
                 - _2faType
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -679,7 +679,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -691,7 +691,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -713,7 +713,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -722,7 +722,7 @@ paths:
                 items:
                   type: string
                 description: list of enabled 2fa methods
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -734,7 +734,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -764,7 +764,7 @@ paths:
               properties:
                 _2faType:
                   type: string
-                  enum: [ 'googleAuthenticator', 'gmail', 'facebook' ]
+                  enum: ["googleAuthenticator", "gmail", "facebook"]
                   description: 2fa type
                 otp:
                   type: string
@@ -773,7 +773,7 @@ paths:
                 - _2faType
                 - otp
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -783,7 +783,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -795,7 +795,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -817,7 +817,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -827,7 +827,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -839,7 +839,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -869,7 +869,7 @@ paths:
               properties:
                 _2faType:
                   type: string
-                  enum: [ 'googleAuthenticator', 'gmail', 'facebook' ]
+                  enum: ["googleAuthenticator", "gmail", "facebook"]
                   description: 2fa type
                 otp:
                   type: string
@@ -878,7 +878,7 @@ paths:
                 - _2faType
                 - otp
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -888,7 +888,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -900,7 +900,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -937,7 +937,7 @@ paths:
               required:
                 - ipWhitelist
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -947,7 +947,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -959,7 +959,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -980,7 +980,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -994,9 +994,9 @@ paths:
                     type: array
                     items:
                       type: string
-                    description: list of whitelisted ip, 
+                    description: list of whitelisted ip,
                       if empty - whitelisting is disabled
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1024,7 +1024,7 @@ paths:
             type: string
           description: requested page number
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1041,8 +1041,8 @@ paths:
                     type: array
                     description: list of sessions
                     items:
-                      $ref: '#/components/schemas/Session'
-        '403':
+                      $ref: "#/components/schemas/Session"
+        "403":
           description: request failed
           content:
             application/json:
@@ -1071,7 +1071,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1081,7 +1081,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1093,7 +1093,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1105,7 +1105,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -1127,7 +1127,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1137,7 +1137,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1175,7 +1175,7 @@ paths:
                 - password
                 - oldPassword
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1185,7 +1185,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1197,7 +1197,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1223,9 +1223,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProfileData'
+              $ref: "#/components/schemas/ProfileData"
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1235,7 +1235,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1247,7 +1247,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1268,13 +1268,13 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProfileData'
-        '403':
+                $ref: "#/components/schemas/ProfileData"
+        "403":
           description: request failed
           content:
             application/json:
@@ -1300,9 +1300,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Notification'
+              $ref: "#/components/schemas/Notification"
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1312,7 +1312,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1324,7 +1324,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1345,13 +1345,13 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Notification'
-        '403':
+                $ref: "#/components/schemas/Notification"
+        "403":
           description: request failed
           content:
             application/json:
@@ -1383,7 +1383,7 @@ paths:
                   type: string
                   description: currency for displaying balance
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1393,7 +1393,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1405,7 +1405,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1426,7 +1426,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1436,7 +1436,7 @@ paths:
                   currency:
                     type: string
                     description: currency for displaying balance
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1459,7 +1459,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1482,7 +1482,7 @@ paths:
                     type: array
                     items:
                       type: string
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1510,7 +1510,7 @@ paths:
             type: string
           description: requested page number
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1527,8 +1527,8 @@ paths:
                     type: array
                     description: list of projects
                     items:
-                      $ref: '#/components/schemas/TeamMember'
-        '403':
+                      $ref: "#/components/schemas/TeamMember"
+        "403":
           description: request failed
           content:
             application/json:
@@ -1553,9 +1553,27 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TeamMember'
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: user name (is ignored for existing users)
+                email:
+                  type: string
+                  description: user's email
+                permissions:
+                  description: team member permissions
+                  type: array
+                  items:
+                    type: string
+                label:
+                  type: string
+                  description: team member label
+              required:
+                - email
+                - label
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1565,7 +1583,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1577,7 +1595,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1609,7 +1627,7 @@ paths:
               required:
                 - code
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1619,7 +1637,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1631,7 +1649,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1643,7 +1661,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -1672,13 +1690,13 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TeamMember'
-        '403':
+                $ref: "#/components/schemas/TeamMember"
+        "403":
           description: request failed
           content:
             application/json:
@@ -1690,7 +1708,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -1733,7 +1751,7 @@ paths:
                   type: string
                   description: team member label
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1743,7 +1761,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1755,7 +1773,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1767,7 +1785,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -1796,7 +1814,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1806,7 +1824,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1818,7 +1836,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1830,7 +1848,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -1859,7 +1877,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1869,7 +1887,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1881,7 +1899,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1893,7 +1911,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -1922,7 +1940,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -1932,7 +1950,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -1944,7 +1962,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -1956,7 +1974,247 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /fee:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for a fee getting
+      operationId: fee-get
+      description: fee getting
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current:
+                    type: number
+                    description: current fee
+                  next:
+                    type: number
+                    description: upcoming fee
+                    nullable: true
+                  nextTimestamp:
+                    type: integer
+                    description: UNIX timestamp, time when upcoming fee
+                      will be active
+                    nullable: true
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authorized
+      summary: endpoint for a fee setting
+      operationId: fee-set
+      description: fee setting
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fee:
+                  type: number
+                  description: new fee
+                timestamp:
+                  type: integer
+                  description: UNIX timestamp, time
+                    when new fee should be enabled
+              required:
+                - timestamp
+                - fee
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /fee/{id}:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for a personal fee getting
+      operationId: personal-fee-get
+      description: personal fee getting
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current:
+                    type: number
+                    description: current fee
+                  next:
+                    type: number
+                    description: upcoming fee
+                    nullable: true
+                  nextTimestamp:
+                    type: integer
+                    description: UNIX timestamp, time when upcoming fee
+                      will be active
+                    nullable: true
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authorized
+      summary: endpoint for a personal fee setting
+      operationId: personal-fee-set
+      description: personal fee setting
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: user id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fee:
+                  type: number
+                  description: new fee
+                timestamp:
+                  type: integer
+                  description: UNIX timestamp, time
+                    when new fee should be enabled
+              required:
+                - timestamp
+                - fee
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
           description: request failed
           content:
             application/json:
@@ -1984,7 +2242,7 @@ paths:
             type: string
           description: requested page number
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -2001,8 +2259,8 @@ paths:
                     type: array
                     description: list of projects
                     items:
-                      $ref: '#/components/schemas/Project'
-        '403':
+                      $ref: "#/components/schemas/ProjectList"
+        "403":
           description: request failed
           content:
             application/json:
@@ -2027,9 +2285,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
+              $ref: "#/components/schemas/ProjectItem"
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -2039,7 +2297,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -2051,7 +2309,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -2080,109 +2338,13 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                        description: name
-                      description:
-                        type: string
-                        description: description
-                      feePayee:
-                        type: boolean
-                        description: true is merchant is fee payee
-                      paymentBills:
-                        type: boolean
-                        description: true if payment bills are enabled
-                      paymentWeb:
-                        type: boolean
-                        description: true if web payments are enabled
-                      paymentTelegram:
-                        type: boolean
-                        description: true if telegram payments are enabled
-                      activity:
-                        type: string
-                        description: activity
-                      convertTo:
-                        type: string
-                        enum: [ 'fiat', 'stablecoin' ]
-                        description: currency for payments to be converted to
-                      currency:
-                        type: string
-                        description: currency
-                      cms:
-                        type: string
-                        description: cms
-                      urlWeb:
-                        type: string
-                        description: web url
-                      urlNotification:
-                        type: string
-                        description: notification url
-                      urlPaymentSuccess:
-                        type: string
-                        description: Success payment hook url
-                      urlPaymentFailure:
-                        type: string
-                        description: Failure payment hook url
-                  draft:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                        description: name
-                      description:
-                        type: string
-                        description: description
-                      feePayee:
-                        type: boolean
-                        description: true is merchant is fee payee
-                      paymentBills:
-                        type: boolean
-                        description: true if payment bills are enabled
-                      paymentWeb:
-                        type: boolean
-                        description: true if web payments are enabled
-                      paymentTelegram:
-                        type: boolean
-                        description: true if telegram payments are enabled
-                      activity:
-                        type: string
-                        description: activity
-                      convertTo:
-                        type: string
-                        enum: [ 'fiat', 'stablecoin' ]
-                        description: currency for payments to be converted to
-                      currency:
-                        type: string
-                        description: currency
-                      cms:
-                        type: string
-                        description: cms
-                      urlWeb:
-                        type: string
-                        description: web url
-                      urlNotification:
-                        type: string
-                        description: notification url
-                      urlPaymentSuccess:
-                        type: string
-                        description: Success payment hook url
-                      urlPaymentFailure:
-                        type: string
-                        description: Failure payment hook url
-                  validationRequestedAt:
-                    type: integer
-                    description: timestamp of the validation request
-        '403':
+                $ref: "#/components/schemas/ProjectItem"
+        "403":
           description: request failed
           content:
             application/json:
@@ -2194,7 +2356,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -2226,9 +2388,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
+              $ref: "#/components/schemas/Project"
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -2238,7 +2400,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -2250,7 +2412,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -2262,7 +2424,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -2291,7 +2453,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -2301,7 +2463,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -2313,7 +2475,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -2325,7 +2487,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -2366,7 +2528,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -2376,7 +2538,7 @@ paths:
                   message:
                     type: string
                     description: request result description
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -2388,7 +2550,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -2400,7 +2562,357 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /project/admin:
+    get:
+      tags:
+        - authorized
+      summary: administrator endpoint for getting projects list
+      operationId: admin-projects-list
+      description: administrator projects list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: validation status
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: search string (merchant id, name, inn, address)
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of projects
+                    items:
+                      $ref: "#/components/schemas/ProjectListAdmin"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /project/{id}/admin:
+    post:
+      tags:
+        - authorized
+      summary: administrator endpoint for getting project
+      operationId: administrator-project-get
+      description: administrator getting project
+        (resource state can be changed)
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: project id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectItemAdmin"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /project/{id}/admin/request:
+    post:
+      tags:
+        - authorized
+      summary: administrator endpoint for requesting additional data
+      operationId: administrator-project-request
+      description: requesting additional data by administrator
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: project id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                request:
+                  type: string
+                  description: additional data request
+              required:
+                - request
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /project/{id}/admin/approve:
+    post:
+      tags:
+        - authorized
+      summary: administrator endpoint for approving
+        of the validation request
+      operationId: administrator-project-approve
+      description: approving of the validation request
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: project id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /project/{id}/admin/reject:
+    post:
+      tags:
+        - authorized
+      summary: administrator endpoint for rejection
+        of the validation request
+      operationId: administrator-project-reject
+      description: rejection of the validation request
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: project id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: rejection reason
+              required:
+                - reason
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /project/admin/statuses:
+    get:
+      tags:
+        - authorized
+      summary: administrator endpoint for getting validation statuses list
+      operationId: admin-projects-statuses-list
+      description: administrator projects validation statuses list
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  description: validation status
+        "403":
           description: request failed
           content:
             application/json:
@@ -2428,7 +2940,7 @@ paths:
             type: string
           description: requested page number
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -2445,8 +2957,8 @@ paths:
                     type: array
                     description: list of orders
                     items:
-                      $ref: '#/components/schemas/Order'
-        '403':
+                      $ref: "#/components/schemas/Order"
+        "403":
           description: request failed
           content:
             application/json:
@@ -2482,7 +2994,7 @@ paths:
                   description: order price in specified currency
                 currency:
                   type: string
-                  description: price currency, 
+                  description: price currency,
                     | payment amount will be recalculated to USDT
                 projectId:
                   type: integer
@@ -2495,7 +3007,7 @@ paths:
                 - price
                 - currency
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -2511,7 +3023,7 @@ paths:
                   message:
                     type: string
                     description: request result
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -2523,7 +3035,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -2552,7 +3064,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -2578,7 +3090,7 @@ paths:
                   paid:
                     type: boolean
                     description: true if order is paid
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -2590,7 +3102,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -2617,7 +3129,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: request succeeded
           content:
             application/json:
@@ -2639,7 +3151,7 @@ paths:
                       address:
                         type: string
                         description: payment address
-        '403':
+        "403":
           description: request failed
           content:
             application/json:
@@ -2651,7 +3163,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '404':
+        "404":
           description: request failed
           content:
             application/json:
@@ -2685,7 +3197,7 @@ paths:
               properties:
                 type:
                   type: string
-                  enum: [ 'fiat', 'crypto' ]
+                  enum: ["fiat", "crypto"]
                   description: payment type
                 coin:
                   type: string
@@ -2698,7 +3210,7 @@ paths:
                 - coin
                 - networkId
       responses:
-        '200':
+        "200":
           description: payment data
           content:
             application/json:
@@ -2720,7 +3232,7 @@ paths:
                       address:
                         type: string
                         description: payment address
-        '400':
+        "400":
           description: request failed
           content:
             application/json:
@@ -2732,7 +3244,372 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-        '403':
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/admin:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting administrators list
+      operationId: admin-list
+      description: administrators list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: email, id or name
+        - in: query
+          name: role
+          schema:
+            type: string
+          description: admin role
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of projects
+                    items:
+                      $ref: "#/components/schemas/UserList"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authenticated
+      summary: endpoint for creating users by admin with granting
+        admin roles
+      operationId: user-create
+      description: creating users by admin with granting admin roles
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: user email
+                name:
+                  type: string
+                  description: user name
+                roles:
+                  type: array
+                  items:
+                    type: string
+                    description: admin role
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/admin:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting user details
+      operationId: admin-get
+      description: getting user details
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserItem"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authorized
+      summary: endpoint for granting admin roles to user
+      operationId: admin-update
+      description: granting admin roles to user
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: project id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  type: array
+                  items:
+                    type: string
+                    description: admin roles
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/admin/enable:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for enabling user account
+      operationId: admin-enable
+      description: enabling user account
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: project id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/admin/disable:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for disabling user account
+      operationId: admin-disable
+      description: disabling user account
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: project id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
           description: request failed
           content:
             application/json:
@@ -2750,7 +3627,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: Authorisation header with JWT token 
+      description: Authorisation header with JWT token
         using the Bearer scheme
   schemas:
     Session:
@@ -2765,17 +3642,18 @@ components:
           properties:
             browser:
               type: object
-              description: browser and os data of request 
+              description: browser and os data of request
                 when session was created
             ip:
               type: string
               description: ip of request when session was created
             geo:
               type: object
-              description: browser and os data of request 
+              description: browser and os data of request
                 when session was created
     Project:
       type: object
+      nullable: true
       properties:
         name:
           type: string
@@ -2800,7 +3678,7 @@ components:
           description: activity
         convertTo:
           type: string
-          enum: [ 'fiat', 'stablecoin' ]
+          enum: ["fiat", "stablecoin"]
           description: currency for payments to be converted to
         currency:
           type: string
@@ -2822,6 +3700,107 @@ components:
           description: Failure payment hook url
       required:
         - name
+    ProjectValidation:
+      type: object
+      nullable: true
+      properties:
+        status:
+          type: string
+          description: validation status
+          enum: ["onReview", "waiting", "approved", "rejected"]
+          nullable: true
+        request:
+          type: string
+          description: Data request from administrator
+          nullable: true
+        rejectReason:
+          type: string
+          description: Reason if rejected
+          nullable: true
+    ProjectValidationAdmin:
+      type: object
+      nullable: true
+      properties:
+        status:
+          type: string
+          description: validation status
+          enum: ["new", "read", "wait", "approved", "rejected"]
+          nullable: true
+        request:
+          type: string
+          description: Data request from administrator
+          nullable: true
+        reject:
+          type: object
+          nullable: true
+          properties:
+            reason:
+              type: string
+              description: reject reason
+            userId:
+              type: integer
+              description: administrator id
+            timestamp:
+              type: integer
+              description: UNIX timestamp, time of rejection
+        approve:
+          type: object
+          nullable: true
+          properties:
+            userId:
+              type: integer
+              description: administrator id
+            timestamp:
+              type: integer
+              description: UNIX timestamp, time of approval
+    ProjectList:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: record id
+        data:
+          $ref: "#/components/schemas/Project"
+        draft:
+          $ref: "#/components/schemas/Project"
+    ProjectListAdmin:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: record id
+        data:
+          $ref: "#/components/schemas/Project"
+        draft:
+          $ref: "#/components/schemas/Project"
+        validation:
+          $ref: "#/components/schemas/ProjectValidationAdmin"
+    ProjectItem:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/Project"
+        draft:
+          $ref: "#/components/schemas/Project"
+        validationRequestedAt:
+          type: integer
+          description: UNIX timestamp, time when request was sent
+          nullable: true
+        validation:
+          $ref: "#/components/schemas/ProjectValidation"
+    ProjectItemAdmin:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/Project"
+        draft:
+          $ref: "#/components/schemas/Project"
+        validationRequestedAt:
+          type: integer
+          description: UNIX timestamp, time when request was sent
+          nullable: true
+        validation:
+          $ref: "#/components/schemas/ProjectValidationAdmin"
     Order:
       type: object
       properties:
@@ -2858,26 +3837,20 @@ components:
           type: string
         email:
           type: string
-        companyName:
-          type: string
-        phone:
-          type: string
         telegram:
           type: string
-        country:
+        displayCurrency:
           type: string
-        url:
+        companyName:
           type: string
         legalAddress:
           type: string
       required:
         - name
         - email
-        - companyName
-        - phone
         - telegram
-        - country
-        - url
+        - displayCurrency
+        - companyName
         - legalAddress
     Notification:
       type: object
@@ -2935,3 +3908,39 @@ components:
       required:
         - email
         - label
+    UserList:
+      type: object
+      description: user data
+      properties:
+        id:
+          type: integer
+          description: user id
+        email:
+          type: string
+          description: user email
+        roles:
+          type: array
+          items:
+            type: string
+            description: admin roles
+        data:
+          $ref: "#/components/schemas/ProfileData"
+        enabled:
+          type: boolean
+          description: if false - user is blocked
+    UserItem:
+      type: object
+      description: user data
+      properties:
+        email:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+            description: admin roles
+        data:
+          $ref: "#/components/schemas/ProfileData"
+        enabled:
+          type: boolean
+          description: if false - user is blocked
