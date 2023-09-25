@@ -21,10 +21,14 @@ import { PrivateRoute } from "@components/PrivateRoute";
 import { InfocenterPage } from "./pages/InfocenterPage";
 import { MyAssetsPage } from "./pages/MyAssetsPage";
 import { AssetPage } from "./pages/AssetPage";
-import { ASSETS_ROUTE } from "./constants/path-locations";
+import {
+  ADMIN_MERCHANTS_ROUTE,
+  ASSETS_ROUTE,
+} from "./constants/path-locations";
 import { AdminFeesPage } from "./pages/AdminFeesPage";
 import { AdminAreaLayout } from "./layouts/AdminAreaLayout";
 import { AdminAuthPage } from "./pages/AdminAuthPage";
+import { AdminMerchantsPage } from "./pages/AdminMerchantsPage";
 
 export function App() {
   return (
@@ -39,6 +43,10 @@ export function App() {
           }
         >
           <Route path="/admin/" element={<AdminFeesPage />} />
+          <Route
+            path={ADMIN_MERCHANTS_ROUTE}
+            element={<AdminMerchantsPage />}
+          />
         </Route>
         <Route
           element={

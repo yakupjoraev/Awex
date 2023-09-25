@@ -1,4 +1,5 @@
-import { Outlet } from "react-router-dom";
+import { ADMIN_MERCHANTS_ROUTE } from "@constants/path-locations";
+import { Link, Outlet } from "react-router-dom";
 
 export function AdminAreaLayout() {
   return (
@@ -14,9 +15,13 @@ export function AdminAreaLayout() {
               </div>
               <ul className="nav__menu">
                 <li className="nav__item">
-                  <a href="#" className="nav__item-link" data-scroll="">
+                  <Link
+                    to={ADMIN_MERCHANTS_ROUTE}
+                    className="nav__item-link"
+                    data-scroll=""
+                  >
                     Мерчанты
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav__item">
                   <a href="#" className="nav__item-link" data-scroll="">
