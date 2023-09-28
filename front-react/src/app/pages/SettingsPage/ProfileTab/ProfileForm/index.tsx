@@ -2,36 +2,35 @@ import { memo, useEffect, useId, useMemo } from "react";
 import { profileFormSchema } from "./validators";
 import { FieldErrors, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CountrySelector } from "./CountrySelector";
+import { CurrencySelector } from "./CurrencySelector";
 import { ProfileData } from "@awex-api";
 
 type ProfileFormData = {
   name: string;
-  email?: string;
-  companyName?: string;
-  phone?: string;
+  email: string;
   telegram?: string;
-  country?: string;
-  url?: string;
-  legalAddress?: string;
+  currency: string;
 };
 
 const DEFAULT_FORM_DATA: ProfileFormData = {
   name: "",
   email: "",
-  companyName: "",
-  phone: "",
   telegram: "",
-  country: "",
-  url: "",
-  legalAddress: "",
+  currency: "",
 };
 
-const CountrySelectorMemoized = memo(CountrySelector);
+const currencyToLabel: Record<string, string> = {
+  rub: "RUB",
+  eur: "EURO",
+  usdt: "USDT",
+};
+
+const CurrencySelectorMemoized = memo(CurrencySelector);
 
 export interface ProfileFormProps {
   profile?: ProfileData;
   loading?: boolean;
+  currencies?: string[];
   countries?: string[];
   onUpdateProfile: (profileUpdate: ProfileData) => void;
 }
@@ -39,12 +38,7 @@ export interface ProfileFormProps {
 export function ProfileForm(props: ProfileFormProps) {
   const nameId = useId();
   const emailId = useId();
-  const companyNameId = useId();
-  const phoneId = useId();
   const telegramId = useId();
-  const countryId = useId();
-  const urlId = useId();
-  const legalAddressId = useId();
 
   const {
     register,
@@ -59,27 +53,35 @@ export function ProfileForm(props: ProfileFormProps) {
   });
 
   useEffect(() => {
-    reset(props.profile);
+    if (!props.profile) {
+      reset(undefined);
+    } else {
+      const nextFromData: ProfileFormData = {
+        name: props.profile.name,
+        email: props.profile.email,
+        telegram: props.profile.telegram,
+        currency: props.profile.displayCurrency,
+      };
+      reset(nextFromData);
+    }
   }, [props.profile]);
 
-  const countryOptions: { label: string; value: string }[] = useMemo(() => {
-    if (!props.countries) {
+  const currencyOptions: { label: string; value: string }[] = useMemo(() => {
+    if (!props.currencies) {
       return [];
     }
-    return props.countries.map((country) => ({
-      label: country,
-      value: country,
+    return props.currencies.map((currency) => ({
+      label: currencyToLabel[currency] || currency,
+      value: currency,
     }));
-  }, [props.countries]);
+  }, [props.currencies]);
 
   const handleProfileFormSubmit = handleSubmit((formData) => {
     const update: ProfileData = {
       name: formData.name,
       email: formData.email || "",
-      companyName: formData.companyName || "",
       telegram: formData.telegram || "",
-      legalAddress: formData.legalAddress || "",
-      displayCurrency: "rub",
+      displayCurrency: formData.currency || "",
     };
     props.onUpdateProfile(update);
   });
@@ -123,84 +125,29 @@ export function ProfileForm(props: ProfileFormProps) {
                 <div className="my-projects__radios">
                   <div className="my-projects__label project-label">
                     <p className="my-projects__label-descr project-label-descr">
-                      Страна
+                      Валюта
                     </p>
                   </div>
                 </div>
 
                 <Controller
-                  name="country"
+                  name="currency"
                   control={control}
                   render={({ field }) => (
-                    <CountrySelectorMemoized
+                    <CurrencySelectorMemoized
                       value={field.value || ""}
-                      options={countryOptions}
+                      options={currencyOptions}
                       disabled={props.loading}
                       onChange={field.onChange}
                     />
                   )}
                 />
-                {renderFieldError(errors, "country")}
+                {renderFieldError(errors, "currency")}
               </div>
             </div>
           </div>
 
           <div className="my-projects__groups project-groups">
-            <div className="my-projects__group project-group">
-              <label
-                className="my-projects__label project-label"
-                htmlFor={companyNameId}
-              >
-                Наименование организации
-              </label>
-              <input
-                className="my-projects__input project-input"
-                id={companyNameId}
-                type="text"
-                placeholder="Введите название организации"
-                disabled={props.loading}
-                {...register("companyName")}
-              />
-              {renderFieldError(errors, "companyName")}
-            </div>
-
-            <div className="my-projects__group project-group">
-              <label
-                className="my-projects__label project-label"
-                htmlFor={legalAddressId}
-              >
-                Адрес организации
-              </label>
-              <input
-                className="my-projects__input project-input"
-                id={legalAddressId}
-                type="text"
-                placeholder="Введите юридический адрес организации"
-                disabled={props.loading}
-                {...register("legalAddress")}
-              />
-              {renderFieldError(errors, "legalAddress")}
-            </div>
-          </div>
-
-          <div className="my-projects__groups project-groups">
-            <div className="my-projects__group project-group">
-              <label
-                className="my-projects__label project-label"
-                htmlFor={phoneId}
-              >
-                Телефон
-              </label>
-              <input
-                className="my-projects__input project-input"
-                id={phoneId}
-                type="tel"
-                placeholder="Введите номер телефона"
-                disabled={props.loading}
-                {...register("phone")}
-              />
-              {renderFieldError(errors, "phone")}
-            </div>
             <div className="my-projects__group project-group">
               <label
                 className="my-projects__label project-label"
@@ -217,27 +164,7 @@ export function ProfileForm(props: ProfileFormProps) {
                 {...register("telegram")}
               />
               {renderFieldError(errors, "telegram")}
-            </div>
-          </div>
-
-          <div className="my-projects__groups project-groups">
-            <div className="my-projects__group project-group">
-              <label
-                className="my-projects__label project-label"
-                htmlFor={urlId}
-              >
-                Сайт
-              </label>
-              <input
-                className="my-projects__input project-input"
-                id={urlId}
-                type="string"
-                placeholder="Введите адрес сайта организации"
-                disabled={props.loading}
-                {...register("url")}
-              />
-              {renderFieldError(errors, "url")}
-            </div>
+            </div>{" "}
             <div className="my-projects__group project-group">
               <label
                 className="my-projects__label project-label"

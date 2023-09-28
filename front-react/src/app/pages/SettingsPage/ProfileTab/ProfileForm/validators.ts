@@ -3,9 +3,7 @@ import { MESSAGE_FIELD_REQUIRED, MESSAGE_TG_URL_REQUIRED } from "./messages";
 
 export const profileFormSchema = object().shape({
   name: string().required(MESSAGE_FIELD_REQUIRED),
-  email: string().email(),
-  companyName: string(),
-  phone: string(),
+  email: string().email().required(MESSAGE_FIELD_REQUIRED),
   telegram: string()
     .url()
     .test("is-tg", MESSAGE_TG_URL_REQUIRED, (value) => {
@@ -16,7 +14,5 @@ export const profileFormSchema = object().shape({
       }
       return true;
     }),
-  country: string(),
-  url: string().url(),
-  legalAddress: string(),
+  currency: string().required(MESSAGE_FIELD_REQUIRED),
 });

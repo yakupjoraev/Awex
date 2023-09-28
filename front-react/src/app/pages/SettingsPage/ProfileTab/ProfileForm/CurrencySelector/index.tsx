@@ -2,14 +2,14 @@ import classNames from "classnames";
 import { useEffect, useMemo } from "react";
 import { useDropdown } from "../../../../../hooks/useDropdown";
 
-export interface CountrySelectorOpts {
+export interface CurrencySelectorOpts {
   options: { label: string; value: string }[];
   value: string;
   disabled?: boolean;
   onChange: (value: string) => void;
 }
 
-export function CountrySelector(props: CountrySelectorOpts) {
+export function CurrencySelector(props: CurrencySelectorOpts) {
   const dropdown = useDropdown<HTMLDivElement>();
 
   useEffect(() => {

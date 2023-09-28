@@ -18,7 +18,10 @@ export function ProfileFormContainer() {
   const countries = useAppSelector(
     (state) => state.accountConfigSettings.data?.countries
   );
-  const countriesLoading = useAppSelector(
+  const currencies = useAppSelector(
+    (state) => state.accountConfigSettings.data?.currencies
+  );
+  const currenciesLoading = useAppSelector(
     (state) => state.accountConfigSettings.loading
   );
 
@@ -31,10 +34,8 @@ export function ProfileFormContainer() {
     const requests: ProfileData = {
       name: opts.name,
       email: opts.email,
-      companyName: opts.companyName,
       telegram: opts.telegram,
-      legalAddress: opts.legalAddress,
-      displayCurrency: "rub",
+      displayCurrency: opts.displayCurrency,
     };
     dispatch(setAccountProfile(requests))
       .unwrap()
@@ -50,8 +51,9 @@ export function ProfileFormContainer() {
   return (
     <ProfileForm
       profile={profile}
-      loading={profileLoading || countriesLoading}
+      loading={profileLoading || currenciesLoading}
       countries={countries}
+      currencies={currencies}
       onUpdateProfile={handleUpdateProfile}
     />
   );
