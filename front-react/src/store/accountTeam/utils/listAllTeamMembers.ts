@@ -1,4 +1,4 @@
-import { ApiError, AuthenticatedService, Project, TeamMember } from "@awex-api";
+import { ApiError, AuthorizedService, TeamMember } from "@awex-api";
 
 export async function listAllTeamMembers() {
   const teamMembers: (TeamMember & { id: string })[] = [];
@@ -6,7 +6,7 @@ export async function listAllTeamMembers() {
   let i = 1;
   while (true) {
     // server response is invalid
-    const nextPage = await AuthenticatedService.teamMembersList(i.toString());
+    const nextPage = await AuthorizedService.teamMembersList(i.toString());
     if (!nextPage.list) {
       continue;
     }
@@ -29,7 +29,7 @@ export async function listAllTeamMembers() {
     for (const id of idList) {
       let teamMember;
       try {
-        teamMember = await AuthenticatedService.teamMemberGet(id);
+        teamMember = await AuthorizedService.teamMemberGet(id);
       } catch (error) {
         if (error instanceof ApiError && error.status === 404) {
           continue;

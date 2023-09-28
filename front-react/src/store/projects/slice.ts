@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import error from "../../utils/error";
-import { AuthenticatedService, Project } from "@awex-api";
+import { AuthorizedService, Project } from "@awex-api";
 import { listAllProjects } from "./utils/listAllProjects";
 
 interface ProjectsState {
@@ -18,7 +18,7 @@ const initialState: ProjectsState = {
 export const createProject = createAsyncThunk(
   "projects/createProject",
   async (opts: { project: Project }) => {
-    await AuthenticatedService.projectCreate({ data: opts.project });
+    await AuthorizedService.projectCreate({ data: opts.project });
     return await listAllProjects();
   }
 );
@@ -26,7 +26,7 @@ export const createProject = createAsyncThunk(
 export const deleteProject = createAsyncThunk(
   "projects/deleteProject",
   async (opts: { id: string }) => {
-    await AuthenticatedService.projectDelete(opts.id);
+    await AuthorizedService.projectDelete(opts.id);
     return opts.id;
   }
 );
@@ -41,7 +41,7 @@ export const getProjects = createAsyncThunk(
 export const updateProject = createAsyncThunk(
   "projects/updateProject",
   async (opts: { id: string; project: Project }) => {
-    await AuthenticatedService.projectUpdate(opts.id, opts.project);
+    await AuthorizedService.projectUpdate(opts.id, opts.project);
     return { id: opts.id, project: opts.project };
   }
 );

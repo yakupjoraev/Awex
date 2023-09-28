@@ -11,6 +11,4 @@ export type ProfileData = {
     email: string;
     telegram: string;
     displayCurrency: string;
-    companyName: string;
-    legalAddress: string;
 };

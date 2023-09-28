@@ -429,7 +429,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/account/otp/set-google-authenticator:
+  /account/otp/set-google-authenticator:
     post:
       tags:
         - authenticated
@@ -473,7 +473,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/account/otp/set-gmail:
+  /account/otp/set-gmail:
     post:
       tags:
         - authenticated
@@ -529,7 +529,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/account/otp/set-facebook:
+  /account/otp/set-facebook:
     post:
       tags:
         - authenticated
@@ -585,7 +585,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/account/otp/enable:
+  /account/otp/enable:
     post:
       tags:
         - authenticated
@@ -646,7 +646,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/account/otp/disable:
+  /account/otp/disable:
     post:
       tags:
         - authenticated
@@ -703,7 +703,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/account/otp/enabled:
+  /account/otp/enabled:
     get:
       tags:
         - authenticated
@@ -746,7 +746,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/account/otp/validate:
+  /account/otp/validate:
     post:
       tags:
         - authenticated
@@ -807,7 +807,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/account/otp/send-gmail:
+  /account/otp/send-gmail:
     post:
       tags:
         - authenticated
@@ -851,7 +851,7 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /account/otp/account/otp/login:
+  /account/otp/login:
     post:
       tags:
         - authenticated
@@ -1482,6 +1482,10 @@ paths:
                     type: array
                     items:
                       type: string
+                  roles:
+                    type: array
+                    items:
+                      type: string
         "403":
           description: request failed
           content:
@@ -1497,7 +1501,7 @@ paths:
   /account/team:
     get:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for getting team members list
       operationId: team-members-list
       description: team members list
@@ -1542,7 +1546,7 @@ paths:
                     description: errors descriptions
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for team members adding
       operationId: team-members-add
       description: team members adding
@@ -1676,7 +1680,7 @@ paths:
   /account/team/{id}:
     get:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for getting team member
       operationId: team-member-get
       description: getting team member
@@ -1722,7 +1726,7 @@ paths:
                     description: errors descriptions
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for team member settings updating
       operationId: team-member-set
       description: team member settings updating
@@ -1800,7 +1804,7 @@ paths:
   /account/team/{id}/enable:
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for a team member enabling
       operationId: team-member-enable
       description: team member enabling
@@ -1863,7 +1867,7 @@ paths:
   /account/team/{id}/disable:
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for a team member disabling
       operationId: team-member-disable
       description: team member disabling
@@ -1926,7 +1930,7 @@ paths:
   /account/team/{id}/delete:
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for a team member deleting
       operationId: team-member-delete
       description: team member deleting
@@ -2226,10 +2230,283 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
+  /company:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting companies list
+      operationId: companies-list
+      description: companies list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of projects
+                    items:
+                      $ref: "#/components/schemas/CompanyList"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authorized
+      summary: endpoint for creating company
+      operationId: company-create
+      description: creating company
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanyItem"
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /company/{id}:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting company
+      operationId: company-get
+      description: getting company
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: company id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyItem"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authorized
+      summary: endpoint for updating company
+      operationId: company-update
+      description: updating company
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: company id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanyItem"
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /company/{id}/delete:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for deleting company
+      operationId: company-delete
+      description: deleting company
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: company id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
   /project:
     get:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for getting projects list
       operationId: projects-list
       description: projects list
@@ -2274,7 +2551,7 @@ paths:
                     description: errors descriptions
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for creating project
       operationId: project-create
       description: creating project
@@ -2324,7 +2601,7 @@ paths:
   /project/{id}:
     get:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for getting project
       operationId: project-get
       description: getting project
@@ -2370,7 +2647,7 @@ paths:
                     description: errors descriptions
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for updating project
       operationId: project-update
       description: updating project
@@ -2439,7 +2716,7 @@ paths:
   /project/{id}/request-validation:
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for sending project for validation
       operationId: project-validate
       description: sending project for validation
@@ -2514,7 +2791,7 @@ paths:
   /project/{id}/delete:
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for deleting project
       operationId: project-delete
       description: deleting project
@@ -2924,10 +3201,56 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
+  /project/currencies:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting currencies list
+      operationId: currencies-list
+      description: getting currencies list
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  convertTo:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: currency name
+                        type:
+                          type: string
+                          description: currency type
+                          enum: ["fiat", "crypto"]
+                  order:
+                    type: array
+                    items:
+                      type: string
+                      description: available currency for creating order
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
   /order:
     get:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for getting orders list
       operationId: orders-list
       description: orders list
@@ -2973,7 +3296,7 @@ paths:
   /order/invoice:
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for creating order
       operationId: order-create
       description: creating order
@@ -3050,7 +3373,7 @@ paths:
   /order/{id}:
     get:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for getting order data
       operationId: order-get
       description: getting order data
@@ -3314,7 +3637,7 @@ paths:
                     description: errors descriptions
     post:
       tags:
-        - authenticated
+        - authorized
       summary: endpoint for creating users by admin with granting
         admin roles
       operationId: user-create
@@ -3621,6 +3944,142 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
+  /statistics:
+    get:
+      tags:
+        - authorized
+      summary: administrator endpoint for common statistics
+      operationId: common-statistics
+      description: common statistics
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: startTime
+          description: time filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: endTime
+          description: time filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: search
+          description: search string
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: currency
+          description: filter by currency
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Statistics"
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /statistics/{id}:
+    get:
+      tags:
+        - authorized
+      summary: administrator endpoint for personal statistics
+      operationId: personal-statistics
+      description: personal statistics
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: startTime
+          description: time filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: endTime
+          description: time filter
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: search
+          description: search string
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: currency
+          description: filter by currency
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Statistics"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
 components:
   securitySchemes:
     BearerAuth:
@@ -3700,6 +4159,39 @@ components:
           description: Failure payment hook url
       required:
         - name
+    CompanyList:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: company id
+        companyName:
+          type: string
+    CompanyItem:
+      type: object
+      properties:
+        companyName:
+          type: string
+        legalAddress:
+          type: string
+        country:
+          type: string
+        taxId:
+          type: string
+        phone:
+          type: string
+        web:
+          type: string
+        bankAccount:
+          type: string
+      required:
+        - companyName
+        - legalAddress
+        - country
+        - taxId
+        - phone
+        - web
+        - bankAccount
     ProjectValidation:
       type: object
       nullable: true
@@ -3778,6 +4270,8 @@ components:
     ProjectItem:
       type: object
       properties:
+        companyId:
+          type: integer
         data:
           $ref: "#/components/schemas/Project"
         draft:
@@ -3791,10 +4285,15 @@ components:
     ProjectItemAdmin:
       type: object
       properties:
+        userId:
+          type: integer
+          description: user id
         data:
           $ref: "#/components/schemas/Project"
         draft:
           $ref: "#/components/schemas/Project"
+        company:
+          $ref: "#/components/schemas/CompanyItem"
         validationRequestedAt:
           type: integer
           description: UNIX timestamp, time when request was sent
@@ -3841,17 +4340,11 @@ components:
           type: string
         displayCurrency:
           type: string
-        companyName:
-          type: string
-        legalAddress:
-          type: string
       required:
         - name
         - email
         - telegram
         - displayCurrency
-        - companyName
-        - legalAddress
     Notification:
       type: object
       properties:
@@ -3944,3 +4437,40 @@ components:
         enabled:
           type: boolean
           description: if false - user is blocked
+    Statistics:
+      type: object
+      description: statistics
+      properties:
+        invoiceNumber:
+          type: number
+        invoiceAverage:
+          type: number
+          nullable: true
+        invoiceTotal:
+          type: number
+        invoiceCompletedPercent:
+          type: number
+        depositAverage:
+          type: number
+          nullable: true
+        depositNumber:
+          type: number
+        depositInWork:
+          type: number
+        depositCompleted:
+          type: number
+        depositTotal:
+          type: number
+        depositWithholded:
+          type: number
+        referralAverage:
+          type: number
+          nullable: true
+        referralNumber:
+          type: number
+        referralActiveNumber:
+          type: number
+        referralFromFees:
+          type: number
+        referralFromTurnover:
+          type: number

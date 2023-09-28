@@ -7,6 +7,7 @@ import type { Project } from './Project';
 import type { ProjectValidation } from './ProjectValidation';
 
 export type ProjectItem = {
+    companyId?: number;
     data?: Project;
     draft?: Project;
     /**

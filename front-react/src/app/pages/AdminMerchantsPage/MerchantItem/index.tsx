@@ -80,13 +80,7 @@ export function MerchantItem(props: MerchantItemProps) {
             <p className="admin-marchants__item-block-label">
               Название организации
             </p>
-            <p className="admin-marchants__item-block-text">
-              {props.profileData?.companyName}
-            </p>
-            {renderCopyToClipboardBtn(
-              props.profileData?.companyName,
-              handleСopied
-            )}
+            <p className="admin-marchants__item-block-text">...</p>
           </div>
           <div className="admin-marchants__item-block">
             <p className="admin-marchants__item-block-label">ИНН организации</p>
@@ -98,13 +92,7 @@ export function MerchantItem(props: MerchantItemProps) {
           </div>
           <div className="admin-marchants__item-block">
             <p className="admin-marchants__item-block-label">Юр. адрес</p>
-            <p className="admin-marchants__item-block-text">
-              {props.profileData?.legalAddress}
-            </p>
-            {renderCopyToClipboardBtn(
-              props.profileData?.legalAddress,
-              handleСopied
-            )}
+            <p className="admin-marchants__item-block-text">...</p>
           </div>
           <div className="admin-marchants__item-blocks">
             <div className="admin-marchants__item-block">

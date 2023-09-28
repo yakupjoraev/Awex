@@ -1,4 +1,4 @@
-import { ApiError, AuthenticatedService, Project } from "@awex-api";
+import { ApiError, AuthorizedService, Project } from "@awex-api";
 
 export async function listAllProjects() {
   const projects: Record<string, Project> = {};
@@ -6,7 +6,7 @@ export async function listAllProjects() {
   let i = 1;
   while (true) {
     // server response is invalid
-    const nextPage = await AuthenticatedService.projectsList(i.toString());
+    const nextPage = await AuthorizedService.projectsList(i.toString());
     if (!nextPage.list) {
       continue;
     }
@@ -29,7 +29,7 @@ export async function listAllProjects() {
     for (const id of idList) {
       let projectAndDraftRaw;
       try {
-        projectAndDraftRaw = await AuthenticatedService.projectGet(id);
+        projectAndDraftRaw = await AuthorizedService.projectGet(id);
       } catch (error) {
         if (error instanceof ApiError && error.status === 404) {
           continue;

@@ -3,13 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Notification } from '../models/Notification';
-import type { Order } from '../models/Order';
 import type { ProfileData } from '../models/ProfileData';
-import type { Project } from '../models/Project';
-import type { ProjectItem } from '../models/ProjectItem';
-import type { ProjectList } from '../models/ProjectList';
 import type { Session } from '../models/Session';
-import type { TeamMember } from '../models/TeamMember';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -31,7 +26,7 @@ uri?: string;
 }> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/account/otp/account/otp/set-google-authenticator',
+            url: '/account/otp/set-google-authenticator',
             errors: {
                 400: `request failed`,
                 403: `request failed`,
@@ -61,7 +56,7 @@ message?: string;
 }> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/account/otp/account/otp/set-gmail',
+            url: '/account/otp/set-gmail',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -93,7 +88,7 @@ message?: string;
 }> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/account/otp/account/otp/set-facebook',
+            url: '/account/otp/set-facebook',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -129,7 +124,7 @@ message?: string;
 }> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/account/otp/account/otp/enable',
+            url: '/account/otp/enable',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -161,7 +156,7 @@ message?: string;
 }> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/account/otp/account/otp/disable',
+            url: '/account/otp/disable',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -180,7 +175,7 @@ message?: string;
     public static otpEnabled(): CancelablePromise<Array<string>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/account/otp/account/otp/enabled',
+            url: '/account/otp/enabled',
             errors: {
                 400: `request failed`,
                 403: `request failed`,
@@ -214,7 +209,7 @@ message?: string;
 }> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/account/otp/account/otp/validate',
+            url: '/account/otp/validate',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -238,7 +233,7 @@ message?: string;
 }> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/account/otp/account/otp/send-gmail',
+            url: '/account/otp/send-gmail',
             errors: {
                 400: `request failed`,
                 403: `request failed`,
@@ -272,7 +267,7 @@ message?: string;
 }> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/account/otp/account/otp/login',
+            url: '/account/otp/login',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -610,593 +605,12 @@ currencies?: Array<string>;
 countries?: Array<string>;
 permissions?: Array<string>;
 labels?: Array<string>;
+roles?: Array<string>;
 }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/config/settings',
             errors: {
-                403: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for getting team members list
-     * team members list
-     * @param page requested page number
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static teamMembersList(
-page?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of projects
- */
-list?: Array<TeamMember>;
-}> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/account/team',
-            query: {
-                'page': page,
-            },
-            errors: {
-                403: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for team members adding
-     * team members adding
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static teamMembersAdd(
-requestBody: {
-/**
- * user name (is ignored for existing users)
- */
-name?: string;
-/**
- * user's email
- */
-email: string;
-/**
- * team member permissions
- */
-permissions?: Array<string>;
-/**
- * team member label
- */
-label: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/account/team',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for getting team member
-     * getting team member
-     * @param id team membership id
-     * @returns TeamMember request succeeded
-     * @throws ApiError
-     */
-    public static teamMemberGet(
-id: string,
-): CancelablePromise<TeamMember> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/account/team/{id}',
-            path: {
-                'id': id,
-            },
-            errors: {
-                403: `request failed`,
-                404: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for team member settings updating
-     * team member settings updating
-     * @param id project id
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static teamMemberSet(
-id: string,
-requestBody: {
-/**
- * team member permissions
- */
-permissions?: Array<string>;
-/**
- * team member label
- */
-label?: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/account/team/{id}',
-            path: {
-                'id': id,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-                404: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for a team member enabling
-     * team member enabling
-     * @param id team member id
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static teamMemberEnable(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/account/team/{id}/enable',
-            path: {
-                'id': id,
-            },
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-                404: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for a team member disabling
-     * team member disabling
-     * @param id team member id
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static teamMemberDisable(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/account/team/{id}/disable',
-            path: {
-                'id': id,
-            },
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-                404: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for a team member deleting
-     * team member deleting
-     * @param id team member id
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static teamMemberDelete(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/account/team/{id}/delete',
-            path: {
-                'id': id,
-            },
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-                404: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for getting projects list
-     * projects list
-     * @param page requested page number
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static projectsList(
-page?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of projects
- */
-list?: Array<ProjectList>;
-}> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/project',
-            query: {
-                'page': page,
-            },
-            errors: {
-                403: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for creating project
-     * creating project
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static projectCreate(
-requestBody: ProjectItem,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/project',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for getting project
-     * getting project
-     * @param id project id
-     * @returns ProjectItem request succeeded
-     * @throws ApiError
-     */
-    public static projectGet(
-id: string,
-): CancelablePromise<ProjectItem> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/project/{id}',
-            path: {
-                'id': id,
-            },
-            errors: {
-                403: `request failed`,
-                404: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for updating project
-     * updating project
-     * @param id project id
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static projectUpdate(
-id: string,
-requestBody: Project,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/project/{id}',
-            path: {
-                'id': id,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-                404: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for sending project for validation
-     * sending project for validation
-     * @param id project id
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static projectValidate(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/project/{id}/request-validation',
-            path: {
-                'id': id,
-            },
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-                404: `request failed`,
-                409: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for deleting project
-     * deleting project
-     * @param id project id
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static projectDelete(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/project/{id}/delete',
-            path: {
-                'id': id,
-            },
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-                404: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for getting orders list
-     * orders list
-     * @param page requested page number
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static ordersList(
-page?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of orders
- */
-list?: Array<Order>;
-}> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/order',
-            query: {
-                'page': page,
-            },
-            errors: {
-                403: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for creating order
-     * creating order
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static orderCreate(
-requestBody: {
-/**
- * order name
- */
-name: string;
-/**
- * order price in specified currency
- */
-price: number;
-/**
- * price currency, | payment amount will be recalculated to USDT
- */
-currency: string;
-/**
- * project identifier
- */
-projectId?: number;
-/**
- * buyer identifier for reference
- */
-buyerIdentifier?: string;
-},
-): CancelablePromise<{
-/**
- * created order id
- */
-id?: number;
-/**
- * created order unique identifier for buyers
- */
-uniqueId?: string;
-/**
- * request result
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/order/invoice',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `request failed`,
-                403: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for getting order data
-     * getting order data
-     * @param id order id
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static orderGet(
-id: string,
-): CancelablePromise<{
-/**
- * order name
- */
-name?: string;
-/**
- * created order unique identifier for buyers
- */
-uniqueId?: string;
-/**
- * quantity * product price
- */
-amount?: number;
-/**
- * buyer identifier for reference
- */
-buyerIdentifier?: string;
-data?: Record<string, any>;
-payment_data?: Record<string, any>;
-/**
- * true if order is paid
- */
-paid?: boolean;
-}> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/order/{id}',
-            path: {
-                'id': id,
-            },
-            errors: {
-                403: `request failed`,
-                404: `request failed`,
-            },
-        });
-    }
-
-    /**
-     * endpoint for creating users by admin with granting admin roles
-     * creating users by admin with granting admin roles
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
-    public static userCreate(
-requestBody: {
-/**
- * user email
- */
-email?: string;
-/**
- * user name
- */
-name?: string;
-roles?: Array<string>;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/account/admin',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `request failed`,
                 403: `request failed`,
             },
         });

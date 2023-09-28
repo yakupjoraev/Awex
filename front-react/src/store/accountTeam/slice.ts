@@ -5,7 +5,7 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import error from "../../utils/error";
-import { AuthenticatedService, TeamMember } from "@awex-api";
+import { AuthorizedService } from "@awex-api";
 import { listAllTeamMembers } from "./utils/listAllTeamMembers";
 import { createAppTeamMember } from "./utils/createAppTeamMember";
 
@@ -45,7 +45,7 @@ const initialState: AccountTeamState = {
 export const addTeamMember = createAsyncThunk(
   "accountTeam/addTeamMember",
   async (teamMember: CreateTeamMemberRequest) => {
-    await AuthenticatedService.teamMembersAdd({
+    await AuthorizedService.teamMembersAdd({
       name: teamMember.name || undefined,
       email: teamMember.email,
       permissions: teamMember.permissions,
@@ -71,7 +71,7 @@ export const getTeamMembers = createAsyncThunk(
 export const enableTeamMember = createAsyncThunk(
   "accountTeam/enableTeamMember",
   async (opts: { id: string }) => {
-    await AuthenticatedService.teamMemberEnable(opts.id);
+    await AuthorizedService.teamMemberEnable(opts.id);
     return { id: opts.id };
   }
 );
@@ -79,7 +79,7 @@ export const enableTeamMember = createAsyncThunk(
 export const disableTeamMember = createAsyncThunk(
   "accountTeam/disableTeamMember",
   async (opts: { id: string }) => {
-    await AuthenticatedService.teamMemberDisable(opts.id);
+    await AuthorizedService.teamMemberDisable(opts.id);
     return { id: opts.id };
   }
 );
@@ -87,7 +87,7 @@ export const disableTeamMember = createAsyncThunk(
 export const deleteTeamMember = createAsyncThunk(
   "accountTeam/deleteTeamMember",
   async (opts: { id: string }) => {
-    await AuthenticatedService.teamMemberDelete(opts.id);
+    await AuthorizedService.teamMemberDelete(opts.id);
     return { id: opts.id };
   }
 );
