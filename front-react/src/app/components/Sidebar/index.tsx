@@ -3,11 +3,11 @@ import { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import classNames from "classnames";
 import { HOME_PAGE_PATH } from "../../constants/path-locations";
-import { Project } from "@awex-api";
+import { AppProject } from "../../../types";
 
 interface SidebarProps {
   userName: string;
-  projects: Record<number, Project>;
+  projects: Record<string, AppProject>;
   onLogout: () => void;
 }
 

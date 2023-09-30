@@ -65,3 +65,9 @@
 .resend-btn:hover {
   color: var(--second-color);
 }
+
+/* _base.scss */
+
+.select-list.active {
+  max-height: 200px;
+}

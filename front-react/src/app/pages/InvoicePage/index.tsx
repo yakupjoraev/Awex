@@ -4,13 +4,13 @@ import classNames from "classnames";
 import { SelectCurrencyModal } from "../../components/SelectCurrenyModal";
 import { Helmet } from "react-helmet-async";
 import { useAppSelector } from "@store/hooks";
-import { Project } from "@awex-api";
+import { AppProject } from "src/types";
 
-const DEFAULT_PROJECTS: Record<string, Project> = {};
+const DEFAULT_PROJECTS: Record<string, AppProject> = {};
 
 export function InvoicePage() {
   const [currencySelectorOpened, setCurrencySelectorOpened] = useState(false);
-  const [project, setProject] = useState<Project | null>(null);
+  const [project, setProject] = useState<AppProject | null>(null);
 
   const projects = useAppSelector(
     (state) => state.projects.data || DEFAULT_PROJECTS
@@ -21,7 +21,7 @@ export function InvoicePage() {
 
   useEffect(() => {
     const allProjects = Object.values(projects);
-    const nextProject: Project | null = allProjects.length
+    const nextProject: AppProject | null = allProjects.length
       ? allProjects[0]
       : null;
     setProject(nextProject);

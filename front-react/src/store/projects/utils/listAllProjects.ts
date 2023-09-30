@@ -1,7 +1,8 @@
-import { ApiError, AuthorizedService, Project } from "@awex-api";
+import { ApiError, AuthorizedService } from "@awex-api";
+import { AppProject } from "src/types";
 
 export async function listAllProjects() {
-  const projects: Record<string, Project> = {};
+  const projects: Record<string, AppProject> = {};
 
   let i = 1;
   while (true) {

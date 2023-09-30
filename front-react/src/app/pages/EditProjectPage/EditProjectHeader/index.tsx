@@ -1,7 +1,7 @@
-import { Project } from "@awex-api";
+import { AppProject } from "src/types";
 
 interface EditProjectHeaderProps {
-  project?: Project;
+  project?: AppProject;
 }
 
 export function EditProjectHeader(props: EditProjectHeaderProps) {

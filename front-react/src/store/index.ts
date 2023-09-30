@@ -4,6 +4,7 @@ import accountConfigSettingsReducer from "./accountConfigSettings/slice";
 import accountTeamReducer from "./accountTeam/slice";
 import accountProfileReducer from "./accountProfile/slice";
 import projectsReducer from "./projects/slice";
+import companiesReducer from "./companies/slice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     accountProfile: accountProfileReducer,
     accountTeam: accountTeamReducer,
     projects: projectsReducer,
+    companies: companiesReducer,
   },
 });
 

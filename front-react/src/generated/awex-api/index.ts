@@ -13,6 +13,7 @@ export type { Notification } from './models/Notification';
 export type { Order } from './models/Order';
 export type { ProfileData } from './models/ProfileData';
 export { Project } from './models/Project';
+export { ProjectData } from './models/ProjectData';
 export type { ProjectItem } from './models/ProjectItem';
 export type { ProjectItemAdmin } from './models/ProjectItemAdmin';
 export type { ProjectList } from './models/ProjectList';

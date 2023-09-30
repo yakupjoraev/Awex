@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import error from "../../utils/error";
-import { AuthorizedService, Project } from "@awex-api";
+import { AuthorizedService } from "@awex-api";
 import { listAllProjects } from "./utils/listAllProjects";
+import { AppProject } from "src/types";
 
 interface ProjectsState {
-  data?: Record<string, Project>;
+  data?: Record<string, AppProject>;
   loading: boolean;
   error?: string;
 }
@@ -17,8 +18,8 @@ const initialState: ProjectsState = {
 
 export const createProject = createAsyncThunk(
   "projects/createProject",
-  async (opts: { project: Project }) => {
-    await AuthorizedService.projectCreate({ data: opts.project });
+  async (opts: { project: AppProject }) => {
+    await AuthorizedService.projectCreate({ ...opts.project, cmd: "" } as any);
     return await listAllProjects();
   }
 );
@@ -40,8 +41,11 @@ export const getProjects = createAsyncThunk(
 
 export const updateProject = createAsyncThunk(
   "projects/updateProject",
-  async (opts: { id: string; project: Project }) => {
-    await AuthorizedService.projectUpdate(opts.id, opts.project);
+  async (opts: { id: string; project: AppProject }) => {
+    await AuthorizedService.projectUpdate(opts.id, {
+      ...opts.project,
+      cms: "",
+    } as any);
     return { id: opts.id, project: opts.project };
   }
 );

@@ -2562,7 +2562,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProjectItem"
+              $ref: "#/components/schemas/ProjectData"
       responses:
         "200":
           description: request succeeded
@@ -2665,7 +2665,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Project"
+              $ref: "#/components/schemas/ProjectData"
       responses:
         "200":
           description: request succeeded
@@ -4114,6 +4114,57 @@ components:
       type: object
       nullable: true
       properties:
+        name:
+          type: string
+          description: name
+        description:
+          type: string
+          description: description
+        feePayee:
+          type: boolean
+          description: true is merchant is fee payee
+        paymentBills:
+          type: boolean
+          description: true if payment bills are enabled
+        paymentWeb:
+          type: boolean
+          description: true if web payments are enabled
+        paymentTelegram:
+          type: boolean
+          description: true if telegram payments are enabled
+        activity:
+          type: string
+          description: activity
+        convertTo:
+          type: string
+          enum: ["fiat", "stablecoin"]
+          description: currency for payments to be converted to
+        currency:
+          type: string
+          description: currency
+        cms:
+          type: string
+          description: cms
+        urlWeb:
+          type: string
+          description: web url
+        urlNotification:
+          type: string
+          description: notification url
+        urlPaymentSuccess:
+          type: string
+          description: Success payment hook url
+        urlPaymentFailure:
+          type: string
+          description: Failure payment hook url
+      required:
+        - name
+    ProjectData:
+      type: object
+      nullable: true
+      properties:
+        companyId:
+          type: integer
         name:
           type: string
           description: name

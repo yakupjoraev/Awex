@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Project } from "@awex-api";
+import { AuthorizedService, Project, ProjectData } from "@awex-api";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import {
   deleteProject,
@@ -14,22 +14,61 @@ import {
 import { EditProjectFooter } from "./EditProjectFooter";
 import { EditProjectHeader } from "./EditProjectHeader";
 import { toast } from "react-hot-toast";
+import { AppProject } from "src/types";
+import { getCompanies } from "@store/companies/slice";
+
+const DEFAULT_CURRENCIES: { name: string; type: "fiat" | "crypto" }[] = [];
 
 export function EditProjectPage() {
   const navigate = useNavigate();
   const { projectId } = useParams();
   const dispatch = useAppDispatch();
-  const { project, loading } = useAppSelector((state) => {
+  const { project, loading: projectsLoading } = useAppSelector((state) => {
     const { loading, data } = state.projects;
-    let project: Project | undefined = undefined;
+    let project: AppProject | undefined = undefined;
     if (data !== undefined && projectId !== undefined) {
       project = data[projectId];
     }
     return { loading, project };
   });
+  const [currenciesLoading, setCurrenciesLoading] = useState(false);
+  const [currenciesLoadingError, setCurrencyLoadingError] = useState("");
+  const [currencies, setCurrenceis] = useState(DEFAULT_CURRENCIES);
+  const companiesLoading = useAppSelector((state) => state.companies.loading);
+  const companies = useAppSelector((state) => state.companies.data);
+
+  useEffect(() => {
+    setCurrenciesLoading(true);
+    AuthorizedService.currenciesList()
+      .then((response) => {
+        if (response.convertTo) {
+          const nextCurrencies: {
+            name: string;
+            type: "fiat" | "crypto";
+          }[] = [];
+          for (const { name, type } of response.convertTo) {
+            if (name && type) {
+              if (type === "fiat") {
+                nextCurrencies.push({ name, type });
+              } else if (type === "crypto") {
+                nextCurrencies.push({ name, type: "crypto" });
+              }
+            }
+          }
+          setCurrenceis(nextCurrencies);
+        }
+      })
+      .catch((error) => {
+        setCurrencyLoadingError(error?.message || "failed to load currencies");
+      })
+      .finally(() => {
+        setCurrenciesLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     dispatch(getProjects());
+    dispatch(getCompanies());
   }, [dispatch]);
 
   const handleDeleteBtnClick = () => {
@@ -41,13 +80,40 @@ export function EditProjectPage() {
   };
 
   const handleSubmit = (formData: EditProjectFormData) => {
-    if (projectId) {
-      dispatch(updateProject({ id: projectId, project: formData }));
-      toast("Проект обновлен!");
+    if (!projectId) {
+      return;
     }
+
+    const companyId = parseInt(formData.companyId, 10);
+
+    const projectData: AppProject = {
+      companyId: companyId,
+      name: formData.name,
+      description: formData.description,
+      feePayee: formData.feePayee,
+      paymentBills: formData.paymentBills,
+      paymentWeb: formData.paymentWeb,
+      paymentTelegram: formData.paymentTelegram,
+      activity: formData.activity,
+      convertTo: formData.convertTo,
+      urlWeb: formData.urlWeb,
+      urlNotification: formData.urlNotification,
+      urlPaymentSuccess: formData.urlPaymentSuccess,
+      urlPaymentFailure: formData.urlPaymentFailure,
+    };
+
+    dispatch(updateProject({ id: projectId, project: projectData }))
+      .unwrap()
+      .then(() => {
+        toast.success("Проект обновлен!");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Не удалось обновить проект.");
+      });
   };
 
-  if (!project && !loading) {
+  if (!project && !projectsLoading) {
     navigate("/projects", { replace: true });
     return null;
   }
@@ -79,6 +145,7 @@ export function EditProjectPage() {
 
         <EditProjectForm
           project={project}
+          loading={companiesLoading || currenciesLoading || projectsLoading}
           onSubmit={handleSubmit}
           header={<EditProjectHeader project={project} />}
           footer={<EditProjectFooter />}

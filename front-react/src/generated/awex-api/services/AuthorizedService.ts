@@ -5,7 +5,7 @@
 import type { CompanyItem } from '../models/CompanyItem';
 import type { CompanyList } from '../models/CompanyList';
 import type { Order } from '../models/Order';
-import type { Project } from '../models/Project';
+import type { ProjectData } from '../models/ProjectData';
 import type { ProjectItem } from '../models/ProjectItem';
 import type { ProjectItemAdmin } from '../models/ProjectItemAdmin';
 import type { ProjectList } from '../models/ProjectList';
@@ -585,7 +585,7 @@ list?: Array<ProjectList>;
      * @throws ApiError
      */
     public static projectCreate(
-requestBody: ProjectItem,
+requestBody: ProjectData,
 ): CancelablePromise<{
 /**
  * request result
@@ -637,7 +637,7 @@ id: string,
      */
     public static projectUpdate(
 id: string,
-requestBody: Project,
+requestBody: ProjectData,
 ): CancelablePromise<{
 /**
  * request result
