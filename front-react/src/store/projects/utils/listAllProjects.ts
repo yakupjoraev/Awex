@@ -8,7 +8,7 @@ export async function listAllProjects() {
     // server response is invalid
     const nextPage = await AuthorizedService.projectsList(i.toString());
     if (!nextPage.list) {
-      continue;
+      break;
     }
 
     const idListRaw = nextPage.list as unknown;

@@ -8,7 +8,7 @@ export async function listAllTeamMembers() {
     // server response is invalid
     const nextPage = await AuthorizedService.teamMembersList(i.toString());
     if (!nextPage.list) {
-      continue;
+      break;
     }
 
     const idListRaw = nextPage.list as unknown;
