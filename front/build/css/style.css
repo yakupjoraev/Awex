@@ -8305,6 +8305,7 @@ body.locked {
   border-radius: 10px;
   background: var(--light-grey-20, rgba(209, 209, 209, 0.2));
   margin-bottom: 100px;
+  overflow: hidden;
 }
 
 .landing-page__partners-label {
@@ -8321,9 +8322,30 @@ body.locked {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-column-gap: 20px;
      -moz-column-gap: 20px;
           column-gap: 20px;
+  padding-bottom: 10px;
+  overflow-y: auto;
+  scrollbar-color: var(--second-color) #E3E3E3;
+  scrollbar-width: thin;
+}
+
+.landing-page__partners-list::-webkit-scrollbar {
+  height: 5px;
+}
+
+.landing-page__partners-list::-webkit-scrollbar-track {
+  background: var(--color-primary);
+}
+
+.landing-page__partners-list::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  height: 3px;
+  background: var(--second-color);
 }
 
 .landing-page__partners-item {
@@ -8796,6 +8818,11 @@ body.locked {
   -webkit-transform: scale(1.2);
       -ms-transform: scale(1.2);
           transform: scale(1.2);
+}
+
+.landing-page__partners-item--last .landing-page__partners-pic {
+  width: 50px;
+  height: 50px;
 }
 
 .footer {
@@ -11145,6 +11172,17 @@ body.locked {
 
   .landing-page__partners {
     margin-bottom: 60px;
+    padding: 25px;
+  }
+
+  .landing-page__partners-list {
+    -webkit-column-gap: 10px;
+       -moz-column-gap: 10px;
+            column-gap: 10px;
+  }
+
+  .landing-page__partners-item {
+    padding: 10px;
   }
 
   .landing-page__benifits {
