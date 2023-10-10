@@ -1,3 +1,4 @@
+import { currencyToName } from "@constants/currency-names";
 import { AppProject } from "src/types";
 
 interface EditProjectHeaderProps {
@@ -16,6 +17,15 @@ export function EditProjectHeader(props: EditProjectHeaderProps) {
       urlWeb = project.urlWeb;
     }
     feePayee = project.feePayee ? "мерчант" : "клиент";
+    if (project.convertTo !== undefined) {
+      if (
+        Object.prototype.hasOwnProperty.call(currencyToName, project.convertTo)
+      ) {
+        currency = currencyToName[project.convertTo];
+      } else {
+        currency = project.convertTo;
+      }
+    }
   }
 
   return (

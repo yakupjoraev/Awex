@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { getProjects } from "@store/projects/slice";
+import { currencyToName } from "@constants/currency-names";
 
 export function MyProjectsPage() {
   const navigate = useNavigate();
@@ -48,12 +49,29 @@ export function MyProjectsPage() {
           <ul className="my-projects__items">
             {projects &&
               Object.entries(projects).map(([id, project]) => {
+                let currency: string = "...";
+                if (project.convertTo !== undefined) {
+                  if (
+                    Object.prototype.hasOwnProperty.call(
+                      currencyToName,
+                      project.convertTo
+                    )
+                  ) {
+                    currency = currencyToName[project.convertTo];
+                  } else {
+                    currency = project.convertTo;
+                  }
+                }
                 return (
                   <ProjectItem
                     id={id}
                     name={project.name}
                     tokenIcon="actives-1.png"
-                    tokenSymbol="..."
+                    tokenSymbol={
+                      (project.convertTo !== undefined &&
+                        currencyToName[project.convertTo]) ||
+                      "..."
+                    }
                     url={project.urlWeb || "#"}
                     commissionPaidBy={project.feePayee ? "merchant" : "client"}
                     key={id}
