@@ -32,7 +32,9 @@ export function MerchantItem(props: MerchantItemProps) {
       <div className="admin-marchants__item-header">
         <div className="admin-marchants__item-id">
           {`ID${props.merchantId}`}
-          <p className="admin-marchants__item-id-descr">...</p>
+          <p className="admin-marchants__item-id-descr">
+            {props.profileData?.name || "..."}
+          </p>
         </div>
         <div className="admin-marchants__item-data">10/01/23</div>
         <div className="admin-marchants__item-comission">0.1%</div>
