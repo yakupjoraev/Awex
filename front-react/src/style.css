@@ -71,3 +71,36 @@
 .select-list.active {
   max-height: 200px;
 }
+
+/* admin-marchants.scss */
+
+.admin-marchants__item-action-btn {
+  fill: #292421;
+}
+
+.admin-marchants__item-action-btn--mute {
+  fill: #d1d1d1;
+}
+
+/* rc-tooltip/assets/bootstrap.css */
+
+.rc-tooltip-placement-top,
+.rc-tooltip-placement-topLeft,
+.rc-tooltip-placement-topRight {
+  padding: 5px 0 4px 0;
+}
+.rc-tooltip-placement-right,
+.rc-tooltip-placement-rightTop,
+.rc-tooltip-placement-rightBottom {
+  padding: 0 5px 0 4px;
+}
+.rc-tooltip-placement-bottom,
+.rc-tooltip-placement-bottomLeft,
+.rc-tooltip-placement-bottomRight {
+  padding: 4px 0 5px 0;
+}
+.rc-tooltip-placement-left,
+.rc-tooltip-placement-leftTop,
+.rc-tooltip-placement-leftBottom {
+  padding: 0 4px 0 5px;
+}

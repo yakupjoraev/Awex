@@ -29,6 +29,7 @@ import { AdminFeesPage } from "./pages/AdminFeesPage";
 import { AdminAreaLayout } from "./layouts/AdminAreaLayout";
 import { AdminAuthPage } from "./pages/AdminAuthPage";
 import { AdminMerchantsPage } from "./pages/AdminMerchantsPage";
+import "rc-tooltip/assets/bootstrap.css";
 
 export function App() {
   return (
