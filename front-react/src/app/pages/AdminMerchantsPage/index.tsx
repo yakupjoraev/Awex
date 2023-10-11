@@ -78,7 +78,7 @@ export function AdminMerchantsPage() {
                 <p className="admin-marchants__item-label">Имя/ID</p>
                 <p className="admin-marchants__item-label">Дата регистрации</p>
                 <p className="admin-marchants__item-label">Комиссия</p>
-                <p className="admin-marchants__item-label">Комиссия</p>
+                <p className="admin-marchants__item-label">Действия</p>
                 <p className="admin-marchants__item-label" />
                 <p className="admin-marchants__item-label" />
               </div>
