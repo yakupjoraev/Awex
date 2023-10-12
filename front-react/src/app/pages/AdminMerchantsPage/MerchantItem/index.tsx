@@ -4,16 +4,22 @@ import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import toast from "react-hot-toast";
 import Tooltip from "rc-tooltip";
+import { EditRolesPopover } from "../EditRolesPopover";
+import { EditRolesForm } from "../EditRolesForm";
 
 export interface MerchantItemProps {
   merchantId: string;
   profileData?: ProfileData;
   enabled?: boolean;
+  roles: string[];
+  existingRoles: string[];
   onToggleEnabled: (enabled: boolean) => void;
+  onUpdateRoles: (roles: string[], cb: () => void) => void;
 }
 
 export function MerchantItem(props: MerchantItemProps) {
   const [expanded, setExpanded] = useState(false);
+  const [rolesPopoverOpen, setRolesPopoverOpen] = useState(false);
 
   const handleExpandBtnClick = () => {
     setExpanded(!expanded);
@@ -25,6 +31,14 @@ export function MerchantItem(props: MerchantItemProps) {
 
   const handleNotImplemented = () => {
     toast("NOT IMPLEMENTED!");
+  };
+
+  const handleClickOutsideRolesPopover = () => {
+    setRolesPopoverOpen(false);
+  };
+
+  const hanldeRolesBtnClick = () => {
+    setRolesPopoverOpen(!rolesPopoverOpen);
   };
 
   return (
@@ -72,13 +86,37 @@ export function MerchantItem(props: MerchantItemProps) {
               </svg>
             </button>
           </Tooltip>
-          <button
-            type="button"
-            className="admin-marchants__item-action-btn"
-            onClick={handleNotImplemented}
+          <EditRolesPopover
+            isOpen={rolesPopoverOpen}
+            positions={["bottom", "top", "left", "right"]}
+            padding={10}
+            align="center"
+            renderContent={() => {
+              return (
+                <EditRolesForm
+                  existingRoles={props.existingRoles}
+                  roles={props.roles}
+                  onUpdateRoles={props.onUpdateRoles}
+                />
+              );
+            }}
+            onClickOutside={handleClickOutsideRolesPopover}
           >
-            <img src="/img/icons/pen.svg" alt="pen" />
-          </button>
+            <div>
+              <Tooltip
+                overlay={() => "Редактировать права"}
+                placement={rolesPopoverOpen ? "top" : "bottom"}
+              >
+                <button
+                  type="button"
+                  className="admin-marchants__item-action-btn"
+                  onClick={hanldeRolesBtnClick}
+                >
+                  <img src="/img/icons/pen.svg" alt="pen" />
+                </button>
+              </Tooltip>
+            </div>
+          </EditRolesPopover>
           <button
             type="button"
             className="admin-marchants__item-action-btn"

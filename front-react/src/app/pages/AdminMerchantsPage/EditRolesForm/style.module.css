@@ -1,0 +1,31 @@
+.edit-roles-form {
+  border-radius: 10px;
+  border: 1px solid var(--light-grey, #d1d1d1);
+  background: var(--white-color);
+  padding: 32px;
+}
+
+.edit-roles-form__checkboxes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 35px;
+  row-gap: 15px;
+  margin-bottom: 25px;
+}
+
+.edit-roles-form__submit {
+  font-size: 14px;
+  padding: 5px 7px;
+  min-width: 50%;
+  margin: 0 auto;
+}
+
+@media (max-width: 479.98px) {
+  .edit-roles-form__checkboxes {
+    grid-template-columns: 1fr;
+  }
+
+  .edit-roles-form__submit {
+    width: 100%;
+  }
+}

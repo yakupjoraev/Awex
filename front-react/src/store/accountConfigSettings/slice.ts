@@ -4,10 +4,11 @@ import { AuthenticatedService, Project } from "@awex-api";
 
 interface AccountConfigSettingsState {
   data?: {
-    currencies?: string[];
-    countries?: string[];
-    permissions?: string[];
-    labels?: string[];
+    currencies?: string[] | undefined;
+    countries?: string[] | undefined;
+    permissions?: string[] | undefined;
+    labels?: string[] | undefined;
+    roles?: string[] | undefined;
   };
   loading: boolean;
   error?: string;
