@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import Tooltip from "rc-tooltip";
 import { EditRolesPopover } from "../EditRolesPopover";
 import { EditRolesForm } from "../EditRolesForm";
+import { currencyToName } from "@constants/currency-names";
 
 export interface MerchantItemProps {
   merchantId: string;
@@ -143,38 +144,47 @@ export function MerchantItem(props: MerchantItemProps) {
       <div className="admin-marchants__item-content">
         <div className="admin-marchants__item-blocks">
           <div className="admin-marchants__item-block">
-            <p className="admin-marchants__item-block-label">
-              Название организации
+            <p className="admin-marchants__item-block-label">Имя</p>
+            <p className="admin-marchants__item-block-text">
+              {props.profileData?.name || "..."}
             </p>
-            <p className="admin-marchants__item-block-text">...</p>
+            {!!props.profileData?.name &&
+              renderCopyToClipboardBtn(props.profileData?.name, handleСopied)}
           </div>
           <div className="admin-marchants__item-block">
-            <p className="admin-marchants__item-block-label">ИНН организации</p>
-            <p className="admin-marchants__item-block-text">...</p>
+            <p className="admin-marchants__item-block-label">Валюта</p>
+            <p className="admin-marchants__item-block-text">
+              {props.profileData?.displayCurrency
+                ? renderCurrencyName(props.profileData.displayCurrency)
+                : "..."}
+            </p>
+            {!!props.profileData?.displayCurrency &&
+              renderCopyToClipboardBtn(
+                props.profileData.displayCurrency,
+                handleСopied
+              )}
           </div>
           <div className="admin-marchants__item-block">
-            <p className="admin-marchants__item-block-label">Юрисдикция</p>
-            <p className="admin-marchants__item-block-text">...</p>
+            <p className="admin-marchants__item-block-label">Telegram</p>
+            <p className="admin-marchants__item-block-text">
+              {props.profileData?.telegram || "..."}
+            </p>
+            {!!props.profileData?.telegram &&
+              renderCopyToClipboardBtn(
+                props.profileData.telegram,
+                handleСopied
+              )}
           </div>
           <div className="admin-marchants__item-block">
-            <p className="admin-marchants__item-block-label">Юр. адрес</p>
-            <p className="admin-marchants__item-block-text">...</p>
-          </div>
-          <div className="admin-marchants__item-blocks">
-            <div className="admin-marchants__item-block">
-              <p className="admin-marchants__item-block-label">Телефон</p>
-              <p className="admin-marchants__item-block-text">...</p>
-            </div>
-            <div className="admin-marchants__item-block">
-              <p className="admin-marchants__item-block-label">Сайт</p>
-              <p className="admin-marchants__item-block-text">...</p>
-            </div>
-          </div>
-          <div className="admin-marchants__item-block">
-            <p className="admin-marchants__item-block-label">Расчетный счет</p>
-            <p className="admin-marchants__item-block-text">...</p>
+            <p className="admin-marchants__item-block-label">E-mail</p>
+            <p className="admin-marchants__item-block-text">
+              {props.profileData?.email || "..."}
+            </p>
+            {!!props.profileData?.email &&
+              renderCopyToClipboardBtn(props.profileData.email, handleСopied)}
           </div>
         </div>
+
         <div className="admin-applications__others">
           <div className="my-projects__items-wrapper">
             <ul className="my-projects__items">
@@ -333,13 +343,14 @@ export function MerchantItem(props: MerchantItemProps) {
   );
 }
 
-function renderCopyToClipboardBtn(
-  text: string | undefined,
-  handleCopy: () => void
-) {
-  if (!text) {
-    return null;
+function renderCurrencyName(name: string): string {
+  if (Object.prototype.hasOwnProperty.call(currencyToName, name)) {
+    return currencyToName[name];
   }
+  return name;
+}
+
+function renderCopyToClipboardBtn(text: string, handleCopy: () => void) {
   return (
     <CopyToClipboard text={text} onCopy={handleCopy}>
       <button type="button" className="admin-marchants__item-block-copy">
