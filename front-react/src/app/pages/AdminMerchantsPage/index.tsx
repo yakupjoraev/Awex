@@ -25,6 +25,8 @@ type ListingItemUpdate = {
 
 const QUERY_PARAM_PAGE = "page";
 
+const QUERY_PARAM_SEARCH = "search";
+
 const DEFAULT_PAGE = 1;
 
 const DEFAULT_LISTING: UserList[] = [];
@@ -36,6 +38,8 @@ const DEFAULT_OPTIMISTIC_UPDATES: ListingItemUpdate[] = [];
 const DEFAULT_EXISTING_ROLES: string[] = [];
 
 const DEFAULT_MERCHANT_ROLES: string[] = [];
+
+const DEFAULT_SEARCH = "";
 
 export function AdminMerchantsPage() {
   const dispatch = useAppDispatch();
@@ -54,11 +58,10 @@ export function AdminMerchantsPage() {
   const [listingError, setListingError] = useState<string | null>(null);
   const [listing, setListing] = useState(DEFAULT_LISTING);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
   const [totalPages, setTotalPages] = useState(1);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
 
-  const [submitedSearchText, setSubmitedSearchText] = useState("");
   const [permanentUpdates, dispatchPermanentUpdatesAction] = useReducer(
     permanentUpdatesReducer,
     DEFAULT_PERMANENT_UPDATES
@@ -69,6 +72,14 @@ export function AdminMerchantsPage() {
   );
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const submitedSearchText = searchParams.get(QUERY_PARAM_SEARCH);
+
+  useEffect(() => {
+    if (submitedSearchText !== null) {
+      setSearchText(submitedSearchText);
+    }
+  }, []);
 
   useEffect(() => {
     const pageStr = searchParams.get(QUERY_PARAM_PAGE);
@@ -102,7 +113,7 @@ export function AdminMerchantsPage() {
     setListingLoading(true);
     AuthorizedService.adminList(
       currentPage.toString(),
-      submitedSearchText || ""
+      submitedSearchText || DEFAULT_SEARCH
     )
       .then((response) => {
         setCurrentPage(response.page || 1);
@@ -120,7 +131,7 @@ export function AdminMerchantsPage() {
       .finally(() => {
         setListingLoading(false);
       });
-  }, [currentPage, searchText]);
+  }, [currentPage, submitedSearchText]);
 
   useEffect(() => {
     dispatch(getConfigSettings());
@@ -133,7 +144,14 @@ export function AdminMerchantsPage() {
   const handleSearchFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     const normalizedSearchText = searchText.trim();
-    setSubmitedSearchText(normalizedSearchText);
+
+    const nextSearchParams = new URLSearchParams(searchParams);
+    if (normalizedSearchText.length === 0) {
+      nextSearchParams.delete(QUERY_PARAM_SEARCH);
+    } else {
+      nextSearchParams.set(QUERY_PARAM_SEARCH, normalizedSearchText);
+    }
+    setSearchParams(nextSearchParams);
   };
 
   const handleToogleEnabled = (merchantId: number, enabled: boolean) => {
