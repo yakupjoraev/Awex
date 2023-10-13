@@ -5,6 +5,8 @@ import { MerchantPaginator } from "./MerchantPaginator";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { getConfigSettings } from "@store/accountConfigSettings/slice";
+import { useSearchParams } from "react-router-dom";
+import style from "./style.module.css";
 
 type OptimisticUpdatesAction =
   | { type: "add_update"; update: ListingItemUpdate }
@@ -20,6 +22,10 @@ type ListingItemUpdate = {
   enabled?: boolean;
   roles?: string[];
 };
+
+const QUERY_PARAM_PAGE = "page";
+
+const DEFAULT_PAGE = 1;
 
 const DEFAULT_LISTING: UserList[] = [];
 
@@ -62,7 +68,37 @@ export function AdminMerchantsPage() {
     DEFAULT_OPTIMISTIC_UPDATES
   );
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
+    const pageStr = searchParams.get(QUERY_PARAM_PAGE);
+    if (pageStr === null) {
+      setCurrentPage(DEFAULT_PAGE);
+      return;
+    }
+    const pageParsed = parseInt(pageStr, 10);
+    if (isNaN(pageParsed) || pageParsed < 1) {
+      const nextSearchParams = new URLSearchParams(searchParams);
+      nextSearchParams.delete(QUERY_PARAM_PAGE);
+      setSearchParams(nextSearchParams);
+      return;
+    }
+    setCurrentPage(pageParsed);
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      const nextSearchParams = new URLSearchParams(searchParams);
+      nextSearchParams.set(QUERY_PARAM_PAGE, totalPages.toString());
+      setSearchParams(nextSearchParams);
+    }
+  }, [currentPage, totalPages]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      return;
+    }
+
     setListingLoading(true);
     AuthorizedService.adminList(
       currentPage.toString(),
@@ -98,16 +134,6 @@ export function AdminMerchantsPage() {
     ev.preventDefault();
     const normalizedSearchText = searchText.trim();
     setSubmitedSearchText(normalizedSearchText);
-  };
-
-  const handleNavigate = (nextPage: number) => {
-    if (nextPage < 1) {
-      return;
-    } else if (nextPage > totalPages) {
-      setCurrentPage(totalPages);
-    } else {
-      setCurrentPage(nextPage);
-    }
   };
 
   const handleToogleEnabled = (merchantId: number, enabled: boolean) => {
@@ -259,9 +285,10 @@ export function AdminMerchantsPage() {
               })}
               {optimisticListing.length > 0 && (
                 <MerchantPaginator
+                  className={style["paginator"]}
+                  queryParamPage={QUERY_PARAM_PAGE}
                   currentPage={currentPage}
                   totalPages={totalPages}
-                  onNavigate={handleNavigate}
                 />
               )}
             </div>

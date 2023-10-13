@@ -1,14 +1,18 @@
 import classNames from "classnames";
 import { useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { getPaginationModel, ITEM_TYPES } from "ultimate-pagination";
 
 interface MerchantPaginatorProps {
+  className?: string;
+  queryParamPage: string;
   currentPage: number;
   totalPages: number;
-  onNavigate: (page: number) => void;
 }
 
 export function MerchantPaginator(props: MerchantPaginatorProps) {
+  const location = useLocation();
+
   const model = useMemo(() => {
     return getPaginationModel({
       currentPage: props.currentPage,
@@ -16,34 +20,22 @@ export function MerchantPaginator(props: MerchantPaginatorProps) {
     });
   }, [props.currentPage, props.totalPages]);
 
-  const handleNavBtnClick = (
-    ev: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    ev.preventDefault();
-
-    const pageRaw = ev.currentTarget.getAttribute("data-page");
-    if (pageRaw === null) {
-      return;
-    }
-    const page = parseInt(pageRaw, 10);
-    if (isNaN(page)) {
-      return;
-    }
-    if (page <= 0) {
-      return;
-    }
-    props.onNavigate(page);
-  };
-
   if (props.totalPages <= 1) {
     return null;
   }
 
   return (
-    <div className="page-list">
+    <div className={classNames("page-list", props.className)}>
       {model.map((modelItem) => {
         switch (modelItem.type) {
           case ITEM_TYPES.PAGE: {
+            const nextSearchParams = new URLSearchParams(location.search);
+            nextSearchParams.set(
+              props.queryParamPage,
+              modelItem.value.toString()
+            );
+            const pageUrl =
+              location.pathname + "?" + nextSearchParams.toString();
             return (
               <div
                 className={classNames("page-list__item", {
@@ -52,14 +44,9 @@ export function MerchantPaginator(props: MerchantPaginatorProps) {
                 })}
                 key={modelItem.key}
               >
-                <a
-                  className="page-list__link"
-                  href="#"
-                  data-page={modelItem.value.toString()}
-                  onClick={handleNavBtnClick}
-                >
-                  {modelItem.value}
-                </a>
+                <Link className="page-list__link" to={pageUrl}>
+                  {modelItem.value.toString()}
+                </Link>
               </div>
             );
           }
