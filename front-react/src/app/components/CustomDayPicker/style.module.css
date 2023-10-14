@@ -39,7 +39,7 @@
   cursor: default;
 }
 
-.calendar__day.rdp-day {
+.calendar__day:global(.rdp-day) {
   position: relative;
   border-width: 0;
   border-radius: unset;
@@ -54,52 +54,52 @@
   color: var(--medium-grey, #6f6f6f);
 }
 
-.calendar__day.rdp-button:focus-visible:not([disabled]) {
+.calendar__day:global(.rdp-button):focus-visible:not([disabled]) {
   color: inherit;
   background-color: unset;
   border: none;
 }
-.calendar__day.rdp-button:focus-visible:not([disabled]) {
+.calendar__day:global(.rdp-button):focus-visible:not([disabled]) {
   background-color: unset;
 }
-.calendar__day.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+.calendar__day:global(.rdp-button):hover:not([disabled]):not(:global(.rdp-day_selected)) {
   background-color: unset;
 }
-.calendar__day.rdp-button:hover:not([disabled]):not(.rdp-day_selected)
+.calendar__day:global(.rdp-button):hover:not([disabled]):not(:global(.rdp-day_selected))
   .calendar__day-content {
   background-color: #faf2c8;
 }
-.calendar__day.rdp-button:focus-visible:not([disabled]):not(.rdp-day_selected)
+.calendar__day:global(.rdp-button):focus-visible:not([disabled]):not(:global(.rdp-day_selected))
   .calendar__day-content {
   background-color: #faf2c8;
 }
 
-.calendar__day.rdp-day_outside {
+.calendar__day:global(.rdp-day_outside) {
   color: var(--light-grey, #d1d1d1);
 }
 
-.calendar__day.rdp-day_selected,
-.calendar__day.rdp-day_selected:focus-visible,
-.calendar__day.rdp-day_selected:hover {
+.calendar__day:global(.rdp-day_selected),
+.calendar__day:global(.rdp-day_selected):focus-visible,
+.calendar__day:global(.rdp-day_selected):hover {
   background-color: transparent;
 }
-.calendar__day.rdp-day_selected:focus-visible {
+.calendar__day:global(.rdp-day_selected):focus-visible {
   outline: 2px solid orange;
   outline-offset: 2px;
   z-index: 1;
 }
 
-.calendar__day.rdp-day_range_end.rdp-day_range_start {
+.calendar__day:global(.rdp-day_range_end):global(.rdp-day_range_start) {
   border-radius: unset;
 }
-.calendar__day.rdp-day_range_start {
+.calendar__day:global(.rdp-day_range_start) {
   border-radius: unset;
 }
-.calendar__day.rdp-day_range_end {
+.calendar__day:global(.rdp-day_range_end) {
   border-radius: unset;
 }
-.calendar__day.rdp-day_range_start::before,
-.calendar__day.rdp-day_range_end::before {
+.calendar__day:global(.rdp-day_range_start)::before,
+.calendar__day:global(.rdp-day_range_end)::before {
   content: "";
   display: block;
   height: 100%;
@@ -109,13 +109,13 @@
   border-top: 0.5px solid var(--second-color, #fed602);
   border-bottom: 0.5px solid var(--second-color, #fed602);
 }
-.calendar__day.rdp-day_range_start::before {
+.calendar__day:global(.rdp-day_range_start)::before {
   right: 0;
 }
-.calendar__day.rdp-day_range_end::before {
+.calendar__day:global(.rdp-day_range_end)::before {
   left: 0;
 }
-.calendar__day.rdp-day_range_start.rdp-day_range_end::before {
+.calendar__day:global(.rdp-day_range_start):global(.rdp-day_range_end)::before {
   content: none;
 }
 
@@ -143,11 +143,15 @@
   background-color: var(--second-color, #fed602);
   border-radius: 100%;
 }
+.calendar__day-content--selected.calendar__day-content--single {
+  background-color: var(--second-color, #fed602);
+  border-radius: 100%;
+}
 
-.calendar__day.rdp-day_today {
+.calendar__day:global(.rdp-day_today) {
   font-weight: 400;
 }
-.calendar__day.rdp-day_today::after {
+.calendar__day:global(.rdp-day_today)::after {
   content: "";
   width: 3px;
   height: 3px;
@@ -156,14 +160,14 @@
   background-color: var(--second-color, #fed602);
   border-radius: 100%;
 }
-.calendar__day.rdp-day_today.rdp-day_selected.rdp-day_range_start::after {
+.calendar__day:global(.rdp-day_today):global(.rdp-day_selected):global(.rdp-day_range_start)::after {
   background-color: white;
 }
-.calendar__day.rdp-day_today.rdp-day_selected.rdp-day_range_end::after {
+.calendar__day:global(.rdp-day_today):global(.rdp-day_selected):global(.rdp-day_range_end)::after {
   background-color: white;
 }
 
-.calendar__day.rdp-day_range_middle::before {
+.calendar__day:global(.rdp-day_range_middle)::before {
   content: "";
   display: block;
   height: 100%;

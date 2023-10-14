@@ -7,6 +7,13 @@ import Tooltip from "rc-tooltip";
 import { EditRolesPopover } from "../EditRolesPopover";
 import { EditRolesForm } from "../EditRolesForm";
 import { currencyToName } from "@constants/currency-names";
+import { Link } from "react-router-dom";
+import {
+  ADMIN_MERCHANTS_ROUTE,
+  ADMIN_MERCHANT_STATS_SUBROUTE,
+} from "@constants/path-locations";
+import { QUERY_PARAM_NAVBACK } from "@constants/common-params";
+import { PAGE_ID_ADMIN_MERCHANTS } from "@constants/pages";
 
 export interface MerchantItemProps {
   merchantId: string;
@@ -133,13 +140,13 @@ export function MerchantItem(props: MerchantItemProps) {
             <img src="/img/icons/trash.svg" alt="trash" />
           </button>
         </div>
-        <div
+        <Link
           className="admin-marchants__item-statistic"
-          onClick={handleNotImplemented}
+          to={`${ADMIN_MERCHANTS_ROUTE}/${props.merchantId}${ADMIN_MERCHANT_STATS_SUBROUTE}?${QUERY_PARAM_NAVBACK}=${PAGE_ID_ADMIN_MERCHANTS}`}
         >
           <img src="/img/icons/chart-pie.svg" alt="chart-pie" />
           Статистика мерчанта
-        </div>
+        </Link>
         <div
           className="admin-marchants__item-btn"
           onClick={handleExpandBtnClick}

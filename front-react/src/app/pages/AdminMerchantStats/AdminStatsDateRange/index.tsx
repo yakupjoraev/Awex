@@ -1,25 +1,38 @@
 import { useState } from "react";
-import { format } from "date-fns";
 import classNames from "classnames";
-import { ru } from "date-fns/locale";
 import { ContentRenderer, Popover } from "react-tiny-popover";
 import { DateRange } from "react-day-picker";
 import { CustomDayPicker } from "@components/CustomDayPicker";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 
 export type { DateRange } from "react-day-picker";
 
-export interface DepositsFilterDateProps {
+export interface AdminStatsDateRangeProps {
   className?: string;
   label: string;
   value?: DateRange;
   onChange: (value: DateRange | undefined) => void;
+  onInteractive?: (interactive: boolean) => void;
 }
 
-export function DepositsFilterDate(props: DepositsFilterDateProps) {
+export function AdminStatsDateRange(props: AdminStatsDateRangeProps) {
   const [popoverOpen, setPopoverOpen] = useState(false);
 
   const handleClickOutside = () => {
-    setPopoverOpen(false);
+    const nextPopoverOpen = false;
+    setPopoverOpen(nextPopoverOpen);
+    if (props.onInteractive !== undefined) {
+      props.onInteractive(nextPopoverOpen);
+    }
+  };
+
+  const handleClickSelector = () => {
+    const nextPopoverOpen = !popoverOpen;
+    setPopoverOpen(nextPopoverOpen);
+    if (props.onInteractive !== undefined) {
+      props.onInteractive(nextPopoverOpen);
+    }
   };
 
   const handleRangeChange = (nextRange: DateRange | undefined) => {
@@ -51,27 +64,22 @@ export function DepositsFilterDate(props: DepositsFilterDateProps) {
       content={renderPopoverContent}
     >
       <div
-        className={classNames(
-          "deposits__filter-select deposits__filter-select--datapicker",
-          props.className
-        )}
-        data-select-wrapper=""
-        onClick={() => setPopoverOpen(!popoverOpen)}
+        className={classNames("admin-statistic__form-group", props.className)}
+        onClick={handleClickSelector}
       >
-        <div className="deposits__filter-label">{props.label}</div>
-
-        <div className="deposits__filter-selected" data-select-value="">
-          {!props.value ? "???-???" : formatRange(props.value)}
+        <p className="admin-statistic__form-label">{props.label}</p>
+        <div className="admin-statistic__form-selected">
+          <p className="admin-statistic__form-selected-text">
+            {!props.value ? "???-???" : formatRange(props.value)}
+          </p>
+          <img
+            className={classNames("admin-statistic__form-arrow", {
+              "admin-statistic__form-arrow--active": popoverOpen,
+            })}
+            src="/img/icons/mini-arrow-down.svg"
+            alt=""
+          />
         </div>
-
-        <img
-          className={classNames("deposits__filter-arrow", {
-            active: popoverOpen,
-          })}
-          src="/img/icons/mini-arrow-down.svg"
-          alt="mini-arrow-down"
-          data-select-arrow=""
-        />
       </div>
     </Popover>
   );
@@ -81,10 +89,10 @@ function formatRange(range: DateRange) {
   let fromStr: string = "???";
   let toStr: string = "???";
   if (range.from) {
-    fromStr = format(range.from, "dd/MM/yyyy");
+    fromStr = format(range.from, "dd.MM.yyyy");
   }
   if (range.to) {
-    toStr = format(range.to, "dd/MM/yyyy");
+    toStr = format(range.to, "dd.MM.yyyy");
   }
   return `${fromStr}-${toStr}`;
 }

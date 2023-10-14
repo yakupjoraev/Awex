@@ -1,7 +1,7 @@
 import React from "react";
 import { format } from "date-fns";
 import { CaptionProps, useNavigation } from "react-day-picker";
-
+import style from "../style.module.css";
 import { ru } from "date-fns/locale";
 
 export function CalendarCaption(props: CaptionProps) {
@@ -20,9 +20,9 @@ export function CalendarCaption(props: CaptionProps) {
   };
 
   return (
-    <div className="calendar__caption">
+    <div className={style["calendar__caption"]}>
       <button
-        className="calendar__nav-btn"
+        className={style["calendar__nav-btn"]}
         type="button"
         disabled={!previousMonth}
         onClick={hanlePrevMonthBtnClick}
@@ -45,11 +45,11 @@ export function CalendarCaption(props: CaptionProps) {
           </g>
         </svg>
       </button>
-      <div className="calendar__caption-label">
+      <div className={style["calendar__caption-label"]}>
         {format(props.displayMonth, "LLLL yyy", { locale: ru })}
       </div>
       <button
-        className="calendar__nav-btn"
+        className={style["calendar__nav-btn"]}
         type="button"
         disabled={!nextMonth}
         onClick={handleNextMonthBtnClick}
