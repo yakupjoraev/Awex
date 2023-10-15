@@ -125,35 +125,6 @@
   transform: rotate(180deg);
 }
 
-/* _deposits.scss */
-
-.deposits__filter-search__apply-btn {
-  position: absolute;
-  top: 5px;
-  right: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 7px;
-  background-color: var(--bg-grey-color);
-  border: 1px solid var(--bg-grey-color);
-  border-radius: 10px;
-  font-family: Raleway, sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 120%;
-  color: var(--text-color);
-  display: none;
-}
-
-.deposits__filter-search__apply-btn:hover {
-  color: var(--grey-color);
-}
-
-.deposits__filter-search__apply-btn--active {
-  display: flex;
-}
-
 /* rc-tooltip/assets/bootstrap.css */
 
 .rc-tooltip-placement-top,

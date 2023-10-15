@@ -49,8 +49,8 @@ export function StatsSearch(props: StatsSearchProps) {
       />
       <button
         className={classNames(
-          "deposits__filter-search__apply-btn",
-          focused && "deposits__filter-search__apply-btn--active"
+          "search-apply-btn",
+          focused && "search-apply-btn--active"
         )}
         type="button"
       >
