@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { getConfigSettings } from "@store/accountConfigSettings/slice";
 import { useSearchParams } from "react-router-dom";
 import style from "./style.module.css";
+import classNames from "classnames";
 
 type OptimisticUpdatesAction =
   | { type: "add_update"; update: ListingItemUpdate }
@@ -43,6 +44,8 @@ const DEFAULT_SEARCH = "";
 
 export function AdminMerchantsPage() {
   const dispatch = useAppDispatch();
+
+  const [searchInputFocused, setSearchInputFocused] = useState(false);
 
   const existingRolesLoading = useAppSelector(
     (state) => state.accountConfigSettings.loading
@@ -137,13 +140,19 @@ export function AdminMerchantsPage() {
     dispatch(getConfigSettings());
   }, [dispatch]);
 
-  const handleSearchInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(ev.currentTarget.value);
-  };
+  useEffect(() => {
+    if (searchInputFocused) {
+      return;
+    }
+    submitTextFilter();
+  }, [searchInputFocused]);
 
-  const handleSearchFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
-    ev.preventDefault();
+  const submitTextFilter = () => {
     const normalizedSearchText = searchText.trim();
+
+    if (searchParams.get(QUERY_PARAM_SEARCH) === normalizedSearchText) {
+      return;
+    }
 
     const nextSearchParams = new URLSearchParams(searchParams);
     if (normalizedSearchText.length === 0) {
@@ -152,6 +161,15 @@ export function AdminMerchantsPage() {
       nextSearchParams.set(QUERY_PARAM_SEARCH, normalizedSearchText);
     }
     setSearchParams(nextSearchParams);
+  };
+
+  const handleSearchInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(ev.currentTarget.value);
+  };
+
+  const handleSearchFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+    ev.preventDefault();
+    submitTextFilter();
   };
 
   const handleToogleEnabled = (merchantId: number, enabled: boolean) => {
@@ -259,12 +277,23 @@ export function AdminMerchantsPage() {
                 placeholder="Поиск по ID/имени мерчанта/названию/ИНН/адресу/телефону/юрисдикции"
                 value={searchText}
                 onChange={handleSearchInputChange}
+                onFocus={() => setSearchInputFocused(true)}
+                onBlur={() => setSearchInputFocused(false)}
               />
               <img
                 className="admin-applications__search-img search-img"
                 src="/img/icons/search.svg"
                 alt="Поиск"
               />
+              <button
+                className={classNames(
+                  "search-apply-btn",
+                  searchInputFocused && "search-apply-btn--active"
+                )}
+                type="button"
+              >
+                Применить
+              </button>
             </div>
           </form>
           <div className="admin-applications__main">
