@@ -34,6 +34,15 @@ export function StatsFilter(props: StatsFilterProps) {
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
+    const nextFilterState = createFilterState(
+      currencyValue,
+      rangeValue,
+      searchValue
+    );
+    if (!equalsFilterState(filterState, nextFilterState)) {
+      setFilterState(nextFilterState);
+      props.onSubmit(createFilterState(currencyValue, rangeValue, searchValue));
+    }
   };
 
   const handleCurrencyChange = (value: string) => {
