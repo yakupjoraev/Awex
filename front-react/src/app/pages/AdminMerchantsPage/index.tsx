@@ -24,13 +24,15 @@ type ListingItemUpdate = {
   roles?: string[];
 };
 
+type UserListWithFee = UserList & { fee?: number };
+
 const QUERY_PARAM_PAGE = "page";
 
 const QUERY_PARAM_SEARCH = "search";
 
 const DEFAULT_PAGE = 1;
 
-const DEFAULT_LISTING: UserList[] = [];
+const DEFAULT_LISTING: UserListWithFee[] = [];
 
 const DEFAULT_PERMANENT_UPDATES: ListingItemUpdate[] = [];
 
@@ -119,6 +121,36 @@ export function AdminMerchantsPage() {
   useEffect(() => {
     setListingLoading(true);
     AuthorizedService.adminList(submittedPage.toString(), submittedSearchText)
+      .then(async (response) => {
+        const list = response.list
+          ? fixUserListing(response.list)
+          : DEFAULT_LISTING;
+
+        const listWithFees: UserListWithFee[] = await Promise.all(
+          list.map(async (listItem): Promise<UserListWithFee> => {
+            if (listItem.id === undefined) {
+              return listItem;
+            }
+            const fee = await AuthorizedService.personalFeeGet(
+              listItem.id.toString()
+            );
+            if (fee.current === undefined) {
+              return listItem;
+            }
+            const listItemWithFee: UserListWithFee = {
+              ...listItem,
+              fee: fee.current,
+            };
+            return listItemWithFee;
+          })
+        );
+
+        return {
+          list: listWithFees,
+          page: response.page,
+          pages: response.pages,
+        };
+      })
       .then((response) => {
         const currentPageValue = searchParams.get(QUERY_PARAM_PAGE);
         if (response.page === undefined || response.page === null) {
@@ -136,9 +168,8 @@ export function AdminMerchantsPage() {
           setSearchParams(nextSearchParams);
         }
 
-        setListing(
-          response.list ? fixUserListing(response.list) : DEFAULT_LISTING
-        );
+        setListing(response.list);
+        setListingError(null);
         setTotalPages(response.pages || 1);
         dispatchPermanentUpdatesAction({ type: "clear_all" });
         dispatchOptimisticUpdatesAction({ type: "clear_all" });
@@ -336,6 +367,7 @@ export function AdminMerchantsPage() {
                     enabled={merchantDetails.enabled}
                     existingRoles={existingRoles || DEFAULT_EXISTING_ROLES}
                     roles={merchantDetails.roles || DEFAULT_MERCHANT_ROLES}
+                    fee={merchantDetails.fee}
                     onToggleEnabled={(enabled) =>
                       handleToogleEnabled(merchantId, enabled)
                     }
@@ -362,7 +394,7 @@ export function AdminMerchantsPage() {
   );
 }
 
-function applyUpdates(users: UserList[], updates: ListingItemUpdate[]) {
+function applyUpdates(users: UserListWithFee[], updates: ListingItemUpdate[]) {
   return users.map((user) => {
     if (user.id === undefined) {
       return user;

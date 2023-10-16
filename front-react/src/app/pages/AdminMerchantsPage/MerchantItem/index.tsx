@@ -21,6 +21,7 @@ export interface MerchantItemProps {
   enabled?: boolean;
   roles: string[];
   existingRoles: string[];
+  fee?: number;
   onToggleEnabled: (enabled: boolean) => void;
   onUpdateRoles: (roles: string[], cb: () => void) => void;
 }
@@ -66,7 +67,9 @@ export function MerchantItem(props: MerchantItemProps) {
             <span>10/01/23</span>
           </Tooltip>
         </div>
-        <div className="admin-marchants__item-comission">0.1%</div>
+        <div className="admin-marchants__item-comission">
+          {props.fee === undefined ? "..." : props.fee.toString() + "%"}
+        </div>
         <div className="admin-marchants__item-action">
           <Tooltip
             overlay={() =>
