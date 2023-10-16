@@ -61,7 +61,6 @@ export function AdminMerchantsPage() {
   const [listingError, setListingError] = useState<string | null>(null);
   const [listing, setListing] = useState(DEFAULT_LISTING);
 
-  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
   const [totalPages, setTotalPages] = useState(1);
   const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
 
@@ -76,18 +75,33 @@ export function AdminMerchantsPage() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const submitedSearchText = searchParams.get(QUERY_PARAM_SEARCH);
+  const submittedPage = useMemo(() => {
+    const pageStr = searchParams.get(QUERY_PARAM_PAGE);
+    if (pageStr === null) {
+      return DEFAULT_PAGE;
+    }
+    const pageParsed = parseInt(pageStr, 10);
+    if (isNaN(pageParsed) || pageParsed < 1) {
+      return DEFAULT_PAGE;
+    }
+    if (pageParsed > totalPages) {
+      return totalPages;
+    }
+    return pageParsed;
+  }, [searchParams, totalPages]);
+
+  const submittedSearchText = useMemo(() => {
+    const searchText = searchParams.get(QUERY_PARAM_SEARCH);
+    return searchText === null ? DEFAULT_SEARCH : searchText;
+  }, [searchParams]);
 
   useEffect(() => {
-    if (submitedSearchText !== null) {
-      setSearchText(submitedSearchText);
-    }
+    setSearchText(submittedSearchText);
   }, []);
 
   useEffect(() => {
     const pageStr = searchParams.get(QUERY_PARAM_PAGE);
     if (pageStr === null) {
-      setCurrentPage(DEFAULT_PAGE);
       return;
     }
     const pageParsed = parseInt(pageStr, 10);
@@ -95,31 +109,33 @@ export function AdminMerchantsPage() {
       const nextSearchParams = new URLSearchParams(searchParams);
       nextSearchParams.delete(QUERY_PARAM_PAGE);
       setSearchParams(nextSearchParams);
-      return;
-    }
-    setCurrentPage(pageParsed);
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
+    } else if (pageParsed > totalPages) {
       const nextSearchParams = new URLSearchParams(searchParams);
       nextSearchParams.set(QUERY_PARAM_PAGE, totalPages.toString());
       setSearchParams(nextSearchParams);
     }
-  }, [currentPage, totalPages]);
+  }, [searchParams, totalPages]);
 
   useEffect(() => {
-    if (currentPage > totalPages) {
-      return;
-    }
-
     setListingLoading(true);
-    AuthorizedService.adminList(
-      currentPage.toString(),
-      submitedSearchText || DEFAULT_SEARCH
-    )
+    AuthorizedService.adminList(submittedPage.toString(), submittedSearchText)
       .then((response) => {
-        setCurrentPage(response.page || 1);
+        const currentPageValue = searchParams.get(QUERY_PARAM_PAGE);
+        if (response.page === undefined || response.page === null) {
+          if (currentPageValue !== null && currentPageValue !== "1") {
+            const nextSearchParams = new URLSearchParams(searchParams);
+            nextSearchParams.delete(QUERY_PARAM_PAGE);
+            setSearchParams(nextSearchParams);
+          }
+        } else if (
+          currentPageValue === null ||
+          currentPageValue !== response.page.toString()
+        ) {
+          const nextSearchParams = new URLSearchParams(searchParams);
+          nextSearchParams.set(QUERY_PARAM_PAGE, response.page.toString());
+          setSearchParams(nextSearchParams);
+        }
+
         setListing(
           response.list ? fixUserListing(response.list) : DEFAULT_LISTING
         );
@@ -134,7 +150,7 @@ export function AdminMerchantsPage() {
       .finally(() => {
         setListingLoading(false);
       });
-  }, [currentPage, submitedSearchText]);
+  }, [submittedPage, submittedSearchText]);
 
   useEffect(() => {
     dispatch(getConfigSettings());
@@ -334,7 +350,7 @@ export function AdminMerchantsPage() {
                 <MerchantPaginator
                   className={style["paginator"]}
                   queryParamPage={QUERY_PARAM_PAGE}
-                  currentPage={currentPage}
+                  currentPage={submittedPage}
                   totalPages={totalPages}
                 />
               )}
