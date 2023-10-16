@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import { AuthorizedService, Statistics } from "@awex-api";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { getConfigSettings } from "@store/accountConfigSettings/slice";
-import { ADMIN_MERCHANTS_ROUTE } from "@constants/path-locations";
-import { PAGE_ID_ADMIN_MERCHANTS } from "@constants/pages";
+import {
+  ADMIN_MERCHANTS_ROUTE,
+  ADMIN_STATS_ROUTE,
+} from "@constants/path-locations";
+import { PAGE_ID_ADMIN_MERCHANTS, PAGE_ID_ADMIN_STATS } from "@constants/pages";
 import { QUERY_PARAM_NAVBACK } from "@constants/common-params";
 
 export const NAV_BACK_ANCHOR_MERCHANTS = "merchants";
@@ -160,7 +163,20 @@ function renderNavBack(token: string | null): JSX.Element | null {
               src="/img/icons/angle-left-circle.svg"
               alt="angle-left-circle"
             />
-            Вернуться к Мерчантам
+            Вернуться к Мерчанты
+          </Link>
+        </div>
+      );
+    }
+    case PAGE_ID_ADMIN_STATS: {
+      return (
+        <div className="admin-statistic__detal-header">
+          <Link className="admin-statistic__detal-back" to={ADMIN_STATS_ROUTE}>
+            <img
+              src="/img/icons/angle-left-circle.svg"
+              alt="angle-left-circle"
+            />
+            Вернуться к Статистика
           </Link>
         </div>
       );

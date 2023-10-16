@@ -4,8 +4,8 @@ import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import toast from "react-hot-toast";
 import Tooltip from "rc-tooltip";
-import { EditRolesPopover } from "../EditRolesPopover";
-import { EditRolesForm } from "../EditRolesForm";
+import { EditRolesPopover } from "@components/admin/EditRolesPopover";
+import { EditRolesForm } from "@components/admin/EditRolesForm";
 import { currencyToName } from "@constants/currency-names";
 import { Link } from "react-router-dom";
 import {
@@ -13,7 +13,7 @@ import {
   ADMIN_MERCHANT_STATS_SUBROUTE,
 } from "@constants/path-locations";
 import { QUERY_PARAM_NAVBACK } from "@constants/common-params";
-import { PAGE_ID_ADMIN_MERCHANTS } from "@constants/pages";
+import { PAGE_ID_ADMIN_STATS } from "@constants/pages";
 
 export interface MerchantItemProps {
   merchantId: string;
@@ -145,7 +145,7 @@ export function MerchantItem(props: MerchantItemProps) {
         </div>
         <Link
           className="admin-marchants__item-statistic"
-          to={`${ADMIN_MERCHANTS_ROUTE}/${props.merchantId}${ADMIN_MERCHANT_STATS_SUBROUTE}?${QUERY_PARAM_NAVBACK}=${PAGE_ID_ADMIN_MERCHANTS}`}
+          to={`${ADMIN_MERCHANTS_ROUTE}/${props.merchantId}${ADMIN_MERCHANT_STATS_SUBROUTE}?${QUERY_PARAM_NAVBACK}=${PAGE_ID_ADMIN_STATS}`}
         >
           <img src="/img/icons/chart-pie.svg" alt="chart-pie" />
           Статистика мерчанта

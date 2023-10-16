@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useReducer, useState } from "react";
-import { MerchantItem } from "./MerchantItem";
+import { StatsItem } from "./StatsItem";
 import { AuthorizedService, type UserList } from "@awex-api";
 import { MerchantPaginator } from "@components/admin/MerchantPaginator";
 import toast from "react-hot-toast";
@@ -44,7 +44,7 @@ const DEFAULT_MERCHANT_ROLES: string[] = [];
 
 const DEFAULT_SEARCH = "";
 
-export function AdminMerchantsPage() {
+export function AdminStatsPage() {
   const dispatch = useAppDispatch();
 
   const [searchInputFocused, setSearchInputFocused] = useState(false);
@@ -361,7 +361,7 @@ export function AdminMerchantsPage() {
                   return null;
                 }
                 return (
-                  <MerchantItem
+                  <StatsItem
                     merchantId={merchantId.toString()}
                     profileData={merchantDetails.data}
                     enabled={merchantDetails.enabled}

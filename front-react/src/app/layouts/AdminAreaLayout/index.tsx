@@ -1,4 +1,7 @@
-import { ADMIN_MERCHANTS_ROUTE } from "@constants/path-locations";
+import {
+  ADMIN_MERCHANTS_ROUTE,
+  ADMIN_STATS_ROUTE,
+} from "@constants/path-locations";
 import { Link, Outlet } from "react-router-dom";
 
 export function AdminAreaLayout() {
@@ -34,9 +37,13 @@ export function AdminAreaLayout() {
                   </a>
                 </li>
                 <li className="nav__item">
-                  <a href="#" className="nav__item-link" data-scroll="">
+                  <Link
+                    className="nav__item-link"
+                    data-scroll=""
+                    to={ADMIN_STATS_ROUTE}
+                  >
                     Статистика
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav__item">
                   <a href="#" className="nav__item-link" data-scroll="">

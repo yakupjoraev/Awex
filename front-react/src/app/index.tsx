@@ -24,6 +24,7 @@ import { AssetPage } from "./pages/AssetPage";
 import {
   ADMIN_MERCHANTS_ROUTE,
   ADMIN_MERCHANT_STATS_SUBROUTE,
+  ADMIN_STATS_ROUTE,
   ASSETS_ROUTE,
 } from "./constants/path-locations";
 import { AdminFeesPage } from "./pages/AdminFeesPage";
@@ -32,6 +33,7 @@ import { AdminAuthPage } from "./pages/AdminAuthPage";
 import { AdminMerchantsPage } from "./pages/AdminMerchantsPage";
 import "rc-tooltip/assets/bootstrap.css";
 import { AdminMerchantStats } from "./pages/AdminMerchantStats";
+import { AdminStatsPage } from "./pages/AdminStats";
 
 export function App() {
   return (
@@ -54,6 +56,7 @@ export function App() {
             path={`${ADMIN_MERCHANTS_ROUTE}/:merchantId${ADMIN_MERCHANT_STATS_SUBROUTE}`}
             element={<AdminMerchantStats />}
           />
+          <Route path={ADMIN_STATS_ROUTE} element={<AdminStatsPage />} />
         </Route>
         <Route
           element={
