@@ -1,11 +1,12 @@
 import { signOut } from "@store/auth/slice";
-import { useAppDispatch } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { NotificationsForm } from "./NotificationsForm";
 import { AuthenticatedService, Notification } from "@awex-api";
 import { useEffect, useState } from "react";
 import { ThemeSelector } from "./ThemeSelector";
 import { LanguageSelector } from "./LanguageSelector";
 import { ProfileFormContainer } from "./ProfileFormContainer";
+import { getAccountProfile } from "@store/accountProfile/slice";
 
 const DEFAULT_NOTIFICATION_SETTINGS: Notification = {
   email: false,
@@ -24,6 +25,8 @@ export function ProfileTab() {
     useState(true);
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
+  const userName = useAppSelector((state) => state.accountProfile.data?.name);
+
   useEffect(() => {
     setNotificationSettingsLoading(false);
     AuthenticatedService.notificationsGet()
@@ -36,6 +39,10 @@ export function ProfileTab() {
       .finally(() => {
         setNotificationSettingsLoading(false);
       });
+  }, []);
+
+  useEffect(() => {
+    dispatch(getAccountProfile());
   }, []);
 
   const hanldeLogoutBtnClick = () => {
@@ -72,8 +79,7 @@ export function ProfileTab() {
           </div>
 
           <div className="settings-profile__user-info">
-            <p className="settings-profile__user-name">Ivan Ivanov</p>
-
+            <p className="settings-profile__user-name">{userName}</p>
             <p className="settings-profile__user-code">(#125445hg55)</p>
           </div>
         </div>
@@ -88,7 +94,7 @@ export function ProfileTab() {
         </div>
       </div>
 
-      <ProfileFormContainer/>
+      <ProfileFormContainer />
 
       <NotificationsForm
         loading={notificationSettingsLoading}

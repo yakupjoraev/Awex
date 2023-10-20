@@ -6,7 +6,7 @@ import { HOME_PAGE_PATH } from "../../constants/path-locations";
 import { AppProject } from "../../../types";
 
 interface SidebarMobileProps {
-  userName: string;
+  userName?: string;
   projects: Record<string, AppProject>;
   onLogout: () => void;
 }
