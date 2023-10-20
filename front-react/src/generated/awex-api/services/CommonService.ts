@@ -360,11 +360,11 @@ paymentData?: {
 /**
  * payment asset name
  */
-coin?: string;
+currency?: string;
 /**
  * payment asset network identifier
  */
-networkId?: string;
+chain?: string;
 /**
  * payment address
  */
@@ -402,11 +402,11 @@ type: 'fiat' | 'crypto';
 /**
  * payment asset name
  */
-coin: string;
+currency: string;
 /**
  * payment asset network identifier
  */
-networkId: string;
+chain: string;
 },
 ): CancelablePromise<{
 /**
@@ -417,11 +417,11 @@ paymentData?: {
 /**
  * payment asset name
  */
-coin?: string;
+currency?: string;
 /**
  * payment asset network identifier
  */
-networkId?: string;
+chain?: string;
 /**
  * payment address
  */
@@ -438,6 +438,73 @@ address?: string;
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
+                403: `request failed`,
+            },
+        });
+    }
+
+    /**
+     * endpoint for getting available currencies list
+     * available currencies list
+     * @param amount payment amount in usdt
+     * @returns any request succeeded
+     * @throws ApiError
+     */
+    public static paymentCurrencies(
+amount?: string,
+): CancelablePromise<{
+currencies?: Array<{
+currency?: string;
+name?: string;
+rate?: string;
+/**
+ * chain unique name, should be passed for payment setting
+ */
+chain?: string;
+/**
+ * display name for a chain
+ */
+chainName?: string;
+}>;
+}> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/order/payment/currencies',
+            query: {
+                'amount': amount,
+            },
+            errors: {
+                403: `request failed`,
+            },
+        });
+    }
+
+    /**
+     * endpoint for getting rate of payment currency in usdt
+     * rate of payment currency in usdt
+     * @param amount payment amount in usdt
+     * @param rate payment currency rate in usdt
+     * @returns any request succeeded
+     * @throws ApiError
+     */
+    public static paymentUsdtRate(
+amount: string,
+rate: string,
+): CancelablePromise<{
+currencies?: Array<{
+currency?: string;
+name?: string;
+rate?: string;
+}>;
+}> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/order/payment/usdt-rate',
+            query: {
+                'amount': amount,
+                'rate': rate,
+            },
+            errors: {
                 403: `request failed`,
             },
         });

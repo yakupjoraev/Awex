@@ -1466,10 +1466,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  currencies:
-                    type: array
-                    items:
-                      type: string
                   countries:
                     type: array
                     items:
@@ -1990,15 +1986,31 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /fee:
+  /account/admin:
     get:
       tags:
         - authorized
-      summary: endpoint for a fee getting
-      operationId: fee-get
-      description: fee getting
+      summary: endpoint for getting administrators list
+      operationId: admin-list
+      description: administrators list
       security:
         - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: email, id or name
+        - in: query
+          name: role
+          schema:
+            type: string
+          description: admin role
       responses:
         "200":
           description: request succeeded
@@ -2007,18 +2019,17 @@ paths:
               schema:
                 type: object
                 properties:
-                  current:
-                    type: number
-                    description: current fee
-                  next:
-                    type: number
-                    description: upcoming fee
-                    nullable: true
-                  nextTimestamp:
+                  page:
                     type: integer
-                    description: UNIX timestamp, time when upcoming fee
-                      will be active
-                    nullable: true
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of projects
+                    items:
+                      $ref: "#/components/schemas/AdminList"
         "403":
           description: request failed
           content:
@@ -2034,9 +2045,10 @@ paths:
     post:
       tags:
         - authorized
-      summary: endpoint for a fee setting
-      operationId: fee-set
-      description: fee setting
+      summary: endpoint for creating users by admin with granting
+        admin roles
+      operationId: user-create
+      description: creating users by admin with granting admin roles
       security:
         - BearerAuth: []
       requestBody:
@@ -2046,16 +2058,17 @@ paths:
             schema:
               type: object
               properties:
-                fee:
-                  type: number
-                  description: new fee
-                timestamp:
-                  type: integer
-                  description: UNIX timestamp, time
-                    when new fee should be enabled
-              required:
-                - timestamp
-                - fee
+                email:
+                  type: string
+                  description: user email
+                name:
+                  type: string
+                  description: user name
+                roles:
+                  type: array
+                  items:
+                    type: string
+                    description: admin role
       responses:
         "200":
           description: request succeeded
@@ -2066,7 +2079,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    description: request result description
+                    description: request result
         "400":
           description: request failed
           content:
@@ -2091,19 +2104,19 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /fee/{id}:
+  /account/{id}/admin:
     get:
       tags:
         - authorized
-      summary: endpoint for a personal fee getting
-      operationId: personal-fee-get
-      description: personal fee getting
+      summary: endpoint for getting admin details
+      operationId: admin-get
+      description: getting admin details
       security:
         - BearerAuth: []
       parameters:
         - in: path
           name: id
-          description: user id
+          description: admin id
           required: true
           schema:
             type: string
@@ -2113,20 +2126,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  current:
-                    type: number
-                    description: current fee
-                  next:
-                    type: number
-                    description: upcoming fee
-                    nullable: true
-                  nextTimestamp:
-                    type: integer
-                    description: UNIX timestamp, time when upcoming fee
-                      will be active
-                    nullable: true
+                $ref: "#/components/schemas/AdminItem"
         "403":
           description: request failed
           content:
@@ -2154,15 +2154,15 @@ paths:
     post:
       tags:
         - authorized
-      summary: endpoint for a personal fee setting
-      operationId: personal-fee-set
-      description: personal fee setting
+      summary: endpoint for granting admin roles to user
+      operationId: admin-update
+      description: granting admin roles to user
       security:
         - BearerAuth: []
       parameters:
         - in: path
           name: id
-          description: user id
+          description: project id
           required: true
           schema:
             type: string
@@ -2173,16 +2173,11 @@ paths:
             schema:
               type: object
               properties:
-                fee:
-                  type: number
-                  description: new fee
-                timestamp:
-                  type: integer
-                  description: UNIX timestamp, time
-                    when new fee should be enabled
-              required:
-                - timestamp
-                - fee
+                roles:
+                  type: array
+                  items:
+                    type: string
+                    description: admin roles
       responses:
         "200":
           description: request succeeded
@@ -2219,6 +2214,780 @@ paths:
                       type: string
                     description: errors descriptions
         "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/admin/enable:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for enabling admin account
+      operationId: admin-enable
+      description: enabling admin account
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: admin id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/admin/disable:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for disabling admin account
+      operationId: admin-disable
+      description: disabling admin account
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: admin id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/admin/delete:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for deleting admin account
+      operationId: admin-delete
+      description: deleting admin account
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: admin id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/merchant:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting merchants list
+      operationId: merchant-list
+      description: merchants list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: email, id or name
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of projects
+                    items:
+                      $ref: "#/components/schemas/MerchantList"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/merchant:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting merchant details
+      operationId: merchant-get
+      description: getting merchant details
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MerchantItem"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/merchant/enable:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for enabling merchant account
+      operationId: merchant-enable
+      description: enabling merchant account
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: merchant id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/merchant/disable:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for disabling merchant account
+      operationId: merchant-disable
+      description: disabling merchant account
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: merchant id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/{id}/merchant/delete:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for deleting merchant account
+      operationId: merchant-delete
+      description: deleting merchant account
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: merchant id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/referral/link:
+    get:
+      tags:
+        - authenticated
+      summary: endpoint for getting referral link
+      operationId: referral-link
+      description: getting referral link
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  referralCode:
+                    type: string
+                    description: "code for referral link building"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/referral:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting referrals list
+      operationId: referrals-list
+      description: getting referrals list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: referral status filter
+        - in: query
+          name: startTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+        - in: query
+          name: endTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of referrals
+                    items:
+                      $ref: "#/components/schemas/ReferralList"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/referral/earnings:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting earnings list
+      operationId: earnings-list
+      description: getting earnings list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: type
+          schema:
+            type: string
+          description: earnings type
+        - in: query
+          name: startTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+        - in: query
+          name: endTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of referrals
+                    items:
+                      $ref: "#/components/schemas/EarningsList"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/referral/statistics:
+    get:
+      tags:
+        - authenticated
+      summary: endpoint for getting referral statistics
+      operationId: referral-statistics
+      description: getting referral statistics
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalReferralsNumber:
+                    type: integer
+                  activeReferralsNumber:
+                    type: integer
+                  earnings:
+                    type: number
+                  referralFees:
+                    type: object
+                    properties:
+                      fromFees:
+                        type: number
+                        description: referral fees percentage
+                          for a "fromFees" type
+                      fromTurnover:
+                        type: number
+                        description: referral fees percentage
+                          for a "fromTurnover" type
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /account/referral/admin/fees:
+    get:
+      tags:
+        - authenticated
+      summary: admin endpoint for getting referral fees
+      operationId: admin-get-referral-fees
+      description: getting referral fees
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fromFees:
+                    type: number
+                    description: referral fees percentage
+                      for a "fromFees" type
+                  fromTurnover:
+                    type: number
+                    description: referral fees percentage
+                      for a "fromTurnover" type
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authorized
+      summary: admin endpoint for setting referral fees
+      operationId: admin-set-referral-fees
+      description: setting referral fees
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fromFees:
+                  type: number
+                  description: referral fees percentage
+                    for a "fromFees" type
+                fromTurnover:
+                  type: number
+                  description: referral fees percentage
+                    for a "fromTurnover" type
+              required:
+                - fromFees
+                - fromTurnover
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
           description: request failed
           content:
             application/json:
@@ -2492,6 +3261,1559 @@ paths:
                       type: string
                     description: errors descriptions
         "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /fee:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for a fee getting
+      operationId: fee-get
+      description: fee getting
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current:
+                    type: number
+                    description: current fee
+                  next:
+                    type: number
+                    description: upcoming fee
+                    nullable: true
+                  nextTimestamp:
+                    type: integer
+                    description: UNIX timestamp, time when upcoming fee
+                      will be active
+                    nullable: true
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authorized
+      summary: endpoint for a fee setting
+      operationId: fee-set
+      description: fee setting
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fee:
+                  type: number
+                  description: new fee
+                timestamp:
+                  type: integer
+                  description: UNIX timestamp, time
+                    when new fee should be enabled
+              required:
+                - timestamp
+                - fee
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result description
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /fee/{id}:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for a personal fee getting
+      operationId: personal-fee-get
+      description: personal fee getting
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current:
+                    type: number
+                    description: current fee
+                  next:
+                    type: number
+                    description: upcoming fee
+                    nullable: true
+                  nextTimestamp:
+                    type: integer
+                    description: UNIX timestamp, time when upcoming fee
+                      will be active
+                    nullable: true
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - authorized
+      summary: endpoint for a personal fee setting
+      operationId: personal-fee-set
+      description: personal fee setting
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: user id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fee:
+                  type: number
+                  description: new fee
+                timestamp:
+                  type: integer
+                  description: UNIX timestamp, time
+                    when new fee should be enabled
+              required:
+                - timestamp
+                - fee
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting orders list
+      operationId: orders-list
+      description: orders list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of orders
+                    items:
+                      $ref: "#/components/schemas/Order"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/invoice:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for creating order
+      operationId: order-create
+      description: creating order
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: order name
+                price:
+                  type: number
+                  description: order price in specified currency
+                currency:
+                  type: string
+                  description: price currency,
+                    | payment amount will be recalculated to USDT
+                projectId:
+                  type: integer
+                  description: project identifier
+                buyerIdentifier:
+                  type: string
+                  description: buyer identifier for reference
+              required:
+                - name
+                - price
+                - currency
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: created order id
+                  uniqueId:
+                    type: string
+                    description: created order unique identifier for buyers
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting order data
+      operationId: order-get
+      description: getting order data
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: order name
+                  uniqueId:
+                    type: string
+                    description: created order unique identifier for buyers
+                  amount:
+                    type: number
+                    description: quantity * product price
+                  buyerIdentifier:
+                    type: string
+                    description: buyer identifier for reference
+                  data:
+                    type: object
+                  payment_data:
+                    type: object
+                  paid:
+                    type: boolean
+                    description: true if order is paid
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}/admin:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting order data by admin
+      operationId: admin-order-get
+      description: getting order data by admin
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: order name
+                  uniqueId:
+                    type: string
+                    description: created order unique identifier for buyers
+                  amount:
+                    type: number
+                    description: quantity * product price
+                  buyerIdentifier:
+                    type: string
+                    description: buyer identifier for reference
+                  data:
+                    type: object
+                  payment_data:
+                    type: object
+                  paid:
+                    type: boolean
+                    description: true if order is paid
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/payment/{uniqueId}:
+    get:
+      tags:
+        - common
+      summary: endpoint for getting payment data for order
+      operationId: order-payment-get
+      description: getting payment data for order
+      parameters:
+        - in: path
+          name: uniqueId
+          description: order public unique id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                    description: amount to be paid
+                  paymentData:
+                    type: object
+                    properties:
+                      currency:
+                        type: string
+                        description: payment asset name
+                      chain:
+                        type: string
+                        description: payment asset network identifier
+                      address:
+                        type: string
+                        description: payment address
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "404":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+    post:
+      tags:
+        - common
+      summary: endpoint for setting payment data for order
+      operationId: order-payment-set
+      description: setting payment data for order
+      parameters:
+        - in: path
+          name: uniqueId
+          description: order public unique id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: ["fiat", "crypto"]
+                  description: payment type
+                currency:
+                  type: string
+                  description: payment asset name
+                chain:
+                  type: string
+                  description: payment asset network identifier
+              required:
+                - type
+                - currency
+                - chain
+      responses:
+        "200":
+          description: payment data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                    description: amount to be paid
+                  paymentData:
+                    type: object
+                    properties:
+                      currency:
+                        type: string
+                        description: payment asset name
+                      chain:
+                        type: string
+                        description: payment asset network identifier
+                      address:
+                        type: string
+                        description: payment address
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/deposit:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting deposits list
+      operationId: deposits-list
+      description: getting deposits list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+          description: filter by project id
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: status filter
+        - in: query
+          name: startTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+        - in: query
+          name: endTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of deposits
+                    items:
+                      $ref: "#/components/schemas/Order"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/deposit/request:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting deposit requests list
+      operationId: deposit-requests-list
+      description: getting deposit requests list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            description: filter by projectId
+        - in: query
+          name: startTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+        - in: query
+          name: endTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of referrals
+                    items:
+                      $ref: "#/components/schemas/Order"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}/deposit/request:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for creating deposit request by merchant
+        on behalf of user
+      operationId: create-deposit-request
+      description: creating of deposit request
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}/deposit/return:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for returning deposit
+      operationId: return-deposit
+      description: returning deposit
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}/deposit/withhold:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for creating withhold request
+      operationId: create-withhold-request
+      description: creating withhold request
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                withholdAmount:
+                  type: number
+                  description: amount that should be withheld
+              required:
+                - withholdAmount
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}/deposit/document:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for deposit withhold documents uploading
+      operationId: withhold-request-upload
+      description: deposit withhold documents uploading
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                upload:
+                  type: string
+                  format: binary
+              required:
+                - upload
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}/deposit/document/{documentId}/delete:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for deleting deposit withold request file
+      operationId: deposit-withold-file-delete
+      description: deleting deposit withold request file
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: documentId
+          description: uploaded document id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/deposit/withhold:
+    get:
+      tags:
+        - authorized
+      summary: endpoint for getting deposit withhold requests list
+      operationId: withhold-requests-list
+      description: getting deposit withhold requests list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            description: filter by projectId
+        - in: query
+          name: startTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+        - in: query
+          name: endTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of referrals
+                    items:
+                      $ref: "#/components/schemas/Order"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/deposit/withhold/admin:
+    get:
+      tags:
+        - authorized
+      summary: administrator endpoint for getting
+        deposit withhold requests list
+      operationId: admin-withhold-requests-list
+      description: getting deposit withhold requests list by admin
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: requested page number
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            description: filter by projectId
+        - in: query
+          name: startTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+        - in: query
+          name: endTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: current page number
+                  pages:
+                    type: integer
+                    description: pages number
+                  list:
+                    type: array
+                    description: list of referrals
+                    items:
+                      $ref: "#/components/schemas/Order"
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}/deposit/withhold/info/admin:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for requesting additional data
+        for a withhold request
+      operationId: withhold-request-info
+      description: requesting additional data for a withhold request
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                info:
+                  type: string
+                  description: additional info request
+              required:
+                - info
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}/deposit/withhold/approve/admin:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for approving of the withhold request by admin
+      operationId: approve-withhold-request
+      description: approving of the withhold request by admin
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/{id}/deposit/withhold/reject/admin:
+    post:
+      tags:
+        - authorized
+      summary: endpoint for rejecting of the withhold request by admin
+      operationId: reject-withhold-request
+      description: rejecting of the withhold request by admin
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: order id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                withholdRejectReason:
+                  type: string
+                  description: withhold reject reason
+              required:
+                - withholdRejectReason
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: request result
+        "400":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/merchant/currencies:
+    get:
+      tags:
+        - authorized
+      summary: merchant endpoint for getting
+        available currencies list
+      operationId: merchant-currencies
+      description: available currencies list
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: amount
+          schema:
+            type: string
+          description: payment amount in selected currency
+          required: false
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        currency:
+                          type: string
+                        name:
+                          type: string
+                        rate:
+                          type: string
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/payment/currencies:
+    get:
+      tags:
+        - common
+      summary: endpoint for getting available currencies list
+      operationId: payment-currencies
+      description: available currencies list
+      parameters:
+        - in: query
+          name: amount
+          schema:
+            type: string
+          description: payment amount in usdt
+          required: false
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        currency:
+                          type: string
+                        name:
+                          type: string
+                        rate:
+                          type: string
+                        chain:
+                          type: string
+                          description: chain unique name, should be passed for
+                            payment setting
+                        chainName:
+                          type: string
+                          description: display name for a chain
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/merchant/usdt-rate:
+    get:
+      tags:
+        - authorized
+      summary: merchant endpoint for getting specified currency rate in usdt
+      operationId: merchant-usdt-rate
+      description: specified currency rate in usdt
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: amount
+          schema:
+            type: string
+          description: payment amount in selected currency
+          required: true
+        - in: query
+          name: currency
+          schema:
+            type: string
+          description: currency symbol
+          required: true
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        rate:
+                          type: string
+        "403":
+          description: request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    description: errors descriptions
+  /order/payment/usdt-rate:
+    get:
+      tags:
+        - common
+      summary: endpoint for getting rate of payment currency in usdt
+      operationId: payment-usdt-rate
+      description: rate of payment currency in usdt
+      parameters:
+        - in: query
+          name: amount
+          schema:
+            type: string
+          description: payment amount in usdt
+          required: true
+        - in: query
+          name: rate
+          schema:
+            type: string
+          description: payment currency rate in usdt
+          required: true
+      responses:
+        "200":
+          description: request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        currency:
+                          type: string
+                        name:
+                          type: string
+                        rate:
+                          type: string
+        "403":
           description: request failed
           content:
             application/json:
@@ -3247,703 +5569,6 @@ paths:
                     items:
                       type: string
                     description: errors descriptions
-  /order:
-    get:
-      tags:
-        - authorized
-      summary: endpoint for getting orders list
-      operationId: orders-list
-      description: orders list
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: query
-          name: page
-          schema:
-            type: string
-          description: requested page number
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  page:
-                    type: integer
-                    description: current page number
-                  pages:
-                    type: integer
-                    description: pages number
-                  list:
-                    type: array
-                    description: list of orders
-                    items:
-                      $ref: "#/components/schemas/Order"
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-  /order/invoice:
-    post:
-      tags:
-        - authorized
-      summary: endpoint for creating order
-      operationId: order-create
-      description: creating order
-      security:
-        - BearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: order name
-                price:
-                  type: number
-                  description: order price in specified currency
-                currency:
-                  type: string
-                  description: price currency,
-                    | payment amount will be recalculated to USDT
-                projectId:
-                  type: integer
-                  description: project identifier
-                buyerIdentifier:
-                  type: string
-                  description: buyer identifier for reference
-              required:
-                - name
-                - price
-                - currency
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: created order id
-                  uniqueId:
-                    type: string
-                    description: created order unique identifier for buyers
-                  message:
-                    type: string
-                    description: request result
-        "400":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-  /order/{id}:
-    get:
-      tags:
-        - authorized
-      summary: endpoint for getting order data
-      operationId: order-get
-      description: getting order data
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: id
-          description: order id
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  name:
-                    type: string
-                    description: order name
-                  uniqueId:
-                    type: string
-                    description: created order unique identifier for buyers
-                  amount:
-                    type: number
-                    description: quantity * product price
-                  buyerIdentifier:
-                    type: string
-                    description: buyer identifier for reference
-                  data:
-                    type: object
-                  payment_data:
-                    type: object
-                  paid:
-                    type: boolean
-                    description: true if order is paid
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "404":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-  /order/payment/{uniqueId}:
-    get:
-      tags:
-        - common
-      summary: endpoint for getting payment data for order
-      operationId: order-payment-get
-      description: getting payment data for order
-      parameters:
-        - in: path
-          name: uniqueId
-          description: order public unique id
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  amount:
-                    type: number
-                    description: amount to be paid
-                  paymentData:
-                    type: object
-                    properties:
-                      coin:
-                        type: string
-                        description: payment asset name
-                      networkId:
-                        type: string
-                        description: payment asset network identifier
-                      address:
-                        type: string
-                        description: payment address
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "404":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-    post:
-      tags:
-        - common
-      summary: endpoint for setting payment data for order
-      operationId: order-payment-set
-      description: setting payment data for order
-      parameters:
-        - in: path
-          name: uniqueId
-          description: order public unique id
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum: ["fiat", "crypto"]
-                  description: payment type
-                coin:
-                  type: string
-                  description: payment asset name
-                networkId:
-                  type: string
-                  description: payment asset network identifier
-              required:
-                - type
-                - coin
-                - networkId
-      responses:
-        "200":
-          description: payment data
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  amount:
-                    type: number
-                    description: amount to be paid
-                  paymentData:
-                    type: object
-                    properties:
-                      coin:
-                        type: string
-                        description: payment asset name
-                      networkId:
-                        type: string
-                        description: payment asset network identifier
-                      address:
-                        type: string
-                        description: payment address
-        "400":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-  /account/admin:
-    get:
-      tags:
-        - authorized
-      summary: endpoint for getting administrators list
-      operationId: admin-list
-      description: administrators list
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: query
-          name: page
-          schema:
-            type: string
-          description: requested page number
-        - in: query
-          name: search
-          schema:
-            type: string
-          description: email, id or name
-        - in: query
-          name: role
-          schema:
-            type: string
-          description: admin role
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  page:
-                    type: integer
-                    description: current page number
-                  pages:
-                    type: integer
-                    description: pages number
-                  list:
-                    type: array
-                    description: list of projects
-                    items:
-                      $ref: "#/components/schemas/UserList"
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-    post:
-      tags:
-        - authorized
-      summary: endpoint for creating users by admin with granting
-        admin roles
-      operationId: user-create
-      description: creating users by admin with granting admin roles
-      security:
-        - BearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: user email
-                name:
-                  type: string
-                  description: user name
-                roles:
-                  type: array
-                  items:
-                    type: string
-                    description: admin role
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: request result
-        "400":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-  /account/{id}/admin:
-    get:
-      tags:
-        - authorized
-      summary: endpoint for getting user details
-      operationId: admin-get
-      description: getting user details
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: id
-          description: user id
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserItem"
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "404":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-    post:
-      tags:
-        - authorized
-      summary: endpoint for granting admin roles to user
-      operationId: admin-update
-      description: granting admin roles to user
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: id
-          description: project id
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                roles:
-                  type: array
-                  items:
-                    type: string
-                    description: admin roles
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: request result
-        "400":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "404":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-  /account/{id}/admin/enable:
-    post:
-      tags:
-        - authorized
-      summary: endpoint for enabling user account
-      operationId: admin-enable
-      description: enabling user account
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: id
-          description: project id
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: request result
-        "400":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "404":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-  /account/{id}/admin/disable:
-    post:
-      tags:
-        - authorized
-      summary: endpoint for disabling user account
-      operationId: admin-disable
-      description: disabling user account
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: id
-          description: project id
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: request succeeded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: request result
-        "400":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "403":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
-        "404":
-          description: request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                    description: errors descriptions
   /statistics:
     get:
       tags:
@@ -4373,6 +5998,25 @@ components:
             rate:
               type: number
               description: order currency rate to USDT
+        deposit:
+          type: object
+          description: deposit data
+          properties:
+            name:
+              type: string
+              description: order name
+            amount:
+              type: number
+              description: deposit amount in initial currency
+            currency:
+              type: string
+              description: order currency
+            rate:
+              type: number
+              description: order currency rate to USDT
+            returnTime:
+              type: integer
+              description: UTC timestamp of the deposit return time
         amount:
           type: number
           description: price * rate
@@ -4452,7 +6096,7 @@ components:
       required:
         - email
         - label
-    UserList:
+    AdminList:
       type: object
       description: user data
       properties:
@@ -4472,7 +6116,10 @@ components:
         enabled:
           type: boolean
           description: if false - user is blocked
-    UserItem:
+        createdAt:
+          type: integer
+          description: UTC timestamp
+    AdminItem:
       type: object
       description: user data
       properties:
@@ -4488,6 +6135,47 @@ components:
         enabled:
           type: boolean
           description: if false - user is blocked
+        createdAt:
+          type: integer
+          description: UTC timestamp
+    MerchantList:
+      type: object
+      description: user data
+      properties:
+        id:
+          type: integer
+          description: user id
+        email:
+          type: string
+          description: user email
+        data:
+          $ref: "#/components/schemas/ProfileData"
+        enabled:
+          type: boolean
+          description: if false - user is blocked
+        fee:
+          type: number
+          description: individual fee
+        createdAt:
+          type: integer
+          description: UTC timestamp
+    MerchantItem:
+      type: object
+      description: user data
+      properties:
+        email:
+          type: string
+        data:
+          $ref: "#/components/schemas/ProfileData"
+        enabled:
+          type: boolean
+          description: if false - user is blocked
+        fee:
+          type: number
+          description: individual fee
+        createdAt:
+          type: integer
+          description: UTC timestamp
     Statistics:
       type: object
       description: statistics
@@ -4525,3 +6213,37 @@ components:
           type: number
         referralFromTurnover:
           type: number
+    ReferralList:
+      type: object
+      description: referral data
+      properties:
+        referralId:
+          type: integer
+          description: referral account id
+        createdAt:
+          type: integer
+          description: registration date
+        status:
+          type: string
+          enum: ["active", "inActive"]
+          description: active if earnings > 0, inActive otherwise
+        amount:
+          type: number
+          description: earnings from this referral
+    EarningsList:
+      type: object
+      description: earnings data
+      properties:
+        referralId:
+          type: integer
+          description: referral account id for these earnings
+        createdAt:
+          type: integer
+          description: earnings accrual date
+        type:
+          type: string
+          enum: ["active", "inActive"]
+          description: active if earnings > 0, inActive otherwise
+        amount:
+          type: number
+          description: earnings amount

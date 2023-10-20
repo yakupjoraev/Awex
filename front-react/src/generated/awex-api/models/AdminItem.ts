@@ -8,14 +8,7 @@ import type { ProfileData } from './ProfileData';
 /**
  * user data
  */
-export type UserList = {
-    /**
-     * user id
-     */
-    id?: number;
-    /**
-     * user email
-     */
+export type AdminItem = {
     email?: string;
     roles?: Array<string>;
     data?: ProfileData;
@@ -23,4 +16,8 @@ export type UserList = {
      * if false - user is blocked
      */
     enabled?: boolean;
+    /**
+     * UTC timestamp
+     */
+    createdAt?: number;
 };

@@ -8,12 +8,19 @@ import type { ProfileData } from './ProfileData';
 /**
  * user data
  */
-export type UserItem = {
+export type MerchantItem = {
     email?: string;
-    roles?: Array<string>;
     data?: ProfileData;
     /**
      * if false - user is blocked
      */
     enabled?: boolean;
+    /**
+     * individual fee
+     */
+    fee?: number;
+    /**
+     * UTC timestamp
+     */
+    createdAt?: number;
 };

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { MerchantItem } from "./MerchantItem";
-import { AuthorizedService, type UserList } from "@awex-api";
+import { AuthorizedService, type AdminList } from "@awex-api";
 import { MerchantPaginator } from "@components/admin/MerchantPaginator";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
@@ -24,7 +24,7 @@ type ListingItemUpdate = {
   roles?: string[];
 };
 
-type UserListWithFee = UserList & { fee?: number };
+type UserListWithFee = AdminList & { fee?: number };
 
 const QUERY_PARAM_PAGE = "page";
 
@@ -467,7 +467,7 @@ function mergeUpdates(updates: ListingItemUpdate[], update: ListingItemUpdate) {
   }
 }
 
-function fixUserListing(listing: UserList[]): UserList[] {
+function fixUserListing(listing: AdminList[]): AdminList[] {
   return listing.map((item) => {
     if (item.roles && item.roles instanceof Array === false) {
       const nextItem = { ...item };

@@ -30,6 +30,31 @@ currency?: string;
 rate?: number;
 };
     /**
+     * deposit data
+     */
+    deposit?: {
+/**
+ * order name
+ */
+name?: string;
+/**
+ * deposit amount in initial currency
+ */
+amount?: number;
+/**
+ * order currency
+ */
+currency?: string;
+/**
+ * order currency rate to USDT
+ */
+rate?: number;
+/**
+ * UTC timestamp of the deposit return time
+ */
+returnTime?: number;
+};
+    /**
      * price * rate
      */
     amount?: number;
