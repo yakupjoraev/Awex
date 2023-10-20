@@ -368,6 +368,7 @@ export function AdminMerchantsPage() {
                     existingRoles={existingRoles || DEFAULT_EXISTING_ROLES}
                     roles={merchantDetails.roles || DEFAULT_MERCHANT_ROLES}
                     fee={merchantDetails.fee}
+                    createdAt={merchantDetails.createdAt}
                     onToggleEnabled={(enabled) =>
                       handleToogleEnabled(merchantId, enabled)
                     }

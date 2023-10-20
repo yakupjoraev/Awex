@@ -1,6 +1,6 @@
 import { ProfileData } from "@awex-api";
 import classNames from "classnames";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import toast from "react-hot-toast";
 import Tooltip from "rc-tooltip";
@@ -14,6 +14,7 @@ import {
 } from "@constants/path-locations";
 import { QUERY_PARAM_NAVBACK } from "@constants/common-params";
 import { PAGE_ID_ADMIN_STATS } from "@constants/pages";
+import { format } from "date-fns";
 
 export interface MerchantItemProps {
   merchantId: string;
@@ -22,6 +23,7 @@ export interface MerchantItemProps {
   roles: string[];
   existingRoles: string[];
   fee?: number;
+  createdAt?: number;
   onToggleEnabled: (enabled: boolean) => void;
   onUpdateRoles: (roles: string[], cb: () => void) => void;
 }
@@ -50,6 +52,14 @@ export function MerchantItem(props: MerchantItemProps) {
     setRolesPopoverOpen(!rolesPopoverOpen);
   };
 
+  const createdAtLabel = useMemo(
+    () =>
+      props.createdAt !== undefined
+        ? format(props.createdAt * 1000, "dd/MM/yy")
+        : null,
+    [props.createdAt]
+  );
+
   return (
     <div
       className={classNames("admin-marchants__item", { active: expanded })}
@@ -63,9 +73,7 @@ export function MerchantItem(props: MerchantItemProps) {
           </p>
         </div>
         <div className="admin-marchants__item-data">
-          <Tooltip overlay={() => <span>Hello</span>} placement="bottom">
-            <span>10/01/23</span>
-          </Tooltip>
+          {createdAtLabel !== null && <span>{createdAtLabel}</span>}
         </div>
         <div className="admin-marchants__item-comission">
           {props.fee === undefined ? "..." : props.fee.toString() + "%"}
