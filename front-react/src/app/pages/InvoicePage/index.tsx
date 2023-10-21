@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDropdown } from "../../hooks/useDropdown";
 import classNames from "classnames";
 import { SelectCurrencyModal } from "../../components/SelectCurrenyModal";
@@ -6,11 +6,11 @@ import { Helmet } from "react-helmet-async";
 import { useAppSelector } from "@store/hooks";
 import { AppProject } from "src/types";
 
-const DEFAULT_PROJECTS: Record<string, AppProject> = {};
+const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = [];
 
 export function InvoicePage() {
   const [currencySelectorOpened, setCurrencySelectorOpened] = useState(false);
-  const [project, setProject] = useState<AppProject | null>(null);
+  const [projectId, setProjectId] = useState<string | null>(null);
 
   const projects = useAppSelector(
     (state) => state.projects.data || DEFAULT_PROJECTS
@@ -20,11 +20,12 @@ export function InvoicePage() {
   const currencyDropdown = useDropdown<HTMLDivElement>();
 
   useEffect(() => {
-    const allProjects = Object.values(projects);
-    const nextProject: AppProject | null = allProjects.length
-      ? allProjects[0]
-      : null;
-    setProject(nextProject);
+    if (projects.length) {
+      const firstListItem = projects[0];
+      setProjectId(firstListItem.id);
+    } else {
+      setProjectId(null);
+    }
   }, [projects]);
 
   const handleCurrencySelectorClose = () => {
@@ -34,16 +35,30 @@ export function InvoicePage() {
   const handleProjectChange = (
     ev: React.MouseEvent<HTMLLIElement, MouseEvent>
   ) => {
-    const projectId = ev.currentTarget.getAttribute("data-project-id");
-    if (projectId === null) {
+    const nextProjectId = ev.currentTarget.getAttribute("data-project-id");
+    if (nextProjectId === null) {
       return;
     }
-    const nextProject = projects[projectId];
-    if (nextProject) {
-      setProject(nextProject);
+    const projectIndex = projects.findIndex(
+      (listItem) => listItem.id === nextProjectId
+    );
+    if (projectIndex !== -1) {
+      setProjectId(nextProjectId);
     }
     projectDropdown.toggle(false);
   };
+
+  const projectName = useMemo(() => {
+    if (projectId === null) {
+      return "...";
+    }
+    const listItem = projects.find((listItem) => listItem.id === projectId);
+    if (listItem === undefined) {
+      return "...";
+    }
+
+    return listItem.project.name;
+  }, [projects, projectId]);
 
   return (
     <div className="wrapper">
@@ -78,7 +93,7 @@ export function InvoicePage() {
               data-select-arrow
               onClick={() => projectDropdown.toggle()}
             >
-              {project === null ? "..." : project.name}
+              {projectName}
               <img
                 className="invoice__group-select-arrow"
                 src="/img/icons/mini-arrow-down.svg"
@@ -92,7 +107,7 @@ export function InvoicePage() {
               })}
               data-select-list
             >
-              {Object.entries(projects).map(([id, project]) => {
+              {projects.map(({ id, project }) => {
                 return (
                   <li
                     className="invoice__group-item select-item"

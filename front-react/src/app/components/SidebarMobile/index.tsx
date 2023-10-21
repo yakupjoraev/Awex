@@ -7,7 +7,7 @@ import { AppProject } from "../../../types";
 
 interface SidebarMobileProps {
   userName?: string;
-  projects: Record<string, AppProject>;
+  projects?: { id: string; project: AppProject }[];
   onLogout: () => void;
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthorizedService, Project, ProjectData } from "@awex-api";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
@@ -23,14 +23,24 @@ export function EditProjectPage() {
   const navigate = useNavigate();
   const { projectId } = useParams();
   const dispatch = useAppDispatch();
-  const { project, loading: projectsLoading } = useAppSelector((state) => {
-    const { loading, data } = state.projects;
-    let project: AppProject | undefined = undefined;
-    if (data !== undefined && projectId !== undefined) {
-      project = data[projectId];
+  const projectsLoading = useAppSelector((state) => state.projects.loading);
+  const projects = useAppSelector((state) => state.projects.data);
+
+  const project = useMemo(() => {
+    if (projects === undefined) {
+      return undefined;
     }
-    return { loading, project };
-  });
+    if (projectId === undefined) {
+      return undefined;
+    }
+    const listItem = projects.find((listItem) => listItem.id === projectId);
+    if (listItem === undefined) {
+      return undefined;
+    }
+    const project = listItem.project;
+    return project;
+  }, [projects, projectId]);
+
   const [currenciesLoading, setCurrenciesLoading] = useState(false);
   const [currenciesLoadingError, setCurrencyLoadingError] = useState("");
   const [currencies, setCurrenceis] = useState(DEFAULT_CURRENCIES);

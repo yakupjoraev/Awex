@@ -2,7 +2,7 @@ import { ApiError, AuthorizedService } from "@awex-api";
 import { AppProject } from "src/types";
 
 export async function listAllProjects() {
-  const projects: Record<string, AppProject> = {};
+  const idToProject = new Map<string, AppProject>();
 
   let i = 1;
   while (true) {
@@ -49,9 +49,9 @@ export async function listAllProjects() {
       }
       const { data, draft } = projectAndDraft;
       if (draft) {
-        projects[id] = draft;
+        idToProject.set(id, draft);
       } else {
-        projects[id] = data;
+        idToProject.set(id, data);
       }
     }
 
@@ -60,6 +60,10 @@ export async function listAllProjects() {
       break;
     }
   }
+
+  const projects: { id: string; project: AppProject }[] = Array.from(
+    idToProject.entries()
+  ).map(([id, project]) => ({ id, project }));
 
   return projects;
 }

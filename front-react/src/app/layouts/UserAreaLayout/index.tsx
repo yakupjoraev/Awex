@@ -30,12 +30,12 @@ export function UserAreaLayout(props: UserAreaLayoutProps) {
       <Sidebar
         userName={userName}
         onLogout={handleLogout}
-        projects={projects || {}}
+        projects={projects}
       />
       <SidebarMobile
         userName={userName}
         onLogout={handleLogout}
-        projects={projects || {}}
+        projects={projects}
       />
       <Outlet />
     </main>

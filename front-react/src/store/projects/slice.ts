@@ -5,7 +5,7 @@ import { listAllProjects } from "./utils/listAllProjects";
 import { AppProject } from "src/types";
 
 interface ProjectsState {
-  data?: Record<string, AppProject>;
+  data?: { id: string; project: AppProject }[];
   loading: boolean;
   error?: string;
 }
@@ -60,7 +60,15 @@ const slice = createSlice({
     });
     builder.addCase(deleteProject.fulfilled, (state, action) => {
       if (state.data) {
-        delete state.data[action.payload];
+        const index = state.data.findIndex(
+          (listItem) => listItem.id === action.payload
+        );
+        if (index !== -1) {
+          state.data = [
+            ...state.data.slice(0, index),
+            ...state.data.slice(index + 1),
+          ];
+        }
       }
     });
     builder.addCase(getProjects.pending, (state) => {
@@ -76,12 +84,17 @@ const slice = createSlice({
       state.error = error(action.payload);
     });
     builder.addCase(updateProject.fulfilled, (state, action) => {
-      if (state.data) {
-        const project = state.data[action.payload.id];
-        if (project) {
-          Object.assign(project, action.payload.project);
-        }
+      if (!state.data) {
+        return;
       }
+      const index = state.data.findIndex(
+        (listItem) => listItem.id === action.payload.id
+      );
+      if (index === -1) {
+        return;
+      }
+      const project = state.data[index];
+      Object.assign(project, action.payload.project);
     });
   },
 });

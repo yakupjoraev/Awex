@@ -7,7 +7,7 @@ import { AppProject } from "../../../types";
 
 interface SidebarProps {
   userName?: string;
-  projects: Record<string, AppProject>;
+  projects?: { id: string; project: AppProject }[];
   onLogout: () => void;
 }
 
@@ -267,22 +267,23 @@ export function Sidebar(props: SidebarProps) {
                   </NavLink>
                 </li>
 
-                {Object.entries(props.projects).map(([id, project]) => {
-                  return (
-                    <li
-                      className="sidebar__menu-subitem"
-                      data-menu-item=""
-                      key={id}
-                    >
-                      <NavLink
-                        className="sidebar__menu-sublink"
-                        to={"/projects/" + id}
+                {props.projects !== undefined &&
+                  props.projects.map(({ id, project }) => {
+                    return (
+                      <li
+                        className="sidebar__menu-subitem"
+                        data-menu-item=""
+                        key={id}
                       >
-                        {project.name}
-                      </NavLink>
-                    </li>
-                  );
-                })}
+                        <NavLink
+                          className="sidebar__menu-sublink"
+                          to={"/projects/" + id}
+                        >
+                          {project.name}
+                        </NavLink>
+                      </li>
+                    );
+                  })}
               </ul>
             </li>
 
