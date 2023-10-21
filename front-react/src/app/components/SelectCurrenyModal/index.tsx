@@ -1,14 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import classNames from "classnames";
+import { useDebounce } from "usehooks-ts";
+import escapeRegExp from "lodash/escapeRegExp";
+
+const SEARCH_TEXT_DEBOUNCE = 200;
 
 interface SelectCurrencyModalProps {
   open: boolean;
+  currencies?: { currency: string; name?: string; rate?: string }[];
+  loading?: boolean;
+  onSelect?: (currency: string) => void;
   onClose: () => void;
 }
 
 export function SelectCurrencyModal(props: SelectCurrencyModalProps) {
   const modalContentRef = useRef<HTMLFormElement>(null);
-  const [searchText, setSeacrhText] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const debouncedSearchText = useDebounce(searchText, SEARCH_TEXT_DEBOUNCE);
+
+  useEffect(() => {
+    setSearchText("");
+  }, [props.open]);
 
   const handleCoverClick = (ev: React.MouseEvent<HTMLDivElement>) => {
     if (
@@ -21,8 +33,37 @@ export function SelectCurrencyModal(props: SelectCurrencyModalProps) {
   };
 
   const handleSearchInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setSeacrhText(ev.currentTarget.value);
+    setSearchText(ev.currentTarget.value);
   };
+
+  const handleOptionClick = (
+    ev: React.MouseEvent<HTMLLIElement, MouseEvent>
+  ) => {
+    const currency = ev.currentTarget.getAttribute("data-value");
+    if (currency === null) {
+      return;
+    }
+    if (!props.currencies) {
+      return;
+    }
+    const index = props.currencies.findIndex(
+      (listItem) => listItem.currency === currency
+    );
+    if (index === -1) {
+      return;
+    }
+    if (props.onSelect) {
+      props.onSelect(currency);
+      props.onClose();
+    }
+  };
+
+  const currenciesBySearchText = useMemo(() => {
+    if (props.currencies === undefined) {
+      return undefined;
+    }
+    return filterBySearchText(props.currencies, searchText);
+  }, [props.currencies, debouncedSearchText]);
 
   return (
     <div
@@ -62,294 +103,94 @@ export function SelectCurrencyModal(props: SelectCurrencyModalProps) {
 
         <div className="modal-content__main">
           <ul className="crypto__list">
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
-
-            <li className="crypto___item">
-              <img
-                className="crypto__item-pic"
-                src="/img/actives/actives-2.png"
-                alt=""
-              />
-
-              <div className="crypto__item-info">
-                <h4 className="crypto__item-name">Green Metaverse Token</h4>
-
-                <h5 className="crypto__item-subname">BTC</h5>
-              </div>
-
-              <div className="crypto__item-counts">
-                <div className="crypto__item-count--main">1.578697</div>
-
-                <div className="crypto__item-count--second">
-                  ~131567.654 USD
-                </div>
-              </div>
-            </li>
+            {props.loading && "Загрузка..."}
+            {!props.loading &&
+              currenciesBySearchText &&
+              currenciesBySearchText.map((currency) => {
+                return renderOption(
+                  currency,
+                  currency.currency,
+                  handleOptionClick
+                );
+              })}
           </ul>
         </div>
       </form>
     </div>
   );
+}
+
+function renderOption(
+  currency: { currency: string; name?: string; rate?: string },
+  key: string,
+  handleClick: (ev: React.MouseEvent<HTMLLIElement, MouseEvent>) => void
+) {
+  let name: string;
+  let subName: string | undefined;
+
+  if (!currency.name) {
+    name = currency.currency.toUpperCase();
+    subName = undefined;
+  } else {
+    name = currency.name;
+    subName = currency.currency.toUpperCase();
+  }
+
+  return (
+    <li
+      className="crypto___item"
+      key={key}
+      data-value={currency.currency}
+      onClick={handleClick}
+    >
+      <img
+        className="crypto__item-pic"
+        src="/img/actives/actives-2.png"
+        alt=""
+      />
+
+      <div className="crypto__item-info">
+        <div className="crypto__item-name">{name}</div>
+
+        {subName && (
+          <div className="crypto__item-subname">
+            {currency.currency.toUpperCase()}
+          </div>
+        )}
+      </div>
+
+      <div className="crypto__item-counts">
+        {currency.rate !== undefined && (
+          <div className="crypto__item-count--main">{`~${currency.rate} USD`}</div>
+        )}
+      </div>
+    </li>
+  );
+}
+
+function filterBySearchText(
+  currencies: Array<{ currency: string; name?: string; rate?: string }>,
+  searchText: string
+) {
+  let normalizedSearchText = searchText.trim();
+  if (normalizedSearchText.length === 0) {
+    return currencies;
+  }
+  normalizedSearchText = normalizedSearchText.replace(/\s{2,}/g, " ");
+
+  const searchRe = new RegExp(escapeRegExp(normalizedSearchText), "i");
+
+  const filtered = currencies.filter((listItem) => {
+    if (listItem.name !== undefined) {
+      if (searchRe.test(listItem.name)) {
+        return true;
+      }
+    }
+    if (searchRe.test(listItem.currency)) {
+      return true;
+    }
+    return false;
+  });
+
+  return filtered;
 }

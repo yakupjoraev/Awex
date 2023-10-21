@@ -125,6 +125,15 @@
   transform: rotate(180deg);
 }
 
+/* _modals.scss */
+
+.modal-content__qr {
+  background-color: var(--white-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* rc-tooltip/assets/bootstrap.css */
 
 .rc-tooltip-placement-top,

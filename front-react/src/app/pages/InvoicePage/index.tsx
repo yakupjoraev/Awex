@@ -1,64 +1,154 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useDropdown } from "../../hooks/useDropdown";
-import classNames from "classnames";
-import { SelectCurrencyModal } from "../../components/SelectCurrenyModal";
+import { useEffect, useId, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useAppSelector } from "@store/hooks";
-import { AppProject } from "src/types";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { AppProject } from "../../../types";
+import { invoiceFormValidator } from "./validators";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, Controller } from "react-hook-form";
+import { InvoiceProjectSelector } from "./InvoiceProjectSelector";
+import { InvoiceCurrencySelector } from "./InvoiceCurrencySelector";
+import { getProjects } from "@store/projects/slice";
+import { AuthenticatedService, AuthorizedService } from "@awex-api";
+import toast from "react-hot-toast";
+import usePortal from "react-useportal";
+import { PaymentLinkModal } from "@components/PaymentLinkModal";
 
 const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = [];
 
+const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] =
+  [];
+
+interface InvoiceFormData {
+  projectId: string;
+  name: string;
+  amount: number;
+  currency: string;
+}
+
+const DEFAULT_FORM_DATA: InvoiceFormData = {
+  projectId: "",
+  name: "",
+  amount: 0,
+  currency: "",
+};
+
 export function InvoicePage() {
-  const [currencySelectorOpened, setCurrencySelectorOpened] = useState(false);
-  const [projectId, setProjectId] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+
+  const nameId = useId();
+  const amountId = useId();
 
   const projects = useAppSelector(
     (state) => state.projects.data || DEFAULT_PROJECTS
   );
+  const projectsError = useAppSelector((state) => state.projects.error);
 
-  const projectDropdown = useDropdown<HTMLDivElement>();
-  const currencyDropdown = useDropdown<HTMLDivElement>();
+  const [currencies, setCurrencies] = useState(DEFAULT_CURRENCIES);
+  const [currenciesLoading, setCurrenciesLoading] = useState(false);
+  const [currenciesError, setCurrenciesError] = useState<string | null>(null);
+
+  const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false);
+  const [paymentToken, setPaymentToken] = useState<string | null>(null);
+
+  const { Portal } = usePortal();
 
   useEffect(() => {
-    if (projects.length) {
-      const firstListItem = projects[0];
-      setProjectId(firstListItem.id);
-    } else {
-      setProjectId(null);
-    }
+    setCurrenciesLoading(true);
+    AuthorizedService.merchantCurrencies()
+      .then((response) => {
+        if (!response.currencies) {
+          setCurrencies(DEFAULT_CURRENCIES);
+        } else {
+          const nextCurrencies: {
+            currency: string;
+            name?: string;
+            rate?: string;
+          }[] = [];
+          for (const listItem of response.currencies) {
+            if (listItem.currency === undefined) {
+              continue;
+            }
+            nextCurrencies.push({
+              currency: listItem.currency,
+              name: listItem.name,
+              rate: listItem.rate,
+            });
+          }
+          setCurrencies(nextCurrencies);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setCurrenciesError(
+          typeof error.message === "string"
+            ? error.message
+            : "failed to load currencies"
+        );
+      })
+      .finally(() => {
+        setCurrenciesLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    dispatch(getProjects());
+  }, [dispatch]);
+
+  const {
+    register,
+    setValue,
+    setError,
+    handleSubmit,
+    control,
+    formState: { errors },
+    getValues,
+    reset,
+  } = useForm<InvoiceFormData>({
+    defaultValues: DEFAULT_FORM_DATA,
+    resolver: yupResolver(invoiceFormValidator),
+  });
+
+  useEffect(() => {
+    setValue("projectId", "");
   }, [projects]);
 
-  const handleCurrencySelectorClose = () => {
-    setCurrencySelectorOpened(false);
-  };
-
-  const handleProjectChange = (
-    ev: React.MouseEvent<HTMLLIElement, MouseEvent>
-  ) => {
-    const nextProjectId = ev.currentTarget.getAttribute("data-project-id");
-    if (nextProjectId === null) {
+  const handleInvoiceFormSubmit = handleSubmit((formData) => {
+    const projectId = parseInt(formData.projectId, 10);
+    if (isNaN(projectId)) {
       return;
     }
-    const projectIndex = projects.findIndex(
-      (listItem) => listItem.id === nextProjectId
-    );
-    if (projectIndex !== -1) {
-      setProjectId(nextProjectId);
-    }
-    projectDropdown.toggle(false);
+
+    AuthorizedService.orderCreate({
+      name: formData.name,
+      price: formData.amount,
+      currency: formData.currency,
+      projectId: projectId,
+    })
+      .then((response) => {
+        if (response.uniqueId) {
+          setPaymentLinkModalOpened(true);
+          setPaymentToken(response.uniqueId);
+        } else {
+          toast.error("Не удалось создать платежную ссылку.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Не удалось создать платежную ссылку.");
+      });
+  });
+
+  const handlePaymentLinkModalClose = () => {
+    setPaymentLinkModalOpened(false);
   };
 
-  const projectName = useMemo(() => {
-    if (projectId === null) {
-      return "...";
-    }
-    const listItem = projects.find((listItem) => listItem.id === projectId);
-    if (listItem === undefined) {
-      return "...";
-    }
-
-    return listItem.project.name;
-  }, [projects, projectId]);
+  const projectOptions = useMemo(() => {
+    return projects.map(({ id, project }) => ({
+      value: id,
+      label: project.name,
+      key: id,
+    }));
+  }, [projects]);
 
   return (
     <div className="wrapper">
@@ -67,693 +157,110 @@ export function InvoicePage() {
         <div className="invoice__header">
           <div className="invoice__header-label">
             <h1 className="invoice__title main-title">Выставление счета</h1>
-
-            <img
-              className="invoice__header-img"
-              src="/img/icons/tooltip.svg"
-              alt="tooltip"
-            />
           </div>
-
-          <a className="invoice__header-link second-btn" href="#">
-            Выбрать шаблон
-          </a>
         </div>
 
-        <div className="invoice__wrapper">
-          <div
-            className="invoice__group-select invoice__group-textarea"
-            data-select-wrapper
-          >
-            <div
-              className={classNames(
-                "invoice__group-selected invoice-project__group-selected",
-                { active: projectDropdown.opened }
-              )}
-              data-select-arrow
-              onClick={() => projectDropdown.toggle()}
-            >
-              {projectName}
-              <img
-                className="invoice__group-select-arrow"
-                src="/img/icons/mini-arrow-down.svg"
-                alt="mini-arrow-down"
-              />
-            </div>
-
-            <ul
-              className={classNames("invoice__group-list select-list", {
-                active: projectDropdown.opened,
-              })}
-              data-select-list
-            >
-              {projects.map(({ id, project }) => {
-                return (
-                  <li
-                    className="invoice__group-item select-item"
-                    data-select-item
-                    data-project-id={id}
-                    onClick={handleProjectChange}
-                  >
-                    {project.name}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div className="invoice-project__groups project-groups">
-            <div className="invoice-project__group invoice-project__group--transparent project-group">
-              <div className="invoice-project__group invoice-project__group-changes">
-                <div className="invoice-project__radios">
-                  <div className="invoice-project__label project-label">
-                    <img
-                      className="invoice-project__label-img"
-                      src="/img/icons/checkbox-circle-checked.svg"
-                      alt="checkbox-circle-checked"
-                    />
-
-                    <p className="invoice-project__label-descr project-label-descr">
-                      Конвертировать в:
-                    </p>
-
-                    <div className="invoice-project__radio-container">
-                      <div className="invoice-project__radio-group">
-                        <input
-                          className="invoice-project__radio"
-                          type="radio"
-                          name="marka"
-                          id="radio10"
-                          defaultChecked
-                        />
-
-                        <label
-                          className="invoice-project__radio-label"
-                          htmlFor="radio10"
-                        >
-                          Фиат
-                        </label>
-                      </div>
-
-                      <div className="invoice-project__radio-group">
-                        <input
-                          className="invoice-project__radio"
-                          type="radio"
-                          name="marka"
-                          id="radio11"
-                        />
-
-                        <label
-                          className="invoice-project__radio-label"
-                          htmlFor="radio11"
-                        >
-                          Крипто
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="invoice-project__group-select"
-                  data-select-wrapper
-                  ref={currencyDropdown.containerRef}
-                >
-                  <div
-                    className={classNames(
-                      "invoice-project__group-selected invoice-project__group-selected--not-beetwen",
-                      { active: currencyDropdown.opened }
-                    )}
-                    data-select-arrow
-                    onClick={() => currencyDropdown.toggle()}
-                  >
-                    Выберете валюту
-                    <img
-                      className="invoice-project__group-select-arrow"
-                      src="/img/icons/mini-arrow-down.svg"
-                      alt="mini-arrow-down"
-                    />
-                  </div>
-
-                  <ul
-                    className={classNames(
-                      "invoice-project__group-list select-list",
-                      { active: currencyDropdown.opened }
-                    )}
-                    data-select-list
-                  >
-                    <li
-                      className="invoice-project__group-item select-item"
-                      data-select-item
-                      onClick={() => currencyDropdown.toggle(false)}
-                    >
-                      Валюта
-                    </li>
-                    <li
-                      className="invoice-project__group-item select-item"
-                      data-select-item
-                      onClick={() => currencyDropdown.toggle(false)}
-                    >
-                      Валюта
-                    </li>
-                    <li
-                      className="invoice-project__group-item select-item"
-                      data-select-item
-                      onClick={() => currencyDropdown.toggle(false)}
-                    >
-                      Валюта
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="invoice-project__group invoice-project__group--transparent project-group">
-              <div className="invoice-project__radios">
-                <label
-                  className="invoice-project__label project-label"
-                  htmlFor="#"
-                >
-                  Комиссию оплачивает:
-                  <img
-                    className="invoice-project__label-pic"
-                    src="/img/icons/tooltip.svg"
-                    alt="tooltip"
-                  />
-                </label>
-
-                <div className="invoice-project__radio-container">
-                  <div className="invoice-project__radio-group">
-                    <input
-                      className="invoice-project__radio"
-                      type="radio"
-                      name="pay"
-                      id="radio12"
-                      defaultChecked
-                    />
-
-                    <label
-                      className="invoice-project__radio-label"
-                      htmlFor="radio12"
-                    >
-                      Мерчант
-                    </label>
-                  </div>
-
-                  <div className="invoice-project__radio-group">
-                    <input
-                      className="invoice-project__radio"
-                      type="radio"
-                      name="pay"
-                      id="radio13"
-                    />
-
-                    <label
-                      className="invoice-project__radio-label"
-                      htmlFor="radio13"
-                    >
-                      Клиент
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="invoice-project__label project-label invoice__group-textarea">
-            <img
-              className="invoice-project__label-img"
-              src="/img/icons/checkbox-circle-checked.svg"
-              alt="checkbox-circle-checked"
-            />
-
-            <p className="invoice-project__label-descr project-label-descr">
-              Использовать депозит
-            </p>
-          </div>
-
-          <div className="invoice-project__groups project-groups">
-            <div className="invoice-project__group project-group">
-              <label
-                className="invoice-project__label project-label"
-                htmlFor="#"
-              >
-                Депозит
-              </label>
-
-              <input
-                className="invoice-project__input project-input"
-                type="text"
-                placeholder="Введите сумму депозита"
-              />
-            </div>
-
-            <div className="invoice-project__group project-group">
-              <label
-                className="invoice-project__label project-label"
-                htmlFor="#"
-              >
-                Срок депозита
-              </label>
-
-              <input
-                className="invoice-project__input project-input"
-                type="text"
-                placeholder="Введите количество дней"
-              />
-            </div>
-          </div>
+        <form className="invoice__wrapper" onSubmit={handleInvoiceFormSubmit}>
+          <Controller
+            control={control}
+            name="projectId"
+            render={({ field }) => {
+              return (
+                <InvoiceProjectSelector
+                  value={field.value}
+                  options={projectOptions}
+                  error={errors?.projectId?.message}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                />
+              );
+            }}
+          />
 
           <div className="invoice-project__group project-group invoice__group-textarea">
-            <label className="invoice-project__label project-label" htmlFor="#">
+            <label
+              className="invoice-project__label project-label"
+              htmlFor={nameId}
+            >
               Наименование товара или услуги
-              <img
-                className="invoice-project__label-pic"
-                src="/img/icons/tooltip.svg"
-                alt="tooltip"
-              />
             </label>
 
             <textarea
               className="invoice-project__textarea project-textarea"
+              id={nameId}
               placeholder="Введите наименование товара, номер договора, ФИО клиента и комментарий, отображающий особенность услуги или товара"
+              {...register("name")}
             ></textarea>
+            {errors.name?.message && (
+              <div className="project-error">{errors.name.message}</div>
+            )}
           </div>
 
           <div className="about-deposit__generation-select invoice__generation-select">
             <div className="about-deposit__generation-selected about-deposit__generation-selected--not-reverse">
               <div className="about-deposit__generation-info">
-                <h5 className="about-deposit__generation-title">Сумма</h5>
+                <label
+                  className="about-deposit__generation-title"
+                  htmlFor={amountId}
+                >
+                  Сумма
+                </label>
 
                 <input
                   className="about-deposit__generation-input"
+                  id={amountId}
                   type="number"
                   placeholder="Введите сумму"
+                  {...register("amount")}
                 />
               </div>
-
-              <div
-                className="about-deposit__generation-currency open-modal-btn"
-                onClick={() => setCurrencySelectorOpened(true)}
-              >
-                <div className="about-deposit__generation-curr">RUB</div>
-
-                <img
-                  className="about-deposit__generation-img"
-                  src="/img/icons/arrow-down.svg"
-                  alt="arrow-down"
-                />
-              </div>
-
-              <div className="modal" id="select-modal">
-                <form
-                  action="#"
-                  className="modal-content modal-content--select-list"
-                >
-                  <div className="modal-content__header">
-                    <h4 className="modal-content__title">
-                      Выберете криптовалюту:
-                    </h4>
-
-                    <button className="close-modal-btn">
-                      <img src="/img/icons/close-modal.svg" alt="" />
-                    </button>
-                  </div>
-
-                  <div className="deposits__filter-search search-group">
-                    <input
-                      className="deposits__filter-src search-input"
-                      type="search"
-                      placeholder="Поиск"
+              <Controller
+                name="currency"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <InvoiceCurrencySelector
+                      currency={field.value}
+                      currencies={currencies}
+                      loading={currenciesLoading}
+                      onChange={field.onChange}
                     />
-                    <img
-                      className="deposits__filter-search-img search-img"
-                      src="/img/icons/search.svg"
-                      alt="Поиск"
-                    />
-                  </div>
-
-                  <div className="modal-content__main">
-                    <ul className="crypto__list">
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-
-                      <li className="crypto___item">
-                        <img
-                          className="crypto__item-pic"
-                          src="/img/actives/actives-2.png"
-                          alt=""
-                        />
-
-                        <div className="crypto__item-info">
-                          <h4 className="crypto__item-name">
-                            Green Metaverse Token
-                          </h4>
-
-                          <h5 className="crypto__item-subname">BTC</h5>
-                        </div>
-
-                        <div className="crypto__item-counts">
-                          <div className="crypto__item-count--main">
-                            1.578697
-                          </div>
-
-                          <div className="crypto__item-count--second">
-                            ~131567.654 USD
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </form>
-              </div>
+                  );
+                }}
+              />
             </div>
+            {errors.amount?.message && (
+              <div className="project-error">{errors.amount.message}</div>
+            )}
+            {errors.currency?.message && (
+              <div className="project-error">{errors.currency.message}</div>
+            )}
           </div>
 
+          {errors.root?.message && (
+            <div className="my-projects__error">{errors.root.message}</div>
+          )}
+          {projectsError && (
+            <div className="my-projects__error">
+              Не удалось загрузить список проектов.
+            </div>
+          )}
           <div className="invoice-project__item-btns my-projects__item-btns">
-            <button
-              type="button"
-              className="invoice-project__btn second-btn"
-              onClick={() => alert("NOT IMPLEMENTED")}
-            >
+            <button type="submit" className="invoice-project__btn second-btn">
               Сгенерировать платежную ссылку
             </button>
           </div>
-        </div>
-        <SelectCurrencyModal
-          open={currencySelectorOpened}
-          onClose={handleCurrencySelectorClose}
-        />
+        </form>
       </section>
+      {paymentToken !== null && (
+        <Portal>
+          <PaymentLinkModal
+            open={paymentLinkModalOpened}
+            token={paymentToken}
+            onClose={handlePaymentLinkModalClose}
+          />
+        </Portal>
+      )}
     </div>
   );
 }
