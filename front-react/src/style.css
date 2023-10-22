@@ -140,6 +140,12 @@
   height: auto;
 }
 
+.modal-content__not-supported {
+  text-align: center;
+  color: var(--grey-color-2);
+  padding: 5px 0;
+}
+
 /* _successfully-invoice.scss */
 
 .successfully-invoice__item-code {

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 export interface PaymentLinkModalProps {
   open: boolean;
   token: string;
+  text?: string;
   onClose: () => void;
 }
 
@@ -27,10 +28,36 @@ export function PaymentLinkModal(props: PaymentLinkModalProps) {
     toast.success("Скопировано!");
   };
 
+  const handleShare = () => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    if (!window.navigator.canShare || !window.navigator.share) {
+      toast.error("Не удалось поделиться.");
+      return;
+    }
+    const shareRequest = {
+      title: "Платежная ссылка",
+      url: paymentLink,
+      text: "description",
+    };
+
+    if (window.navigator.canShare(shareRequest)) {
+      window.navigator.share(shareRequest).catch((error) => {
+        console.error(error);
+        toast.error("Не удалось поделиться.");
+      });
+    } else {
+      toast.error("Не удалось поделиться.");
+    }
+  };
+
   const paymentLink =
     typeof window === "undefined"
       ? "http://example.com/"
       : window.location.origin + "/payment/" + props.token;
+
+  const canShare = typeof window !== "undefined" && !!window.navigator.share;
 
   return (
     <div
@@ -85,9 +112,19 @@ export function PaymentLinkModal(props: PaymentLinkModalProps) {
             </CopyToClipboard>
           </div>
         </div>
-        <button type="button" className="modal-content__btn second-btn">
-          Поделиться
-        </button>
+        {canShare ? (
+          <button
+            type="button"
+            className="modal-content__btn second-btn"
+            onClick={handleShare}
+          >
+            Поделиться
+          </button>
+        ) : (
+          <div className="modal-content__not-supported">
+            Web Share API не поддерживается в этом браузере.
+          </div>
+        )}
       </div>
     </div>
   );

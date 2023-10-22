@@ -49,6 +49,9 @@ export function InvoicePage() {
 
   const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false);
   const [paymentToken, setPaymentToken] = useState<string | null>(null);
+  const [paymentDescription, setPaymentDescription] = useState<
+    string | undefined
+  >(undefined);
 
   const { Portal } = usePortal();
 
@@ -128,6 +131,7 @@ export function InvoicePage() {
         if (response.uniqueId) {
           setPaymentLinkModalOpened(true);
           setPaymentToken(response.uniqueId);
+          setPaymentDescription(formData.name);
         } else {
           toast.error("Не удалось создать платежную ссылку.");
         }
@@ -257,6 +261,7 @@ export function InvoicePage() {
           <PaymentLinkModal
             open={paymentLinkModalOpened}
             token={paymentToken}
+            text={paymentDescription}
             onClose={handlePaymentLinkModalClose}
           />
         </Portal>
