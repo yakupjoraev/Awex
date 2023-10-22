@@ -13,6 +13,7 @@ export interface DepositsFilterDateProps {
   label: string;
   value?: DateRange;
   onChange: (value: DateRange | undefined) => void;
+  onClose?: () => void;
 }
 
 export function DepositsFilterDate(props: DepositsFilterDateProps) {
@@ -20,6 +21,9 @@ export function DepositsFilterDate(props: DepositsFilterDateProps) {
 
   const handleClickOutside = () => {
     setPopoverOpen(false);
+    if (props.onClose) {
+      props.onClose();
+    }
   };
 
   const handleRangeChange = (nextRange: DateRange | undefined) => {

@@ -10,7 +10,7 @@ import { EditProjectPage } from "./pages/EditProjectPage";
 import { UserAreaLayout } from "./layouts/UserAreaLayout";
 import { CreateProjectPage } from "./pages/CreateProjectPage";
 import { InvoicePage } from "./pages/InvoicePage";
-import { SuccessfullyInvoicePage } from "./pages/SuccessfullyInvoicePage";
+import { InvoicesPage } from "./pages/InvoicesPage";
 import { Toaster } from "react-hot-toast";
 import { DepositsPage } from "./pages/DepositsPage";
 import { DepositRetentionPage } from "./pages/DepositRetentionPage";
@@ -69,7 +69,7 @@ export function App() {
           <Route path="/invoice" element={<InvoicePage />} />
           <Route
             path="/successfully-invoice"
-            element={<SuccessfullyInvoicePage />}
+            element={<InvoicesPage />}
           />
           <Route path="/deposits" element={<DepositsPage />} />
           <Route path="/deposit-retention" element={<DepositRetentionPage />} />

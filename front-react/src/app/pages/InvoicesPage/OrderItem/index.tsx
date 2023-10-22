@@ -1,21 +1,20 @@
-import React from "react";
 import classNames from "classnames";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-hot-toast";
 
-export interface SuccessfullyInvoiceItemProps {
-  status: "paid" | "expired" | "pending";
-  code: string;
-  onShowQr: (code: string) => void;
+export interface OrderItemProps {
+  status: "wait" | "paid" | "expired";
+  orderId: string;
+  onShowQr: (orderId: string) => void;
 }
 
-export function SuccessfullyInvoiceItem(props: SuccessfullyInvoiceItemProps) {
+export function OrderItem(props: OrderItemProps) {
   const handleСodeCopy = () => {
-    toast("Скопировано!");
+    toast.success("Скопировано!");
   };
 
   const handleQrBtnClick = () => {
-    props.onShowQr(props.code);
+    props.onShowQr(props.orderId);
   };
 
   let statusLabel;
@@ -28,11 +27,18 @@ export function SuccessfullyInvoiceItem(props: SuccessfullyInvoiceItemProps) {
       statusLabel = "Истек";
       break;
     }
-    case "pending": {
+    case "wait": {
       statusLabel = "В ожидании";
       break;
     }
   }
+
+  const paymentLink =
+    (typeof window === "undefined"
+      ? "http://example.com"
+      : window.location.origin) +
+    "/payment/" +
+    props.orderId;
 
   return (
     <li className="successfully-invoice__item">
@@ -40,15 +46,21 @@ export function SuccessfullyInvoiceItem(props: SuccessfullyInvoiceItemProps) {
         <div
           className={classNames(
             "successfully-invoice__item-status",
-            props.status
+            getStatusBadgeModifier(props.status)
           )}
         >
           {statusLabel}
         </div>
 
-        <div className="successfully-invoice__item-code">{props.code}</div>
+        <a
+          className="successfully-invoice__item-code"
+          href={paymentLink}
+          target="_blank"
+        >
+          {props.orderId}
+        </a>
 
-        <CopyToClipboard text={props.code} onCopy={handleСodeCopy}>
+        <CopyToClipboard text={paymentLink} onCopy={handleСodeCopy}>
           <img
             className="successfully-invoice__item-copy"
             src="/img/icons/copy.svg"
@@ -69,4 +81,18 @@ export function SuccessfullyInvoiceItem(props: SuccessfullyInvoiceItemProps) {
       </a>
     </li>
   );
+}
+
+function getStatusBadgeModifier(status: "wait" | "paid" | "expired"): string {
+  switch (status) {
+    case "wait": {
+      return "pending";
+    }
+    case "paid": {
+      return "paid";
+    }
+    case "expired": {
+      return "expired";
+    }
+  }
 }

@@ -59,7 +59,33 @@ returnTime?: number;
      */
     amount?: number;
     /**
+     * deposit amount in usd
+     */
+    depositAmount?: number;
+    /**
      * buyer identifier for reference
      */
     buyerIdentifier?: string;
+    /**
+     * order status
+     */
+    status?: Order.status;
+    /**
+     * UNIX timestamp of creation time
+     */
+    createdAt?: number;
 };
+
+export namespace Order {
+
+    /**
+     * order status
+     */
+    export enum status {
+        WAIT = 'wait',
+        PAID = 'paid',
+        EXPIRED = 'expired',
+    }
+
+
+}

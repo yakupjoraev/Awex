@@ -458,7 +458,7 @@ currency?: string;
 name?: string;
 rate?: string;
 /**
- * chain unique name, should be passed for payment setting
+ * chain unique name, should be passed for
  */
 chain?: string;
 /**

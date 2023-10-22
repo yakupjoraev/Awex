@@ -3527,6 +3527,27 @@ paths:
           schema:
             type: string
           description: requested page number
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+          description: filter by project id
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: ["wait", "paid", "expired"]
+          description: status filter
+        - in: query
+          name: startTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
+        - in: query
+          name: endTime
+          schema:
+            type: integer
+          description: UTC timestamp for start time filter
       responses:
         "200":
           description: request succeeded
@@ -3673,11 +3694,15 @@ paths:
                     description: buyer identifier for reference
                   data:
                     type: object
-                  payment_data:
+                  paymentData:
                     type: object
-                  paid:
-                    type: boolean
-                    description: true if order is paid
+                  status:
+                    type: string
+                    enum: ["wait", "paid", "expired"]
+                    description: order status
+                  createdAt:
+                    type: integer
+                    description: UNIX timestamp of creation time
         "403":
           description: request failed
           content:
@@ -3740,11 +3765,15 @@ paths:
                     description: buyer identifier for reference
                   data:
                     type: object
-                  payment_data:
+                  paymentData:
                     type: object
-                  paid:
-                    type: boolean
-                    description: true if order is paid
+                  status:
+                    type: string
+                    enum: ["wait", "paid", "expired"]
+                    description: order status
+                  createdAt:
+                    type: integer
+                    description: UNIX timestamp of creation time
         "403":
           description: request failed
           content:
@@ -3935,6 +3964,7 @@ paths:
           name: status
           schema:
             type: string
+            enum: ["wait", "paid", "expired"]
           description: status filter
         - in: query
           name: startTime
@@ -4709,7 +4739,6 @@ paths:
                         chain:
                           type: string
                           description: chain unique name, should be passed for
-                            payment setting
                         chainName:
                           type: string
                           description: display name for a chain
@@ -6020,9 +6049,19 @@ components:
         amount:
           type: number
           description: price * rate
+        depositAmount:
+          type: number
+          description: deposit amount in usd
         buyerIdentifier:
           type: string
           description: buyer identifier for reference
+        status:
+          type: string
+          enum: ["wait", "paid", "expired"]
+          description: order status
+        createdAt:
+          type: integer
+          description: UNIX timestamp of creation time
     ProfileData:
       type: object
       description: profile display information

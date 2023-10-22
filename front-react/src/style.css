@@ -132,6 +132,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  aspect-ratio: 1/1;
+}
+
+.modal-content__qr-img {
+  width: 80%;
+  height: auto;
+}
+
+/* _successfully-invoice.scss */
+
+.successfully-invoice__item-code {
+  color: var(--text-color);
+}
+
+/* _deposits.scss */
+
+.deposits__filter-select {
+  min-width: 160px;
 }
 
 /* rc-tooltip/assets/bootstrap.css */

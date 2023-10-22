@@ -1045,11 +1045,19 @@ message?: string;
      * endpoint for getting orders list
      * orders list
      * @param page requested page number
+     * @param projectId filter by project id
+     * @param status status filter
+     * @param startTime UTC timestamp for start time filter
+     * @param endTime UTC timestamp for start time filter
      * @returns any request succeeded
      * @throws ApiError
      */
     public static ordersList(
 page?: string,
+projectId?: number,
+status?: 'wait' | 'paid' | 'expired',
+startTime?: number,
+endTime?: number,
 ): CancelablePromise<{
 /**
  * current page number
@@ -1069,6 +1077,10 @@ list?: Array<Order>;
             url: '/order',
             query: {
                 'page': page,
+                'projectId': projectId,
+                'status': status,
+                'startTime': startTime,
+                'endTime': endTime,
             },
             errors: {
                 403: `request failed`,
@@ -1159,11 +1171,15 @@ amount?: number;
  */
 buyerIdentifier?: string;
 data?: Record<string, any>;
-payment_data?: Record<string, any>;
+paymentData?: Record<string, any>;
 /**
- * true if order is paid
+ * order status
  */
-paid?: boolean;
+status?: 'wait' | 'paid' | 'expired';
+/**
+ * UNIX timestamp of creation time
+ */
+createdAt?: number;
 }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1205,11 +1221,15 @@ amount?: number;
  */
 buyerIdentifier?: string;
 data?: Record<string, any>;
-payment_data?: Record<string, any>;
+paymentData?: Record<string, any>;
 /**
- * true if order is paid
+ * order status
  */
-paid?: boolean;
+status?: 'wait' | 'paid' | 'expired';
+/**
+ * UNIX timestamp of creation time
+ */
+createdAt?: number;
 }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1238,7 +1258,7 @@ paid?: boolean;
     public static depositsList(
 page?: string,
 projectId?: number,
-status?: string,
+status?: 'wait' | 'paid' | 'expired',
 startTime?: number,
 endTime?: number,
 ): CancelablePromise<{

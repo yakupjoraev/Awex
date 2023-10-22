@@ -60,7 +60,11 @@ export function PaymentLinkModal(props: PaymentLinkModalProps) {
             Ваша ссылка сгенерирована!
           </h3>
           <div className="modal-content__qr">
-            <QRCode value={paymentLink} size={156} />
+            <QRCode
+              className="modal-content__qr-img"
+              value={paymentLink}
+              size={156}
+            />
           </div>
           <div className="modal-content__copy">
             <a

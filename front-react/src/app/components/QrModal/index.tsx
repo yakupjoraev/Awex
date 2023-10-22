@@ -1,8 +1,10 @@
 import React from "react";
 import classNames from "classnames";
+import QRCode from "react-qr-code";
 
 export interface QrModalPorps {
   open: boolean;
+  value: string;
   onClose: () => void;
 }
 
@@ -22,7 +24,12 @@ export function QrModal(props: QrModalPorps) {
 
         <div className="modal-content__main">
           <div className="modal-content__qr modal-content__qr--big">
-            <img className="modal-content__qr-img" src="/img/qr.png" alt="" />
+            <QRCode
+              className="modal-content__qr-img"
+              value={props.value}
+              size={320}
+              viewBox="0 0 400 400"
+            />
           </div>
         </div>
       </form>
