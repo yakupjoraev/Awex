@@ -158,6 +158,40 @@
   min-width: 160px;
 }
 
+/* _invoice.scss */
+
+.invoice-project__group--disabled {
+  background-color: var(--bg-color);
+}
+
+.invoice-project__label--disabled {
+  color: var(--grey-color);
+}
+
+.invoice-project__input:disabled::placeholder {
+  color: var(--grey-color);
+}
+
+.invoice-project__group-select--disabled {
+  color: var(--grey-color);
+}
+
+.invoice-project__group-selected--disabled {
+  background-color: var(--bg-color);
+}
+
+.invoice-project__group-select-arrow {
+  fill: currentColor;
+}
+
+.invoice-project__radio-label--disabled {
+  color: var(--bg-grey-color);
+}
+
+.invoice-project__radio:checked ~ .invoice-project__radio-label--disabled {
+  color: var(--grey-color);
+}
+
 /* rc-tooltip/assets/bootstrap.css */
 
 .rc-tooltip-placement-top,

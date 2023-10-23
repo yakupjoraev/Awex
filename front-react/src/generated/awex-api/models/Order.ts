@@ -63,6 +63,10 @@ returnTime?: number;
      */
     depositAmount?: number;
     /**
+     * UTC timestamp time when deposit should be returned
+     */
+    depositReturnTime?: number;
+    /**
      * buyer identifier for reference
      */
     buyerIdentifier?: string;

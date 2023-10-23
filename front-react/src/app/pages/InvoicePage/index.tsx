@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { AppProject } from "../../../types";
 import { invoiceFormValidator } from "./validators";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { InvoiceProjectSelector } from "./InvoiceProjectSelector";
 import { InvoiceCurrencySelector } from "./InvoiceCurrencySelector";
 import { getProjects } from "@store/projects/slice";
@@ -12,6 +12,8 @@ import { AuthenticatedService, AuthorizedService } from "@awex-api";
 import toast from "react-hot-toast";
 import usePortal from "react-useportal";
 import { PaymentLinkModal } from "@components/PaymentLinkModal";
+import { DepositCurrencySelector } from "./DepositCurrencySelector";
+import classNames from "classnames";
 
 const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = [];
 
@@ -23,29 +25,33 @@ interface InvoiceFormData {
   name: string;
   amount: number;
   currency: string;
+  useConvertTo?: boolean;
+  useDeposit?: boolean;
+  depositCurrency?: string;
+  depositAmount?: number;
+  depositReturnAt?: number;
 }
-
-const DEFAULT_FORM_DATA: InvoiceFormData = {
-  projectId: "",
-  name: "",
-  amount: 0,
-  currency: "",
-};
 
 export function InvoicePage() {
   const dispatch = useAppDispatch();
 
   const nameId = useId();
   const amountId = useId();
+  const useConvertToId = useId();
+  const useDepositId = useId();
+  const depositAmountId = useId();
+  const depositReturnAtId = useId();
 
   const projects = useAppSelector(
     (state) => state.projects.data || DEFAULT_PROJECTS
   );
   const projectsError = useAppSelector((state) => state.projects.error);
 
-  const [currencies, setCurrencies] = useState(DEFAULT_CURRENCIES);
-  const [currenciesLoading, setCurrenciesLoading] = useState(false);
-  const [currenciesError, setCurrenciesError] = useState<string | null>(null);
+  const [depositCurrencies, depositCurrenciesLoading] =
+    useCurrencies(DEFAULT_CURRENCIES);
+
+  const [invoiceCurrencies, invoiceCurrenciesLoading] =
+    useCurrencies(DEFAULT_CURRENCIES);
 
   const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false);
   const [paymentToken, setPaymentToken] = useState<string | null>(null);
@@ -54,44 +60,6 @@ export function InvoicePage() {
   >(undefined);
 
   const { Portal } = usePortal();
-
-  useEffect(() => {
-    setCurrenciesLoading(true);
-    AuthorizedService.merchantCurrencies()
-      .then((response) => {
-        if (!response.currencies) {
-          setCurrencies(DEFAULT_CURRENCIES);
-        } else {
-          const nextCurrencies: {
-            currency: string;
-            name?: string;
-            rate?: string;
-          }[] = [];
-          for (const listItem of response.currencies) {
-            if (listItem.currency === undefined) {
-              continue;
-            }
-            nextCurrencies.push({
-              currency: listItem.currency,
-              name: listItem.name,
-              rate: listItem.rate,
-            });
-          }
-          setCurrencies(nextCurrencies);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        setCurrenciesError(
-          typeof error.message === "string"
-            ? error.message
-            : "failed to load currencies"
-        );
-      })
-      .finally(() => {
-        setCurrenciesLoading(false);
-      });
-  }, []);
 
   useEffect(() => {
     dispatch(getProjects());
@@ -107,9 +75,11 @@ export function InvoicePage() {
     getValues,
     reset,
   } = useForm<InvoiceFormData>({
-    defaultValues: DEFAULT_FORM_DATA,
     resolver: yupResolver(invoiceFormValidator),
   });
+
+  const useConvertToValue = useWatch({ control, name: "useConvertTo" });
+  const useDepositValue = useWatch({ control, name: "useDeposit" });
 
   useEffect(() => {
     setValue("projectId", "");
@@ -120,12 +90,22 @@ export function InvoicePage() {
     if (isNaN(projectId)) {
       return;
     }
+    const name = formData.name;
+    const price = formData.amount;
+    const currency = formData.currency;
+    let buyerIdentifier: string | undefined = undefined;
+    let depositAmount: number | undefined = undefined;
+    if (formData.useDeposit) {
+      depositAmount = formData.depositAmount;
+    }
 
     AuthorizedService.orderCreate({
-      name: formData.name,
-      price: formData.amount,
-      currency: formData.currency,
-      projectId: projectId,
+      name,
+      price,
+      currency,
+      projectId,
+      buyerIdentifier,
+      depositAmount,
     })
       .then((response) => {
         if (response.uniqueId) {
@@ -200,6 +180,223 @@ export function InvoicePage() {
             )}
           </div>
 
+          <div className="invoice-project__groups project-groups">
+            <div className="invoice-project__group invoice-project__group--transparent project-group">
+              <div className="invoice-project__group invoice-project__group-changes">
+                <div className="invoice-project__radios">
+                  <div className="invoice-project__label project-label">
+                    <div className="checkbox-group">
+                      <input
+                        className="checkbox-input"
+                        type="checkbox"
+                        id={useConvertToId}
+                        {...register("useConvertTo")}
+                      />
+                      <label
+                        className="checkbox-label"
+                        htmlFor={useConvertToId}
+                      >
+                        <div className="checkbox-decor"></div> Конвертировать в:
+                      </label>
+                    </div>
+
+                    <div className="invoice-project__radio-container">
+                      <div className="invoice-project__radio-group">
+                        <input
+                          className="invoice-project__radio"
+                          type="radio"
+                          name="marka"
+                          id="radio10"
+                          defaultChecked
+                        />
+
+                        <label
+                          className={classNames(
+                            "invoice-project__radio-label",
+                            !useConvertToValue &&
+                              "invoice-project__radio-label--disabled"
+                          )}
+                          htmlFor="radio10"
+                        >
+                          Фиат
+                        </label>
+                      </div>
+
+                      <div className="invoice-project__radio-group">
+                        <input
+                          className="invoice-project__radio"
+                          type="radio"
+                          name="marka"
+                          id="radio11"
+                        />
+
+                        <label
+                          className={classNames(
+                            "invoice-project__radio-label",
+                            !useConvertToValue &&
+                              "invoice-project__radio-label--disabled"
+                          )}
+                          htmlFor="radio11"
+                        >
+                          Крипто
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <Controller
+                  control={control}
+                  name="depositCurrency"
+                  render={({ field }) => {
+                    return (
+                      <DepositCurrencySelector
+                        currency={field.value}
+                        currencies={depositCurrencies}
+                        loading={depositCurrenciesLoading}
+                        disabled={useConvertToValue !== true}
+                        onChange={field.onChange}
+                      />
+                    );
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="invoice-project__group invoice-project__group--transparent project-group">
+              <div className="invoice-project__radios">
+                <div
+                  className={classNames(
+                    "invoice-project__label project-label",
+                    !useConvertToValue && "invoice-project__label--disabled"
+                  )}
+                >
+                  Комиссию оплачивает:
+                </div>
+
+                <div className="invoice-project__radio-container">
+                  <div className="invoice-project__radio-group">
+                    <input
+                      className="invoice-project__radio"
+                      type="radio"
+                      name="pay"
+                      id="radio12"
+                      defaultChecked
+                    />
+
+                    <label
+                      className={classNames(
+                        "invoice-project__radio-label",
+                        !useConvertToValue &&
+                          "invoice-project__radio-label--disabled"
+                      )}
+                      htmlFor="radio12"
+                    >
+                      Мерчант
+                    </label>
+                  </div>
+
+                  <div className="invoice-project__radio-group">
+                    <input
+                      className="invoice-project__radio"
+                      type="radio"
+                      name="pay"
+                      id="radio13"
+                    />
+
+                    <label
+                      className={classNames(
+                        "invoice-project__radio-label",
+                        !useConvertToValue &&
+                          "invoice-project__radio-label--disabled"
+                      )}
+                      htmlFor="radio13"
+                    >
+                      Клиент
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="invoice-project__label project-label invoice__group-textarea">
+            <div className="checkbox-group">
+              <input
+                className="checkbox-input"
+                type="checkbox"
+                id={useDepositId}
+                {...register("useDeposit")}
+              />
+              <label className="checkbox-label" htmlFor={useDepositId}>
+                <div className="checkbox-decor"></div> Использовать депозит
+              </label>
+            </div>
+          </div>
+
+          <div className="invoice-project__groups project-groups">
+            <div
+              className={classNames(
+                "invoice-project__group project-group",
+                useDepositValue !== true && "invoice-project__group--disabled"
+              )}
+            >
+              <label
+                className={classNames(
+                  "invoice-project__label project-label",
+                  useDepositValue !== true && "invoice-project__label--disabled"
+                )}
+                htmlFor={depositAmountId}
+              >
+                Депозит
+              </label>
+
+              <input
+                className="invoice-project__input project-input"
+                id={depositAmountId}
+                type="number"
+                placeholder="Введите сумму депозита"
+                disabled={useDepositValue !== true}
+                {...register("depositAmount", { valueAsNumber: true })}
+              />
+              {errors.depositAmount?.message && (
+                <div className="project-error">
+                  {errors.depositAmount.message}
+                </div>
+              )}
+            </div>
+
+            <div
+              className={classNames(
+                "invoice-project__group project-group",
+                useDepositValue !== true && "invoice-project__group--disabled"
+              )}
+            >
+              <label
+                className={classNames(
+                  "invoice-project__label project-label",
+                  useDepositValue !== true && "invoice-project__label--disabled"
+                )}
+                htmlFor={depositReturnAtId}
+              >
+                Срок депозита
+              </label>
+
+              <input
+                className="invoice-project__input project-input"
+                id={depositReturnAtId}
+                type="number"
+                placeholder="Введите количество дней"
+                disabled={useDepositValue !== true}
+                {...register("depositReturnAt", { valueAsNumber: true })}
+              />
+              {errors.depositReturnAt?.message && (
+                <div className="project-error">
+                  {errors.depositReturnAt?.message}
+                </div>
+              )}
+            </div>
+          </div>
+
           <div className="about-deposit__generation-select invoice__generation-select">
             <div className="about-deposit__generation-selected about-deposit__generation-selected--not-reverse">
               <div className="about-deposit__generation-info">
@@ -215,7 +412,7 @@ export function InvoicePage() {
                   id={amountId}
                   type="number"
                   placeholder="Введите сумму"
-                  {...register("amount")}
+                  {...register("amount", { valueAsNumber: true })}
                 />
               </div>
               <Controller
@@ -225,8 +422,8 @@ export function InvoicePage() {
                   return (
                     <InvoiceCurrencySelector
                       currency={field.value}
-                      currencies={currencies}
-                      loading={currenciesLoading}
+                      currencies={invoiceCurrencies}
+                      loading={invoiceCurrenciesLoading}
                       onChange={field.onChange}
                     />
                   );
@@ -268,4 +465,56 @@ export function InvoicePage() {
       )}
     </div>
   );
+}
+
+function useCurrencies(
+  defaultValue: { currency: string; name?: string; rate?: string }[]
+): [
+  { currency: string; name?: string; rate?: string }[],
+  boolean,
+  string | null
+] {
+  const [currencies, setCurrencies] = useState(defaultValue);
+  const [currenciesLoading, setCurrenciesLoading] = useState(false);
+  const [currenciesError, setCurrenciesError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCurrenciesLoading(true);
+    AuthorizedService.merchantCurrencies()
+      .then((response) => {
+        if (!response.currencies) {
+          setCurrencies(defaultValue);
+        } else {
+          const nextCurrencies: {
+            currency: string;
+            name?: string;
+            rate?: string;
+          }[] = [];
+          for (const listItem of response.currencies) {
+            if (listItem.currency === undefined) {
+              continue;
+            }
+            nextCurrencies.push({
+              currency: listItem.currency,
+              name: listItem.name,
+              rate: listItem.rate,
+            });
+          }
+          setCurrencies(nextCurrencies);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setCurrenciesError(
+          typeof error.message === "string"
+            ? error.message
+            : "failed to load currencies"
+        );
+      })
+      .finally(() => {
+        setCurrenciesLoading(false);
+      });
+  }, []);
+
+  return [currencies, currenciesLoading, currenciesError];
 }

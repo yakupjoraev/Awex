@@ -1117,6 +1117,18 @@ projectId?: number;
  * buyer identifier for reference
  */
 buyerIdentifier?: string;
+/**
+ * deposit amount in usd
+ */
+depositAmount?: number;
+/**
+ * UTC timestamp time when deposit should be returned
+ */
+depositReturnTime?: number;
+/**
+ * currency for payments to be converted to
+ */
+convertTo?: 'fiat' | 'stablecoin';
 },
 ): CancelablePromise<{
 /**

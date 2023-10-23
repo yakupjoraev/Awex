@@ -3611,6 +3611,16 @@ paths:
                 buyerIdentifier:
                   type: string
                   description: buyer identifier for reference
+                depositAmount:
+                  type: number
+                  description: deposit amount in usd
+                depositReturnTime:
+                  type: integer
+                  description: UTC timestamp time when deposit should be returned
+                convertTo:
+                  type: string
+                  enum: ["fiat", "stablecoin"]
+                  description: currency for payments to be converted to
               required:
                 - name
                 - price
@@ -6052,6 +6062,9 @@ components:
         depositAmount:
           type: number
           description: deposit amount in usd
+        depositReturnTime:
+          type: integer
+          description: UTC timestamp time when deposit should be returned
         buyerIdentifier:
           type: string
           description: buyer identifier for reference
