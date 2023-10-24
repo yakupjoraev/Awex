@@ -21,7 +21,7 @@ const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] =
   [];
 
 interface InvoiceFormData {
-  projectId: string;
+  projectId?: string;
   name: string;
   amount: number;
   currency: string;
@@ -86,10 +86,14 @@ export function InvoicePage() {
   }, [projects]);
 
   const handleInvoiceFormSubmit = handleSubmit((formData) => {
-    const projectId = parseInt(formData.projectId, 10);
-    if (isNaN(projectId)) {
-      return;
+    let projectId: number | undefined = undefined;
+    if (formData.projectId) {
+      projectId = parseInt(formData.projectId, 10);
+      if (isNaN(projectId)) {
+        return;
+      }
     }
+
     const name = formData.name;
     const price = formData.amount;
     const currency = formData.currency;

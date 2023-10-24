@@ -2,7 +2,7 @@ import { MESSAGE_FIELD_REQUIRED } from "@constants/messages";
 import { object, string, number, bool } from "yup";
 
 export const invoiceFormValidator = object({
-  projectId: string().required(MESSAGE_FIELD_REQUIRED),
+  projectId: string(),
   name: string().required(MESSAGE_FIELD_REQUIRED).max(256),
   amount: number()
     .transform((value) =>
