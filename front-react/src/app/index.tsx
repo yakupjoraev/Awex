@@ -34,6 +34,7 @@ import { AdminMerchantsPage } from "./pages/AdminMerchantsPage";
 import "rc-tooltip/assets/bootstrap.css";
 import { AdminMerchantStats } from "./pages/AdminMerchantStats";
 import { AdminStatsPage } from "./pages/AdminStats";
+import { UserAreaNotFoundPage } from "./pages/UserAreaNotFoundPage";
 
 export function App() {
   return (
@@ -67,10 +68,7 @@ export function App() {
         >
           <Route path="/" element={<HomePage />} />
           <Route path="/invoice" element={<InvoicePage />} />
-          <Route
-            path="/successfully-invoice"
-            element={<InvoicesPage />}
-          />
+          <Route path="/successfully-invoice" element={<InvoicesPage />} />
           <Route path="/deposits" element={<DepositsPage />} />
           <Route path="/deposit-retention" element={<DepositRetentionPage />} />
           <Route path="/projects" element={<MyProjectsPage />} />
@@ -84,7 +82,7 @@ export function App() {
           />
           <Route path="/infocenter" element={<InfocenterPage />} />
           <Route path="/date-picker" element={<DatePickerPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="*" element={<UserAreaNotFoundPage />} />
         </Route>
         <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />
         <Route path="/index" element={<IndexPage />} />

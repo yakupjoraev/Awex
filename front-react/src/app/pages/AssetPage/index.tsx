@@ -4,7 +4,7 @@ import { useWindowSize } from "usehooks-ts";
 import { SellForm } from "./SellForm";
 import { SwapForm } from "./SwapForm";
 import { assets } from "../../../data/assets";
-import { NotFoundPage } from "../NotFoundPage";
+import { UserAreaNotFoundPage } from "../UserAreaNotFoundPage";
 import { AssetDetails } from "./AssetDetails";
 import { SecondaryPanel } from "./SecondaryPanel";
 import { OrderCashForm } from "./OrderCashForm";
@@ -23,12 +23,12 @@ export function AssetPage() {
 
   if (!assetId) {
     console.log("no activeId");
-    return <NotFoundPage />;
+    return <UserAreaNotFoundPage />;
   }
   const active = assets[assetId];
   if (!active) {
     console.log("no active");
-    return <NotFoundPage />;
+    return <UserAreaNotFoundPage />;
   }
 
   const handleChangeAction = (action: Action) => {
