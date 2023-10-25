@@ -35,6 +35,7 @@ import "rc-tooltip/assets/bootstrap.css";
 import { AdminMerchantStats } from "./pages/AdminMerchantStats";
 import { AdminStatsPage } from "./pages/AdminStats";
 import { UserAreaNotFoundPage } from "./pages/UserAreaNotFoundPage";
+import { PaymentPage } from "./pages/PaymentPage";
 
 export function App() {
   return (
@@ -85,6 +86,7 @@ export function App() {
           <Route path="*" element={<UserAreaNotFoundPage />} />
         </Route>
         <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />
+        <Route path="/payment/:uniqueId" element={<PaymentPage />} />
         <Route path="/index" element={<IndexPage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/admin/auth" element={<AdminAuthPage />} />

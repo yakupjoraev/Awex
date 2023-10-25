@@ -99,6 +99,12 @@
   display: flex;
 }
 
+.wrapper-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* admin-marchants.scss */
 
 .admin-marchants__item-action-btn {
