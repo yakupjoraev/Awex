@@ -9,14 +9,13 @@ type ProfileFormData = {
   name: string;
   email: string;
   telegram?: string;
-  currency: string;
+  currency?: string;
 };
 
 const DEFAULT_FORM_DATA: ProfileFormData = {
   name: "",
   email: "",
   telegram: "",
-  currency: "",
 };
 
 const currencyToLabel: Record<string, string> = {
