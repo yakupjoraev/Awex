@@ -105,7 +105,7 @@ export function EditProjectPage() {
       paymentWeb: formData.paymentWeb,
       paymentTelegram: formData.paymentTelegram,
       activity: formData.activity,
-      convertTo: formData.convertTo,
+      convertTo: formData.convertTo?.length ? formData.convertTo : undefined,
       urlWeb: formData.urlWeb,
       urlNotification: formData.urlNotification,
       urlPaymentSuccess: formData.urlPaymentSuccess,

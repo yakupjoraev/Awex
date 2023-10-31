@@ -19,7 +19,7 @@ export type EditProjectFormData = {
   paymentWeb: boolean;
   paymentTelegram: boolean;
   activity: string;
-  convertTo: string;
+  convertTo?: string;
   urlWeb: string;
   urlNotification: string;
   urlPaymentSuccess: string;
@@ -96,7 +96,6 @@ export function EditProjectForm(props: EditProjectFormProps) {
         paymentWeb: false,
         paymentTelegram: false,
         activity: "",
-        convertTo: "",
         urlWeb: "",
         urlNotification: "",
         urlPaymentSuccess: "",
