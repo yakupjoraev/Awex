@@ -14,5 +14,5 @@ export const profileFormSchema = object().shape({
       }
       return true;
     }),
-  currency: string().required(MESSAGE_FIELD_REQUIRED),
+  currency: string().default('...'), //.required(MESSAGE_FIELD_REQUIRED),
 });
