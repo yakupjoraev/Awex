@@ -10,7 +10,7 @@ export const editProjectFormValidator = object({
   paymentWeb: boolean().required(MESSAGE_FIELD_REQUIRED),
   paymentTelegram: boolean().required(MESSAGE_FIELD_REQUIRED),
   activity: string().required(MESSAGE_FIELD_REQUIRED),
-  convertTo: string().required(MESSAGE_FIELD_REQUIRED),
+  convertTo: string().default('...'), //.required(MESSAGE_FIELD_REQUIRED),
   urlWeb: string().required(MESSAGE_FIELD_REQUIRED),
   urlNotification: string().required(MESSAGE_FIELD_REQUIRED),
   urlPaymentSuccess: string().required(MESSAGE_FIELD_REQUIRED),
