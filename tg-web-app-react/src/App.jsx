@@ -7,8 +7,6 @@ import { useTelegram } from './hooks/useTelegram'
 function App() {
   const {tg} = useTelegram()
   const [count, setCount] = useState(0)
-  const [user, setUser] = useState(tg?.initDataUnsafe?.user)
-  const [queryId, setQueryId] = useState(tg?.initDataUnsafe?.query_id)
 
   return (
     <>
@@ -34,6 +32,7 @@ function App() {
       </p>
       <p>user: {tg?.initDataUnsafe?.user}</p>
       <p>queryId: {tg?.initDataUnsafe?.query_id}</p>
+      <p>{JSON.stringify(tg?.initDataUnsafe || {initDataUnsafe: false})}</p>
       <button onClick={(e) => tg?.close()}>close</button>
     </>
   )
