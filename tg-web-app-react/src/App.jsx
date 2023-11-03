@@ -41,7 +41,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
       <p>query_id: {tg?.initDataUnsafe?.query_id}</p>
-      {Object.entries(tg?.initDataUnsafe?.user)?.map(user => <p>{user[0]}: {user[1]}</p>)}
+      {Object.entries(tg?.initDataUnsafe?.user || {})?.map(user => <p>{user[0]}: {user[1]}</p>)}
       <p>auth_date: {tg?.initDataUnsafe?.auth_date}</p>
       {/* <p>hash: {tg?.initDataUnsafe?.hash}</p> */}
       <button onClick={(e) => tg?.close()}>close</button>
