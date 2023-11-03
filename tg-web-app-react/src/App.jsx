@@ -30,9 +30,8 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <p>user: {tg?.initDataUnsafe?.user}</p>
-      <p>queryId: {tg?.initDataUnsafe?.query_id}</p>
-      <p>{JSON.stringify(tg?.initDataUnsafe || {initDataUnsafe: false})}</p>
+      <p>initData: {tg?.initData}</p>
+      <p>initDataUnsafe: {JSON.stringify(tg?.initDataUnsafe)}</p>
       <button onClick={(e) => tg?.close()}>close</button>
     </>
   )
