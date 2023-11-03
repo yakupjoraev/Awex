@@ -1,12 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { useTelegram } from './hooks/useTelegram'
 
 function App() {
-  const {tg} = useTelegram()
+  const tg = window?.Telegram?.WebApp
   const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if(count >= 10 && !tg?.MainButton?.isVisible) {
+      tg?.MainButton?.show()
+    } else {
+      tg?.MainButton?.hide()
+    }
+    tg?.MainButton?.setParams({
+      text: `Send Data (${count})`
+    })
+  }, [count])
 
   return (
     <>
@@ -30,8 +40,10 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <p>initData: {tg?.initData}</p>
-      <p>initDataUnsafe: {JSON.stringify(tg?.initDataUnsafe)}</p>
+      <p>query_id: {tg?.initDataUnsafe?.query_id}</p>
+      {Object.entries(tg?.initDataUnsafe?.user)?.map(user => <p>{user[0]}: {user[1]}</p>)}
+      <p>auth_date: {tg?.initDataUnsafe?.auth_date}</p>
+      <p>hash: {tg?.initDataUnsafe?.hash}</p>
       <button onClick={(e) => tg?.close()}>close</button>
     </>
   )
