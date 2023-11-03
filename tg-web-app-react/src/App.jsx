@@ -31,8 +31,8 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <p>user: {user}</p>
-      <p>queryId: {queryId}</p>
+      <p>user: {tg?.initDataUnsafe?.user}</p>
+      <p>queryId: {tg?.initDataUnsafe?.query_id}</p>
       <button onClick={(e) => tg?.close()}>close</button>
     </>
   )
