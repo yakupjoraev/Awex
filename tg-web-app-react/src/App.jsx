@@ -2,9 +2,10 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useTelegram } from './hooks/useTelegram'
 
 function App() {
-  const tg = window?.Telegram?.WebApp
+  const {tg} = useTelegram()
   const [count, setCount] = useState(0)
   const [user, setUser] = useState(tg?.initDataUnsafe?.user)
   const [queryId, setQueryId] = useState(tg?.initDataUnsafe?.query_id)
