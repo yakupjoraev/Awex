@@ -43,7 +43,7 @@ function App() {
       <p>query_id: {tg?.initDataUnsafe?.query_id}</p>
       {Object.entries(tg?.initDataUnsafe?.user)?.map(user => <p>{user[0]}: {user[1]}</p>)}
       <p>auth_date: {tg?.initDataUnsafe?.auth_date}</p>
-      <p>hash: {tg?.initDataUnsafe?.hash}</p>
+      {/* <p>hash: {tg?.initDataUnsafe?.hash}</p> */}
       <button onClick={(e) => tg?.close()}>close</button>
     </>
   )
