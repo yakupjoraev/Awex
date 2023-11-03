@@ -8,10 +8,10 @@ function App() {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    if(count >= 10 && !tg?.MainButton?.isVisible) {
-      tg?.MainButton?.show()
+    if(count >= 10) {
+      !tg?.MainButton?.isVisible && tg?.MainButton?.show()
     } else {
-      tg?.MainButton?.hide()
+      tg?.MainButton?.isVisible && tg?.MainButton?.hide()
     }
     tg?.MainButton?.setParams({
       text: `Send Data (${count})`
