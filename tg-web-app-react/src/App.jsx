@@ -1,51 +1,60 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useContext, useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
+import { AppContext } from './store'
+import cookies from './services/cookies'
+import Loading from './components/Loading'
+const Header = React.lazy(() => import("./components/Header"))
+const Home = React.lazy(() => import("./pages/Home"))
+const Dashboard = React.lazy(() => import("./pages/Dashboard"))
+const SignIn = React.lazy(() => import("./pages/SignIn"))
+const SignUp = React.lazy(() => import("./pages/SignUp"))
 
 function App() {
-  const tg = window?.Telegram?.WebApp
-  const [count, setCount] = useState(0)
+  const store = useContext(AppContext)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if(count >= 10) {
-      !tg?.MainButton?.isVisible && tg?.MainButton?.show()
-    } else {
-      tg?.MainButton?.isVisible && tg?.MainButton?.hide()
-    }
-    tg?.MainButton?.setParams({
-      text: `Send Data (${count})`
-    })
-  }, [count])
+    const token = cookies.get('token')
+    token && store.site.setToken(token)
+    setLoading(false)
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <p>query_id: {tg?.initDataUnsafe?.query_id}</p>
-      {Object.entries(tg?.initDataUnsafe?.user || {})?.map(user => <p>{user[0]}: {user[1]}</p>)}
-      <p>auth_date: {tg?.initDataUnsafe?.auth_date}</p>
-      {/* <p>hash: {tg?.initDataUnsafe?.hash}</p> */}
-      <button onClick={(e) => tg?.close()}>close</button>
-    </>
+    <BrowserRouter>
+    {loading
+      ? <Loading />
+      : <>
+        <Header />
+        <Routes>
+          <Route
+              index
+              element={
+                <React.Suspense>
+                  {store?.site?.token ? <Dashboard /> : <Home />}
+                </React.Suspense>
+              }
+            />
+          <Route
+              path="sign-in"
+              element={
+                <React.Suspense>
+                  <SignIn />
+                </React.Suspense>
+              }
+            />
+            <Route
+                path="sign-up"
+                element={
+                  <React.Suspense>
+                    <SignUp />
+                  </React.Suspense>
+                }
+              />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+    </>}
+    </BrowserRouter>
   )
 }
 
