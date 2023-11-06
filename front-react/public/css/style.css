@@ -5072,6 +5072,12 @@ body.locked {
   line-height: 120%;
 }
 
+.crypto__item-chain {
+  padding: 0 10px;
+  opacity: 0.7;
+}
+
+
 .crypto__item-counts {
   margin-left: auto;
   text-align: right;

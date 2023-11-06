@@ -493,6 +493,7 @@ function useCurrencies(
             currency: string;
             name?: string;
             rate?: string;
+            chain?: string;
           }[] = [];
           for (const listItem of response.currencies) {
             if (listItem.currency === undefined) {
@@ -502,6 +503,7 @@ function useCurrencies(
               currency: listItem.currency,
               name: listItem.name,
               rate: listItem.rate,
+              chain: listItem.chain,
             });
           }
           setCurrencies(nextCurrencies);

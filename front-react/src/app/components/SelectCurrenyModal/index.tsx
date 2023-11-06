@@ -7,9 +7,9 @@ const SEARCH_TEXT_DEBOUNCE = 200;
 
 interface SelectCurrencyModalProps {
   open: boolean;
-  currencies?: { currency: string; name?: string; rate?: string }[];
+  currencies?: { currency: string; name?: string; rate?: string; chain?: string; }[];
   loading?: boolean;
-  onSelect?: (currency: string) => void;
+  onSelect?: (currency: string, chain?: string | null) => void;
   onClose: () => void;
 }
 
@@ -40,6 +40,8 @@ export function SelectCurrencyModal(props: SelectCurrencyModalProps) {
     ev: React.MouseEvent<HTMLLIElement, MouseEvent>
   ) => {
     const currency = ev.currentTarget.getAttribute("data-value");
+    const chain = ev.currentTarget.getAttribute("data-chain");
+    
     if (currency === null) {
       return;
     }
@@ -53,7 +55,7 @@ export function SelectCurrencyModal(props: SelectCurrencyModalProps) {
       return;
     }
     if (props.onSelect) {
-      props.onSelect(currency);
+      props.onSelect(currency, chain);
       props.onClose();
     }
   };
@@ -109,7 +111,7 @@ export function SelectCurrencyModal(props: SelectCurrencyModalProps) {
               currenciesBySearchText.map((currency) => {
                 return renderOption(
                   currency,
-                  currency.currency,
+                  currency.currency + currency.chain,
                   handleOptionClick
                 );
               })}
@@ -121,7 +123,7 @@ export function SelectCurrencyModal(props: SelectCurrencyModalProps) {
 }
 
 function renderOption(
-  currency: { currency: string; name?: string; rate?: string },
+  currency: { currency: string; name?: string; rate?: string; chain?: string; },
   key: string,
   handleClick: (ev: React.MouseEvent<HTMLLIElement, MouseEvent>) => void
 ) {
@@ -141,6 +143,7 @@ function renderOption(
       className="crypto___item"
       key={key}
       data-value={currency.currency}
+      data-chain={currency.chain ? currency.chain : ''}
       onClick={handleClick}
     >
       <img
@@ -155,6 +158,9 @@ function renderOption(
         {subName && (
           <div className="crypto__item-subname">
             {currency.currency.toUpperCase()}
+            {currency.chain !== undefined && (
+              <span className="crypto__item-chain">({currency.chain})</span>
+            )}
           </div>
         )}
       </div>
@@ -169,7 +175,7 @@ function renderOption(
 }
 
 function filterBySearchText(
-  currencies: Array<{ currency: string; name?: string; rate?: string }>,
+  currencies: Array<{ currency: string; name?: string; rate?: string; chain?: string; }>,
   searchText: string
 ) {
   let normalizedSearchText = searchText.trim();

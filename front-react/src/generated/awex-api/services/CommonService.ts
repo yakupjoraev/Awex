@@ -350,27 +350,18 @@ message?: string;
      * @throws ApiError
      */
     public static orderPaymentGet(
-uniqueId: string,
-): CancelablePromise<{
-/**
- * amount to be paid
- */
-amount?: number;
-paymentData?: {
-/**
- * payment asset name
- */
-currency?: string;
-/**
- * payment asset network identifier
- */
-chain?: string;
-/**
- * payment address
- */
-address?: string;
-};
-}> {
+        uniqueId: string,
+    ): CancelablePromise<{
+        amount?: number;
+        name?: string;
+        paymentData?: {
+            type: string;
+            chain: string;
+            currency: string;
+            paymentAmount: string;
+            address: string;
+        };
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/payment/{uniqueId}',
@@ -384,6 +375,45 @@ address?: string;
         });
     }
 
+    
+    // /**
+    //  * endpoint for creating users by admin with granting admin roles
+    //  * creating users by admin with granting admin roles
+    //  * @param uniqueId order public unique id
+    //  * @param requestBody 
+    //  * @returns any request succeeded
+    //  * @throws ApiError
+    //  */
+    // public static orderPaymentPost(
+    //     uniqueId: string,
+    //     requestBody: {
+    //         type: string;
+    //         currency: string;
+    //         chain: string | null | undefined;
+    //     },
+    // ): CancelablePromise<{
+    //     amount: string | undefined,
+    //     paymentData: {
+    //         paymentAmount: string | undefined,
+    //         currency: string | undefined,
+    //         chain: string | undefined,
+    //         address: string | undefined
+    //     }
+    // }> {
+    //     return __request(OpenAPI, {
+    //         method: 'POST',
+    //         url: '/order/payment/{uniqueId}',
+    //         path: {
+    //             'uniqueId': uniqueId,
+    //         },
+    //         body: requestBody,
+    //         mediaType: 'application/json',
+    //         errors: {
+    //             403: `request failed`,
+    //         },
+    //     });
+    // }
+
     /**
      * endpoint for setting payment data for order
      * setting payment data for order
@@ -393,41 +423,42 @@ address?: string;
      * @throws ApiError
      */
     public static orderPaymentSet(
-uniqueId: string,
-requestBody: {
-/**
- * payment type
- */
-type: 'fiat' | 'crypto';
-/**
- * payment asset name
- */
-currency: string;
-/**
- * payment asset network identifier
- */
-chain: string;
-},
-): CancelablePromise<{
-/**
- * amount to be paid
- */
-amount?: number;
-paymentData?: {
-/**
- * payment asset name
- */
-currency?: string;
-/**
- * payment asset network identifier
- */
-chain?: string;
-/**
- * payment address
- */
-address?: string;
-};
-}> {
+        uniqueId: string,
+        requestBody: {
+            /**
+             * payment type
+             */
+            type: 'fiat' | 'crypto';
+            /**
+             * payment asset name
+             */
+            currency: string;
+            /**
+             * payment asset network identifier
+             */
+            chain: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * amount to be paid
+         */
+        amount?: number;
+        paymentData?: {
+            paymentAmount: string;
+            /**
+             * payment asset name
+             */
+            currency?: string;
+            /**
+             * payment asset network identifier
+             */
+            chain?: string;
+            /**
+             * payment address
+             */
+            address?: string;
+        };
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/payment/{uniqueId}',
@@ -451,22 +482,22 @@ address?: string;
      * @throws ApiError
      */
     public static paymentCurrencies(
-amount?: string,
-): CancelablePromise<{
-currencies?: Array<{
-currency?: string;
-name?: string;
-rate?: string;
-/**
- * chain unique name, should be passed for
- */
-chain?: string;
-/**
- * display name for a chain
- */
-chainName?: string;
-}>;
-}> {
+        amount?: string,
+    ): CancelablePromise<{
+        currencies?: Array<{
+            currency: string;
+            name: string;
+            rate: string;
+            /**
+             * chain unique name, should be passed for
+             */
+            chain: string;
+            /**
+             * display name for a chain
+             */
+            chainName: string;
+        }>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/payment/currencies',

@@ -1709,6 +1709,7 @@ currencies?: Array<{
 currency?: string;
 name?: string;
 rate?: string;
+chain?: string;
 }>;
 }> {
         return __request(OpenAPI, {
@@ -1722,6 +1723,35 @@ rate?: string;
             },
         });
     }
+
+    // /**
+    //  * payer endpoint to get a list of available currencies
+    //  * available currencies list
+    //  * @param amount payment amount in selected currency
+    //  * @returns any request succeeded
+    //  * @throws ApiError
+    //  */
+    // public static paymentCurrencies( 
+    //     amount?: string,
+    // ): CancelablePromise<{
+    //     currencies?: Array<{
+    //         currency?: string;
+    //         name?: string;
+    //         rate?: string;
+    //         chain?: string;
+    //     }>;
+    // }> {
+    //     return __request(OpenAPI, {
+    //         method: 'GET',
+    //         url: '/order/payment/currencies',
+    //         query: {
+    //             'amount': amount,
+    //         },
+    //         errors: {
+    //             403: `request failed`,
+    //         },
+    //     });
+    // }
 
     /**
      * merchant endpoint for getting specified currency rate in usdt
