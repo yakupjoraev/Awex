@@ -428,7 +428,7 @@ message?: string;
             /**
              * payment type
              */
-            type: 'fiat' | 'crypto';
+            type: string //'fiat' | 'crypto';
             /**
              * payment asset name
              */
@@ -444,19 +444,20 @@ message?: string;
          */
         amount?: number;
         paymentData?: {
+            type: string,
             paymentAmount: string;
             /**
              * payment asset name
              */
-            currency?: string;
+            currency: string;
             /**
              * payment asset network identifier
              */
-            chain?: string;
+            chain: string;
             /**
              * payment address
              */
-            address?: string;
+            address: string;
         };
     }> {
         return __request(OpenAPI, {
