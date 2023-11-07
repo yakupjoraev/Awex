@@ -19,11 +19,11 @@ export class AuthenticatedService {
      * @throws ApiError
      */
     public static setGoogleAuthenticator(): CancelablePromise<{
-/**
- * google authenticator connection uri for QR generation
- */
-uri?: string;
-}> {
+        /**
+         * google authenticator connection uri for QR generation
+         */
+        uri?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/otp/set-google-authenticator',
@@ -42,18 +42,18 @@ uri?: string;
      * @throws ApiError
      */
     public static setGmail(
-requestBody: {
-/**
- * gmail account e-mail
- */
-email: string;
-},
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * gmail account e-mail
+             */
+            email: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/otp/set-gmail',
@@ -74,18 +74,18 @@ message?: string;
      * @throws ApiError
      */
     public static setFacebook(
-requestBody: {
-/**
- * code or access token obtained by the frontend
- */
-otp: string;
-},
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * code or access token obtained by the frontend
+             */
+            otp: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/otp/set-facebook',
@@ -106,22 +106,22 @@ message?: string;
      * @throws ApiError
      */
     public static otpEnable(
-requestBody: {
-/**
- * 2fa type
- */
-_2faType: 'googleAuthenticator' | 'gmail' | 'facebook';
-/**
- * code or access token obtained by the frontend
- */
-otp: string;
-},
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * 2fa type
+             */
+            _2faType: 'googleAuthenticator' | 'gmail' | 'facebook';
+            /**
+             * code or access token obtained by the frontend
+             */
+            otp: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/otp/enable',
@@ -142,18 +142,18 @@ message?: string;
      * @throws ApiError
      */
     public static otpDisable(
-requestBody: {
-/**
- * 2fa type
- */
-_2faType: 'googleAuthenticator' | 'gmail' | 'facebook';
-},
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * 2fa type
+             */
+            _2faType: 'googleAuthenticator' | 'gmail' | 'facebook';
+        },
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/otp/disable',
@@ -191,22 +191,22 @@ message?: string;
      * @throws ApiError
      */
     public static otpValidate(
-requestBody: {
-/**
- * 2fa type
- */
-_2faType: 'googleAuthenticator' | 'gmail' | 'facebook';
-/**
- * one time password or facebook token
- */
-otp: string;
-},
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * 2fa type
+             */
+            _2faType: 'googleAuthenticator' | 'gmail' | 'facebook';
+            /**
+             * one time password or facebook token
+             */
+            otp: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/otp/validate',
@@ -226,11 +226,11 @@ message?: string;
      * @throws ApiError
      */
     public static sendGmail(): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/otp/send-gmail',
@@ -249,22 +249,22 @@ message?: string;
      * @throws ApiError
      */
     public static otpLogin(
-requestBody: {
-/**
- * 2fa type
- */
-_2faType: 'googleAuthenticator' | 'gmail' | 'facebook';
-/**
- * code or access token obtained by the frontend
- */
-otp: string;
-},
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * 2fa type
+             */
+            _2faType: 'googleAuthenticator' | 'gmail' | 'facebook';
+            /**
+             * code or access token obtained by the frontend
+             */
+            otp: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/otp/login',
@@ -285,18 +285,18 @@ message?: string;
      * @throws ApiError
      */
     public static ipSet(
-requestBody: {
-/**
- * list of whitelisted ip, if empty - whitelisting is disabled
- */
-ipWhitelist: Array<string>;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * list of whitelisted ip, if empty - whitelisting is disabled
+             */
+            ipWhitelist: Array<string>;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/ip',
@@ -316,15 +316,15 @@ message?: string;
      * @throws ApiError
      */
     public static ipGet(): CancelablePromise<{
-/**
- * current ip address
- */
-ip?: string;
-/**
- * list of whitelisted ip, if empty - whitelisting is disabled
- */
-ipWhitelist?: Array<string>;
-}> {
+        /**
+         * current ip address
+         */
+        ip?: string;
+        /**
+         * list of whitelisted ip, if empty - whitelisting is disabled
+         */
+        ipWhitelist?: Array<string>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/ip',
@@ -342,21 +342,21 @@ ipWhitelist?: Array<string>;
      * @throws ApiError
      */
     public static sessionList(
-page?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of sessions
- */
-list?: Array<Session>;
-}> {
+        page?: string,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of sessions
+         */
+        list?: Array<Session>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/session/list',
@@ -377,13 +377,13 @@ list?: Array<Session>;
      * @throws ApiError
      */
     public static sessionDelete(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/session/{id}/delete',
@@ -405,11 +405,11 @@ message?: string;
      * @throws ApiError
      */
     public static sessionDeleteAll(): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/session/delete',
@@ -427,22 +427,22 @@ message?: string;
      * @throws ApiError
      */
     public static passwordSet(
-requestBody: {
-/**
- * old password
- */
-oldPassword: string;
-/**
- * new password
- */
-password: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * old password
+             */
+            oldPassword: string;
+            /**
+             * new password
+             */
+            password: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/profile/set-password',
@@ -463,13 +463,13 @@ message?: string;
      * @throws ApiError
      */
     public static profileSet(
-requestBody: ProfileData,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: ProfileData,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/profile',
@@ -506,13 +506,13 @@ message?: string;
      * @throws ApiError
      */
     public static notificationsSet(
-requestBody: Notification,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: Notification,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/profile/notifications',
@@ -549,18 +549,18 @@ message?: string;
      * @throws ApiError
      */
     public static currencySet(
-requestBody: {
-/**
- * currency for displaying balance
- */
-currency?: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * currency for displaying balance
+             */
+            currency?: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/profile/currency',
@@ -580,11 +580,11 @@ message?: string;
      * @throws ApiError
      */
     public static currencyGet(): CancelablePromise<{
-/**
- * currency for displaying balance
- */
-currency?: string;
-}> {
+        /**
+         * currency for displaying balance
+         */
+        currency?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/profile/currency',
@@ -601,11 +601,11 @@ currency?: string;
      * @throws ApiError
      */
     public static settingsList(): CancelablePromise<{
-countries?: Array<string>;
-permissions?: Array<string>;
-labels?: Array<string>;
-roles?: Array<string>;
-}> {
+        countries?: Array<string>;
+        permissions?: Array<string>;
+        labels?: Array<string>;
+        roles?: Array<string>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/config/settings',
@@ -622,11 +622,11 @@ roles?: Array<string>;
      * @throws ApiError
      */
     public static referralLink(): CancelablePromise<{
-/**
- * code for referral link building
- */
-referralCode?: string;
-}> {
+        /**
+         * code for referral link building
+         */
+        referralCode?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/referral/link',
@@ -643,20 +643,20 @@ referralCode?: string;
      * @throws ApiError
      */
     public static referralStatistics(): CancelablePromise<{
-totalReferralsNumber?: number;
-activeReferralsNumber?: number;
-earnings?: number;
-referralFees?: {
-/**
- * referral fees percentage for a "fromFees" type
- */
-fromFees?: number;
-/**
- * referral fees percentage for a "fromTurnover" type
- */
-fromTurnover?: number;
-};
-}> {
+        totalReferralsNumber?: number;
+        activeReferralsNumber?: number;
+        earnings?: number;
+        referralFees?: {
+            /**
+             * referral fees percentage for a "fromFees" type
+             */
+            fromFees?: number;
+            /**
+             * referral fees percentage for a "fromTurnover" type
+             */
+            fromTurnover?: number;
+        };
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/referral/statistics',
@@ -673,15 +673,15 @@ fromTurnover?: number;
      * @throws ApiError
      */
     public static adminGetReferralFees(): CancelablePromise<{
-/**
- * referral fees percentage for a "fromFees" type
- */
-fromFees?: number;
-/**
- * referral fees percentage for a "fromTurnover" type
- */
-fromTurnover?: number;
-}> {
+        /**
+         * referral fees percentage for a "fromFees" type
+         */
+        fromFees?: number;
+        /**
+         * referral fees percentage for a "fromTurnover" type
+         */
+        fromTurnover?: number;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/referral/admin/fees',
@@ -690,5 +690,4 @@ fromTurnover?: number;
             },
         });
     }
-
 }

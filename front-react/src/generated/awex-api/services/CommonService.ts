@@ -28,22 +28,22 @@ export class CommonService {
      * @throws ApiError
      */
     public static registration(
-requestBody: {
-/**
- * password
- */
-password: string;
-/**
- * email
- */
-email: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * password
+             */
+            password: string;
+            /**
+             * email
+             */
+            email: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/auth/register',
@@ -63,34 +63,34 @@ message?: string;
      * @throws ApiError
      */
     public static login(
-requestBody: {
-/**
- * password
- */
-password: string;
-/**
- * email
- */
-email: string;
-},
-): CancelablePromise<{
-/**
- * either email is verified or not, if true - jwt token is provided
- */
-verified?: boolean;
-/**
- * is provided only if email is verified should be used in "Authorization" header ( "Bearer token" ) for non common endpoints
- */
-token?: string;
-/**
- * unix timestamp until token is valid
- */
-expiration?: number;
-/**
- * true if 2FA is on, if true request to the | /account/otp/login with otp should be sent
- */
-otpRequired?: boolean;
-}> {
+        requestBody: {
+            /**
+             * password
+             */
+            password: string;
+            /**
+             * email
+             */
+            email: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * either email is verified or not, if true - jwt token is provided
+         */
+        verified?: boolean;
+        /**
+         * is provided only if email is verified should be used in "Authorization" header ( "Bearer token" ) for non common endpoints
+         */
+        token?: string;
+        /**
+         * unix timestamp until token is valid
+         */
+        expiration?: number;
+        /**
+         * true if 2FA is on, if true request to the | /account/otp/login with otp should be sent
+         */
+        otpRequired?: boolean;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/auth/sign-in',
@@ -110,26 +110,26 @@ otpRequired?: boolean;
      * @throws ApiError
      */
     public static passwordStrength(
-requestBody: {
-/**
- * password
- */
-password: string;
-},
-): CancelablePromise<{
-/**
- * password strength score (0, 1, 2, 3)
- */
-score?: number;
-/**
- * password strength description (very weak, weak, medium, strong)
- */
-strength?: string;
-/**
- * true if valid for usage in application (medium, strong)
- */
-valid?: boolean;
-}> {
+        requestBody: {
+            /**
+             * password
+             */
+            password: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * password strength score (0, 1, 2, 3)
+         */
+        score?: number;
+        /**
+         * password strength description (very weak, weak, medium, strong)
+         */
+        strength?: string;
+        /**
+         * true if valid for usage in application (medium, strong)
+         */
+        valid?: boolean;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/auth/password-strength',
@@ -149,18 +149,18 @@ valid?: boolean;
      * @throws ApiError
      */
     public static confirm(
-requestBody: {
-/**
- * confirmation code from link in email message
- */
-code: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * confirmation code from link in email message
+             */
+            code: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/auth/confirm',
@@ -180,18 +180,18 @@ message?: string;
      * @throws ApiError
      */
     public static resend(
-requestBody: {
-/**
- * email
- */
-email: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * email
+             */
+            email: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/auth/resend',
@@ -211,18 +211,18 @@ message?: string;
      * @throws ApiError
      */
     public static send(
-requestBody: {
-/**
- * email
- */
-email: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * email
+             */
+            email: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/auth/reset/send',
@@ -243,22 +243,22 @@ message?: string;
      * @throws ApiError
      */
     public static resetConfirm(
-requestBody: {
-/**
- * reset code from link in email message
- */
-code: string;
-},
-): CancelablePromise<{
-/**
- * should be used for password reset life time 1 hour
- */
-resetToken?: string;
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * reset code from link in email message
+             */
+            code: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * should be used for password reset life time 1 hour
+         */
+        resetToken?: string;
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/auth/reset/confirm',
@@ -278,26 +278,26 @@ message?: string;
      * @throws ApiError
      */
     public static passwordReset(
-requestBody: {
-/**
- * password
- */
-resetToken: string;
-/**
- * old password
- */
-oldPassword: string;
-/**
- * new password
- */
-password: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * password
+             */
+            resetToken: string;
+            /**
+             * old password
+             */
+            oldPassword: string;
+            /**
+             * new password
+             */
+            password: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/auth/reset/set',
@@ -317,18 +317,18 @@ message?: string;
      * @throws ApiError
      */
     public static teamMembershipConfirmation(
-requestBody: {
-/**
- * confirmation code from link sent to email
- */
-code: string;
-},
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * confirmation code from link sent to email
+             */
+            code: string;
+        },
+        ): CancelablePromise<{
+            /**
+             * request result description
+             */
+            message?: string;
+        }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/team/confirm',
@@ -352,15 +352,16 @@ message?: string;
     public static orderPaymentGet(
         uniqueId: string,
     ): CancelablePromise<{
-        amount?: number;
-        name?: string;
+        amount?: number
+        name?: string
+        paid: boolean
         paymentData?: {
-            type: string;
-            chain: string;
-            currency: string;
-            paymentAmount: string;
-            address: string;
-        };
+            type: string
+            chain: string
+            currency: string
+            paymentAmount: string
+            address: string
+        }
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -520,15 +521,15 @@ message?: string;
      * @throws ApiError
      */
     public static paymentUsdtRate(
-amount: string,
-rate: string,
-): CancelablePromise<{
-currencies?: Array<{
-currency?: string;
-name?: string;
-rate?: string;
-}>;
-}> {
+        amount: string,
+        rate: string,
+    ): CancelablePromise<{
+        currencies?: Array<{
+            currency?: string;
+            name?: string;
+            rate?: string;
+        }>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/payment/usdt-rate',

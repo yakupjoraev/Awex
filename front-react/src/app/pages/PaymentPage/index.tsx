@@ -26,6 +26,7 @@ interface PaymentData {
 
 interface PaymentOrder {
   amount: string
+  paid: boolean
   type: string
   currency: string
   chain: string
@@ -48,7 +49,7 @@ interface OrderPaymentRequest {
   chain: string
 }
 
-type PaymentStatus = 'invoicing' | 'prepared' | 'paid' | 'expired'
+type PaymentStatus = 'invoicing' | 'prepared' | 'paid' | 'expired' | 'success'
 
 const DEFAULT_PAYER_CURRENCY: PayerCurrency = {
   type: 'crypto',
@@ -57,6 +58,8 @@ const DEFAULT_PAYER_CURRENCY: PayerCurrency = {
 }
 
 export function PaymentPage() {
+
+  let checkingPaidTimer: any = null
 
   const { uniqueId } = useParams()
   const [orderLoading, setOrderLoading] = useState<boolean>(false)
@@ -69,8 +72,12 @@ export function PaymentPage() {
   const [paymentAmountValue, setPaymentAmountValue] = useState<string | undefined>(undefined)
   const [paymentStatus, setPaymentStatus] = useState<PaymentStatus>('invoicing')
 
+
   useEffect(() => {
     getOrderPayment(uniqueId)
+    return () => {
+      clearInterval(checkingPaidTimer)
+    }
   }, [uniqueId])
 
   useEffect(() => {
@@ -106,7 +113,7 @@ export function PaymentPage() {
     setOrderLoading(true)
     CommonService.orderPaymentGet(uniqueId)
       .then((response) => {
-        const {amount, name, paymentData} = response
+        const {amount, name, paid, paymentData} = response
         
         if (!amount) {
           setPaymentOrder(null)
@@ -115,6 +122,7 @@ export function PaymentPage() {
         } else {
           setPaymentOrder({
             amount: amount.toString(),
+            paid: paid,
             name: name ? name : undefined,
             type: orderCurrency.type,
             currency: orderCurrency.currency,
@@ -123,17 +131,18 @@ export function PaymentPage() {
             userChain: paymentData ? paymentData.chain : orderCurrency.chain,
             paymentData: paymentData ? paymentData : null
           })
-          setPaymentStatus(paymentData ? 'prepared' : 'invoicing')
+          setPaymentStatus(paid ? 'success' : paymentData ? 'prepared' : 'invoicing')
           getPaymentCurrencies(paymentOrder?.amount)
         }
       })
       .catch((error) => {
         if (error instanceof ApiError && error.status === 404) {
-          setPaymentOrder(null);
+          setPaymentOrder(null)
           setOrderError({ type: "not_found" })
         } else {
-          console.error(error);
-          setPaymentOrder(null);
+          console.error("unknown")
+          console.error(error)
+          setPaymentOrder(null)
           setOrderError({ type: "unknown" })
         }
       })
@@ -229,6 +238,37 @@ export function PaymentPage() {
     setPaymentStatus('invoicing')
   }
 
+  function startWaitingForPayment(): void {
+    setPaymentStatus('paid')
+    startCheckingPaid()
+  }
+
+  function startCheckingPaid(): void {
+    if(!checkingPaid()) {
+      checkingPaidTimer = setInterval(() => {
+        checkingPaid()
+      }, 30000)
+    }
+  }
+
+  function checkingPaid(): boolean {
+    if(!uniqueId) return false
+    let status: boolean = false
+    CommonService.orderPaymentGet(uniqueId)
+    .then((response) => {
+      const {paid} = response
+      if(paid) {
+        setPaymentStatus('success')
+        clearInterval(checkingPaidTimer)
+        status = true
+      }
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+    return status
+  }
+
   if (orderLoading) {
     return (
       <main className="main">
@@ -263,611 +303,7 @@ export function PaymentPage() {
   return (
     <main className="main">
       <Helmet title="Загружено" />
-
-      {/* === Cash === */}
-      {/* <div className="wrapper-payment">
-        <div className="payment">
-          <a href="#" className="payment__logo">
-            <img className="payment__logo-img" src="/img/icons/logo-2.svg" alt="" />
-          </a>
-
-          <form className="payment__from payment-form" action="#">
-            <div className="payment-form__group">
-              <p className="payment-form__label">
-                Выберете способ оплаты
-              </p>
-
-              <div className="payment-form__radios">
-                <div className="payment-form__radio">
-                  <input className="payment-form__radio-input" type="radio" name="pay" id="pay4" />
-                  <label className="payment-form__radio-label" htmlFor="pay4">Крипто</label>
-                </div>
-
-                <div className="payment-form__radio">
-                  <input className="payment-form__radio-input" type="radio" name="pay" id="pay5" checked />
-                  <label className="payment-form__radio-label" htmlFor="pay5">Наличный расчет</label>
-                </div>
-
-                <div className="payment-form__radio">
-                  <input className="payment-form__radio-input" type="radio" name="pay" id="pay6" />
-                  <label className="payment-form__radio-label" htmlFor="pay6">Карта РФ</label>
-                </div>
-
-                <div className="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right" data-tooltip-length="medium">
-                  <img className="payment-form__radio-pic" src="/img/icons/tooltip.svg" alt="tooltip" />
-                </div>
-              </div>
-
-              <div className="about-deposit__generation-select invoice__generation-select about-deposit__generation-select--white">
-                <div className="about-deposit__generation-selected">
-                  <div className="about-deposit__generation-info">
-                    <input className="about-deposit__generation-input" type="number" placeholder="Введите сумму" value="9.650" />
-                  </div>
-
-                  <div className="about-deposit__generation-currency open-modal-btn" data-modal-id="select-modal">
-                    <div className="about-deposit__generation-curr">
-                      <img src="/img/aed.png" alt="" />
-                      AED
-                    </div>
-
-                    <img className="about-deposit__generation-img" src="/img/icons/arrow-down.svg" alt="arrow-down" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- <div className="invoice-project__group-selects">
-                <div className="invoice-project__group-select" data-select-wrapper>
-                  <div className="invoice-project__group-selected" data-select-arrow>
-                    Выберете страну
-                    <img className="invoice-project__group-select-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" />
-                  </div>
-
-                  <ul className="invoice-project__group-list select-list" data-select-list>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете страну</li>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете страну</li>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете страну</li>
-                  </ul>
-                </div>
-
-                <div className="invoice-project__group-select" data-select-wrapper>
-                  <div className="invoice-project__group-selected" data-select-arrow>
-                    Выберете город
-                    <img className="invoice-project__group-select-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" />
-                  </div>
-
-                  <ul className="invoice-project__group-list select-list" data-select-list>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете город</li>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете город</li>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете город</li>
-                  </ul>
-                </div>
-              </div> -->
-
-              <div className="invoice-project__group-select" data-select-wrapper>
-                <div className="invoice-project__group-selected" data-select-arrow>
-                  Выберете офис
-                  <img className="invoice-project__group-select-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" />
-                </div>
-
-                <ul className="invoice-project__group-list select-list" data-select-list>
-                  <li className="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
-                  <li className="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
-                  <li className="invoice-project__group-item select-item" data-select-item>Выберете офис</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="payment-form__group">
-              <p className="payment-form__label">
-                Выберете способ возврата депозита
-              </p>
-
-              <div className="payment-form__radios">
-                <div className="payment-form__radio">
-                  <input className="payment-form__radio-input" type="radio" name="pay2" id="pay7" checked />
-                  <label className="payment-form__radio-label" htmlFor="pay7">Крипто</label>
-                </div>
-
-                <div className="payment-form__radio">
-                  <input className="payment-form__radio-input" type="radio" name="pay2" id="pay8" />
-                  <label className="payment-form__radio-label" htmlFor="pay8">Карта РФ</label>
-                </div>
-              </div>
-
-              <div className="invoice-project__group-select" data-select-wrapper>
-                <div className="invoice-project__group-selected" data-select-arrow>
-                  Выберете криптовалюту
-                  <img className="invoice-project__group-select-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" />
-                </div>
-
-                <ul className="invoice-project__group-list select-list" data-select-list>
-                  <li className="invoice-project__group-item select-item" data-select-item>Выберете криптовалюту</li>
-                  <li className="invoice-project__group-item select-item" data-select-item>Выберете криптовалюту</li>
-                  <li className="invoice-project__group-item select-item" data-select-item>Выберете криптовалюту</li>
-                </ul>
-              </div>
-
-              <div className="invoice-project__group-select" data-select-wrapper>
-                <div className="invoice-project__group-selected" data-select-arrow>
-                  Выберете сеть
-                  <img className="invoice-project__group-select-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" />
-                </div>
-
-                <ul className="invoice-project__group-list select-list" data-select-list>
-                  <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
-                  <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
-                  <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
-                </ul>
-              </div>
-
-              <div className="my-projects__group project-group">
-                <label className="my-projects__label project-label" htmlFor="#">
-                  Адрес кошелька
-                </label>
-                <input className="my-projects__input project-input" type="text" placeholder="Введите адрес кошелька" />
-              </div>
-            </div>
-
-            <div className="payment-form__group">
-              <p className="payment-form__label">
-                Отправить уведомление на почту
-              </p>
-
-              <div className="my-projects__group project-group">
-                <label className="my-projects__label project-label" htmlFor="#">
-                  E-mail
-                </label>
-                <input className="my-projects__input project-input" type="text" placeholder="Введите ваш e-mail" />
-              </div>
-            </div>
-
-            <div className="payment-form__btns">
-              <button className="payment-form__btn second-btn">
-                Оплатить
-              </button>
-
-              <!-- <button className="payment-form__btn blue-btn">
-                <img src="/img/icons/WalletConnect.svg" alt="" />
-              </button>
-
-              <button className="payment-form__btn second-btn">
-                <img src="/img/icons/payment-form-awex.svg" alt="" />
-              </button> -->
-            </div>
-
-            <div className="payment-form__footer">
-              Нажимая «Оплатить», вы принимаете
-              <a href="#">пользовательское соглашение...</a>
-            </div>
-          </form>
-        </div>
-
-        <div className="payment-details">
-          <a href="#" className="payment-details__logo">
-            <img className="payment-details__logo-img" src="/img/icons/logo-2.svg" alt="" />
-          </a>
-
-          <div className="payment-details__block payment-details__block--main">
-            <h2 className="payment-details__title main-title">Детали счета №12345678</h2>
-
-            <div className="payment-details__label">
-              <div className="payment-details__label-text">
-                Истечет через:
-              </div>
-
-              <div className="payment-details__label-time">12:34:56</div>
-            </div>
-
-            <img className="payment-details__pic" src="/img/icons/info.svg" alt="" data-payment-details-btn />
-          </div>
-
-          <div className="payment-details__block-wrapper" data-payment-details-content>
-            <div className="payment-details__block">
-              <h2 className="payment-details__title main-title">Детали счета №12345678</h2>
-
-              <div className="payment-details__label">
-                <div className="payment-details__label-text">
-                  Истечет через:
-                </div>
-                <div className="payment-details__label-time">12:34:56</div>
-              </div>
-            </div>
-
-            <div className="payment-details__block">
-              <div className="payment-details__sum">
-                <div className="payment-details__sum-label">
-                  Сумма к оплате:
-                </div>
-
-                <div className="payment-details__sum-count">
-                  3.500 <span>AED</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="payment-details__block">
-              <div className="payment-details__salesman">
-                <div className="payment-details__salesman-label">Продавец:</div>
-                <div className="payment-details__salesman-name">ООО “Первый”</div>
-              </div>
-            </div>
-
-            <div className="payment-details__block">
-              <div className="payment-details__product">
-                <div className="payment-details__product-label">
-                  Наименование товара или услуги:
-                </div>
-
-                <p className="payment-details__product-descr">
-                  Аренда машины гос.номер А123АА123 на 10 дней (марка, модель и другая информация)
-                </p>
-              </div>
-            </div>
-
-            <div className="payment-details__block">
-              <div className="payment-details__row">
-                <div className="payment-details__row-label">
-                  Стоимость:
-                </div>
-
-                <div className="payment-details__row-text">
-                  2.500 AED
-                </div>
-              </div>
-
-              <div className="payment-details__row-border"></div>
-
-              <div className="payment-details__row">
-                <div className="payment-details__row-label">
-                  Депозит:
-                </div>
-
-                <div className="payment-details__row-text">
-                  1.000 AED <span>(срок: 21 день)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="modal" id="select-modal">
-          <form action="#" className="modal-content modal-content--select-list">
-            <div className="modal-content__header">
-              <h4 className="modal-content__title">
-                Выберете криптовалюту:
-              </h4>
-
-              <button className="close-modal-btn">
-                <img src="/img/icons/close-modal.svg" alt="" />
-              </button>
-            </div>
-
-            <div className="deposits__filter-search search-group">
-              <input className="deposits__filter-src search-input" type="search" placeholder="Поиск" />
-              <img className="deposits__filter-search-img search-img" src="/img/icons/search.svg" alt="Поиск" />
-            </div>
-
-            <div className="modal-content__main">
-              <ul className="crypto__list">
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-
-                <li className="crypto___item">
-                  <img className="crypto__item-pic" src="/img/actives/actives-2.png" alt="" />
-
-                  <div className="crypto__item-info">
-                    <h4 className="crypto__item-name">
-                      Green Metaverse Token
-                    </h4>
-
-                    <h5 className="crypto__item-subname">
-                      BTC
-                    </h5>
-                  </div>
-
-                  <div className="crypto__item-counts">
-                    <div className="crypto__item-count--main">
-                      1.578697
-                    </div>
-
-                    <div className="crypto__item-count--second">
-                      ~131567.654 USD
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </form>
-        </div>
-      </div> */}
-
       
-      {/* === Crypto === */}
       <div className="wrapper-payment">
         <div className="payment">
           <a href="#" className="payment__logo">
@@ -1091,11 +527,65 @@ export function PaymentPage() {
               </div>
 
               <div className="payment-form__btns">
-                <button className="payment-form__btn second-btn">
+                <button className="payment-form__btn second-btn"
+                  onClick={startWaitingForPayment}
+                >
                   Я оплатил
                 </button>
               </div>
             </form>
+          )}
+
+          { paymentStatus === 'paid' && (
+            <div className="payment__wait">
+              <div className="payment__wait-header">
+                <h1 className="payment__wait-title main-title">
+                  Ищем транзакцию в сети Blockchain...
+                </h1>
+
+                <img className="payment__wait-img" src="/img/icons/loader.svg" alt="" />
+              </div>
+
+              <p className="payment__wait-text">Обычно это занимает до 15 минут</p>
+            </div>
+          )}
+
+          { paymentStatus === 'success' && (
+            <div className="payment__wait payment__wait--cash payment__wait--dedline">
+              <div className="payment__wait-header">
+                <img className="payment__wait-imgg" src="/img/icons/modal-content-checked.svg" alt="" />
+
+                <h1 className="payment__wait-title main-title">
+                  Счет успешно оплачен
+                </h1>
+              </div>
+
+              <div className="payment-form__info">
+                <p className="payment-form__inf-descr">
+                  ...
+                </p>
+              </div>
+
+              <a className="payment__wait-link second-btn" href="#">Вернуться на сайт компании</a>
+            </div>
+          )}
+
+          { paymentStatus === 'expired' && (
+            <div className="payment__wait payment__wait--cash payment__wait--dedline">
+              <div className="payment__wait-header">
+                <img className="payment__wait-imgg" src="/img/icons/payment-deadline.svg" alt="" />
+          
+                <h1 className="payment__wait-title main-title">Счет не оплачен</h1>
+              </div>
+          
+              <div className="payment-form__info">
+                <p className="payment-form__inf-descr">
+                  Срок действия вашего счета истек. Если вы хотите совершить платеж, вернитесь на сайт и создайте счет заново.
+                </p>
+              </div>
+          
+              <a className="payment__wait-link second-btn" href="#">Вернуться на сайт компании</a>
+            </div>
           )}
         </div>
 
@@ -1193,7 +683,7 @@ export function PaymentPage() {
               </>
             )}
 
-            { paymentStatus === 'prepared' && (
+            { (paymentStatus === 'prepared' || paymentStatus === 'paid' || paymentStatus === 'success') && (
               <div className="payment-details__block">
                 <div className="payment-details__sum">
                   <div className="payment-details__sum-label">
@@ -1248,7 +738,7 @@ export function PaymentPage() {
                     {paymentOrder?.paymentData?.chain}
                   </p>
                 </div>
-              </div>)}
+              </div>) }
 
           </div>
         </div>
