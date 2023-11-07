@@ -33,21 +33,21 @@ export class AuthorizedService {
      * @throws ApiError
      */
     public static teamMembersList(
-page?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of projects
- */
-list?: Array<TeamMember>;
-}> {
+        page?: string,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of projects
+         */
+        list?: Array<TeamMember>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/team',
@@ -68,30 +68,30 @@ list?: Array<TeamMember>;
      * @throws ApiError
      */
     public static teamMembersAdd(
-requestBody: {
-/**
- * user name (is ignored for existing users)
- */
-name?: string;
-/**
- * user's email
- */
-email: string;
-/**
- * team member permissions
- */
-permissions?: Array<string>;
-/**
- * team member label
- */
-label: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * user name (is ignored for existing users)
+             */
+            name?: string;
+            /**
+             * user's email
+             */
+            email: string;
+            /**
+             * team member permissions
+             */
+            permissions?: Array<string>;
+            /**
+             * team member label
+             */
+            label: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/team',
@@ -112,8 +112,8 @@ message?: string;
      * @throws ApiError
      */
     public static teamMemberGet(
-id: string,
-): CancelablePromise<TeamMember> {
+        id: string,
+    ): CancelablePromise<TeamMember> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/team/{id}',
@@ -136,23 +136,23 @@ id: string,
      * @throws ApiError
      */
     public static teamMemberSet(
-id: string,
-requestBody: {
-/**
- * team member permissions
- */
-permissions?: Array<string>;
-/**
- * team member label
- */
-label?: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: {
+            /**
+             * team member permissions
+             */
+            permissions?: Array<string>;
+            /**
+             * team member label
+             */
+            label?: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/team/{id}',
@@ -177,13 +177,13 @@ message?: string;
      * @throws ApiError
      */
     public static teamMemberEnable(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/team/{id}/enable',
@@ -206,13 +206,13 @@ message?: string;
      * @throws ApiError
      */
     public static teamMemberDisable(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/team/{id}/disable',
@@ -235,13 +235,13 @@ message?: string;
      * @throws ApiError
      */
     public static teamMemberDelete(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/team/{id}/delete',
@@ -266,23 +266,23 @@ message?: string;
      * @throws ApiError
      */
     public static adminList(
-page?: string,
-search?: string,
-role?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of projects
- */
-list?: Array<AdminList>;
-}> {
+        page?: string,
+        search?: string,
+        role?: string,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of projects
+         */
+        list?: Array<AdminList>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/admin',
@@ -305,23 +305,23 @@ list?: Array<AdminList>;
      * @throws ApiError
      */
     public static userCreate(
-requestBody: {
-/**
- * user email
- */
-email?: string;
-/**
- * user name
- */
-name?: string;
-roles?: Array<string>;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * user email
+             */
+            email?: string;
+            /**
+             * user name
+             */
+            name?: string;
+            roles?: Array<string>;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/admin',
@@ -342,8 +342,8 @@ message?: string;
      * @throws ApiError
      */
     public static adminGet(
-id: string,
-): CancelablePromise<AdminItem> {
+        id: string,
+    ): CancelablePromise<AdminItem> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/{id}/admin',
@@ -366,16 +366,16 @@ id: string,
      * @throws ApiError
      */
     public static adminUpdate(
-id: string,
-requestBody: {
-roles?: Array<string>;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: {
+            roles?: Array<string>;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/{id}/admin',
@@ -400,13 +400,13 @@ message?: string;
      * @throws ApiError
      */
     public static adminEnable(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/{id}/admin/enable',
@@ -429,13 +429,13 @@ message?: string;
      * @throws ApiError
      */
     public static adminDisable(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/{id}/admin/disable',
@@ -458,13 +458,13 @@ message?: string;
      * @throws ApiError
      */
     public static adminDelete(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/{id}/admin/delete',
@@ -488,22 +488,22 @@ message?: string;
      * @throws ApiError
      */
     public static merchantList(
-page?: string,
-search?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of projects
- */
-list?: Array<MerchantList>;
-}> {
+        page?: string,
+        search?: string,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of projects
+         */
+        list?: Array<MerchantList>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/merchant',
@@ -525,8 +525,8 @@ list?: Array<MerchantList>;
      * @throws ApiError
      */
     public static merchantGet(
-id: string,
-): CancelablePromise<MerchantItem> {
+        id: string,
+    ): CancelablePromise<MerchantItem> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/{id}/merchant',
@@ -548,13 +548,13 @@ id: string,
      * @throws ApiError
      */
     public static merchantEnable(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/{id}/merchant/enable',
@@ -577,13 +577,13 @@ message?: string;
      * @throws ApiError
      */
     public static merchantDisable(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/{id}/merchant/disable',
@@ -606,13 +606,13 @@ message?: string;
      * @throws ApiError
      */
     public static merchantDelete(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/{id}/merchant/delete',
@@ -638,24 +638,24 @@ message?: string;
      * @throws ApiError
      */
     public static referralsList(
-page?: string,
-status?: string,
-startTime?: number,
-endTime?: number,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of referrals
- */
-list?: Array<ReferralList>;
-}> {
+        page?: string,
+        status?: string,
+        startTime?: number,
+        endTime?: number,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of referrals
+         */
+        list?: Array<ReferralList>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/referral',
@@ -682,24 +682,24 @@ list?: Array<ReferralList>;
      * @throws ApiError
      */
     public static earningsList(
-page?: string,
-type?: string,
-startTime?: number,
-endTime?: number,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of referrals
- */
-list?: Array<EarningsList>;
-}> {
+        page?: string,
+        type?: string,
+        startTime?: number,
+        endTime?: number,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of referrals
+         */
+        list?: Array<EarningsList>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/referral/earnings',
@@ -723,22 +723,22 @@ list?: Array<EarningsList>;
      * @throws ApiError
      */
     public static adminSetReferralFees(
-requestBody: {
-/**
- * referral fees percentage for a "fromFees" type
- */
-fromFees: number;
-/**
- * referral fees percentage for a "fromTurnover" type
- */
-fromTurnover: number;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * referral fees percentage for a "fromFees" type
+             */
+            fromFees: number;
+            /**
+             * referral fees percentage for a "fromTurnover" type
+             */
+            fromTurnover: number;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/account/referral/admin/fees',
@@ -759,21 +759,21 @@ message?: string;
      * @throws ApiError
      */
     public static companiesList(
-page?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of projects
- */
-list?: Array<CompanyList>;
-}> {
+        page?: string,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of projects
+         */
+        list?: Array<CompanyList>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/company',
@@ -794,13 +794,13 @@ list?: Array<CompanyList>;
      * @throws ApiError
      */
     public static companyCreate(
-requestBody: CompanyItem,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: CompanyItem,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/company',
@@ -821,8 +821,8 @@ message?: string;
      * @throws ApiError
      */
     public static companyGet(
-id: string,
-): CancelablePromise<CompanyItem> {
+        id: string,
+    ): CancelablePromise<CompanyItem> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/company/{id}',
@@ -845,14 +845,14 @@ id: string,
      * @throws ApiError
      */
     public static companyUpdate(
-id: string,
-requestBody: CompanyItem,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: CompanyItem,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/company/{id}',
@@ -877,13 +877,13 @@ message?: string;
      * @throws ApiError
      */
     public static companyDelete(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/company/{id}/delete',
@@ -905,19 +905,19 @@ message?: string;
      * @throws ApiError
      */
     public static feeGet(): CancelablePromise<{
-/**
- * current fee
- */
-current?: number;
-/**
- * upcoming fee
- */
-next?: number | null;
-/**
- * UNIX timestamp, time when upcoming fee will be active
- */
-nextTimestamp?: number | null;
-}> {
+        /**
+         * current fee
+         */
+        current?: number;
+        /**
+         * upcoming fee
+         */
+        next?: number | null;
+        /**
+         * UNIX timestamp, time when upcoming fee will be active
+         */
+        nextTimestamp?: number | null;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/fee',
@@ -935,22 +935,22 @@ nextTimestamp?: number | null;
      * @throws ApiError
      */
     public static feeSet(
-requestBody: {
-/**
- * new fee
- */
-fee: number;
-/**
- * UNIX timestamp, time when new fee should be enabled
- */
-timestamp: number;
-},
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * new fee
+             */
+            fee: number;
+            /**
+             * UNIX timestamp, time when new fee should be enabled
+             */
+            timestamp: number;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/fee',
@@ -971,21 +971,21 @@ message?: string;
      * @throws ApiError
      */
     public static personalFeeGet(
-id: string,
-): CancelablePromise<{
-/**
- * current fee
- */
-current?: number;
-/**
- * upcoming fee
- */
-next?: number | null;
-/**
- * UNIX timestamp, time when upcoming fee will be active
- */
-nextTimestamp?: number | null;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * current fee
+         */
+        current?: number;
+        /**
+         * upcoming fee
+         */
+        next?: number | null;
+        /**
+         * UNIX timestamp, time when upcoming fee will be active
+         */
+        nextTimestamp?: number | null;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/fee/{id}',
@@ -1008,23 +1008,23 @@ nextTimestamp?: number | null;
      * @throws ApiError
      */
     public static personalFeeSet(
-id: string,
-requestBody: {
-/**
- * new fee
- */
-fee: number;
-/**
- * UNIX timestamp, time when new fee should be enabled
- */
-timestamp: number;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: {
+            /**
+             * new fee
+             */
+            fee: number;
+            /**
+             * UNIX timestamp, time when new fee should be enabled
+             */
+            timestamp: number;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/fee/{id}',
@@ -1053,25 +1053,25 @@ message?: string;
      * @throws ApiError
      */
     public static ordersList(
-page?: string,
-projectId?: number,
-status?: 'wait' | 'paid' | 'expired',
-startTime?: number,
-endTime?: number,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of orders
- */
-list?: Array<Order>;
-}> {
+        page?: string,
+        projectId?: number,
+        status?: 'wait' | 'paid' | 'expired',
+        startTime?: number,
+        endTime?: number,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of orders
+         */
+        list?: Array<Order>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order',
@@ -1096,54 +1096,54 @@ list?: Array<Order>;
      * @throws ApiError
      */
     public static orderCreate(
-requestBody: {
-/**
- * order name
- */
-name: string;
-/**
- * order price in specified currency
- */
-price: number;
-/**
- * price currency, | payment amount will be recalculated to USDT
- */
-currency: string;
-/**
- * project identifier
- */
-projectId?: number;
-/**
- * buyer identifier for reference
- */
-buyerIdentifier?: string;
-/**
- * deposit amount in usd
- */
-depositAmount?: number;
-/**
- * UTC timestamp time when deposit should be returned
- */
-depositReturnTime?: number;
-/**
- * currency for payments to be converted to
- */
-convertTo?: 'fiat' | 'stablecoin';
-},
-): CancelablePromise<{
-/**
- * created order id
- */
-id?: number;
-/**
- * created order unique identifier for buyers
- */
-uniqueId?: string;
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: {
+            /**
+             * order name
+             */
+            name: string;
+            /**
+             * order price in specified currency
+             */
+            price: number;
+            /**
+             * price currency, | payment amount will be recalculated to USDT
+             */
+            currency: string;
+            /**
+             * project identifier
+             */
+            projectId?: number;
+            /**
+             * buyer identifier for reference
+             */
+            buyerIdentifier?: string;
+            /**
+             * deposit amount in usd
+             */
+            depositAmount?: number;
+            /**
+             * UTC timestamp time when deposit should be returned
+             */
+            depositReturnTime?: number;
+            /**
+             * currency for payments to be converted to
+             */
+            convertTo?: 'fiat' | 'stablecoin';
+        },
+    ): CancelablePromise<{
+        /**
+         * created order id
+         */
+        id?: number;
+        /**
+         * created order unique identifier for buyers
+         */
+        uniqueId?: string;
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/invoice',
@@ -1164,35 +1164,35 @@ message?: string;
      * @throws ApiError
      */
     public static orderGet(
-id: string,
-): CancelablePromise<{
-/**
- * order name
- */
-name?: string;
-/**
- * created order unique identifier for buyers
- */
-uniqueId?: string;
-/**
- * quantity * product price
- */
-amount?: number;
-/**
- * buyer identifier for reference
- */
-buyerIdentifier?: string;
-data?: Record<string, any>;
-paymentData?: Record<string, any>;
-/**
- * order status
- */
-status?: 'wait' | 'paid' | 'expired';
-/**
- * UNIX timestamp of creation time
- */
-createdAt?: number;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * order name
+         */
+        name?: string;
+        /**
+         * created order unique identifier for buyers
+         */
+        uniqueId?: string;
+        /**
+         * quantity * product price
+         */
+        amount?: number;
+        /**
+         * buyer identifier for reference
+         */
+        buyerIdentifier?: string;
+        data?: Record<string, any>;
+        paymentData?: Record<string, any>;
+        /**
+         * order status
+         */
+        status?: 'wait' | 'paid' | 'expired';
+        /**
+         * UNIX timestamp of creation time
+         */
+        createdAt?: number;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/{id}',
@@ -1214,35 +1214,35 @@ createdAt?: number;
      * @throws ApiError
      */
     public static adminOrderGet(
-id: string,
-): CancelablePromise<{
-/**
- * order name
- */
-name?: string;
-/**
- * created order unique identifier for buyers
- */
-uniqueId?: string;
-/**
- * quantity * product price
- */
-amount?: number;
-/**
- * buyer identifier for reference
- */
-buyerIdentifier?: string;
-data?: Record<string, any>;
-paymentData?: Record<string, any>;
-/**
- * order status
- */
-status?: 'wait' | 'paid' | 'expired';
-/**
- * UNIX timestamp of creation time
- */
-createdAt?: number;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * order name
+         */
+        name?: string;
+        /**
+         * created order unique identifier for buyers
+         */
+        uniqueId?: string;
+        /**
+         * quantity * product price
+         */
+        amount?: number;
+        /**
+         * buyer identifier for reference
+         */
+        buyerIdentifier?: string;
+        data?: Record<string, any>;
+        paymentData?: Record<string, any>;
+        /**
+         * order status
+         */
+        status?: 'wait' | 'paid' | 'expired';
+        /**
+         * UNIX timestamp of creation time
+         */
+        createdAt?: number;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/{id}/admin',
@@ -1268,25 +1268,25 @@ createdAt?: number;
      * @throws ApiError
      */
     public static depositsList(
-page?: string,
-projectId?: number,
-status?: 'wait' | 'paid' | 'expired',
-startTime?: number,
-endTime?: number,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of deposits
- */
-list?: Array<Order>;
-}> {
+        page?: string,
+        projectId?: number,
+        status?: 'wait' | 'paid' | 'expired',
+        startTime?: number,
+        endTime?: number,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of deposits
+         */
+        list?: Array<Order>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/deposit',
@@ -1314,24 +1314,24 @@ list?: Array<Order>;
      * @throws ApiError
      */
     public static depositRequestsList(
-page?: string,
-projectId?: number,
-startTime?: number,
-endTime?: number,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of referrals
- */
-list?: Array<Order>;
-}> {
+        page?: string,
+        projectId?: number,
+        startTime?: number,
+        endTime?: number,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of referrals
+         */
+        list?: Array<Order>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/deposit/request',
@@ -1355,13 +1355,13 @@ list?: Array<Order>;
      * @throws ApiError
      */
     public static createDepositRequest(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/{id}/deposit/request',
@@ -1383,13 +1383,13 @@ message?: string;
      * @throws ApiError
      */
     public static returnDeposit(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/{id}/deposit/return',
@@ -1412,19 +1412,19 @@ message?: string;
      * @throws ApiError
      */
     public static createWithholdRequest(
-id: string,
-requestBody: {
-/**
- * amount that should be withheld
- */
-withholdAmount: number;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: {
+            /**
+             * amount that should be withheld
+             */
+            withholdAmount: number;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/{id}/deposit/withhold',
@@ -1449,16 +1449,16 @@ message?: string;
      * @throws ApiError
      */
     public static withholdRequestUpload(
-id: string,
-formData: {
-upload: Blob;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        formData: {
+            upload: Blob;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/{id}/deposit/document',
@@ -1483,14 +1483,14 @@ message?: string;
      * @throws ApiError
      */
     public static depositWitholdFileDelete(
-id: string,
-documentId: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        documentId: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/{id}/deposit/document/{documentId}/delete',
@@ -1516,24 +1516,24 @@ message?: string;
      * @throws ApiError
      */
     public static withholdRequestsList(
-page?: string,
-projectId?: number,
-startTime?: number,
-endTime?: number,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of referrals
- */
-list?: Array<Order>;
-}> {
+        page?: string,
+        projectId?: number,
+        startTime?: number,
+        endTime?: number,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of referrals
+         */
+        list?: Array<Order>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/deposit/withhold',
@@ -1560,24 +1560,24 @@ list?: Array<Order>;
      * @throws ApiError
      */
     public static adminWithholdRequestsList(
-page?: string,
-projectId?: number,
-startTime?: number,
-endTime?: number,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of referrals
- */
-list?: Array<Order>;
-}> {
+        page?: string,
+        projectId?: number,
+        startTime?: number,
+        endTime?: number,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of referrals
+         */
+        list?: Array<Order>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/deposit/withhold/admin',
@@ -1602,19 +1602,19 @@ list?: Array<Order>;
      * @throws ApiError
      */
     public static withholdRequestInfo(
-id: string,
-requestBody: {
-/**
- * additional info request
- */
-info: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: {
+            /**
+             * additional info request
+             */
+            info: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/{id}/deposit/withhold/info/admin',
@@ -1638,13 +1638,13 @@ message?: string;
      * @throws ApiError
      */
     public static approveWithholdRequest(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/{id}/deposit/withhold/approve/admin',
@@ -1667,19 +1667,19 @@ message?: string;
      * @throws ApiError
      */
     public static rejectWithholdRequest(
-id: string,
-requestBody: {
-/**
- * withhold reject reason
- */
-withholdRejectReason: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: {
+            /**
+             * withhold reject reason
+             */
+            withholdRejectReason: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/order/{id}/deposit/withhold/reject/admin',
@@ -1703,15 +1703,15 @@ message?: string;
      * @throws ApiError
      */
     public static merchantCurrencies(
-amount?: string,
-): CancelablePromise<{
-currencies?: Array<{
-currency?: string;
-name?: string;
-rate?: string;
-chain?: string;
-}>;
-}> {
+        amount?: string,
+    ): CancelablePromise<{
+        currencies?: Array<{
+            currency?: string;
+            name?: string;
+            rate?: string;
+            chain?: string;
+        }>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/merchant/currencies',
@@ -1762,13 +1762,13 @@ chain?: string;
      * @throws ApiError
      */
     public static merchantUsdtRate(
-amount: string,
-currency: string,
-): CancelablePromise<{
-currencies?: Array<{
-rate?: string;
-}>;
-}> {
+        amount: string,
+        currency: string,
+    ): CancelablePromise<{
+        currencies?: Array<{
+            rate?: string;
+        }>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/merchant/usdt-rate',
@@ -1790,21 +1790,21 @@ rate?: string;
      * @throws ApiError
      */
     public static projectsList(
-page?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of projects
- */
-list?: Array<ProjectList>;
-}> {
+        page?: string,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of projects
+         */
+        list?: Array<ProjectList>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/project',
@@ -1825,13 +1825,13 @@ list?: Array<ProjectList>;
      * @throws ApiError
      */
     public static projectCreate(
-requestBody: ProjectData,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        requestBody: ProjectData,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/project',
@@ -1852,8 +1852,8 @@ message?: string;
      * @throws ApiError
      */
     public static projectGet(
-id: string,
-): CancelablePromise<ProjectItem> {
+        id: string,
+    ): CancelablePromise<ProjectItem> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/project/{id}',
@@ -1876,14 +1876,14 @@ id: string,
      * @throws ApiError
      */
     public static projectUpdate(
-id: string,
-requestBody: ProjectData,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: ProjectData,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/project/{id}',
@@ -1908,13 +1908,13 @@ message?: string;
      * @throws ApiError
      */
     public static projectValidate(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/project/{id}/request-validation',
@@ -1938,13 +1938,13 @@ message?: string;
      * @throws ApiError
      */
     public static projectDelete(
-id: string,
-): CancelablePromise<{
-/**
- * request result description
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result description
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/project/{id}/delete',
@@ -1969,23 +1969,23 @@ message?: string;
      * @throws ApiError
      */
     public static adminProjectsList(
-page?: string,
-status?: string,
-search?: string,
-): CancelablePromise<{
-/**
- * current page number
- */
-page?: number;
-/**
- * pages number
- */
-pages?: number;
-/**
- * list of projects
- */
-list?: Array<ProjectListAdmin>;
-}> {
+        page?: string,
+        status?: string,
+        search?: string,
+    ): CancelablePromise<{
+        /**
+         * current page number
+         */
+        page?: number;
+        /**
+         * pages number
+         */
+        pages?: number;
+        /**
+         * list of projects
+         */
+        list?: Array<ProjectListAdmin>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/project/admin',
@@ -2008,8 +2008,8 @@ list?: Array<ProjectListAdmin>;
      * @throws ApiError
      */
     public static administratorProjectGet(
-id: string,
-): CancelablePromise<ProjectItemAdmin> {
+        id: string,
+    ): CancelablePromise<ProjectItemAdmin> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/project/{id}/admin',
@@ -2032,19 +2032,19 @@ id: string,
      * @throws ApiError
      */
     public static administratorProjectRequest(
-id: string,
-requestBody: {
-/**
- * additional data request
- */
-request: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: {
+            /**
+             * additional data request
+             */
+            request: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/project/{id}/admin/request',
@@ -2069,13 +2069,13 @@ message?: string;
      * @throws ApiError
      */
     public static administratorProjectApprove(
-id: string,
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/project/{id}/admin/approve',
@@ -2099,19 +2099,19 @@ message?: string;
      * @throws ApiError
      */
     public static administratorProjectReject(
-id: string,
-requestBody: {
-/**
- * rejection reason
- */
-reason: string;
-},
-): CancelablePromise<{
-/**
- * request result
- */
-message?: string;
-}> {
+        id: string,
+        requestBody: {
+            /**
+             * rejection reason
+             */
+            reason: string;
+        },
+    ): CancelablePromise<{
+        /**
+         * request result
+         */
+        message?: string;
+    }> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/project/{id}/admin/reject',
@@ -2151,18 +2151,18 @@ message?: string;
      * @throws ApiError
      */
     public static currenciesList(): CancelablePromise<{
-convertTo?: Array<{
-/**
- * currency name
- */
-name?: string;
-/**
- * currency type
- */
-type?: 'fiat' | 'crypto';
-}>;
-order?: Array<string>;
-}> {
+        convertTo?: Array<{
+            /**
+             * currency name
+             */
+            name?: string;
+            /**
+             * currency type
+             */
+            type?: 'fiat' | 'crypto';
+        }>;
+        order?: Array<string>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/project/currencies',
@@ -2183,11 +2183,11 @@ order?: Array<string>;
      * @throws ApiError
      */
     public static commonStatistics(
-startTime?: string,
-endTime?: string,
-search?: string,
-currency?: string,
-): CancelablePromise<Statistics> {
+        startTime?: string,
+        endTime?: string,
+        search?: string,
+        currency?: string,
+    ): CancelablePromise<Statistics> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/statistics',
@@ -2216,12 +2216,12 @@ currency?: string,
      * @throws ApiError
      */
     public static personalStatistics(
-id: string,
-startTime?: string,
-endTime?: string,
-search?: string,
-currency?: string,
-): CancelablePromise<Statistics> {
+        id: string,
+        startTime?: string,
+        endTime?: string,
+        search?: string,
+        currency?: string,
+    ): CancelablePromise<Statistics> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/statistics/{id}',
@@ -2240,5 +2240,4 @@ currency?: string,
             },
         });
     }
-
 }
