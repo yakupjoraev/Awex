@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import cookies from '../services/cookies'
 import { AppContext } from '../store'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { signIn } from '../apis/Awex'
 
 export default function SignIn() {
@@ -30,16 +30,21 @@ export default function SignIn() {
   }
 
   return (
-    <div>
-      <h3>Sign in to AWEX</h3>
-      {errors.map((error, i) => <em key={i}>{error}</em>)}
-      <div>
-        <input type="text" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value?.trim())} />
+    <main>
+        <div className="wrapper">
+            <Link to="/">{`<< back`}</Link>
+            <br />
+            <br />
+            <h1 className="title">Sign in to AWEX</h1>
+            {errors.map((error, i) => <em key={i}>{error}</em>)}
+            <div>
+              <input type="text" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value?.trim())} />
+            </div>
+            <div>
+              <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value?.trim())} />
+            </div>
+            <button className="second-btn" onClick={handleForm} disabled={!(email && password)}>Sign in</button>
       </div>
-      <div>
-        <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value?.trim())} />
-      </div>
-      <button onClick={handleForm} disabled={!(email && password)}>Sign in</button>
-    </div>
+    </main>
   )
 }

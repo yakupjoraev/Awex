@@ -1,13 +1,17 @@
 import Api from './Api'
 
 const signIn = data => Api().post('/account/auth/sign-in', data)
-const signUp = data => Api().post('/account/auth/register', data)
-const getProfile = () => Api().get('/account/profile')
+const getBalance = () => Api().get('/account/balance')
 const getStatistics = () => Api().get('/statistics')
+const getProject = () => Api().get('/project')
+const getCurrencies = () => Api().get('/project/currencies')
+const orderInvoice = data => Api().post('/order/invoice', data)
 
 export {
     signIn,
-    signUp,
-    getProfile,
+    getBalance,
     getStatistics,
+    getProject,
+    getCurrencies,
+    orderInvoice,
 }
