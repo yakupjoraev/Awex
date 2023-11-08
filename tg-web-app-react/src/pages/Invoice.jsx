@@ -51,15 +51,17 @@ export default function Invoice() {
     const handleInvoice = async () => {
         setSuccessMessage()
         setUniqueId()
-        const data = {
+        let data = {
             name: "Invoice from telegram",
             price: 0.3,
             currency,
-            projectId,
             buyerIdentifier: "",
             depositAmount: parseFloat(depositAmount),
             depositReturnTime: 1,
             convertTo: "stablecoin"
+        }
+        if(projectId) {
+            data = {...data, projectId}
         }
         const response = await orderInvoice(data)
         if(response?.status == 200) {
