@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="file" id="file" accept="image/*">
+
+  <div id="imgContainer"></div>
+
+  <script>
+    const input = document.getElementById("file");
+    const imgContainer = document.getElementById("imgContainer");
+
+    input.addEventListener('change', async (e) => {
+      const selectedFile = event.target.files;
+
+      if (selectedFile.length > 0) {
+        const [imageFile] = selectedFile;
+        const isImageType = imageFile.type.startsWith("image");
+
+        if (isImageType) {
+          const fileReader = new FileReader();
+
+          fileReader.onload = () => {
+            const srcData = fileReader.result;
+            const img = new Image();
+            img.src = srcData;
+
+            imgContainer.innerHTML = '';
+            imgContainer.append(img);
+          };
+
+          fileReader.readAsDataURL(imageFile);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

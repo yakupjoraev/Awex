@@ -1,0 +1,107 @@
+<div class="wrapper">
+  <h1 class="title">Выставление счета</h1>
+
+  <form action="#" class="invoicing">
+    <div class="invoicing__radios">
+      <div class="invoicing__radio">
+        <label class="invoicing__radio-label" for="invoicing-1">
+          <input type="radio" name="invoicing" id="invoicing-1" data-radio-input="crypto">
+          <span>В крипто</span>
+        </label>
+      </div>
+
+      <div class="invoicing__radio">
+        <label class="invoicing__radio-label" for="invoicing-2">
+          <input type="radio" name="invoicing" id="invoicing-2" checked data-radio-input="fiat">
+          <span>Фиат</span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="select" data-select-wrapper>
+      <div class="select__selected" data-select-arrow>
+        Выбор валюты
+
+        <img class="select__arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down">
+      </div>
+
+      <ul class="select__list select-list" data-select-list>
+        <li class="select__item select-item" data-select-item>
+          <img src="./img/icons/rubl.svg" alt="rubl">
+
+          <span>RUB</span>
+        </li>
+        <li class="select__item select-item" data-select-item>
+          <img src="./img/icons/rubl.svg" alt="rubl">
+
+          <span>RUB</span>
+        </li>
+        <li class="select__item select-item" data-select-item>
+          <img src="./img/icons/rubl.svg" alt="rubl">
+
+          <span>RUB</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="select select--crypto" data-select-wrapper>
+      <div class="select__selected" data-select-arrow>
+        Выбор криптовалюты
+
+        <img class="select__arrow" src="./img/icons/mini-arrow-down.svg" alt="mini-arrow-down">
+      </div>
+
+      <ul class="select__list select-list" data-select-list>
+        <li class="select__item select-item" data-select-item>
+          <img src="./img/icons/bnb.png" alt="bnb">
+
+          <span>BNB</span>
+        </li>
+        <li class="select__item select-item" data-select-item>
+          <img src="./img/icons/bnb.png" alt="bnb">
+
+          <span>BNB</span>
+        </li>
+        <li class="select__item select-item" data-select-item>
+          <img src="./img/icons/bnb.png" alt="bnb">
+
+          <span>BNB</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sum">
+      <div class="sum__main">
+        <label class="sum__label" for="sum-1">Сумма</label>
+        <input class="sum__input" id="sum-1" type="number" placeholder="Введите сумму">
+      </div>
+      <p class="sum__text">RUB</p>
+    </div>
+
+    <div class="sum sum--crypto">
+      <div class="sum__main">
+        <label class="sum__label" for="sum-2">Сумма</label>
+        <input class="sum__input" id="sum-2" type="number" placeholder="Введите сумму">
+      </div>
+      <p class="sum__text">BNB</p>
+    </div>
+
+    <div class="comission">
+      <span>Комиссия - </span>
+      <span>1%</span>
+    </div>
+
+    <button type="button" class="second-btn">Сгенерировать платежную ссылку</button>
+
+    <div class="copy">
+      <input type="text" class="copy__text" value="03098kjdgjkb0493490" />
+
+      <button type="button" class="copy__btn">
+        <img src="./img/icons/copy.svg" alt="copy">
+      </button>
+    </div>
+
+    <button type="submit" class="third-btn">Отправить</button>
+  </form>
+</div>

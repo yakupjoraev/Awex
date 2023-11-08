@@ -1,0 +1,22 @@
+:root {
+  --color-background: #1D211E;
+  --color-secondary: #282B28;
+  --color-text: #d4dcd7;
+  --color-green: #3A9F64;
+  --color-hover: rgb(29 33 30 / 0.6);
+  --color-grey: #AEB5B2;
+  --color-btn: #000000;
+  --box-shadow-1: 0 3px 15px rgba(0, 0, 0, .3);
+  --color-backbround-2: rgb(211 220 215 / 7%);
+}
+
+.light-mode {
+  --color-background: #fafafa;
+  --color-secondary: #ffffff;
+  --color-text: #3E4046;
+  --color-green: #3A9F64;
+  --color-hover: #f8f8f8;
+  --color-grey: #393a3a;
+  --color-backbround-2: rgb(58 159 100 / 5%);
+  --color-btn: #ffffff;
+}

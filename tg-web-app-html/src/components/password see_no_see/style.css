@@ -1,0 +1,16 @@
+.form-group {
+  position: relative;
+}
+
+.form-eye {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+}
+
+.form-eye img {
+  user-select: none;
+  pointer-events: none;
+}

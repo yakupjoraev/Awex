@@ -1,0 +1,50 @@
+.more-text-wrapper {
+  @media (max-width: $breakpoint992) {
+    & br {
+      display: none;
+    }
+
+    &.more {
+      .more-text-dots {
+        display: none;
+      }
+    }
+  }
+}
+
+.more-text-dots {
+  display: none;
+
+  @media (max-width: $breakpoint992) {
+    display: inline;
+  }
+}
+
+.more-text-text {
+  @media (max-width: $breakpoint992) {
+    display: none;
+
+    &.more {
+      display: block;
+    }
+  }
+}
+
+.more-text-btn {
+  display: none;
+
+  @media (max-width: $breakpoint992) {
+    display: block;
+    margin-top: 5px;
+
+    background-color: transparent;
+
+    color: var(--Light, #AB8C6F);
+    font-family: var(--primary-font);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.16px;
+  }
+}
