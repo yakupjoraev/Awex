@@ -15,8 +15,10 @@ export function MyProjectsPage() {
     dispatch(getProjects());
   }, [dispatch]);
 
-  const handleGeneratePaymentLink = () => {
-    alert("NOT IMPLEMENTED");
+  const handleGeneratePaymentLink = (projectId: string): void => {
+    // alert("NOT IMPLEMENTED");
+    navigate('/invoice')
+    navigate('/invoice', { state: { projectId } })
   };
 
   return (

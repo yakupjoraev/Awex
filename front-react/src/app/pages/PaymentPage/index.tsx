@@ -113,35 +113,39 @@ export function PaymentPage() {
     setOrderLoading(true)
     CommonService.orderPaymentGet(uniqueId)
       .then((response) => {
-        const {amount, name, paid, paymentData} = response
+        const {amount, expired, name, paid, paymentData} = response
+
+        if(expired && !paid) {
+          setPaymentOrder(null)
+          setPaymentStatus('expired')
+          return
+        }
         
         if (!amount) {
           setPaymentOrder(null)
           setPaymentStatus('invoicing')
           setOrderError({ type: "not_found" })
-        } else {
-          setPaymentOrder({
-            amount: amount.toString(),
-            paid: paid,
-            name: name ? name : undefined,
-            type: orderCurrency.type,
-            currency: orderCurrency.currency,
-            chain: orderCurrency.chain,
-            userCurrency: paymentData ? paymentData.currency : orderCurrency.currency,
-            userChain: paymentData ? paymentData.chain : orderCurrency.chain,
-            paymentData: paymentData ? paymentData : null
-          })
-          setPaymentStatus(paid ? 'success' : paymentData ? 'prepared' : 'invoicing')
-          getPaymentCurrencies(paymentOrder?.amount)
+          return
         }
+        setPaymentOrder({
+          amount: amount.toString(),
+          paid: paid,
+          name: name ? name : undefined,
+          type: orderCurrency.type,
+          currency: orderCurrency.currency,
+          chain: orderCurrency.chain,
+          userCurrency: paymentData ? paymentData.currency : orderCurrency.currency,
+          userChain: paymentData ? paymentData.chain : orderCurrency.chain,
+          paymentData: paymentData ? paymentData : null
+        })
+        setPaymentStatus(paid ? 'success' : paymentData ? 'prepared' : 'invoicing')
+        getPaymentCurrencies(paymentOrder?.amount)
       })
       .catch((error) => {
         if (error instanceof ApiError && error.status === 404) {
           setPaymentOrder(null)
           setOrderError({ type: "not_found" })
         } else {
-          console.error("unknown")
-          console.error(error)
           setPaymentOrder(null)
           setOrderError({ type: "unknown" })
         }
@@ -306,7 +310,7 @@ export function PaymentPage() {
       
       <div className="wrapper-payment">
         <div className="payment">
-          <a href="#" className="payment__logo">
+          <a href="/" className="payment__logo">
             <img className="payment__logo-img" src="/img/icons/logo-2.svg" alt="" />
           </a>
 

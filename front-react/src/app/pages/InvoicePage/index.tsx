@@ -14,6 +14,7 @@ import usePortal from "react-useportal";
 import { PaymentLinkModal } from "@components/PaymentLinkModal";
 import { DepositCurrencySelector } from "./DepositCurrencySelector";
 import classNames from "classnames";
+import { useLocation } from "react-router-dom";
 
 const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = [];
 
@@ -58,8 +59,8 @@ export function InvoicePage() {
   const [paymentDescription, setPaymentDescription] = useState<
     string | undefined
   >(undefined);
-
   const { Portal } = usePortal();
+  const location = useLocation()
 
   useEffect(() => {
     dispatch(getProjects());
@@ -80,10 +81,11 @@ export function InvoicePage() {
 
   const useConvertToValue = useWatch({ control, name: "useConvertTo" });
   const useDepositValue = useWatch({ control, name: "useDeposit" });
-
+  
   useEffect(() => {
-    setValue("projectId", "");
-  }, [projects]);
+    if(!location || !('state' in location) || !location.state || !('projectId' in location.state)) return
+    setValue("projectId", location.state.projectId);
+  }, [location, projects, setValue])
 
   const handleInvoiceFormSubmit = handleSubmit((formData) => {
     let projectId: number | undefined = undefined;
