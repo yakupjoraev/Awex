@@ -62,6 +62,10 @@ export function InvoicePage() {
   const { Portal } = usePortal();
   const location = useLocation()
 
+  useEffect(()=>{
+    setValue("depositCurrency", 'usdt')
+  }, [])
+
   useEffect(() => {
     dispatch(getProjects());
   }, [dispatch]);
@@ -206,7 +210,7 @@ export function InvoicePage() {
                       </label>
                     </div>
 
-                    <div className="invoice-project__radio-container">
+                    {/* <div className="invoice-project__radio-container">
                       <div className="invoice-project__radio-group">
                         <input
                           className="invoice-project__radio"
@@ -247,10 +251,10 @@ export function InvoicePage() {
                           Крипто
                         </label>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
-                <Controller
+                {/* <Controller
                   control={control}
                   name="depositCurrency"
                   render={({ field }) => {
@@ -264,7 +268,24 @@ export function InvoicePage() {
                       />
                     );
                   }}
+                /> */}
+                
+                <Controller
+                  name="depositCurrency"
+                  control={control}
+                  render={({ field }) => {
+                    return (
+                      <InvoiceCurrencySelector
+                        currency={field.value}
+                        currencies={depositCurrencies}
+                        loading={depositCurrenciesLoading}
+                        disabled={useConvertToValue !== true}
+                        onChange={field.onChange}
+                      />
+                    );
+                  }}
                 />
+
               </div>
             </div>
 
@@ -384,7 +405,7 @@ export function InvoicePage() {
                 )}
                 htmlFor={depositReturnAtId}
               >
-                Срок депозита
+                Срок депозита (суток)
               </label>
 
               <input

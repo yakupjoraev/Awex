@@ -89,7 +89,7 @@ export function PaymentPage() {
     if(paymentOrder.paymentData) {
       newpaymentAmountValue = paymentOrder.paymentData.paymentAmount
     } else {
-      newpaymentAmountValue = Number(paymentOrder.amount) * currencyRate(paymentOrder.userCurrency, paymentOrder.userChain)
+      newpaymentAmountValue = Number(paymentOrder.amount) / currencyRate(paymentOrder.userCurrency, paymentOrder.userChain)
     }
     setPaymentAmountValue(newpaymentAmountValue.toString())
   }, [paymentOrder])
@@ -98,8 +98,8 @@ export function PaymentPage() {
     if(!currencies) {
       return 1
     }
-    const currency: Currency = currencies.filter((item) =>  item.chain === userChain && item.currency === userCurrency)[0]
-    return Number(currency.rate)
+    const currency: Currency[] = currencies.filter((item) =>  item.chain === userChain && item.currency === userCurrency)
+    return Number(currency[0].rate)
   }
 
   function getOrderPayment(uniqueId: string | undefined): void {
