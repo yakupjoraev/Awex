@@ -108,6 +108,7 @@ export function InvoicePage() {
     if (formData.useDeposit) {
       depositAmount = formData.depositAmount;
     }
+    const depositReturnTime = formData.depositReturnAt
 
     AuthorizedService.orderCreate({
       name,
@@ -116,6 +117,7 @@ export function InvoicePage() {
       projectId,
       buyerIdentifier,
       depositAmount,
+      depositReturnTime
     })
       .then((response) => {
         if (response.uniqueId) {

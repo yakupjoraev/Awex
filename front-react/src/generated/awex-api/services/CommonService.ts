@@ -353,9 +353,13 @@ export class CommonService {
         uniqueId: string,
     ): CancelablePromise<{
         amount?: number
+        depositAmount: number
+        depositReturnTime: number
+        expiredDate: number
         expired: boolean
         name?: string
         paid: boolean
+        projectName: string
         paymentData?: {
             type: string
             chain: string
