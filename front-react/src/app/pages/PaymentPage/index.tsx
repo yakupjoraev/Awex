@@ -125,7 +125,7 @@ export function PaymentPage() {
       return
     }
     let newpaymentAmountValue
-    if(paymentOrder.paymentData) {
+    if(paymentOrder.paymentData && paymentOrder.userCurrency === paymentOrder.paymentData.currency) {
       newpaymentAmountValue = paymentOrder.paymentData.paymentAmount
     } else {
       newpaymentAmountValue = Number(paymentOrder.amount) / currencyRate(paymentOrder.userCurrency, paymentOrder.userChain)
