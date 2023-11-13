@@ -690,4 +690,23 @@ export class AuthenticatedService {
             },
         });
     }
+    
+    /**
+     * user's endpoint to receive their balance
+     * receive balance and currency
+     * @returns any request succeeded
+     * @throws ApiError
+     */
+    public static accountBalance(): CancelablePromise<{
+        balance: string
+        currency: string
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/account/balance',
+            errors: {
+                403: `request failed`,
+            },
+        });
+    }
 }

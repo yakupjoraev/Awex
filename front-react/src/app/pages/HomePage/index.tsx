@@ -1,21 +1,22 @@
-import React from "react";
-import { Helmet } from "react-helmet-async";
-import { HistoryOperations } from "./HistoryOperations";
-import { MyActives } from "./MyActives";
-import { AboutCheckDeposit } from "./AboutCheckDeposit";
-import { AboutCheckBalance } from "./AboutCheckBalance";
+import React, { useEffect, useState } from "react"
+import { Helmet } from "react-helmet-async"
+import { HistoryOperations } from "./HistoryOperations"
+import { MyActives } from "./MyActives"
+import { AboutCheckDeposit } from "./AboutCheckDeposit"
+import { AboutCheckBalance } from "./AboutCheckBalance"
 
 export function HomePage() {
+
   const projects = [
     { id: "0", name: "Проект 1" },
     { id: "1", name: "Проект 2" },
     { id: "2", name: "Проект 3" },
-  ];
+  ]
 
   const handleGeneratePaymentLink = () => {
     // TODO: show modal
-    alert("NOT IMPLEMENTED");
-  };
+    alert("NOT IMPLEMENTED")
+  }
 
   return (
     <div className="wrapper">
@@ -38,7 +39,6 @@ export function HomePage() {
                 <div className="about-check__info">
                   <div className="about-check__info-top">
                     <h4 className="about-check__info-title">Активные счета:</h4>
-
                     <span className="about-check__info-sum">350</span>
                   </div>
 
@@ -50,10 +50,7 @@ export function HomePage() {
 
                 <div className="about-check__info">
                   <div className="about-check__info-top">
-                    <h4 className="about-check__info-title">
-                      Активные депозиты:
-                    </h4>
-
+                    <h4 className="about-check__info-title">Активные депозиты:</h4>
                     <span className="about-check__info-sum">350</span>
                   </div>
 
@@ -99,5 +96,5 @@ export function HomePage() {
         </div>
       </section>
     </div>
-  );
+  )
 }

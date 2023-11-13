@@ -1,6 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react"
+import { AuthenticatedService } from "@awex-api"
+
+interface Balance {
+  balance: {
+    int: string
+    fract: string
+  }
+  currency: string
+}
 
 export function AboutCheckBalance() {
+  
+  const [userBalance, setUserBalance] = useState<Balance | null>(null)
+  
+  useEffect(()=>{
+    getAccountBalance()
+  },[])
+
+  function getAccountBalance(): void {
+    AuthenticatedService.accountBalance()
+      .then((response) => {
+        if(!response) {
+          setUserBalance(null)
+          return
+        }
+
+        const {balance, currency} = response
+        const balanceSegmented: string[] = balance.split('.')
+        setUserBalance({
+          balance: {
+            int: balanceSegmented[0],
+            fract: balanceSegmented[1] ? balanceSegmented[1] : '',
+          },
+          currency
+        })
+      })
+      .catch((error) => {
+        setUserBalance(null)
+        console.error(error)
+      })
+      // .finally(() => {})
+  }
   return (
     <div className="about-check__balance">
       <div className="about-check__balance-inner">
@@ -17,10 +57,19 @@ export function AboutCheckBalance() {
           </a>
         </div>
 
-        <div className="about-check__balance-sum">
-          2.565.678
-          <span>,456$</span>
-        </div>
+        { userBalance && (
+          <div className="about-check__balance-sum">
+            { userBalance.balance.int }
+            <span>
+              { userBalance.balance.fract && (
+                <>
+                  ,{ userBalance.balance.fract }
+                </>
+              )}
+              { userBalance.currency }
+            </span>
+          </div>
+        )}
 
         <div className="about-check__graphic">
           <img
