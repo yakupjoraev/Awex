@@ -9,7 +9,7 @@ interface Balance {
   currency: string
 }
 
-export function AboutCheckBalance() {
+export function CheckBalance() {
   
   const [userBalance, setUserBalance] = useState<Balance | null>(null)
   

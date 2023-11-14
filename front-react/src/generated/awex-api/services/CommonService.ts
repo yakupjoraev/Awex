@@ -360,12 +360,14 @@ export class CommonService {
         name?: string
         paid: boolean
         projectName: string
+        merchantName: string,
         paymentData?: {
             type: string
             chain: string
             currency: string
             paymentAmount: string
             address: string
+            fee: string
         }
     }> {
         return __request(OpenAPI, {
@@ -431,39 +433,21 @@ export class CommonService {
     public static orderPaymentSet(
         uniqueId: string,
         requestBody: {
-            /**
-             * payment type
-             */
             type: string //'fiat' | 'crypto';
-            /**
-             * payment asset name
-             */
             currency: string;
-            /**
-             * payment asset network identifier
-             */
             chain: string;
         },
     ): CancelablePromise<{
-        /**
-         * amount to be paid
-         */
         amount?: number;
         paymentData?: {
             type: string,
             paymentAmount: string;
-            /**
-             * payment asset name
-             */
             currency: string;
-            /**
-             * payment asset network identifier
-             */
             chain: string;
-            /**
-             * payment address
-             */
             address: string;
+            depositWithdrawCurrency: string,
+            depositWithdrawChain: string,
+            depositWithdrawAddress: string
         };
     }> {
         return __request(OpenAPI, {

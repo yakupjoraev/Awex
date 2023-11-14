@@ -2,16 +2,10 @@ import React, { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { HistoryOperations } from "./HistoryOperations"
 import { MyActives } from "./MyActives"
-import { AboutCheckDeposit } from "./AboutCheckDeposit"
-import { AboutCheckBalance } from "./AboutCheckBalance"
+import { InvoiceLight } from "./InvoiceLight"
+import { CheckBalance } from "./CheckBalance"
 
 export function HomePage() {
-
-  const projects = [
-    { id: "0", name: "Проект 1" },
-    { id: "1", name: "Проект 2" },
-    { id: "2", name: "Проект 3" },
-  ]
 
   const handleGeneratePaymentLink = () => {
     // TODO: show modal
@@ -81,12 +75,9 @@ export function HomePage() {
                 </div>
               </div>
 
-              <AboutCheckBalance />
+              <CheckBalance />
 
-              <AboutCheckDeposit
-                projects={projects}
-                onGeneratePaymentLink={handleGeneratePaymentLink}
-              />
+              <InvoiceLight />
             </div>
           </div>
 

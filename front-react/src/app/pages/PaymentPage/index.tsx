@@ -25,6 +25,7 @@ interface PaymentData {
   currency: string
   paymentAmount: string
   address: string
+  fee?: string
 }
 
 interface PaymentOrder {
@@ -41,6 +42,7 @@ interface PaymentOrder {
   userChain: string
   name?: string | undefined
   projectName: string
+  merchantName: string
   paymentData?: PaymentData | null
 }
 
@@ -205,15 +207,7 @@ export function PaymentPage() {
     setOrderLoading(true)
     CommonService.orderPaymentGet(uniqueId)
       .then((response) => {
-        const {amount, expired, name, paid, paymentData, depositAmount, depositReturnTime, expiredDate, projectName} = response
-
-        console.table({amount, expired, name, paid, paymentData, depositAmount, depositReturnTime, expiredDate, projectName})
-
-        // if(expired && !paid) {
-        //   setPaymentOrder(null)
-        //   setPaymentStatus('expired')
-        //   return
-        // }
+        const {amount, expired, name, paid, paymentData, depositAmount, depositReturnTime, expiredDate, projectName, merchantName} = response
         
         if (!amount) {
           setPaymentOrder(null)
@@ -235,6 +229,7 @@ export function PaymentPage() {
           userCurrency: paymentData ? paymentData.currency : orderCurrency.currency,
           userChain: paymentData ? paymentData.chain : orderCurrency.chain,
           projectName,
+          merchantName,
           paymentData: paymentData ? paymentData : null
         })
 
@@ -321,6 +316,7 @@ export function PaymentPage() {
         currency: response.paymentData.currency,
         chain: response.paymentData.chain,
         address: response.paymentData.address,
+        // fee: response.paymentData.fee,
       } : null
 
       if(!paymentOrder || !dataOrder) return

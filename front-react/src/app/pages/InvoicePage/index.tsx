@@ -56,9 +56,7 @@ export function InvoicePage() {
 
   const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false);
   const [paymentToken, setPaymentToken] = useState<string | null>(null);
-  const [paymentDescription, setPaymentDescription] = useState<
-    string | undefined
-  >(undefined);
+  const [paymentDescription, setPaymentDescription] = useState<string | undefined>(undefined);
   const { Portal } = usePortal();
   const location = useLocation()
 
