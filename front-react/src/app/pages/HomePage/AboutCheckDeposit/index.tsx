@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
-import classNames from "classnames";
-import { Project, projects } from "../../../state-defaults/projects";
-import { SelectCurrencyModal } from "../../../components/SelectCurrenyModal";
+import React, { useState, useEffect, useRef } from "react"
+import classNames from "classnames"
+import { Project, projects } from "../../../state-defaults/projects"
+import { SelectCurrencyModal } from "../../../components/SelectCurrenyModal"
 
 interface AboutCheckDepositProps {
-  projects: { id: string; name: string }[];
-  onGeneratePaymentLink: () => void;
+  projects: { id: string; name: string }[]
+  onGeneratePaymentLink: () => void
 }
 
 export function AboutCheckDeposit(props: AboutCheckDepositProps) {
-  const projectSelectorRef = useRef<HTMLDivElement>(null);
-  const [projectSelectorOpened, setProjectSelectorOpened] = useState(false);
-  const [currencySelectorOpened, setCurrencySelectorOpened] = useState(false);
-  const [project, setProject] = useState<Project | null>(projects[0]);
+  const projectSelectorRef = useRef<HTMLDivElement>(null)
+  const [projectSelectorOpened, setProjectSelectorOpened] = useState(false)
+  const [currencySelectorOpened, setCurrencySelectorOpened] = useState(false)
+  const [project, setProject] = useState<Project | null>(projects[0])
 
   useEffect(() => {
     if (!projectSelectorOpened) {
-      return;
+      return
     }
 
     const handleDocumentClick = (ev: MouseEvent) => {
@@ -27,30 +27,27 @@ export function AboutCheckDeposit(props: AboutCheckDepositProps) {
       ) {
         setProjectSelectorOpened(false);
       }
-    };
-
-    document.addEventListener("click", handleDocumentClick);
-
-    return () => {
-      document.removeEventListener("click", handleDocumentClick);
-    };
-  }, [projectSelectorOpened]);
-
-  const handleProjectOptionClick = (
-    ev: React.MouseEvent<HTMLLIElement, MouseEvent>
-  ) => {
-    const projectId = ev.currentTarget.getAttribute("data-project-id");
-    if (projectId !== null) {
-      const nextProject = projects.find(({ id }) => id === projectId);
-      setProject(nextProject || null);
     }
 
-    setProjectSelectorOpened(false);
-  };
+    document.addEventListener("click", handleDocumentClick)
+    return () => {
+      document.removeEventListener("click", handleDocumentClick)
+    }
+  }, [projectSelectorOpened])
+
+  const handleProjectOptionClick = (ev: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    const projectId = ev.currentTarget.getAttribute("data-project-id")
+
+    if (projectId !== null) {
+      const nextProject = projects.find(({ id }) => id === projectId)
+      setProject(nextProject || null)
+    }
+    setProjectSelectorOpened(false)
+  }
 
   const handleCurrencySelectorClose = () => {
-    setCurrencySelectorOpened(false);
-  };
+    setCurrencySelectorOpened(false)
+  }
 
   return (
     <div className="main-content__deposit about-deposit">
@@ -103,7 +100,7 @@ export function AboutCheckDeposit(props: AboutCheckDepositProps) {
                 >
                   {project.name}
                 </li>
-              );
+              )
             })}
           </ul>
         </div>
@@ -112,7 +109,6 @@ export function AboutCheckDeposit(props: AboutCheckDepositProps) {
           <div className="about-deposit__generation-selected">
             <div className="about-deposit__generation-info">
               <h5 className="about-deposit__generation-title">Сумма</h5>
-
               <input
                 className="about-deposit__generation-input"
                 type="number"
@@ -148,5 +144,5 @@ export function AboutCheckDeposit(props: AboutCheckDepositProps) {
         onClose={handleCurrencySelectorClose}
       />
     </div>
-  );
+  )
 }
