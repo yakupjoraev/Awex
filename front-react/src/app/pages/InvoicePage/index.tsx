@@ -22,15 +22,15 @@ const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] =
   [];
 
 interface InvoiceFormData {
-  projectId?: string;
-  name: string;
-  amount: number;
-  currency: string;
-  useConvertTo?: boolean;
-  useDeposit?: boolean;
-  depositCurrency?: string;
-  depositAmount?: number;
-  depositReturnAt?: number;
+  projectId?: string
+  name: string
+  amount: string //number
+  currency: string
+  useConvertTo?: boolean
+  useDeposit?: boolean
+  depositCurrency?: string
+  depositAmount?: string //number
+  depositReturnAt?: number
 }
 
 export function InvoicePage() {
@@ -98,13 +98,13 @@ export function InvoicePage() {
       }
     }
 
-    const name = formData.name;
-    const price = formData.amount;
-    const currency = formData.currency;
-    let buyerIdentifier: string | undefined = undefined;
-    let depositAmount: number | undefined = undefined;
+    const name = formData.name
+    const price = parseFloat(formData.amount)
+    const currency = formData.currency
+    let buyerIdentifier: string | undefined = undefined
+    let depositAmount: number | undefined = undefined
     if (formData.useDeposit) {
-      depositAmount = formData.depositAmount;
+      depositAmount = formData.depositAmount ? parseFloat(formData.depositAmount) : 0
     }
     const depositReturnTime = formData.depositReturnAt
 
@@ -380,10 +380,10 @@ export function InvoicePage() {
               <input
                 className="invoice-project__input project-input"
                 id={depositAmountId}
-                type="number"
+                type="text"
                 placeholder="Введите сумму депозита"
                 disabled={useDepositValue !== true}
-                {...register("depositAmount", { valueAsNumber: true })}
+                {...register("depositAmount")}
               />
               {errors.depositAmount?.message && (
                 <div className="project-error">
@@ -437,9 +437,9 @@ export function InvoicePage() {
                 <input
                   className="about-deposit__generation-input"
                   id={amountId}
-                  type="number"
+                  type="text"
                   placeholder="Введите сумму"
-                  {...register("amount", { valueAsNumber: true })}
+                  {...register("amount")}
                 />
               </div>
               <Controller
