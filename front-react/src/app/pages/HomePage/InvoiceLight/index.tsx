@@ -11,6 +11,8 @@ import { AuthorizedService } from "@awex-api"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { invoiceFormValidator } from "./validators"
 import toast from "react-hot-toast"
+import usePortal from "react-useportal"
+import { PaymentLinkModal } from "@components/PaymentLinkModal"
 
 // interface Project {
 //   id: string
@@ -21,7 +23,7 @@ const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] =
 
 interface InvoiceFormData {
   projectId: string
-  amount: number
+  amount: string
   currency: string
 }
 
@@ -36,6 +38,10 @@ export function InvoiceLight() {
 
   const projects = useAppSelector((state) => state.projects.data || DEFAULT_PROJECTS)
   // const projectsError = useAppSelector((state) => state.projects.error)
+  const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false)
+  const [paymentToken, setPaymentToken] = useState<string | null>(null)
+  // const [paymentDescription, setPaymentDescription] = useState<string | undefined>(undefined)
+  const { Portal } = usePortal()
 
   useEffect(() => {
     if (!projectSelectorOpened) {
@@ -82,7 +88,10 @@ export function InvoiceLight() {
     resolver: yupResolver(invoiceFormValidator),
   })
 
-  
+  const handlePaymentLinkModalClose = () => {
+    setPaymentLinkModalOpened(false)
+  }
+ 
   const handleInvoiceFormSubmit = handleSubmit((formData) => {
     let projectId: number | undefined = undefined
     if (formData.projectId) {
@@ -90,7 +99,7 @@ export function InvoiceLight() {
       if (isNaN(projectId)) { return }
     }
 
-    const price = formData.amount
+    const price = parseFloat(formData.amount)
     const currency = formData.currency
 
     AuthorizedService.orderCreate({
@@ -102,8 +111,8 @@ export function InvoiceLight() {
       .then((response) => {
         if (response.uniqueId) {
           console.log('response.uniqueId:', response.uniqueId)
-          // setPaymentLinkModalOpened(true)
-          // setPaymentToken(response.uniqueId)
+          setPaymentLinkModalOpened(true)
+          setPaymentToken(response.uniqueId)
           // setPaymentDescription(formData.name)
         } else {
           toast.error("Не удалось создать платежную ссылку.");
@@ -119,80 +128,93 @@ export function InvoiceLight() {
   })
 
   return (
-    <form
-      className="main-content__deposit about-deposit"
-      onSubmit={handleInvoiceFormSubmit}
-    >
-      <div className="about-deposit__generation">
-        <p className="about-deposit__generation-label">
-          Быстрая генерация ссылки
-        </p>
+    <>
+      <form
+        className="main-content__deposit about-deposit"
+        onSubmit={handleInvoiceFormSubmit}
+      >
+        <div className="about-deposit__generation">
+          <p className="about-deposit__generation-label">
+            Быстрая генерация ссылки
+          </p>
 
-        <Controller
-          control={control}
-          name="projectId"
-          render={({ field }) => {
-            return (
-              <SelectorSimple
-                disabled={false}
-                options={projectsOptions}
-                value={field.value}
-                onChange={field.onChange}
+          <Controller
+            control={control}
+            name="projectId"
+            render={({ field }) => {
+              return (
+                <SelectorSimple
+                  disabled={false}
+                  options={projectsOptions}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              );
+            }}
+          />
+          
+          {errors.projectId?.message && (
+            <div className="project-error">{errors.projectId.message}</div>
+          )}
+
+          <div className="about-deposit__generation-select about-deposit__generation-selected--not-reverse about-deposit__generation-selected--white">
+            <div className="about-deposit__generation-selected">
+              <div className="about-deposit__generation-info">
+                <h5 className="about-deposit__generation-title">Сумма</h5>
+                <input
+                  className="about-deposit__generation-input"
+                  type="text"
+                  placeholder="Введите сумму"
+                  {...register("amount")}
+                />
+
+                {errors.amount?.message && (
+                  <div className="project-error">{errors.amount.message}</div>
+                )}
+              </div>          
+                          
+              <Controller
+                name="currency"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <InvoiceCurrencySelector
+                      currency={field.value}
+                      currencies={invoiceCurrencies}
+                      loading={invoiceCurrenciesLoading}
+                      onChange={field.onChange}
+                    />
+                  )
+                }}
               />
-            );
-          }}
-        />
-        
-        {errors.projectId?.message && (
-          <div className="project-error">{errors.projectId.message}</div>
-        )}
 
-        <div className="about-deposit__generation-select about-deposit__generation-selected--not-reverse about-deposit__generation-selected--white">
-          <div className="about-deposit__generation-selected">
-            <div className="about-deposit__generation-info">
-              <h5 className="about-deposit__generation-title">Сумма</h5>
-              <input
-                className="about-deposit__generation-input"
-                type="number"
-                placeholder="Введите сумму"
-                {...register("amount", { valueAsNumber: true })}
-              />
-
-              {errors.amount?.message && (
-                <div className="project-error">{errors.amount.message}</div>
-              )}
-            </div>          
-                        
-            <Controller
-              name="currency"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <InvoiceCurrencySelector
-                    currency={field.value}
-                    currencies={invoiceCurrencies}
-                    loading={invoiceCurrenciesLoading}
-                    onChange={field.onChange}
-                  />
-                )
-              }}
-            />
-
+            </div>
+            {errors.currency?.message && (
+              <div className="project-error">{errors.currency.message}</div>
+            )}
+            {errors.root?.message && (
+              <div className="my-projects__error">{errors.root.message}</div>
+            )}
           </div>
-          {errors.currency?.message && (
-            <div className="project-error">{errors.currency.message}</div>
-          )}
-          {errors.root?.message && (
-            <div className="my-projects__error">{errors.root.message}</div>
-          )}
         </div>
-      </div>
-      
+        
 
-      <button type="submit" className="about-check__btn main-btn" >
-        Сгенерировать платежную ссылку
-      </button>
-    </form>
+        <button type="submit" className="about-check__btn main-btn" >
+          Сгенерировать платежную ссылку
+        </button>
+      </form>
+      
+      {paymentToken !== null && (
+        <Portal>
+          <PaymentLinkModal
+            open={paymentLinkModalOpened}
+            token={paymentToken}
+            text={'---'}
+            onClose={handlePaymentLinkModalClose}
+          />
+        </Portal>
+      )}
+    </>
   )
 }
 
