@@ -1,40 +1,32 @@
-/* generated using openapi-typescript-codegen -- do no edit */
-/* istanbul ignore file */
-/* tslint:disable */
-/* eslint-disable */
-import type { AdminItem } from '../models/AdminItem';
-import type { AdminList } from '../models/AdminList';
-import type { CompanyItem } from '../models/CompanyItem';
-import type { CompanyList } from '../models/CompanyList';
-import type { EarningsList } from '../models/EarningsList';
-import type { MerchantItem } from '../models/MerchantItem';
-import type { MerchantList } from '../models/MerchantList';
-import type { Order } from '../models/Order';
-import type { ProjectData } from '../models/ProjectData';
-import type { ProjectItem } from '../models/ProjectItem';
-import type { ProjectItemAdmin } from '../models/ProjectItemAdmin';
-import type { ProjectList } from '../models/ProjectList';
-import type { ProjectListAdmin } from '../models/ProjectListAdmin';
-import type { ReferralList } from '../models/ReferralList';
-import type { Statistics } from '../models/Statistics';
-import type { TeamMember } from '../models/TeamMember';
+import type { AdminItem } from '../models/AdminItem'
+import type { AdminList } from '../models/AdminList'
+import type { CompanyItem } from '../models/CompanyItem'
+import type { CompanyList } from '../models/CompanyList'
+import type { EarningsList } from '../models/EarningsList'
+import type { MerchantItem } from '../models/MerchantItem'
+import type { MerchantList } from '../models/MerchantList'
+import type { Order } from '../models/Order'
+import type { ProjectData } from '../models/ProjectData'
+import type { ProjectItem } from '../models/ProjectItem'
+import type { ProjectItemAdmin } from '../models/ProjectItemAdmin'
+import type { ProjectList } from '../models/ProjectList'
+import type { ProjectListAdmin } from '../models/ProjectListAdmin'
+import type { ReferralList } from '../models/ReferralList'
+import type { Statistics } from '../models/Statistics'
+import type { TeamMember } from '../models/TeamMember'
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from '../core/CancelablePromise'
+import { OpenAPI } from '../core/OpenAPI'
+import { request as __request } from '../core/request'
 
 export class AuthorizedService {
 
-    /** * endpoint for getting team members list * team members list * @param page requested page number * @returns any request succeeded * @throws ApiError */
     public static teamMembersList(
         page?: string,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of projects */
-        list?: Array<TeamMember>;
+        page?: number
+        pages?: number
+        list?: Array<TeamMember>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -45,24 +37,18 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for team members adding * team members adding * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static teamMembersAdd(
         requestBody: {
-            /** * user name (is ignored for existing users) */
-            name?: string;
-            /** * user's email */
-            email: string;
-            /** * team member permissions */
-            permissions?: Array<string>;
-            /** * team member label */
-            label: string;
+            name?: string
+            email: string
+            permissions?: Array<string>
+            label: string
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -73,10 +59,9 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting team member * getting team member * @param id team membership id * @returns TeamMember request succeeded * @throws ApiError */
     public static teamMemberGet(
         id: string,
     ): CancelablePromise<TeamMember> {
@@ -90,21 +75,17 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for team member settings updating * team member settings updating * @param id project id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static teamMemberSet(
         id: string,
         requestBody: {
-            /** * team member permissions */
-            permissions?: Array<string>;
-            /** * team member label */
-            label?: string;
+            permissions?: Array<string>
+            label?: string
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -119,15 +100,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for a team member enabling * team member enabling * @param id team member id * @returns any request succeeded * @throws ApiError */
     public static teamMemberEnable(
         id: string,
     ): CancelablePromise<{
-        /** * request result description */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -140,15 +119,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for a team member disabling * team member disabling * @param id team member id * @returns any request succeeded * @throws ApiError */
     public static teamMemberDisable(
         id: string,
     ): CancelablePromise<{
-        /** * request result description */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -164,12 +141,10 @@ export class AuthorizedService {
         });
     }
 
-    /** * endpoint for a team member deleting * team member deleting * @param id team member id * @returns any request succeeded * @throws ApiError */
     public static teamMemberDelete(
         id: string,
     ): CancelablePromise<{
-        /** * request result description */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -182,21 +157,17 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting administrators list * administrators list * @param page requested page number * @param search email, id or name * @param role admin role * @returns any request succeeded * @throws ApiError */
     public static adminList(
         page?: string,
         search?: string,
         role?: string,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of projects */
-        list?: Array<AdminList>;
+        page?: number
+        pages?: number
+        list?: Array<AdminList>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -209,21 +180,17 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for creating users by admin with granting admin roles * creating users by admin with granting admin roles * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static userCreate(
         requestBody: {
-            /** * user email */
-            email?: string;
-            /** * user name */
-            name?: string;
-            roles?: Array<string>;
+            email?: string
+            name?: string
+            roles?: Array<string>
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -234,10 +201,9 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting admin details * getting admin details * @param id admin id * @returns AdminItem request succeeded * @throws ApiError */
     public static adminGet(
         id: string,
     ): CancelablePromise<AdminItem> {
@@ -251,17 +217,15 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for granting admin roles to user * granting admin roles to user * @param id project id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static adminUpdate(
         id: string,
         requestBody: {
             roles?: Array<string>;
         },
     ): CancelablePromise<{
-        /** * request result */
         message?: string;
     }> {
         return __request(OpenAPI, {
@@ -277,15 +241,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for enabling admin account * enabling admin account * @param id admin id * @returns any request succeeded * @throws ApiError */
     public static adminEnable(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -298,15 +260,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for disabling admin account * disabling admin account * @param id admin id * @returns any request succeeded * @throws ApiError */
     public static adminDisable(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -319,15 +279,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for deleting admin account * deleting admin account * @param id admin id * @returns any request succeeded * @throws ApiError */
     public static adminDelete(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -340,20 +298,16 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting merchants list * merchants list * @param page requested page number * @param search email, id or name * @returns any request succeeded * @throws ApiError */
     public static merchantList(
         page?: string,
         search?: string,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of projects */
-        list?: Array<MerchantList>;
+        page?: number
+        pages?: number
+        list?: Array<MerchantList>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -365,10 +319,9 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting merchant details * getting merchant details * @param id user id * @returns MerchantItem request succeeded * @throws ApiError */
     public static merchantGet(
         id: string,
     ): CancelablePromise<MerchantItem> {
@@ -382,15 +335,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for enabling merchant account * enabling merchant account * @param id merchant id * @returns any request succeeded * @throws ApiError */
     public static merchantEnable(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -403,15 +354,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for disabling merchant account * disabling merchant account * @param id merchant id * @returns any request succeeded * @throws ApiError */
     public static merchantDisable(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -424,15 +373,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for deleting merchant account * deleting merchant account * @param id merchant id * @returns any request succeeded * @throws ApiError */
-    public static merchantDelete(
+     public static merchantDelete(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -445,22 +392,18 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting referrals list * getting referrals list * @param page requested page number * @param status referral status filter * @param startTime UTC timestamp for start time filter * @param endTime UTC timestamp for start time filter * @returns any request succeeded * @throws ApiError */
     public static referralsList(
         page?: string,
         status?: string,
         startTime?: number,
         endTime?: number,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of referrals */
-        list?: Array<ReferralList>;
+        page?: number
+        pages?: number
+        list?: Array<ReferralList>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -474,22 +417,18 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting earnings list * getting earnings list * @param page requested page number * @param type earnings type * @param startTime UTC timestamp for start time filter * @param endTime UTC timestamp for start time filter * @returns any request succeeded * @throws ApiError */
     public static earningsList(
         page?: string,
         type?: string,
         startTime?: number,
         endTime?: number,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of referrals */
-        list?: Array<EarningsList>;
+        page?: number
+        pages?: number
+        list?: Array<EarningsList>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -503,20 +442,16 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * admin endpoint for setting referral fees * setting referral fees * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static adminSetReferralFees(
         requestBody: {
-            /** * referral fees percentage for a "fromFees" type */
-            fromFees: number;
-            /** * referral fees percentage for a "fromTurnover" type */
-            fromTurnover: number;
+            fromFees: number
+            fromTurnover: number
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -527,18 +462,14 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting companies list * companies list * @param page requested page number * @returns any request succeeded * @throws ApiError */
     public static companiesList(
         page?: string,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of projects */
+        page?: number
+        pages?: number
         list?: Array<CompanyList>;
     }> {
         return __request(OpenAPI, {
@@ -550,15 +481,13 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for creating company * creating company * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static companyCreate(
         requestBody: CompanyItem,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -569,10 +498,9 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting company * getting company * @param id company id * @returns CompanyItem request succeeded * @throws ApiError */
     public static companyGet(
         id: string,
     ): CancelablePromise<CompanyItem> {
@@ -586,16 +514,14 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for updating company * updating company * @param id company id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static companyUpdate(
         id: string,
         requestBody: CompanyItem,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -610,15 +536,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for deleting company * deleting company * @param id company id * @returns any request succeeded * @throws ApiError */
     public static companyDelete(
         id: string,
     ): CancelablePromise<{
-        /** * request result description */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -631,17 +555,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for a fee getting * fee getting * @returns any request succeeded * @throws ApiError */
     public static feeGet(): CancelablePromise<{
-        /** * current fee */
-        current?: number;
-        /** * upcoming fee */
-        next?: number | null;
-        /** * UNIX timestamp, time when upcoming fee will be active */
-        nextTimestamp?: number | null;
+        current?: number
+        next?: number | null
+        nextTimestamp?: number | null
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -649,20 +569,16 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for a fee setting * fee setting * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static feeSet(
         requestBody: {
-            /** * new fee */
-            fee: number;
-            /** * UNIX timestamp, time when new fee should be enabled */
-            timestamp: number;
+            fee: number
+            timestamp: number
         },
     ): CancelablePromise<{
-        /** * request result description */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -673,19 +589,15 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for a personal fee getting * personal fee getting * @param id user id * @returns any request succeeded * @throws ApiError */
     public static personalFeeGet(
         id: string,
     ): CancelablePromise<{
-        /** * current fee */
-        current?: number;
-        /** * upcoming fee */
-        next?: number | null;
-        /** * UNIX timestamp, time when upcoming fee will be active */
-        nextTimestamp?: number | null;
+        current?: number
+        next?: number | null
+        nextTimestamp?: number | null
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -697,21 +609,17 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for a personal fee setting * personal fee setting * @param id user id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static personalFeeSet(
         id: string,
         requestBody: {
-            /** * new fee */
-            fee: number;
-            /** * UNIX timestamp, time when new fee should be enabled */
-            timestamp: number;
+            fee: number
+            timestamp: number
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -726,10 +634,9 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting orders list * orders list * @param page requested page number * @param projectId filter by project id * @param status status filter * @param startTime UTC timestamp for start time filter * @param endTime UTC timestamp for start time filter * @returns any request succeeded * @throws ApiError */
     public static ordersList(
         page?: string,
         projectId?: number,
@@ -737,12 +644,9 @@ export class AuthorizedService {
         startTime?: number,
         endTime?: number,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of orders */
-        list?: Array<Order>;
+        page?: number
+        pages?: number
+        list?: Array<Order>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -757,36 +661,24 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for creating order * creating order * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static orderCreate(
         requestBody: {
-            /** * order name */
-            name: string;
-            /** * order price in specified currency */
-            price: number;
-            /** * price currency, | payment amount will be recalculated to USDT */
-            currency: string;
-            /** * project identifier */
-            projectId?: number;
-            /** * buyer identifier for reference */
-            buyerIdentifier?: string;
-            /** * deposit amount in usd */
-            depositAmount?: number;
-            /** * UTC timestamp time when deposit should be returned */
-            depositReturnTime?: number;
-            /** * currency for payments to be converted to */
-            convertTo?: 'fiat' | 'stablecoin';
+            name: string
+            price: number
+            currency: string
+            projectId?: number
+            buyerIdentifier?: string
+            depositAmount?: number
+            depositReturnTime?: number
+            convertTo?: 'fiat' | 'stablecoin'
         },
     ): CancelablePromise<{
-        /** * created order id */
-        id?: number;
-        /** * created order unique identifier for buyers */
-        uniqueId?: string;
-        /** * request result */
-        message?: string;
+        id?: number
+        uniqueId?: string
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -797,27 +689,20 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting order data * getting order data * @param id order id * @returns any request succeeded * @throws ApiError */
     public static orderGet(
         id: string,
     ): CancelablePromise<{
-        /** * order name */
-        name?: string;
-        /** * created order unique identifier for buyers */
-        uniqueId?: string;
-        /** * quantity * product price */
-        amount?: number;
-        /** * buyer identifier for reference */
-        buyerIdentifier?: string;
-        data?: Record<string, any>;
-        paymentData?: Record<string, any>;
-        /** * order status */
-        status?: 'wait' | 'paid' | 'expired';
-        /** * UNIX timestamp of creation time */
-        createdAt?: number;
+        name?: string
+        uniqueId?: string
+        amount?: number
+        buyerIdentifier?: string
+        data?: Record<string, any>
+        paymentData?: Record<string, any>
+        status?: 'wait' | 'paid' | 'expired'
+        createdAt?: number
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -829,27 +714,20 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting order data by admin * getting order data by admin * @param id order id * @returns any request succeeded * @throws ApiError */
     public static adminOrderGet(
         id: string,
     ): CancelablePromise<{
-        /** * order name */
-        name?: string;
-        /** * created order unique identifier for buyers */
-        uniqueId?: string;
-        /** * quantity * product price */
-        amount?: number;
-        /** * buyer identifier for reference */
-        buyerIdentifier?: string;
-        data?: Record<string, any>;
-        paymentData?: Record<string, any>;
-        /** * order status */
-        status?: 'wait' | 'paid' | 'expired';
-        /** * UNIX timestamp of creation time */
-        createdAt?: number;
+        name?: string
+        uniqueId?: string
+        amount?: number
+        buyerIdentifier?: string
+        data?: Record<string, any>
+        paymentData?: Record<string, any>
+        status?: 'wait' | 'paid' | 'expired'
+        createdAt?: number
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -861,10 +739,9 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting deposits list * getting deposits list * @param page requested page number * @param projectId filter by project id * @param status status filter * @param startTime UTC timestamp for start time filter * @param endTime UTC timestamp for start time filter * @returns any request succeeded * @throws ApiError */
     public static depositsList(
         page?: string,
         projectId?: number,
@@ -872,12 +749,9 @@ export class AuthorizedService {
         startTime?: number,
         endTime?: number,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of deposits */
-        list?: Array<Order>;
+        page?: number
+        pages?: number
+        list?: Array<Order>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -892,22 +766,18 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting deposit requests list * getting deposit requests list * @param page requested page number * @param projectId  * @param startTime UTC timestamp for start time filter * @param endTime UTC timestamp for start time filter * @returns any request succeeded * @throws ApiError */
     public static depositRequestsList(
         page?: string,
         projectId?: number,
         startTime?: number,
         endTime?: number,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of referrals */
-        list?: Array<Order>;
+        page?: number
+        pages?: number
+        list?: Array<Order>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -921,15 +791,13 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for creating deposit request by merchant on behalf of user * creating of deposit request * @param id order id * @returns any request succeeded * @throws ApiError */
     public static createDepositRequest(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -941,15 +809,13 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for returning deposit * returning deposit * @param id order id * @returns any request succeeded * @throws ApiError */
     public static returnDeposit(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -961,19 +827,16 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for creating withhold request * creating withhold request * @param id order id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static createWithholdRequest(
         id: string,
         requestBody: {
-            /** * amount that should be withheld */
-            withholdAmount: number;
+            withholdAmount: number
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -987,18 +850,16 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for deposit withhold documents uploading * deposit withhold documents uploading * @param id order id * @param formData  * @returns any request succeeded * @throws ApiError */
     public static withholdRequestUpload(
         id: string,
         formData: {
-            upload: Blob;
+            upload: Blob
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1012,16 +873,14 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for deleting deposit withold request file * deleting deposit withold request file * @param id order id * @param documentId uploaded document id * @returns any request succeeded * @throws ApiError */
     public static depositWitholdFileDelete(
         id: string,
         documentId: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1034,22 +893,18 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting deposit withhold requests list * getting deposit withhold requests list * @param page requested page number * @param projectId  * @param startTime UTC timestamp for start time filter * @param endTime UTC timestamp for start time filter * @returns any request succeeded * @throws ApiError */
     public static withholdRequestsList(
         page?: string,
         projectId?: number,
         startTime?: number,
         endTime?: number,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of referrals */
-        list?: Array<Order>;
+        page?: number
+        pages?: number
+        list?: Array<Order>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1063,22 +918,18 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * administrator endpoint for getting deposit withhold requests list * getting deposit withhold requests list by admin * @param page requested page number * @param projectId  * @param startTime UTC timestamp for start time filter * @param endTime UTC timestamp for start time filter * @returns any request succeeded * @throws ApiError */
     public static adminWithholdRequestsList(
         page?: string,
         projectId?: number,
         startTime?: number,
         endTime?: number,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of referrals */
-        list?: Array<Order>;
+        page?: number
+        pages?: number
+        list?: Array<Order>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1092,19 +943,16 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for requesting additional data for a withhold request * requesting additional data for a withhold request * @param id order id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static withholdRequestInfo(
         id: string,
         requestBody: {
-            /** * additional info request */
-            info: string;
+            info: string
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1118,15 +966,13 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for approving of the withhold request by admin * approving of the withhold request by admin * @param id order id * @returns any request succeeded * @throws ApiError */
     public static approveWithholdRequest(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1138,19 +984,16 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for rejecting of the withhold request by admin * rejecting of the withhold request by admin * @param id order id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static rejectWithholdRequest(
         id: string,
         requestBody: {
-            /** * withhold reject reason */
-            withholdRejectReason: string;
+            withholdRejectReason: string
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1164,19 +1007,18 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * merchant endpoint for getting available currencies list * available currencies list * @param amount payment amount in selected currency * @returns any request succeeded * @throws ApiError */
     public static merchantCurrencies(
         amount?: string,
     ): CancelablePromise<{
         currencies?: Array<{
-            currency?: string;
-            name?: string;
-            rate?: string;
-            chain?: string;
-        }>;
+            currency?: string
+            name?: string
+            rate?: string
+            chain?: string
+        }>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1187,46 +1029,16 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    // /**
-    // * payer endpoint to get a list of available currencies
-    // * available currencies list
-    // * @param amount payment amount in selected currency
-    // * @returns any request succeeded
-    // * @throws ApiError
-    // */
-    // public static paymentCurrencies( 
-    //     amount?: string,
-    // ): CancelablePromise<{
-    //     currencies?: Array<{
-    //         currency?: string;
-    //         name?: string;
-    //         rate?: string;
-    //         chain?: string;
-    //     }>;
-    // }> {
-    //     return __request(OpenAPI, {
-    //         method: 'GET',
-    //         url: '/order/payment/currencies',
-    //         query: {
-    //             'amount': amount,
-    //         },
-    //         errors: {
-    //             403: `request failed`,
-    //         },
-    //     });
-    // }
-
-    /** * merchant endpoint for getting specified currency rate in usdt * specified currency rate in usdt * @param amount payment amount in selected currency * @param currency currency symbol * @returns any request succeeded * @throws ApiError */
     public static merchantUsdtRate(
         amount: string,
         currency: string,
     ): CancelablePromise<{
         currencies?: Array<{
-            rate?: string;
-        }>;
+            rate?: string
+        }>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1238,19 +1050,15 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting projects list * projects list * @param page requested page number * @returns any request succeeded * @throws ApiError */
     public static projectsList(
         page?: string,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of projects */
-        list?: Array<ProjectList>;
+        page?: number
+        pages?: number
+        list?: Array<ProjectList>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1261,15 +1069,13 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for creating project * creating project * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static projectCreate(
         requestBody: ProjectData,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1280,10 +1086,9 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting project * getting project * @param id project id * @returns ProjectItem request succeeded * @throws ApiError */
     public static projectGet(
         id: string,
     ): CancelablePromise<ProjectItem> {
@@ -1297,16 +1102,14 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for updating project * updating project * @param id project id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static projectUpdate(
         id: string,
         requestBody: ProjectData,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1321,15 +1124,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for sending project for validation * sending project for validation * @param id project id * @returns any request succeeded * @throws ApiError */
     public static projectValidate(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1343,15 +1144,13 @@ export class AuthorizedService {
                 404: `request failed`,
                 409: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for deleting project * deleting project * @param id project id * @returns any request succeeded * @throws ApiError */
     public static projectDelete(
         id: string,
     ): CancelablePromise<{
-        /** * request result description */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1364,21 +1163,17 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * administrator endpoint for getting projects list * administrator projects list * @param page requested page number * @param status validation status * @param search search string (merchant id, name, inn, address) * @returns any request succeeded * @throws ApiError */
     public static adminProjectsList(
         page?: string,
         status?: string,
         search?: string,
     ): CancelablePromise<{
-        /** * current page number */
-        page?: number;
-        /** * pages number */
-        pages?: number;
-        /** * list of projects */
-        list?: Array<ProjectListAdmin>;
+        page?: number
+        pages?: number
+        list?: Array<ProjectListAdmin>
     }> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1391,10 +1186,9 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * administrator endpoint for getting project * administrator getting project (resource state can be changed) * @param id project id * @returns ProjectItemAdmin request succeeded * @throws ApiError */
     public static administratorProjectGet(
         id: string,
     ): CancelablePromise<ProjectItemAdmin> {
@@ -1408,19 +1202,16 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * administrator endpoint for requesting additional data * requesting additional data by administrator * @param id project id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static administratorProjectRequest(
         id: string,
         requestBody: {
-            /** * additional data request */
-            request: string;
+            request: string
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1435,15 +1226,13 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * administrator endpoint for approving of the validation request * approving of the validation request * @param id project id * @returns any request succeeded * @throws ApiError */
     public static administratorProjectApprove(
         id: string,
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1456,19 +1245,16 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * administrator endpoint for rejection of the validation request * rejection of the validation request * @param id project id * @param requestBody  * @returns any request succeeded * @throws ApiError */
     public static administratorProjectReject(
         id: string,
         requestBody: {
-            /** * rejection reason */
-            reason: string;
+            reason: string
         },
     ): CancelablePromise<{
-        /** * request result */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -1483,10 +1269,9 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 
-    /** * administrator endpoint for getting validation statuses list * administrator projects validation statuses list * @returns string request succeeded * @throws ApiError */
     public static adminProjectsStatusesList(): CancelablePromise<Array<string>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1494,16 +1279,13 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * endpoint for getting currencies list * getting currencies list * @returns any request succeeded * @throws ApiError */
     public static currenciesList(): CancelablePromise<{
         convertTo?: Array<{
-            /** * currency name */
-            name?: string;
-            /** * currency type */
-            type?: 'fiat' | 'crypto';
+            name?: string
+            type?: 'fiat' | 'crypto'
         }>;
         order?: Array<string>;
     }> {
@@ -1513,10 +1295,9 @@ export class AuthorizedService {
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * administrator endpoint for common statistics * common statistics * @param startTime time filter * @param endTime time filter * @param search search string * @param currency filter by currency * @returns Statistics request succeeded * @throws ApiError */
     public static commonStatistics(
         startTime?: string,
         endTime?: string,
@@ -1536,10 +1317,9 @@ export class AuthorizedService {
                 400: `request failed`,
                 403: `request failed`,
             },
-        });
+        })
     }
 
-    /** * administrator endpoint for personal statistics * personal statistics * @param id order id * @param startTime time filter * @param endTime time filter * @param search search string * @param currency filter by currency * @returns Statistics request succeeded * @throws ApiError */
     public static personalStatistics(
         id: string,
         startTime?: string,
@@ -1563,6 +1343,6 @@ export class AuthorizedService {
                 403: `request failed`,
                 404: `request failed`,
             },
-        });
+        })
     }
 }

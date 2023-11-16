@@ -64,8 +64,8 @@ interface OrderPaymentRequest {
 }
 
 interface PaymentFormData {
-  amount: string
-  currency: string
+  amount?: string
+  currency?: string
   withdrawCurrency?: string
   withdrawNet?: string
   withdrawEmail?: string
@@ -366,6 +366,10 @@ export function PaymentPage() {
   }
 
   const toPay = handleSubmit((formData) => {
+    console.log('handleSubmit')
+    console.log('handleSubmit', paymentOrder)
+    console.log('handleSubmit', uniqueId)
+    console.log('handleSubmit', formData)
     if(!paymentOrder || !uniqueId) return
     setOrderLoading(true)
     const request: OrderPaymentRequest = {
@@ -376,6 +380,7 @@ export function PaymentPage() {
       depositWithdrawChain: formData.withdrawNet || '',
       depositWithdrawAddress: formData.withdrawWalletId || ''
     }
+    console.log('handleSubmit request', request)
     CommonService.orderPaymentSet(uniqueId, request)
     .then((response) => {
       const dataOrder: PaymentData | null = response.paymentData ? {
@@ -524,6 +529,12 @@ export function PaymentPage() {
                         value={paymentAmountValue}
                         {...register('amount')}
                       />
+                      
+                      {errors.amount?.message && (
+                        <div className="project-error">
+                          {errors.amount.message}
+                        </div>
+                      )}
                     </div>
 
                     <div className="about-deposit__generation-currency open-modal-btn">
@@ -542,6 +553,12 @@ export function PaymentPage() {
                           )
                         }}
                       />
+                      
+                      {errors.currency?.message && (
+                        <div className="project-error">
+                          {errors.currency.message}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -1,10 +1,10 @@
-import type { Notification } from '../models/Notification';
-import type { ProfileData } from '../models/ProfileData';
-import type { Session } from '../models/Session';
+import type { Notification } from '../models/Notification'
+import type { ProfileData } from '../models/ProfileData'
+import type { Session } from '../models/Session'
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from '../core/CancelablePromise'
+import { OpenAPI } from '../core/OpenAPI'
+import { request as __request } from '../core/request'
 
 export class AuthenticatedService {
     public static setGoogleAuthenticator(): CancelablePromise<{

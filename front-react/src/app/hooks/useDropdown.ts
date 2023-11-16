@@ -1,37 +1,35 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react"
 
 export function useDropdown<T extends HTMLElement>() {
-  const containerRef = useRef<T>(null);
-  const [dropdownOpened, setDropdownOpened] = useState(false);
+  const containerRef = useRef<T>(null)
+  const [dropdownOpened, setDropdownOpened] = useState(false)
 
   useEffect(() => {
-    if (!dropdownOpened) {
-      return;
-    }
+    if (!dropdownOpened)  return
     const handleDocumentClick = (ev: MouseEvent) => {
       if (
         containerRef.current &&
         ev.target instanceof Element &&
         !containerRef.current.contains(ev.target)
       ) {
-        setDropdownOpened(false);
+        setDropdownOpened(false)
       }
-    };
+    }
 
-    document.addEventListener("click", handleDocumentClick);
+    document.addEventListener("click", handleDocumentClick)
 
     return () => {
-      document.removeEventListener("click", handleDocumentClick);
-    };
-  }, [dropdownOpened]);
+      document.removeEventListener("click", handleDocumentClick)
+    }
+  }, [dropdownOpened])
 
   const toggle = (opened?: boolean) => {
     if (opened === undefined) {
-      setDropdownOpened(!dropdownOpened);
+      setDropdownOpened(!dropdownOpened)
     } else {
-      setDropdownOpened(opened);
+      setDropdownOpened(opened)
     }
-  };
+  }
 
-  return { containerRef, opened: dropdownOpened, toggle };
+  return { containerRef, opened: dropdownOpened, toggle }
 }
