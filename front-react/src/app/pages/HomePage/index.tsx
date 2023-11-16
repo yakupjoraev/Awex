@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { HistoryOperations } from "./HistoryOperations"
 import { MyActives } from "./MyActives"
-import { InvoiceLight } from "./InvoiceLight"
+import { InvoiceLight } from "../../components/InvoiceLight"
 import { CheckBalance } from "./CheckBalance"
+import { GenerationLinksModal } from "@components/GenerationLinksModal"
 
 export function HomePage() {
+  const [isGenerationLinksModal, setIsGenerationLinksModal] = useState<boolean>(false)
 
   const handleGeneratePaymentLink = () => {
-    // TODO: show modal
-    alert("NOT IMPLEMENTED")
+    setIsGenerationLinksModal(true)
   }
 
   return (
@@ -77,7 +78,12 @@ export function HomePage() {
 
               <CheckBalance />
 
-              <InvoiceLight />
+              <InvoiceLight isMobile={false} />
+
+              <GenerationLinksModal
+                open={isGenerationLinksModal}
+                onClose={() => setIsGenerationLinksModal(false)}
+              />
             </div>
           </div>
 

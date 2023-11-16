@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useAppSelector } from "@store/hooks"
-// import classNames from "classnames"
-// import { Project } from "../../../state-defaults/projects"
-// import { SelectCurrencyModal } from "../../../components/SelectCurrenyModal"
-import { AppProject } from "../../../../types"
-import { InvoiceCurrencySelector } from "../../../components/InvoiceCurrencySelector"
+import { AppProject } from "../../../types"
+import { InvoiceCurrencySelector } from "../InvoiceCurrencySelector"
 import { SelectorSimpleOptions, SelectorSimple } from "@components/SelectorSimple"
 import { useForm, Controller } from "react-hook-form"
 import { AuthorizedService } from "@awex-api"
@@ -14,10 +11,7 @@ import toast from "react-hot-toast"
 import usePortal from "react-useportal"
 import { PaymentLinkModal } from "@components/PaymentLinkModal"
 
-// interface Project {
-//   id: string
-//   name: string
-// }
+
 const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = []
 const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] = []
 
@@ -27,20 +21,19 @@ interface InvoiceFormData {
   currency: string
 }
 
-export function InvoiceLight() {
+interface InvoiceLightProps {
+  isMobile: boolean
+  onSubmit?: () => void
+}
+
+export function InvoiceLight(props: InvoiceLightProps) {
   const projectSelectorRef = useRef<HTMLDivElement>(null)
   const [projectSelectorOpened, setProjectSelectorOpened] = useState(false)
-  // const [currencySelectorOpened, setCurrencySelectorOpened] = useState(false)
-  // const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [projectsOptions, setProjectsOptions] = useState<SelectorSimpleOptions[] | []>([])
-  // const [depositCurrencies, depositCurrenciesLoading] = useCurrencies(DEFAULT_CURRENCIES)
   const [invoiceCurrencies, invoiceCurrenciesLoading] = useCurrencies(DEFAULT_CURRENCIES)
-
   const projects = useAppSelector((state) => state.projects.data || DEFAULT_PROJECTS)
-  // const projectsError = useAppSelector((state) => state.projects.error)
   const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false)
   const [paymentToken, setPaymentToken] = useState<string | null>(null)
-  // const [paymentDescription, setPaymentDescription] = useState<string | undefined>(undefined)
   const { Portal } = usePortal()
 
   useEffect(() => {
@@ -123,17 +116,17 @@ export function InvoiceLight() {
         toast.error("Не удалось создать платежную ссылку.");
       })
       .finally(() => {
+        if(props.onSubmit) props.onSubmit()
         reset()
       })
   })
 
   return (
     <>
-      <form
-        className="main-content__deposit about-deposit"
+      <form className={`main-content__deposit ${!props.isMobile && 'about-deposit'}`}
         onSubmit={handleInvoiceFormSubmit}
       >
-        <div className="about-deposit__generation">
+        <div className={`${props.isMobile? '' : 'about-deposit__generation'}`}>
           <p className="about-deposit__generation-label">
             Быстрая генерация ссылки
           </p>
@@ -198,8 +191,9 @@ export function InvoiceLight() {
           </div>
         </div>
         
-
-        <button type="submit" className="about-check__btn main-btn" >
+        <button type="submit"
+          className={`${props.isMobile ? 'modal-content__btn second-btn' : 'about-check__btn main-btn'}`}
+        >
           Сгенерировать платежную ссылку
         </button>
       </form>
