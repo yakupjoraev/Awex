@@ -270,7 +270,7 @@ export function InvoicePage() {
               </div>
             </div>
 
-            <div className="invoice-project__group invoice-project__group--transparent project-group">
+            {/* <div className="invoice-project__group invoice-project__group--transparent project-group">
               <div className="invoice-project__radios">
                 <div
                   className={classNames(
@@ -319,6 +319,43 @@ export function InvoicePage() {
                       )}
                       htmlFor="radio13"
                     >
+                      Клиент
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div> */}
+
+            <div className="invoice-project__group invoice-project__group--transparent project-group">
+              <div className="invoice-project__radios">
+                <div className="invoice-project__label project-label">
+                  Комиссию оплачивает:
+                </div>
+
+                <div className="invoice-project__radio-container">
+                  <div className="invoice-project__radio-group">
+                    <input
+                      className="invoice-project__radio"
+                      type="radio"
+                      name="pay"
+                      id="radio12"
+                      defaultChecked
+                    />
+
+                    <label className="invoice-project__radio-label" htmlFor="radio12">
+                      Мерчант
+                    </label>
+                  </div>
+
+                  <div className="invoice-project__radio-group">
+                    <input
+                      className="invoice-project__radio"
+                      type="radio"
+                      name="pay"
+                      id="radio13"
+                    />
+
+                    <label className="invoice-project__radio-label" htmlFor="radio13">
                       Клиент
                     </label>
                   </div>

@@ -66,6 +66,7 @@ interface OrderPaymentRequest {
 interface PaymentFormData {
   amount?: string
   currency?: string
+  useDeposit?: boolean
   withdrawCurrency?: string
   withdrawNet?: string
   withdrawEmail?: string
@@ -114,6 +115,7 @@ export function PaymentPage() {
   const [withdrawCurrencies, setWithdrawCurrencies] = useState<WithdrawCurrencies[] | null>(null)
   const [withdrawCurrenciesName, setWithdrawCurrenciesName] = useState<SelectorOptions[] | null>(null)
   const [withdrawChains, setWithdrawChains] = useState<SelectorOptions[] | null>(null)
+  const [isDeposit, setIsDeposit] = useState<boolean>(false)
 
   const {
     register,
@@ -205,6 +207,31 @@ export function PaymentPage() {
       toggleExpiredTimer(paymentOrder.expiredDate)
     }
   }, [paymentOrder])
+
+  useEffect(() => {
+    setValue('amount', paymentAmountValue)
+  }, [paymentAmountValue])
+
+  useEffect(() => {
+    if(!paymentOrder) return
+    setValue('currency', paymentOrder.userCurrency)
+  }, [paymentOrder])
+
+  useEffect(() => {
+    if(!paymentOrder) {
+      setIsDeposit(false)
+      return
+    }
+    if(paymentOrder.depositAmount) {
+      setIsDeposit(true)
+      return
+    }
+    setIsDeposit(false)
+  }, [paymentOrder])
+
+  useEffect(() => {
+    setValue('useDeposit', isDeposit)
+  },[isDeposit])
 
   function toggleExpiredTimer(expiredDate: number) {
     clearInterval(expiredTimer)
@@ -366,10 +393,6 @@ export function PaymentPage() {
   }
 
   const toPay = handleSubmit((formData) => {
-    console.log('handleSubmit')
-    console.log('handleSubmit', paymentOrder)
-    console.log('handleSubmit', uniqueId)
-    console.log('handleSubmit', formData)
     if(!paymentOrder || !uniqueId) return
     setOrderLoading(true)
     const request: OrderPaymentRequest = {
@@ -564,73 +587,92 @@ export function PaymentPage() {
                 </div>
               </div>
 
-              <div className="payment-form__group">
-                <p className="payment-form__label">
-                  Выберете способ возврата депозита
-                </p>
+              { isDeposit && (
+                <div className="payment-form__group">
+                  <p className="payment-form__label">
+                    Выберете способ возврата депозита
+                  </p>
 
-                <div className="payment-form__radios">
-                  <div className="payment-form__radio">
-                    <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay4" checked />
-                    <label className="payment-form__radio-label" htmlFor="pay4">Крипто</label>
+                  <div className="payment-form__radios">
+                    <div className="payment-form__radio">
+                      <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay4" checked />
+                      <label className="payment-form__radio-label" htmlFor="pay4">Крипто</label>
+                    </div>
+
+                    <div className="payment-form__radio">
+                      <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay5" />
+                      <label className="payment-form__radio-label" htmlFor="pay5">Карта РФ</label>
+                    </div>
                   </div>
 
-                  <div className="payment-form__radio">
-                    <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay5" />
-                    <label className="payment-form__radio-label" htmlFor="pay5">Карта РФ</label>
-                  </div>
-                </div>
-
-                { withdrawCurrenciesName && (
-                  <div className="invoice-project__group-select">
-                    <Controller
-                      control={control}
-                      name="withdrawCurrency"
-                      render={({ field }) => {
-                        return (
-                          <Selector
-                            options={withdrawCurrenciesName}
-                            value={field.value}
-                            placeholder={'Выберете криптовалюту'}
-                            onChange={(value) => {
-                              updateCurrencies(value)
-                              field.onChange(value)
-                            }}
-                          />
-                        )
-                      }}
-                    />
-                  </div>
-                )}
-
-                { withdrawChains && (
-                  <div className="invoice-project__group-select">
-                    <Controller
-                      control={control}
-                      name="withdrawNet"
-                      render={({ field }) => {
-                        return (
-                          <Selector
-                            options={withdrawChains}
-                            value={field.value}
-                            placeholder={'Выберете сеть'}
-                            onChange={field.onChange}
-                          />
-                        )
-                      }}
-                    />
-                  </div>
-                )}
-
-                <div className="my-projects__group project-group">
-                  <label className="my-projects__label project-label" htmlFor="#">
-                    Адрес кошелька
-                  </label>
-                  <input className="my-projects__input project-input" type="text" placeholder="Введите адрес кошелька"
-                    {...register('withdrawWalletId')}
+                  <input className="d-none" type="checkbox"
+                    {...register('useDeposit')}
                   />
+
+                  { withdrawCurrenciesName && (
+                    <>
+                      <div className="invoice-project__group-select">
+                        <Controller
+                          control={control}
+                          name="withdrawCurrency"
+                          render={({ field }) => {
+                            return (
+                              <Selector
+                                options={withdrawCurrenciesName}
+                                value={field.value}
+                                placeholder={'Выберете криптовалюту'}
+                                onChange={(value) => {
+                                  updateCurrencies(value)
+                                  field.onChange(value)
+                                }}
+                              />
+                            )
+                          }}
+                        />
+                      </div>
+                      {errors.withdrawCurrency?.message && (
+                        <div className="project-error">{errors.withdrawCurrency.message}</div>
+                      )}
+                    </>
+                  )}
+
+                  { withdrawChains && (
+                    <>
+                      <div className="invoice-project__group-select">
+                        <Controller
+                          control={control}
+                          name="withdrawNet"
+                          render={({ field }) => {
+                            return (
+                              <Selector
+                                options={withdrawChains}
+                                value={field.value}
+                                placeholder={'Выберете сеть'}
+                                onChange={field.onChange}
+                              />
+                            )
+                          }}
+                        />
+                      </div>
+                      {errors.withdrawNet?.message && (
+                        <div className="project-error">{errors.withdrawNet.message}</div>
+                      )}
+                    </>
+                  )}
+
+                  <div className="my-projects__group project-group">
+                    <label className="my-projects__label project-label" htmlFor="#">
+                      Адрес кошелька
+                    </label>
+                    <input className="my-projects__input project-input" type="text" placeholder="Введите адрес кошелька"
+                      {...register('withdrawWalletId')}
+                    />
+                    {errors.withdrawWalletId?.message && (
+                      <div className="project-error">{errors.withdrawWalletId.message}</div>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="payment-form__group">
                 <p className="payment-form__label">
