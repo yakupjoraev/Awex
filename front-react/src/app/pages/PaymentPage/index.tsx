@@ -2,7 +2,7 @@ import { ApiError, CommonService } from "@awex-api"
 import { InternalErrorMessage } from "@components/InternalErrorMessage"
 import { LdsSpinner } from "@components/LdsSpinner"
 import { NotFoundErrorMessage } from "@components/NotFoundErrorMessage"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { useParams } from "react-router-dom"
 import { PaymentCurrencySelector } from "./PaymentCurrencySelector"
@@ -27,6 +27,10 @@ interface PaymentData {
   paymentAmount: string
   address: string
   fee?: string
+  depositWithdrawCurrency: string
+  depositWithdrawChain: string
+  depositWithdrawAddress: string
+  cryptoPaymentAddressId: number
 }
 
 interface PaymentOrder {
@@ -116,6 +120,7 @@ export function PaymentPage() {
   const [withdrawCurrenciesName, setWithdrawCurrenciesName] = useState<SelectorOptions[] | null>(null)
   const [withdrawChains, setWithdrawChains] = useState<SelectorOptions[] | null>(null)
   const [isDeposit, setIsDeposit] = useState<boolean>(false)
+  const [isOpenPaimentDetalisMobile, setIsOpenPaimentDetalisMobile] = useState(false)
 
   const {
     register,
@@ -129,6 +134,12 @@ export function PaymentPage() {
   } = useForm<PaymentFormData>({
     resolver: yupResolver(paymentFormValidator),
   })
+
+  useEffect(() => {
+    document.addEventListener('click', closePaimentDetalisMobile)
+
+    return () => document.removeEventListener('click', closePaimentDetalisMobile)
+  }, [])
 
   useEffect(() => {
     CommonService.orderPaymentWithdrawCurrencies()
@@ -215,6 +226,10 @@ export function PaymentPage() {
   useEffect(() => {
     if(!paymentOrder) return
     setValue('currency', paymentOrder.userCurrency)
+    if(!paymentOrder.paymentData) return
+    setValue('withdrawCurrency', paymentOrder.paymentData.depositWithdrawCurrency)
+    setValue('withdrawNet', paymentOrder.paymentData.depositWithdrawChain)
+    setValue('withdrawWalletId', paymentOrder.paymentData.depositWithdrawAddress)
   }, [paymentOrder])
 
   useEffect(() => {
@@ -403,7 +418,6 @@ export function PaymentPage() {
       depositWithdrawChain: formData.withdrawNet || '',
       depositWithdrawAddress: formData.withdrawWalletId || ''
     }
-    console.log('handleSubmit request', request)
     CommonService.orderPaymentSet(uniqueId, request)
     .then((response) => {
       const dataOrder: PaymentData | null = response.paymentData ? {
@@ -413,6 +427,10 @@ export function PaymentPage() {
         chain: response.paymentData.chain,
         address: response.paymentData.address,
         // fee: response.paymentData.fee,
+        depositWithdrawCurrency: response.paymentData.depositWithdrawCurrency,
+        depositWithdrawChain: response.paymentData.depositWithdrawChain,
+        depositWithdrawAddress: response.paymentData.depositWithdrawAddress,
+        cryptoPaymentAddressId: response.paymentData.cryptoPaymentAddressId,
       } : null
 
       if(!paymentOrder || !dataOrder) return
@@ -472,6 +490,15 @@ export function PaymentPage() {
     return status
   }
 
+  function toggleIsOpenPaimentDetalisMobile(event: React.MouseEvent): void {
+    event.stopPropagation()
+    setIsOpenPaimentDetalisMobile(!isOpenPaimentDetalisMobile)
+  }
+
+  function closePaimentDetalisMobile(): void {
+    setIsOpenPaimentDetalisMobile(false)
+  }
+
   if (orderLoading) {
     return (
       <main className="main">
@@ -522,7 +549,7 @@ export function PaymentPage() {
                   Выберете способ оплаты
                 </p>
 
-                <div className="payment-form__radios">
+                {/* <div className="payment-form__radios">
                   <div className="payment-form__radio">
                     <input className="payment-form__radio-input" type="radio" name="pay" id="pay1" checked />
                     <label className="payment-form__radio-label" htmlFor="pay1">Крипто</label>
@@ -541,7 +568,7 @@ export function PaymentPage() {
                   <div className="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right" data-tooltip-length="medium">
                     <img className="payment-form__radio-pic" src="/img/icons/tooltip.svg" alt="tooltip" />
                   </div>
-                </div>
+                </div> */}
 
                 <div className="about-deposit__generation-select invoice__generation-select">
                   <div className="about-deposit__generation-selected">
@@ -593,7 +620,7 @@ export function PaymentPage() {
                     Выберете способ возврата депозита
                   </p>
 
-                  <div className="payment-form__radios">
+                  {/* <div className="payment-form__radios">
                     <div className="payment-form__radio">
                       <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay4" checked />
                       <label className="payment-form__radio-label" htmlFor="pay4">Крипто</label>
@@ -603,7 +630,7 @@ export function PaymentPage() {
                       <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay5" />
                       <label className="payment-form__radio-label" htmlFor="pay5">Карта РФ</label>
                     </div>
-                  </div>
+                  </div> */}
 
                   <input className="d-none" type="checkbox"
                     {...register('useDeposit')}
@@ -694,18 +721,18 @@ export function PaymentPage() {
                   Оплатить
                 </button>
 
-                <button className="payment-form__btn blue-btn">
+                {/* <button className="payment-form__btn blue-btn">
                   <img src="/img/icons/WalletConnect.svg" alt="" />
                 </button>
 
                 <button className="payment-form__btn second-btn">
                   <img src="/img/icons/payment-form-awex.svg" alt="" />
-                </button>
+                </button> */}
               </div>
 
               <div className="payment-form__footer">
                 Нажимая «Оплатить», вы принимаете
-                <a href="#">пользовательское соглашение..</a>
+                <a href="#"> пользовательское соглашение...</a>
               </div>
             </form>
             )}
@@ -741,7 +768,7 @@ export function PaymentPage() {
                   </div>
                 </div>
 
-                <div className="invoice-project__group-select" data-select-wrapper>
+                {/* <div className="invoice-project__group-select" data-select-wrapper>
                   <div className="invoice-project__group-selected" data-select-arrow>
                     Выберете сеть
                     <img className="invoice-project__group-select-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" />
@@ -752,10 +779,10 @@ export function PaymentPage() {
                     <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
                     <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
                   </ul>
-                </div>
+                </div> */}
               </div>
 
-              <div className="payment-form__group">
+              {/* <div className="payment-form__group">
                 <p className="payment-form__label">
                   Возврат депозита на карту РФ
                   <a className="payment-form__label-link"
@@ -775,6 +802,45 @@ export function PaymentPage() {
                   <div className="my-projects__card-name">
                     IVANOV I.
                   </div>
+                </div>
+              </div> */}
+
+              <div className="payment-form__group">
+                <p className="payment-form__label">
+                  Возврат депозита на крипто кошелек
+
+                  <a className="payment-form__label-link"
+                    onClick={changeMethod}
+                  >
+                    Изменить способ
+                    <img className="payment-form__label-arrow" src="./img/icons/arrow-right.svg" alt="" />
+                  </a>
+                </p>
+
+                <div className="about-deposit__generation-select invoice__generation-select">
+                  <div className="about-deposit__generation-selected">
+                    <div className="about-deposit__generation-info">
+                      <div className="about-deposit__generation-val">
+                        { paymentOrder?.paymentData?.depositWithdrawChain }
+                      </div>
+                    </div>
+
+                    <div className="about-deposit__generation-currency">
+                      <div className="about-deposit__generation-curr">
+                        <img src="./img/usdt.png" alt="" />
+                        { paymentOrder?.paymentData?.depositWithdrawCurrency }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="my-projects__group project-group">
+                  <label className="my-projects__label project-label" htmlFor="#">
+                    Адрес
+                  </label>
+
+                  <input className="my-projects__input project-input" type="text" placeholder="Адрес"
+                    value={paymentOrder?.paymentData?.depositWithdrawAddress} disabled />
                 </div>
               </div>
 
@@ -866,11 +932,18 @@ export function PaymentPage() {
               )}
             </div>
 
-            <img className="payment-details__pic" src="/img/icons/info.svg" alt="" data-payment-details-btn />
+            <img className="payment-details__pic"
+              src="/img/icons/info.svg"
+              alt=""
+              data-payment-details-btn
+              onClick={toggleIsOpenPaimentDetalisMobile}
+            />
           </div>
 
 
-          <div className="payment-details__block-wrapper">
+          <div className={`payment-details__block-wrapper${isOpenPaimentDetalisMobile ? ' show' : ''}`}
+            onClick={(ev)=>ev.stopPropagation()}
+          >
             <div className="payment-details__block">
               <h2 className="payment-details__title main-title">Детали счета № {uniqueId}</h2>
 

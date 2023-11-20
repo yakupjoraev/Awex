@@ -204,6 +204,10 @@ export class CommonService {
             paymentAmount: string
             address: string
             fee: string
+            depositWithdrawCurrency: string
+            depositWithdrawChain: string
+            depositWithdrawAddress: string
+            cryptoPaymentAddressId: number
         }
     }> {
         return __request(OpenAPI, {
@@ -238,6 +242,10 @@ export class CommonService {
             chain: string
             address: string
             fee: string
+            depositWithdrawCurrency: string
+            depositWithdrawChain: string
+            depositWithdrawAddress: string
+            cryptoPaymentAddressId: number
         }
     }> {
         return __request(OpenAPI, {
