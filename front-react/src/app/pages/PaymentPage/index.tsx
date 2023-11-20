@@ -998,17 +998,20 @@ export function PaymentPage() {
 
             { (paymentStatus === 'invoicing' || paymentStatus === 'expired') && (
               <>
-                <div className="payment-details__block">
-                  <div className="payment-details__product">
-                    <div className="payment-details__product-label">
-                      Наименование товара или услуги:
-                    </div>
 
-                    <p className="payment-details__product-descr">
-                      {paymentOrder?.name}
-                    </p>
+                { paymentOrder && paymentOrder.name && (
+                  <div className="payment-details__block">
+                    <div className="payment-details__product">
+                      <div className="payment-details__product-label">
+                        Наименование товара или услуги:
+                      </div>
+
+                      <p className="payment-details__product-descr">
+                        {paymentOrder?.name}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className="payment-details__block">
                   <div className="payment-details__row">
