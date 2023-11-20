@@ -8,8 +8,11 @@ import { useParams } from "react-router-dom"
 import { PaymentCurrencySelector } from "./PaymentCurrencySelector"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm, Controller, useWatch } from "react-hook-form"
-import { paymentFormValidator } from "./validators";
+import { paymentFormValidator } from "./validators"
 import { SelectorOptions, Selector } from "@components/Selector"
+import CopyToClipboard from "react-copy-to-clipboard"
+import toast from "react-hot-toast"
+import QRCode from "react-qr-code"
 
 
 type OrderError = { type: "unknown" | "not_found" }
@@ -499,6 +502,10 @@ export function PaymentPage() {
     setIsOpenPaimentDetalisMobile(false)
   }
 
+  const handleLinkCopy = () => {
+    toast.success("Скопировано!");
+  }
+
   if (orderLoading) {
     return (
       <main className="main">
@@ -805,44 +812,46 @@ export function PaymentPage() {
                 </div>
               </div> */}
 
-              <div className="payment-form__group">
-                <p className="payment-form__label">
-                  Возврат депозита на крипто кошелек
+              { paymentOrder && paymentOrder.depositAmount > 0 && paymentOrder.paymentData && (
+                <div className="payment-form__group">
+                  <p className="payment-form__label">
+                    Возврат депозита на крипто кошелек
 
-                  <a className="payment-form__label-link"
-                    onClick={changeMethod}
-                  >
-                    Изменить способ
-                    <img className="payment-form__label-arrow" src="./img/icons/arrow-right.svg" alt="" />
-                  </a>
-                </p>
+                    <a className="payment-form__label-link"
+                      onClick={changeMethod}
+                    >
+                      Изменить способ
+                      <img className="payment-form__label-arrow" src="./img/icons/arrow-right.svg" alt="" />
+                    </a>
+                  </p>
 
-                <div className="about-deposit__generation-select invoice__generation-select">
-                  <div className="about-deposit__generation-selected">
-                    <div className="about-deposit__generation-info">
-                      <div className="about-deposit__generation-val">
-                        { paymentOrder?.paymentData?.depositWithdrawChain }
+                  <div className="about-deposit__generation-select invoice__generation-select">
+                    <div className="about-deposit__generation-selected">
+                      <div className="about-deposit__generation-info">
+                        <div className="about-deposit__generation-val">
+                          { paymentOrder?.paymentData?.depositWithdrawChain }
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="about-deposit__generation-currency">
-                      <div className="about-deposit__generation-curr">
-                        <img src="./img/usdt.png" alt="" />
-                        { paymentOrder?.paymentData?.depositWithdrawCurrency }
+                      <div className="about-deposit__generation-currency">
+                        <div className="about-deposit__generation-curr">
+                          <img src="./img/usdt.png" alt="" />
+                          { paymentOrder?.paymentData?.depositWithdrawCurrency }
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="my-projects__group project-group">
-                  <label className="my-projects__label project-label" htmlFor="#">
-                    Адрес
-                  </label>
+                  <div className="my-projects__group project-group">
+                    <label className="my-projects__label project-label" htmlFor="#">
+                      Адрес
+                    </label>
 
-                  <input className="my-projects__input project-input" type="text" placeholder="Адрес"
-                    value={paymentOrder?.paymentData?.depositWithdrawAddress} disabled />
+                    <input className="my-projects__input project-input" type="text" placeholder="Адрес"
+                      value={paymentOrder?.paymentData?.depositWithdrawAddress} disabled />
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="payment-form__btns">
                 <button className="payment-form__btn second-btn"
@@ -1041,7 +1050,11 @@ export function PaymentPage() {
 
                   <div className="payment-details__sum-count">
                     {paymentOrder?.paymentData?.paymentAmount} <span>{paymentOrder?.paymentData?.currency}</span>
-                    <img src="/img/icons/file.svg" alt="" />
+                    {paymentOrder && paymentOrder.paymentData && (
+                      <CopyToClipboard text={paymentOrder.paymentData.paymentAmount} onCopy={handleLinkCopy}>
+                        <img src="/img/icons/file.svg" alt="" />
+                      </CopyToClipboard>
+                    )}
                   </div>
                 </div>
 
@@ -1056,15 +1069,24 @@ export function PaymentPage() {
                   </p>
                 </div>
 
-                <div className="payment-details__qr">
-                  <img className="payment-details__qr-img" src="/img/payment-qr.png" alt="" />
+                { paymentOrder && paymentOrder.paymentData && (
+                  <div className="payment-details__qr">
 
-                  <p className="payment-details__qr-descr">
-                    Отправьте точную сумму по указанному адресу. После совершения оплаты нажмите на кнопку «Я оплатил» для
-                    проверки
-                    транзакции.
-                  </p>
-                </div>
+                    <CopyToClipboard text={paymentOrder.paymentData.address} onCopy={handleLinkCopy}>
+                      <QRCode
+                        className="payment-details__qr-img payment-details__qr-img_fix"
+                        value={paymentOrder.paymentData.address}
+                        size={156}
+                      />
+                    </CopyToClipboard>
+
+                    <p className="payment-details__qr-descr">
+                      Отправьте точную сумму по указанному адресу. После совершения оплаты нажмите на кнопку «Я оплатил» для
+                      проверки
+                      транзакции.
+                    </p>
+                  </div>
+                )}
 
                 <div className="payment-details__group my-projects__group project-group">
                   <label className="my-projects__label project-label" htmlFor="#">
@@ -1075,10 +1097,14 @@ export function PaymentPage() {
                     {paymentOrder?.paymentData?.address}
                   </p>
 
-                  <img className="payment-details__group-copy" src="/img/icons/file.svg" alt="" />
+                  {paymentOrder && paymentOrder.paymentData && (
+                    <CopyToClipboard text={paymentOrder.paymentData.address} onCopy={handleLinkCopy}>
+                      <img className="payment-details__group-copy" src="/img/icons/file.svg" alt="" />
+                    </CopyToClipboard>
+                  )}
                 </div>
 
-                <div className="payment-details__group my-projects__group project-group">
+                {/* <div className="payment-details__group my-projects__group project-group">
                   <label className="my-projects__label project-label" htmlFor="#">
                     ФИО владельца
                   </label>
@@ -1086,7 +1112,7 @@ export function PaymentPage() {
                   <p className="project-label__text">
                     {paymentOrder?.paymentData?.chain}
                   </p>
-                </div>
+                </div> */}
               </div>) }
 
           </div>
