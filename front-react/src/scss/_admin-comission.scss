@@ -1,0 +1,129 @@
+.admin-statistic {
+
+  // .admin-statistic__container
+
+  &__container {}
+}
+
+.admin-comission {
+
+  // .admin-comission__inner
+
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+
+    @media (max-width: $breakpoint1450) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  // .admin-comission__item
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 20px;
+
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-color);
+    background-color: var(--bg-color);
+
+    .deposits__filter-search {
+      margin-bottom: 0;
+    }
+  }
+
+  // .admin-comission__label
+
+  &__label {
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--grey-color-2);
+  }
+
+  // .admin-comission__groups
+
+  &__groups {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-bottom: 46px;
+  }
+
+  // .admin-comission__group
+
+  &__group {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    padding: 10px;
+    background-color: var(--white-color);
+
+    img {
+      margin-left: auto;
+    }
+
+  }
+
+  // .admin-comission__group-label
+
+  &__group-label {
+    font-weight: 600;
+  }
+
+  // .admin-comission__group-sum
+
+  &__group-sum {}
+
+  // .admin-comission__group-grey
+
+  &__group-grey {}
+
+  // .admin-comission__group-data
+
+  &__group-data {}
+
+  // .admin-comission__footer
+
+  &__footer {}
+
+  // .admin-comission__notification
+
+  &__notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    column-gap: 15px;
+    padding: 10px;
+    margin-bottom: 46px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-color);
+    background: var(--light-grey-20, rgba(209, 209, 209, 0.20));
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #000;
+    line-height: 120%;
+  }
+
+  // .admin-comission__btns
+
+  &__btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  // .admin-comission__btn
+
+  &__btn {
+    width: fit-content;
+  }
+}

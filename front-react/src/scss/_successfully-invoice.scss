@@ -1,0 +1,147 @@
+.successfully-invoice {
+
+  // .successfully-invoice__header
+
+  &__header {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  // .successfully-invoice__title
+
+  &__title {}
+
+  // .successfully-invoice__header-img
+
+  &__header-img {}
+
+  // .successfully-invoice__list
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+  }
+
+  // .successfully-invoice__item
+
+  &__item {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    column-gap: 20px;
+    padding: 15px 30px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+
+    @media (max-width: $breakpoint1300) {
+      padding: 10px 20px;
+    }
+  }
+
+  // .successfully-invoice__item-info
+
+  &__item-info {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+  }
+
+  // .successfully-invoice__item-status
+
+  &__item-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 26px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--white-color);
+
+    &.paid {
+      background-color: var(--green-color);
+    }
+
+    &.expired {
+      background-color: var(--error-color);
+    }
+
+    &.pending {
+      background-color: rgba(209, 209, 209, 0.50);
+      color: var(--text-color);
+    }
+
+    @media (max-width: $breakpoint768) {
+      width: 26px;
+      height: 26px;
+      font-size: 0;
+      line-height: 0;
+      border-radius: 100%;
+    }
+  }
+
+  // .successfully-invoice__item-code
+
+  &__item-code {
+    text-decoration: underline;
+    transition: color 0.2s linear;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--second-color);
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+  }
+
+  // .successfully-invoice__item-copy
+
+  &__item-copy {
+    cursor: pointer;
+    transition: transform 0.2s linear;
+
+    &:hover {
+      transform: scale(1.08);
+    }
+  }
+
+  // .successfully-invoice__item-scan
+
+  &__item-scan {
+    cursor: pointer;
+    transition: transform 0.2s linear;
+
+    &:hover {
+      transform: scale(1.08);
+    }
+  }
+
+  // .successfully-invoice__item-link
+
+  &__item-link {
+    background-color: rgba(209, 209, 209, 0.20);
+    border-color: rgba(209, 209, 209, 0.20);
+    font-size: 13px;
+    line-height: 120%;
+
+    @media (max-width: $breakpoint768) {
+      width: 24px;
+      height: 24px;
+      margin-left: auto;
+      padding: 0;
+      background-color: transparent;
+      border: 0;
+      font-size: 0;
+      line-height: 0;
+
+      background-image: url('../img/icons/link.svg');
+      background-repeat: no-repeat;
+    }
+  }
+}

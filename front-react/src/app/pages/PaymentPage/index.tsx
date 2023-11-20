@@ -429,7 +429,7 @@ export function PaymentPage() {
         currency: response.paymentData.currency,
         chain: response.paymentData.chain,
         address: response.paymentData.address,
-        // fee: response.paymentData.fee,
+        fee: response.paymentData.fee,
         depositWithdrawCurrency: response.paymentData.depositWithdrawCurrency,
         depositWithdrawChain: response.paymentData.depositWithdrawChain,
         depositWithdrawAddress: response.paymentData.depositWithdrawAddress,
@@ -1061,16 +1061,18 @@ export function PaymentPage() {
                   </div>
                 </div>
 
-                <div className="payment-details__commission">
-                  <div className="payment-details__commission-label">
-                    в том числе комиссия:
-                  </div>
+                { paymentOrder && paymentOrder.paymentData && paymentOrder.paymentData.fee && (
+                  <div className="payment-details__commission">
+                    <div className="payment-details__commission-label">
+                      в том числе комиссия:
+                    </div>
 
-                  <p className="payment-details__commission-sum">
-                    7,45
-                    <span>USDT</span>
-                  </p>
-                </div>
+                    <p className="payment-details__commission-sum">
+                      { paymentOrder.paymentData.fee }
+                      <span>USDT</span>
+                    </p>
+                  </div>
+                )}
 
                 { paymentOrder && paymentOrder.paymentData && (
                   <div className="payment-details__qr">

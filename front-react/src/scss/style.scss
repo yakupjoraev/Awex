@@ -1,0 +1,56 @@
+// Global SCSS-files imports
+@import './vars';
+@import './reset';
+@import './fonts';
+@import './global';
+
+// Sections or Pages SCSS-files imports
+@import './header';
+@import './base';
+@import './sidebar';
+@import './main-content';
+@import './history-operations';
+@import './my-actives';
+@import './my-projects';
+@import './successfully-invoice';
+@import './invoice';
+@import './deposit-retention';
+@import './deposits';
+@import './settings';
+@import './payment';
+@import './payment-details';
+@import './active-page';
+@import './actives';
+@import './notifications';
+@import './actives-action';
+@import './modals';
+@import './profile-filling';
+@import './settings-profile';
+@import './settings-requisites';
+@import './settings-security';
+@import './settings-notifications';
+@import './operations-history';
+@import './infocenter';
+@import './referral';
+@import './page-404';
+@import './stats';
+
+
+
+
+
+@import './admin-enter';
+@import './admin-statistic';
+@import './admin-comission';
+@import './admin-applications';
+@import './admin-marchants';
+
+
+
+@import './landing-page';
+
+
+@import './footer';
+
+// Libs
+// @import './libs/swiper';

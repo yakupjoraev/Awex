@@ -23,6 +23,7 @@
     "react-scripts": "5.0.1",
     "react-tiny-popover": "^7.2.4",
     "react-useportal": "^1.0.18",
+    "sass": "^1.69.5",
     "ultimate-pagination": "^1.0.0",
     "usehooks-ts": "^2.9.1",
     "web-vitals": "^2.1.4",
@@ -50,7 +51,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-                                "generate-api": "npx openapi --input ./api.spec.yaml --output ./src/generated/awex-api"
+    "generate-api": "npx openapi --input ./api.spec.yaml --output ./src/generated/awex-api"
   },
   "eslintConfig": {
     "extends": [
