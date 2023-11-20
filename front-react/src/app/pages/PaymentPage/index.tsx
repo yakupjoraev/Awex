@@ -123,7 +123,7 @@ export function PaymentPage() {
   const [withdrawCurrenciesName, setWithdrawCurrenciesName] = useState<SelectorOptions[] | null>(null)
   const [withdrawChains, setWithdrawChains] = useState<SelectorOptions[] | null>(null)
   const [isDeposit, setIsDeposit] = useState<boolean>(false)
-  const [isOpenPaimentDetalisMobile, setIsOpenPaimentDetalisMobile] = useState(false)
+  // const [isOpenPaimentDetalisMobile, setIsOpenPaimentDetalisMobile] = useState(false)
 
   const {
     register,
@@ -138,11 +138,11 @@ export function PaymentPage() {
     resolver: yupResolver(paymentFormValidator),
   })
 
-  useEffect(() => {
-    document.addEventListener('click', closePaimentDetalisMobile)
+  // useEffect(() => {
+  //   document.addEventListener('click', closePaimentDetalisMobile)
 
-    return () => document.removeEventListener('click', closePaimentDetalisMobile)
-  }, [])
+  //   return () => document.removeEventListener('click', closePaimentDetalisMobile)
+  // }, [])
 
   useEffect(() => {
     CommonService.orderPaymentWithdrawCurrencies()
@@ -493,14 +493,14 @@ export function PaymentPage() {
     return status
   }
 
-  function toggleIsOpenPaimentDetalisMobile(event: React.MouseEvent): void {
-    event.stopPropagation()
-    setIsOpenPaimentDetalisMobile(!isOpenPaimentDetalisMobile)
-  }
+  // function toggleIsOpenPaimentDetalisMobile(event: React.MouseEvent): void {
+  //   event.stopPropagation()
+  //   setIsOpenPaimentDetalisMobile(!isOpenPaimentDetalisMobile)
+  // }
 
-  function closePaimentDetalisMobile(): void {
-    setIsOpenPaimentDetalisMobile(false)
-  }
+  // function closePaimentDetalisMobile(): void {
+  //   setIsOpenPaimentDetalisMobile(false)
+  // }
 
   const handleLinkCopy = () => {
     toast.success("Скопировано!");
@@ -941,16 +941,16 @@ export function PaymentPage() {
               )}
             </div>
 
-            <img className="payment-details__pic"
+            {/* <img className="payment-details__pic"
               src="/img/icons/info.svg"
               alt=""
               data-payment-details-btn
               onClick={toggleIsOpenPaimentDetalisMobile}
-            />
+            /> */}
           </div>
 
 
-          <div className={`payment-details__block-wrapper${isOpenPaimentDetalisMobile ? ' show' : ''}`}
+          <div className="payment-details__block-wrapper"
             onClick={(ev)=>ev.stopPropagation()}
           >
             <div className="payment-details__block">
