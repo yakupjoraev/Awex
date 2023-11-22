@@ -418,4 +418,27 @@ export class AuthenticatedService {
             },
         });
     }
+
+    public static getAccountNotifications(
+        page?: string,
+        read?: string
+    ): CancelablePromise<{
+        list: Array<{
+            id: number
+            type: string
+            message: string
+            read: boolean
+        }>
+        page: number
+        pages: number
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/account/notifications',
+            errors: {
+                403: 'request failed',
+            }
+        })
+    }
+
 }

@@ -332,7 +332,11 @@ export function PaymentPage() {
           expired,
           depositAmount,
           depositReturnTime,
-          expiredDate: ((Number(expiredDate) * 1000) + (new Date().getTimezoneOffset()) * 60000) + 10800000,
+          // expiredDate:
+          // 1. Дату на сервере приводим к UTC+0 (т.к. на сервере UTC+3, то отнимаем 10800000)
+          // 2. потом от UTC+0 приводим к часовому поясу клиента (отнимаем потому, что getTimezoneOffset возвращает отрицательное число)
+          // А умножаем на 60000 чтобы привести к миллисекундам
+          expiredDate: (Number(expiredDate) * 1000) - 10800000 - (new Date().getTimezoneOffset() * 60000),
           paid,
           name: name ? name : undefined,
           type: orderCurrency.type,

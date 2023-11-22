@@ -5,6 +5,7 @@ import { MyActives } from "./MyActives"
 import { InvoiceLight } from "../../components/InvoiceLight"
 import { CheckBalance } from "./CheckBalance"
 import { GenerationLinksModal } from "@components/GenerationLinksModal"
+import { AccountNotifications } from "@components/AccountNotifications"
 
 export function HomePage() {
   const [isGenerationLinksModal, setIsGenerationLinksModal] = useState<boolean>(false)
@@ -55,7 +56,7 @@ export function HomePage() {
                   </div>
                 </div>
 
-                <div className="about-deposit__header">
+                {/* <div className="about-deposit__header">
                   <div className="about-deposit__header-notif">
                     <img src="/img/icons/bell.svg" alt="" />
                     Новые уведомления
@@ -65,7 +66,9 @@ export function HomePage() {
                   <div className="about-deposit__header-info">
                     Закончился срок депозита по заявке №123...
                   </div>
-                </div>
+                </div> */}
+
+                <AccountNotifications />
 
                 <div
                   className="generate__link"
