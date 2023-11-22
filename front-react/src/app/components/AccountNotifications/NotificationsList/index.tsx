@@ -1,59 +1,75 @@
-import React, { useEffect, useState } from "react"
+import { NOTIFICATIONS_PAGE } from "@constants/path-locations"
 import { accountNotifications } from ".."
+import { useNavigate } from "react-router-dom"
 
 export interface NotificationsListProps {
     notifications: accountNotifications[]
-    page: number
-    pages: number
+    count: number
     isOpenList: boolean
     onClose: () => void
 }
 
-export function NotificationsList({notifications, page, pages, isOpenList, onClose}: NotificationsListProps) {
+export function NotificationsList({notifications, count, isOpenList, onClose}: NotificationsListProps) {
+    const navigate = useNavigate()
+
+    function close(): void {
+        onClose()
+    }
+
+    function openNotifications(notificationID?: number): void {
+        close()
+
+        if(notificationID) {
+            navigate(NOTIFICATIONS_PAGE, { replace: false, state: { notificationID } })
+            return
+        }
+        navigate(NOTIFICATIONS_PAGE, { replace: false })
+    }
 
   return (
-    <>
-        <div
-            className={`modal modal-notifications modal-genation-links${isOpenList ? ' show' : ''}`}
-            id="notifications"
-            onClick={onClose}
+    <div
+        className={`modal modal-notifications modal-genation-links${isOpenList ? ' show' : ''}`}
+        id="notifications"
+        onClick={close}
+    >
+        <div className="modal-content"
+            onClick={(ev)=>ev.stopPropagation()}
         >
-            <div className="modal-content"
-                onClick={(ev)=>ev.stopPropagation()}
-            >
-                <div className="modal-content__header">
-                    <h4 className="modal-content__title">
-                        Уведомления
-                        <span>{ notifications.length }</span>
-                    </h4>
+            <div className="modal-content__header">
+                <h4 className="modal-content__title">
+                    Уведомления
+                    <span>{ count }</span>
+                </h4>
 
-                    <button className="close-modal-btn"
-                        onClick={onClose}
-                    >
-                        <img src="./img/icons/close-modal.svg" alt="" />
-                    </button>
-                </div>
-                <div className="notifications__accordion accordion">
-                    { notifications.map((item) => {
-                        return (
-                            <div className="accordion__item"
-                                data-accordion-item
-                                key={item.id}
-                            >
-                                <div className="accordion__header">{ item.short }</div>
+                <button className="close-modal-btn"
+                    onClick={close}
+                >
+                    <img src="./img/icons/close-modal.svg" alt="" />
+                </button>
+            </div>
 
-                                <div className="accordion__content">
-                                    <p className="accordion__content-text">
-                                        { item.message }
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                    })}
-                    <button type="button" className="modal-content__btn third-btn">Открыть все</button>
-                </div>
+            <div className="notifications__accordion accordion">
+                { notifications.map((item) => {
+                    return (
+                        <div
+                            className={`accordion__item${item.read ? ' accordion__item--disabled' : ''}`}
+                            data-accordion-item
+                            key={item.id}
+                            onClick={() => openNotifications(item.id)}
+                        >
+                            <div className="accordion__header">{ item.short }</div>
+                        </div>
+                    )
+                })}
+
+                <button type="button"
+                    className="modal-content__btn third-btn"
+                    onClick={() => openNotifications()}
+                >
+                    Открыть все
+                </button>
             </div>
         </div>
-    </>
+    </div>
   )
 }

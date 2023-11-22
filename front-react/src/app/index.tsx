@@ -36,6 +36,7 @@ import { AdminMerchantStats } from "./pages/AdminMerchantStats";
 import { AdminStatsPage } from "./pages/AdminStats";
 import { UserAreaNotFoundPage } from "./pages/UserAreaNotFoundPage";
 import { PaymentPage } from "./pages/PaymentPage";
+import { NotificationsPage } from "./pages/NotificationsPage";
 
 export function App() {
   return (
@@ -83,6 +84,7 @@ export function App() {
           />
           <Route path="/infocenter" element={<InfocenterPage />} />
           <Route path="/date-picker" element={<DatePickerPage />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="*" element={<UserAreaNotFoundPage />} />
         </Route>
         <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />

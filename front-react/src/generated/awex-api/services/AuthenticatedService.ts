@@ -421,23 +421,65 @@ export class AuthenticatedService {
 
     public static getAccountNotifications(
         page?: string,
-        read?: string
+        read?: string,
+        projectId?: string,
+        startTime?:string,
+        endTime?: string
     ): CancelablePromise<{
         list: Array<{
             id: number
             type: string
+            short?: string
             message: string
             read: boolean
+            createdAt?: number
+            data: {
+                projectId: number
+            }
         }>
         page: number
         pages: number
+        count: number
     }> {
+        const path = {
+            'page': page,
+            'read': read,
+            'projectId': projectId,
+            'startTime': startTime,
+            'endTime': endTime,
+        }
+        
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/notifications',
+            path: path,
             errors: {
                 403: 'request failed',
             }
+        })
+    }
+
+    public static setAccountNotifications(
+        notificationID: string,
+        status: boolean
+    ): CancelablePromise<{
+        message?: string
+    }> {
+        const requestBody = {
+            read: status
+        }
+
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/account/notifications/{id}',
+            path: {
+                'id': notificationID,
+            },
+            body: requestBody,
+            errors: {
+                400: `request failed`,
+                403: `request failed`,
+            },
         })
     }
 

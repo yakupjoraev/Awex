@@ -2,6 +2,7 @@ import { AuthenticatedService } from "@awex-api"
 import React, { useEffect, useState } from "react"
 import { NotificationsList } from "./NotificationsList"
 import { useShortString } from "../../hooks/useShortString"
+import { useAccountNotifications } from "../../hooks/useAccountNotifications"
 
 export interface accountNotifications {
     id: number
@@ -10,47 +11,33 @@ export interface accountNotifications {
     message: string
     read: boolean
     createdAt?: number
+    data: {
+        projectId: number
+    }
 }
 
 export function AccountNotifications() {
-    const [notifications, setNotifications] = useState<accountNotifications[]>([])
-    const [page, setPage] = useState<number>(1)
-    const [pages, setPages] = useState<number>(1)
+    const {
+        notificationsFiltered,
+        count,
+    } = useAccountNotifications()
     const [isOpenList, setIsOpenList] = useState<boolean>(false)
     const [shortMessage, setShortMessage] = useShortString('', 40)
 
     useEffect(() => {
-        getNotifications()
-    }, [])
-
-    useEffect(() => {
-        if(!notifications.length) {
+        if(!notificationsFiltered.length) {
             setShortMessage('')
             return
         }
-        setShortMessage(notifications[0].short)
-    }, [notifications])
-
-    function getNotifications(): void {
-        AuthenticatedService.getAccountNotifications() //(page.toString(), pages.toString())
-        .then((response) => {
-            if(!response) {
-                setNotifications([])
-                return
-            }
-            console.log('getNotifications', response)
-            const {list, page, pages} = response
-            const notifications = list.slice(0)
-            setPage(page)
-            setPages(pages)
-            setNotifications(notifications)
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-    }
+        setShortMessage(notificationsFiltered[0].short)
+    }, [notificationsFiltered])
 
     function toggleOpenList(state?: boolean): void {
+        if(notificationsFiltered.length <= 0) {
+            setIsOpenList(false)
+            return
+        }
+
         if(typeof state === "undefined") {
             setIsOpenList(!isOpenList)
             return
@@ -66,23 +53,24 @@ export function AccountNotifications() {
             <div className="about-deposit__header-notif">
                 <img src="/img/icons/bell.svg" alt="" />
                 Новые уведомления
-                { notifications.length && ( <span>{ notifications.length }</span> )}
+                { count && ( <span>{ count }</span> )}
             </div>
 
-            { notifications.length && (
+            { notificationsFiltered.length && (
                 <div className="about-deposit__header-info">
                     { shortMessage }
                 </div>
             )}
         </div>
-
-        <NotificationsList
-            notifications={notifications}
-            page={page}
-            pages={pages}
-            isOpenList={isOpenList}
-            onClose={()=>setIsOpenList(false)}
-        />
+        
+        { notificationsFiltered.length && (
+            <NotificationsList
+                notifications={notificationsFiltered}
+                count={count}
+                isOpenList={isOpenList}
+                onClose={()=>setIsOpenList(false)}
+            />
+        )}
     </>
   )
 }

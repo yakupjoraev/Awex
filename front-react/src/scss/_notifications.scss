@@ -118,11 +118,13 @@
 }
 
 .accordion__item--disabled {
-  user-select: none;
-  pointer-events: none;
-  color: var(--grey-color);
-
   &::before {
     background-color: var(--grey-color);
   }
+}
+
+.accordion__item--disabled:not(.active) {
+  user-select: none;
+  color: var(--grey-color);
+
 }
