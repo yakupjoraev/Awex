@@ -419,13 +419,13 @@ export class AuthenticatedService {
         });
     }
 
-    public static getAccountNotifications(
-        page?: string,
-        read?: string,
-        projectId?: string,
-        startTime?:string,
+    public static getAccountNotifications(parameters: {
+        page?: string
+        read?: boolean
+        projectId?: string
+        startTime?:string
         endTime?: string
-    ): CancelablePromise<{
+    }): CancelablePromise<{
         list: Array<{
             id: number
             type: string
@@ -441,18 +441,18 @@ export class AuthenticatedService {
         pages: number
         count: number
     }> {
-        const path = {
-            'page': page,
-            'read': read,
-            'projectId': projectId,
-            'startTime': startTime,
-            'endTime': endTime,
-        }
+        const { page, read, projectId, startTime, endTime } = parameters
         
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/notifications',
-            path: path,
+            query: {
+                'page': page,
+                'read': read,
+                'projectId': projectId,
+                'startTime': startTime,
+                'endTime': endTime,
+            },
             errors: {
                 403: 'request failed',
             }
@@ -483,4 +483,15 @@ export class AuthenticatedService {
         })
     }
 
+    public static getAccountNotificationsTypes(): CancelablePromise<{
+        types: string[]
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/account/notifications/types',
+            errors: {
+                403: 'request failed',
+            }
+        })
+    }
 }

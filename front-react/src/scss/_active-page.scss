@@ -12,10 +12,21 @@
   column-gap: 15px;
 }
 
+.page-list__link {
+  user-select: none;
+  color: var(--grey-color);
+  cursor: pointer;
+  transition: color .3s;
+  &:hover {
+    color: var(--text-color);
+  }
+}
+
 .page-list__item {
 
   &.active .page-list__link {
     color: var(--text-color);
+    cursor: default;
 
     &::before {
       content: "[";
@@ -26,14 +37,5 @@
     }
 
   }
-
-  &.last {
-    .page-list__link {
-      color: var(--text-color);
-    }
-  }
 }
 
-.page-list__link {
-  color: var(--grey-color);
-}

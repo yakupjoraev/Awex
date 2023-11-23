@@ -3,18 +3,7 @@ import React, { useEffect, useState } from "react"
 import { NotificationsList } from "./NotificationsList"
 import { useShortString } from "../../hooks/useShortString"
 import { useAccountNotifications } from "../../hooks/useAccountNotifications"
-
-export interface accountNotifications {
-    id: number
-    type: string
-    short?: string
-    message: string
-    read: boolean
-    createdAt?: number
-    data: {
-        projectId: number
-    }
-}
+import { accountNotificationsType } from "../../hooks/useAccountNotifications"
 
 export function AccountNotifications() {
     const {

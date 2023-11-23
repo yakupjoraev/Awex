@@ -1,9 +1,10 @@
 import { NOTIFICATIONS_PAGE } from "@constants/path-locations"
-import { accountNotifications } from ".."
+// import { accountNotifications } from ".."
+import { accountNotificationsType } from "src/app/hooks/useAccountNotifications"
 import { useNavigate } from "react-router-dom"
 
 export interface NotificationsListProps {
-    notifications: accountNotifications[]
+    notifications: accountNotificationsType[]
     count: number
     isOpenList: boolean
     onClose: () => void
