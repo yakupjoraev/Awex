@@ -1345,4 +1345,20 @@ export class AuthorizedService {
             },
         })
     }
+
+    public static projectNames(): CancelablePromise<{
+        list: Array<{
+            id: 0,
+            name: string
+        }>
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/project/names',
+            errors: {
+                403: `request failed`,
+            },
+        })
+    }
+
 }

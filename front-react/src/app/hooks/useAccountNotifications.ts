@@ -52,12 +52,6 @@ const useAccountNotifications = () => {
     useEffect(() => {
         getFiterredNotifications()
     },[notifications])
-
-    // useEffect(() => {
-    //     console.log('notifiFilter', notifiFilter)
-    //     getNotifications()
-    // },[notifiFilter])
-
     
     function getNotifications(): boolean {
         if(notificationsIsLoading) return false

@@ -4,7 +4,8 @@ import { useAccountNotifications } from "../../hooks/useAccountNotifications"
 import { NotificationsFilters } from "./NotificationsFilters"
 import { NotificationsAccordion } from "./NotificationsAccordion"
 import { Pagination } from "@components/Pagination"
-import { AccountNotifiFilterType } from "../../hooks/useAccountNotifications"
+// import { AccountNotifiFilterType } from "../../hooks/useAccountNotifications"
+
 
 export function NotificationsPage() {
     const location = useLocation()
@@ -52,7 +53,9 @@ export function NotificationsPage() {
                     <span>{ count }</span>
                 </div>
 
-                <NotificationsFilters />
+                <NotificationsFilters
+                    setFilter={setNotificationFilter}
+                />
 
                 <NotificationsAccordion
                     notifications={notificationsFiltered}
