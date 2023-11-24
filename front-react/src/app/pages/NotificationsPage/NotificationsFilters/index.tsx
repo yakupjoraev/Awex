@@ -1,119 +1,96 @@
-import { Filters, FiltersPropType, DateRange, filterSelect, filterDate } from "@components/Filters"
+// import { Filters, FiltersPropType, DateRange, filterSelect, filterDate } from "@components/Filters"
 import { AccountNotifiFilterType } from "../../../hooks/useAccountNotifications"
 import { useEffect, useState } from "react"
 import { AuthorizedService } from "@awex-api"
+
+import { DepositsFiltersSelect, DepositsFiltersSelectProps } from "@components/DepositsFilterSelect";
+import { DepositsFilterDate, DepositsFilterDateProps, DateRange } from "@components/DepositsFilterDate";
 
 interface NotificationsFiltersProps {
     setFilter: (filter: AccountNotifiFilterType)=>void
 }
 
+interface SelectFilterType {
+    value: string
+    options: { value: string, label: string }[]
+}
+
+const projectsFilterDefault = {
+    value: '',
+    options: [{value: '', label: 'Все'}]
+}
+const statusFilterDefault = {
+    value: '0',
+    options: [
+        {value: '0', label: 'Все'},
+        {value: 'unread', label: 'Ожидает действий'},
+        {value: 'read', label: 'Прочитано'}
+    ]
+}
+const dataValueDefault = {
+    from: undefined,
+    to: undefined,
+}
+
 export function NotificationsFilters({ setFilter }: NotificationsFiltersProps) {
-    // const filterDefault: FiltersPropType = {
-    //     filter: [
-    //         {
-    //             fieldType: 'Select',
-    //             className: '',
-    //             label: 'Проект',
-    //             value: 1,
-    //             options: [
-    //                 { value: 1, label: 'Проект 1' },
-    //                 { value: 2, label: 'Проект 2' },
-    //                 { value: 3, label: 'Проект 3' },
-    //             ],
-    //             onChange: (i: string | number)=>{console.log(i)}
-    //         },
-    //         {
-    //             fieldType: 'Select',
-    //             className: '',
-    //             label: 'Статус',
-    //             value: 1,
-    //             options: [
-    //                 { value: 1, label: 'Pfrfps 1' },
-    //                 { value: 2, label: 'Pfrfps 2' },
-    //                 { value: 3, label: 'Pfrfps 3' },
-    //             ],
-    //             onChange: (i: string | number)=>{console.log(i)}
-    //         },
-    //         {
-    //             fieldType: 'Date',
-    //             className: '',
-    //             label: 'Дата',
-    //             onChange: (value: DateRange | undefined)=>{console.log(value)}
-    //         }
-    //     ]
-    // }
-
-    // type DateRange = {
-    //     from: Date | undefined;
-    //     to?: Date | undefined;
-    // };
-
-    const projectFilterDefault: filterSelect = {
-        fieldType: 'Select',
-        className: '',
-        label: 'Проект',
-        value: 'default',
-        options: [],
-        onChange: (value: string) => projectFilterChange(value)
-    }
-    const statusFilterDefault: filterSelect = {
-        fieldType: 'Select',
-        className: '',
-        label: 'Статус',
-        value: 'default',
-        options: [],
-        onChange: (value: string) => statusFilterChange(value)
-    }
-    const dateFilterDefault: filterDate = {
-        fieldType: 'Date',
-        className: '',
-        label: 'Дата',
-        onChange: dateFilterChange
-    }
-    const filterDefault: FiltersPropType = {
-        filter: [
-            // projectFilterDefault,
-            // statusFilterDefault,
-            // dateFilterDefault
-        ]
-    }
-
-    const [projectFilter, setProjectFilter] = useState<filterSelect>(projectFilterDefault)
-    const [statusFilter, setStatusFilter] = useState<filterSelect>(statusFilterDefault)
-    const [dateFilter, setDateFilter] = useState<filterDate>(dateFilterDefault)
-    const [filterOptions, setFilterOptions] = useState<FiltersPropType>(filterDefault)
+    const [projectsFilter, setProjectsFilter] = useState<SelectFilterType>(projectsFilterDefault)
+    const [statusFilter, setStatusFilter] = useState<SelectFilterType>(statusFilterDefault)
+    const [dataValue, setDataValue] = useState<DateRange>(dataValueDefault)
 
     useEffect(() => {
         getProjects()
     },[])
-    
-    useEffect(() => {
-        getFilterOptions()
-    },[projectFilter, statusFilter, dateFilter])
 
     function projectFilterChange(value: string) {
         const newProjectFilter = {
-            ...projectFilter,
+            ...projectsFilter,
             value,
         }
-        console.log('projectFilterChange newProjectFilter', newProjectFilter)
-        setProjectFilter(newProjectFilter)
+        setProjectsFilter(newProjectFilter)
+        setFilter({
+            projectId: value !== '' ? value : undefined,
+        })
     }
 
-    function statusFilterChange(value: string) {}
-
-    function dateFilterChange(value: DateRange | undefined) {}
-
-    function getFilterOptions() {
-        const newFilter: FiltersPropType = {
-            filter: [
-                { ...projectFilter },
-                { ...statusFilter },
-                { ...dateFilter }
-            ]
+    function statusFilterChange(value: string) {
+        const newStatusFilter = {
+            ...statusFilter,
+            value,
         }
-        console.log('newFilter', newFilter)
-        setFilterOptions(newFilter)
+        setStatusFilter(newStatusFilter)
+
+        let newStatus: boolean | undefined
+
+        switch(value) {
+            case 'unread':
+                newStatus = false
+                break
+            case 'read':
+                newStatus = true
+                break
+        }
+        setFilter({
+            read: newStatus,
+        })
+    }
+
+    function dateFilterChange(value: DateRange | undefined) {
+        if(!value) {
+            setDataValue(dataValueDefault)
+            return
+        }
+        setDataValue(value)
+    }
+
+    function dateFilterChangeFine() {
+        console.log({
+            startTime: dataValue.from ? Date.parse(dataValue.from.toString()).toString() : '',
+            endTime: dataValue.to ? Date.parse(dataValue.to.toString()).toString() : '',
+        })
+        setFilter({
+            startTime: dataValue.from ? (Date.parse(dataValue.from.toString()) / 1000).toString() : '',
+            endTime: dataValue.to ? (Date.parse(dataValue.to.toString()) / 1000).toString() : '',
+        })
     }
 
     function getProjects() {
@@ -126,18 +103,40 @@ export function NotificationsFilters({ setFilter }: NotificationsFiltersProps) {
                     label: project.name
                 }
             })
-            const newProjectFilter = {
-                ...projectFilter,
-                options: [{value: 'default', label: 'Все'}, ...newProjectOptions],
+            const newProjectFilter: SelectFilterType = {
+                value: projectsFilter.value,
+                options: [{value: '', label: 'Все'}, ...newProjectOptions],
             }
-            setProjectFilter(newProjectFilter)
+            setProjectsFilter(newProjectFilter)
         })
         .catch((error) => {
             console.error(error)
         })
     }
     
-    return (
-        <Filters filter={filterOptions.filter} />
+    return (        
+        <div className="deposits__filters">
+            <DepositsFiltersSelect
+                label="Проект"
+                value={projectsFilter.value}
+                options={projectsFilter.options}
+                onChange={projectFilterChange}
+            />
+            
+            <DepositsFiltersSelect
+                label="Статус"
+                value={statusFilter.value}
+                options={statusFilter.options}
+                onChange={statusFilterChange}
+            />
+
+            <DepositsFilterDate
+                label="Дата"
+                value={dataValue}
+                onChange={dateFilterChange}
+                onClose={dateFilterChangeFine}
+            />
+        </div>
+
     )
 }

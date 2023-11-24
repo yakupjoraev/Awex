@@ -5,7 +5,7 @@ const GETTING_TIMEOUT = 60000
 
 export interface AccountNotifiFilterType {
     page?: string,
-    read?: boolean,
+    read?: boolean | string,
     projectId?: string,
     startTime?:string,
     endTime?: string
