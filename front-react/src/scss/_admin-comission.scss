@@ -60,8 +60,6 @@
   &__group {
     display: flex;
     align-items: center;
-    column-gap: 10px;
-    padding: 10px;
     background-color: var(--white-color);
 
     img {
@@ -74,6 +72,13 @@
 
   &__group-label {
     font-weight: 600;
+    padding: 10px;
+  }
+
+  &__group-input {
+    flex: 1;
+    outline: none;
+    padding: 10px 10px 10px 0;
   }
 
   // .admin-comission__group-sum
@@ -125,5 +130,37 @@
 
   &__btn {
     width: fit-content;
+  }
+
+  .admin-comission__retry-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 10px;
+    background-color: var(--white-color);
+    border: 1px solid var(--grey-color);
+    border-radius: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 120%;
+    color: var(--text-color);
+  }
+
+  .admin-comission__error {
+    color: red;
+    font-size: 12px;
+    width: 100%;
+    margin-top: -10px;
+  }
+
+  .admin-comission__group--has-icon-right {
+    position: relative;
+  }
+
+  .admin-comission__group-icon-right {
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
   }
 }
