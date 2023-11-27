@@ -4,6 +4,7 @@ import { object, string, number, bool, boolean } from "yup"
 export const paymentFormValidator = object({
   amount: string(), //.required(MESSAGE_FIELD_REQUIRED),
   currency: string(), //.required(MESSAGE_FIELD_REQUIRED),
+  userChain: string(), //.required(MESSAGE_FIELD_REQUIRED),
   useDeposit: bool(),
   withdrawCurrency: string()
     .when("useDeposit", {

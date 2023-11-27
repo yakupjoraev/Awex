@@ -2,17 +2,18 @@ import { ApiError, CommonService } from "@awex-api"
 import { InternalErrorMessage } from "@components/InternalErrorMessage"
 import { LdsSpinner } from "@components/LdsSpinner"
 import { NotFoundErrorMessage } from "@components/NotFoundErrorMessage"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { useParams } from "react-router-dom"
 import { PaymentCurrencySelector } from "./PaymentCurrencySelector"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { useForm, Controller, useWatch } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { paymentFormValidator } from "./validators"
 import { SelectorOptions, Selector } from "@components/Selector"
 import CopyToClipboard from "react-copy-to-clipboard"
 import toast from "react-hot-toast"
 import QRCode from "react-qr-code"
+import { subWeeks } from "date-fns"
 
 
 type OrderError = { type: "unknown" | "not_found" }
@@ -73,6 +74,7 @@ interface OrderPaymentRequest {
 interface PaymentFormData {
   amount?: string
   currency?: string
+  userChain?: string
   useDeposit?: boolean
   withdrawCurrency?: string
   withdrawNet?: string
@@ -94,6 +96,26 @@ interface WithdrawCurrencies {
   chainName: string
 }
 
+interface paymentCurrency {
+  currency: string
+  name: string
+  rate: string
+  chain: string
+  chainName: string
+}
+
+interface userChains {
+  value: string
+  label: string
+}
+
+interface formattedCurrency {
+  currency: string,
+  name: string,
+  rate: string,
+  chains: Array<userChains>
+}
+
 type PaymentStatus = 'invoicing' | 'prepared' | 'paid' | 'expired' | 'success'
 
 const DEFAULT_PAYER_CURRENCY: PayerCurrency = {
@@ -113,7 +135,8 @@ export function PaymentPage() {
   const [orderError, setOrderError] = useState<OrderError | null>(null)
   const [orderCurrency, setOrderCurrency] = useState<PayerCurrency>(DEFAULT_PAYER_CURRENCY)
   const [paymentOrder, setPaymentOrder] = useState<PaymentOrder | null>(null)
-  const [currencies, setCurrencies] = useState<Currency[] | null>(null)
+  // const [currencies, setCurrencies] = useState<Currency[] | null>(null)
+  const [currencies, setCurrencies] = useState<formattedCurrency[] | null>(null)
   const [currenciesError, setCurrenciesError] = useState<string | null>(null)
   const [paymentAmountValue, setPaymentAmountValue] = useState<string | undefined>(undefined)
   const [paymentStatus, setPaymentStatus] = useState<PaymentStatus>('invoicing')
@@ -124,6 +147,7 @@ export function PaymentPage() {
   const [withdrawChains, setWithdrawChains] = useState<SelectorOptions[] | null>(null)
   const [isDeposit, setIsDeposit] = useState<boolean>(false)
   // const [isOpenPaimentDetalisMobile, setIsOpenPaimentDetalisMobile] = useState(false)
+  const [userChains, setUserChains] = useState<userChains[]>([])
 
   const {
     register,
@@ -144,7 +168,91 @@ export function PaymentPage() {
   //   return () => document.removeEventListener('click', closePaimentDetalisMobile)
   // }, [])
 
+  // useEffect(() => {
+  //   CommonService.orderPaymentWithdrawCurrencies()
+  //   .then((response) => {
+  //     if(response && response.currencies) {
+  //       setWithdrawCurrencies(response.currencies)
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error(error)
+  //   })
+  // }, [])
+
   useEffect(() => {
+    updateCurrencies()
+  }, [withdrawCurrencies])
+
+  useEffect(() => {
+    getOrderPayment(uniqueId)
+    return () => {
+      clearInterval(checkingPaidTimer)
+      clearInterval(expiredTimer)
+    }
+  }, [uniqueId])
+
+  useEffect(() => {
+    ( function(){
+      if(!paymentOrder) {
+        setPaymentAmountValue(undefined)
+        return
+      }
+      let newpaymentAmountValue
+      if(paymentOrder.paymentData && paymentOrder.userCurrency === paymentOrder.paymentData.currency) {
+        newpaymentAmountValue = paymentOrder.paymentData.paymentAmount
+      } else {
+        newpaymentAmountValue = Number(paymentOrder.amount) / currencyRate(paymentOrder.userCurrency)
+      }
+      setPaymentAmountValue(newpaymentAmountValue.toString())
+
+      if(!paymentOrder.expired) {
+        toggleExpiredTimer(paymentOrder.expiredDate)
+      }
+    }());
+        
+    (function(){
+      if(!paymentOrder) {
+        setIsDeposit(false)
+        return
+      }
+      if(paymentOrder.depositAmount) {
+        setIsDeposit(true)
+        return
+      }
+      setIsDeposit(false)
+    }());
+  }, [paymentOrder])
+
+  useEffect(() => {
+    (function(){
+      if(!paymentOrder) return
+      setValue('currency', paymentOrder.userCurrency)
+      
+      const userCurrency = currencies?.find((item) => item.currency === paymentOrder.userCurrency)
+      const newUserChains: userChains[] = userCurrency?.chains ? userCurrency?.chains : []
+      setUserChains(newUserChains)
+      setValue('userChain', paymentOrder.chain)
+
+      if(!paymentOrder.paymentData) return
+      setValue('withdrawCurrency', paymentOrder.paymentData.depositWithdrawCurrency)
+      setValue('withdrawNet', paymentOrder.paymentData.depositWithdrawChain)
+      setValue('withdrawWalletId', paymentOrder.paymentData.depositWithdrawAddress)
+    }());
+  }, [paymentOrder, currencies])
+
+  useEffect(() => {
+    setValue('amount', paymentAmountValue)
+  }, [paymentAmountValue])
+
+  useEffect(() => {
+    setValue('useDeposit', isDeposit)
+    if(isDeposit) {
+      getOrderPaymentWithdrawCurrencies()
+    }
+  },[isDeposit])
+
+  function getOrderPaymentWithdrawCurrencies() {
     CommonService.orderPaymentWithdrawCurrencies()
     .then((response) => {
       if(response && response.currencies) {
@@ -154,12 +262,8 @@ export function PaymentPage() {
     .catch((error) => {
       console.error(error)
     })
-  }, [])
-
-  useEffect(() => {
-    updateCurrencies()
-  }, [withdrawCurrencies])
-
+  }
+  
   function updateCurrencies(currencyFilter?: string): void {
     if(!withdrawCurrencies) {
       setWithdrawCurrenciesName(null)
@@ -195,61 +299,6 @@ export function PaymentPage() {
     )
     setWithdrawChains([...chains])
   }
-
-  useEffect(() => {
-    getOrderPayment(uniqueId)
-    return () => {
-      clearInterval(checkingPaidTimer)
-      clearInterval(expiredTimer)
-    }
-  }, [uniqueId])
-
-  useEffect(() => {
-    if(!paymentOrder) {
-      setPaymentAmountValue(undefined)
-      return
-    }
-    let newpaymentAmountValue
-    if(paymentOrder.paymentData && paymentOrder.userCurrency === paymentOrder.paymentData.currency) {
-      newpaymentAmountValue = paymentOrder.paymentData.paymentAmount
-    } else {
-      newpaymentAmountValue = Number(paymentOrder.amount) / currencyRate(paymentOrder.userCurrency, paymentOrder.userChain)
-    }
-    setPaymentAmountValue(newpaymentAmountValue.toString())
-
-    if(!paymentOrder.expired) {
-      toggleExpiredTimer(paymentOrder.expiredDate)
-    }
-  }, [paymentOrder])
-
-  useEffect(() => {
-    setValue('amount', paymentAmountValue)
-  }, [paymentAmountValue])
-
-  useEffect(() => {
-    if(!paymentOrder) return
-    setValue('currency', paymentOrder.userCurrency)
-    if(!paymentOrder.paymentData) return
-    setValue('withdrawCurrency', paymentOrder.paymentData.depositWithdrawCurrency)
-    setValue('withdrawNet', paymentOrder.paymentData.depositWithdrawChain)
-    setValue('withdrawWalletId', paymentOrder.paymentData.depositWithdrawAddress)
-  }, [paymentOrder])
-
-  useEffect(() => {
-    if(!paymentOrder) {
-      setIsDeposit(false)
-      return
-    }
-    if(paymentOrder.depositAmount) {
-      setIsDeposit(true)
-      return
-    }
-    setIsDeposit(false)
-  }, [paymentOrder])
-
-  useEffect(() => {
-    setValue('useDeposit', isDeposit)
-  },[isDeposit])
 
   function toggleExpiredTimer(expiredDate: number) {
     clearInterval(expiredTimer)
@@ -300,11 +349,11 @@ export function PaymentPage() {
     };  
   }
 
-  function currencyRate(userCurrency: string, userChain: string): number {
+  function currencyRate(userCurrency: string): number {
     if(!currencies) {
       return 1
     }
-    const currency: Currency[] = currencies.filter((item) =>  item.chain === userChain && item.currency === userCurrency)
+    const currency: formattedCurrency[] = currencies.filter((item) => item.currency === userCurrency)
     return Number(currency[0].rate)
   }
 
@@ -381,16 +430,7 @@ export function PaymentPage() {
         if (!response.currencies) {
           setCurrencies(null)
         } else {
-          const nextCurrencies: Currency[] = []
-          for (const currency of response.currencies) {
-            nextCurrencies.push({
-              currency: currency.currency,
-              name: currency.name,
-              rate: currency.rate,
-              chain: currency.chain,
-            });
-          }
-          setCurrencies(nextCurrencies)
+          setCurrencies(formattingСurrencies(response.currencies))
         }
       })
       .catch((error) => {
@@ -405,17 +445,62 @@ export function PaymentPage() {
         setCurrenciesLoading(false)
       })
   }
+
+  function formattingСurrencies(currencies: paymentCurrency[]): formattedCurrency[] {
+    const unicMap = new Map()
+    const formattedCurrencies:formattedCurrency[] = []
+
+    currencies.forEach((currencyItem) => {
+      const { currency, name, rate, chain, chainName } = currencyItem
+      let idx = unicMap.get(currency)
+
+      if(idx !== undefined) {
+        formattedCurrencies[idx].chains.push({ value: chain, label: chainName })
+      } else {
+        formattedCurrencies.push({
+          currency,
+          name,
+          rate,
+          chains: [{ value: chain, label: chainName }]
+        })
+        unicMap.set(currency, formattedCurrencies.length - 1)
+      }
+    })
+    return formattedCurrencies
+  }
   
-  function networkPaymentSelected(currency: string, onChange: any, chain?: string | null): void {
-    onChange(currency)
+  // function networkPaymentSelected(currency: string, onChange: any, chain?: string | null): void {
+  //   onChange(currency)
+  //   setPaymentOrder(paymentOrder ? {
+  //     ...paymentOrder,
+  //     userCurrency: currency,
+  //     userChain: chain ? chain : paymentOrder.chain,
+  //     paymentData: paymentOrder.paymentData ? {...paymentOrder.paymentData} : null
+  //   } : null)
+  // }
+  
+  function currencySelected(currency: string): void {
+    const userCurrency = currencies?.find((item) => item.currency === currency)
+    const newUserChains: userChains[] = userCurrency?.chains ? userCurrency?.chains : []
+    setUserChains(newUserChains)
+    setValue('userChain', newUserChains[0].value)
+
     setPaymentOrder(paymentOrder ? {
       ...paymentOrder,
       userCurrency: currency,
-      userChain: chain ? chain : paymentOrder.chain,
+      chain: newUserChains[0].value,
       paymentData: paymentOrder.paymentData ? {...paymentOrder.paymentData} : null
     } : null)
   }
 
+  function chainSelected(value: string): void {
+    setPaymentOrder(paymentOrder ? {
+      ...paymentOrder,
+      chain: value,
+      paymentData: paymentOrder.paymentData ? {...paymentOrder.paymentData} : null
+    } : null)
+  }
+ 
   const toPay = handleSubmit((formData) => {
     if(!paymentOrder || !uniqueId) return
     setOrderLoading(true)
@@ -611,7 +696,8 @@ export function PaymentPage() {
                               currency={field.value}
                               currencies={currencies ? currencies : undefined}
                               loading={currenciesLoading}
-                              onChange={(value: string, chain?: string | null) => { networkPaymentSelected(value, field.onChange, chain)}}
+                              // onChange={(value: string, chain?: string | null) => { networkPaymentSelected(value, field.onChange, chain)}}
+                              onChange={(value: string) => { currencySelected(value); field.onChange()}}
                             />
                           )
                         }}
@@ -625,6 +711,32 @@ export function PaymentPage() {
                     </div>
                   </div>
                 </div>
+                
+                
+                { userChains && userChains.length > 0 && (
+                    <>
+                      <div className="invoice-project__group-select">
+                        <Controller
+                          control={control}
+                          name="userChain"
+                          render={({ field }) => {
+                            return (
+                              <Selector
+                                options={userChains}
+                                value={field.value}
+                                placeholder={'Выберете сеть'}
+                                onChange={(value: string) => { chainSelected(value); field.onChange(value)}}
+                              />
+                            )
+                          }}
+                        />
+                      </div>
+                      {errors.withdrawNet?.message && (
+                        <div className="project-error">{errors.withdrawNet.message}</div>
+                      )}
+                    </>
+                  )}
+
               </div>
 
               { isDeposit && (
