@@ -1,34 +1,31 @@
-import { SelectCurrencyModal } from "@components/SelectCurrenyModal";
-import { useState } from "react";
-import usePortal from "react-useportal";
+import { SelectCurrencyModal } from "@components/SelectCurrenyModal"
+import { useState } from "react"
+import usePortal from "react-useportal"
 
 export interface InvoiceCurrencySelectorProps {
-  loading?: boolean;
-  currency?: string;
-  currencies?: { currency: string; name?: string; rate?: string }[];
-  disabled?: boolean;
-  onChange?: (value: string) => void;
+  loading?: boolean
+  currency?: string
+  currencies?: { currency: string; name?: string; rate?: string }[]
+  disabled?: boolean
+  onChange?: (value: string) => void
 }
 
 export function InvoiceCurrencySelector(props: InvoiceCurrencySelectorProps) {
-  const { Portal } = usePortal();
-  const [opened, setOpened] = useState(false);
+  const { Portal } = usePortal()
+  const [opened, setOpened] = useState(false)
 
   const handleSelectorClick = () => {
-    if (props.disabled) {
-      return;
-    }
-    setOpened(true);
-  };
+    if (props.disabled) return
+    setOpened(true)
+  }
 
   const handleModalClose = () => {
-    setOpened(false);
-  };
+    setOpened(false)
+  }
 
   return (
     <>
-      <div
-        className={`about-deposit__generation-currency open-modal-btn ${props.disabled ? 'about-deposit__generation-currency--disabled' : ''}`}
+      <div className={`about-deposit__generation-currency open-modal-btn ${props.disabled ? 'about-deposit__generation-currency--disabled' : ''}`}
         onClick={handleSelectorClick}
       >
         <div className="about-deposit__generation-curr">
@@ -41,6 +38,7 @@ export function InvoiceCurrencySelector(props: InvoiceCurrencySelectorProps) {
           alt="arrow-down"
         />
       </div>
+
       <Portal>
         <SelectCurrencyModal
           open={opened}
@@ -51,5 +49,5 @@ export function InvoiceCurrencySelector(props: InvoiceCurrencySelectorProps) {
         />
       </Portal>
     </>
-  );
+  )
 }

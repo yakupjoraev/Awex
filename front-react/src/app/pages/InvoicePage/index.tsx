@@ -8,11 +8,10 @@ import { useForm, Controller, useWatch } from "react-hook-form"
 import { InvoiceProjectSelector } from "./InvoiceProjectSelector"
 import { InvoiceCurrencySelector } from "./InvoiceCurrencySelector"
 import { getProjects } from "@store/projects/slice"
-import { AuthenticatedService, AuthorizedService } from "@awex-api"
+import { AuthorizedService } from "@awex-api"
 import toast from "react-hot-toast"
 import usePortal from "react-useportal"
 import { PaymentLinkModal } from "@components/PaymentLinkModal"
-import { DepositCurrencySelector } from "./DepositCurrencySelector"
 import classNames from "classnames"
 import { useLocation } from "react-router-dom"
 
@@ -52,12 +51,9 @@ export function InvoicePage() {
   const {
     register,
     setValue,
-    setError,
     handleSubmit,
     control,
     formState: { errors },
-    getValues,
-    reset,
   } = useForm<InvoiceFormData>({
     resolver: yupResolver(invoiceFormValidator),
   })
@@ -126,7 +122,7 @@ export function InvoicePage() {
       value: id,
       label: project.name,
       key: id,
-    }));
+    }))
   }, [projects])
 
   return (

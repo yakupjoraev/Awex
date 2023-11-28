@@ -1361,4 +1361,47 @@ export class AuthorizedService {
         })
     }
 
+    public static getTransactions(query: {
+        startTime?: string
+        endTime?: string
+        projectId?: string
+        currency?: string
+        type?: string
+        classType?: string
+    }): CancelablePromise<{
+        page: number
+        pages: number
+        list: Array<{
+            id: number
+            orderId: number
+            date: number
+            userId: number
+            type: string // 'debit' | ''
+            class: string
+            paymentOrderAmount: number
+            paymentDepositAmount: number
+            paymentTotalAmount: number
+            paymentFeeAmount: number
+            currency: string
+            invoice: string
+            details: string
+            projectId: number
+          }>
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/transaction',
+            query: {
+                'startTime': query.startTime,
+                'endTime': query.endTime,
+                'projectId': query.projectId,
+                'currency': query.currency,
+                'type': query.type,
+                'classType': query.classType
+            },
+            errors: {
+                403: `request failed`,
+            },
+        })
+    }
 }

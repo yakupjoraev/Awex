@@ -1,34 +1,31 @@
-import React from "react";
-import { useState } from "react";
-import classNames from "classnames";
-import { Link, NavLink } from "react-router-dom";
-import { HOME_PAGE_PATH } from "../../constants/path-locations";
-import { AppProject } from "../../../types";
+import { useState } from "react"
+import classNames from "classnames"
+import { Link, NavLink } from "react-router-dom"
+import { HOME_PAGE_PATH } from "../../constants/path-locations"
+import { AppProject } from "../../../types"
 
 interface SidebarMobileProps {
-  userName?: string;
-  projects?: { id: string; project: AppProject }[];
-  onLogout: () => void;
+  userName?: string
+  projects?: { id: string; project: AppProject }[]
+  onLogout: () => void
 }
 
 export function SidebarMobile(props: SidebarMobileProps) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(false)
 
   const handleMenuBtnClick = () => {
-    setExpanded(!expanded);
+    setExpanded(!expanded)
   };
 
   return (
-    <div
-      className={classNames("sidebar-mobile", { show: expanded })}
+    <div className={classNames("sidebar-mobile", { show: expanded })}
       data-sidebar-mobile=""
     >
       <div className="sidebar-mobile__inner">
         <div className="sidebar-mobile__header">
           <a href="#" className="sidebar-mobile__user">
             <div className="sidebar-mobile__user-icon">
-              <img
-                className="sidebar-mobile__pic"
+              <img className="sidebar-mobile__pic"
                 src="/img/sidebar-mobile/user.svg"
                 alt="user"
               />
@@ -39,8 +36,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
 
           <Link className="sidebar-mobile__settings" to="/settings">
             <div className="sidebar-mobile__settings-icon">
-              <img
-                className="sidebar-mobile__pic"
+              <img className="sidebar-mobile__pic"
                 src="/img/sidebar-mobile/settings.svg"
                 alt="settings"
               />
@@ -49,14 +45,12 @@ export function SidebarMobile(props: SidebarMobileProps) {
             <p className="sidebar-mobile__settings-name">Настройки</p>
           </Link>
 
-          <div
-            className="sidebar-mobile__log-out"
+          <div className="sidebar-mobile__log-out"
             role="button"
             onClick={props.onLogout}
           >
             <div className="sidebar-mobile__log-out-icon">
-              <img
-                className="sidebar-mobile__pic"
+              <img className="sidebar-mobile__pic"
                 src="/img/sidebar-mobile/log-out.svg"
                 alt="log-out"
               />
@@ -68,8 +62,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
 
         <div className="sidebar-mobile__middle">
           <a href="#" className="sidebar-mobile__item">
-            <img
-              className="sidebar-mobile__pic"
+            <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/clock.svg"
               alt="clock"
             />
@@ -78,8 +71,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
           </a>
 
           <a href="#" className="sidebar-mobile__item">
-            <img
-              className="sidebar-mobile__pic"
+            <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/sliders-horizontal-alt.svg"
               alt="sliders-horizontal-alt"
             />
@@ -88,8 +80,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
           </a>
 
           <Link className="sidebar-mobile__item" to="/infocenter">
-            <img
-              className="sidebar-mobile__pic"
+            <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/chat-dots.svg"
               alt="chat-dots"
             />
@@ -98,8 +89,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
           </Link>
 
           <a href="#" className="sidebar-mobile__item">
-            <img
-              className="sidebar-mobile__pic"
+            <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/home.svg"
               alt="home"
             />
@@ -110,8 +100,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
 
         <div className="sidebar-mobile__main">
           <NavLink className="sidebar-mobile__item" to={HOME_PAGE_PATH}>
-            <img
-              className="sidebar-mobile__pic"
+            <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/users-alt.svg"
               alt="users-alt"
             />
@@ -120,8 +109,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
           </NavLink>
 
           <a href="#" className="sidebar-mobile__item">
-            <img
-              className="sidebar-mobile__pic"
+            <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/link.svg"
               alt="link"
             />
@@ -130,8 +118,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
           </a>
 
           <a href="#" className="sidebar-mobile__item">
-            <img
-              className="sidebar-mobile__pic"
+            <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/bookmark.svg"
               alt="bookmark"
             />
@@ -140,8 +127,7 @@ export function SidebarMobile(props: SidebarMobileProps) {
           </a>
 
           <NavLink className="sidebar-mobile__item" to="/projects">
-            <img
-              className="sidebar-mobile__pic"
+            <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/menu-left-alt.svg"
               alt="menu-left-alt"
             />
@@ -149,19 +135,16 @@ export function SidebarMobile(props: SidebarMobileProps) {
             <p className="sidebar-mobile__item-text">Проекты</p>
           </NavLink>
 
-          <div
-            className="sidebar-mobile__item"
+          <div className="sidebar-mobile__item"
             data-sidebar-mobile-btn=""
             onClick={handleMenuBtnClick}
           >
-            <img
-              className="sidebar-mobile__pic"
+            <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/more-horizontal-circle.svg"
               alt="more-horizontal-circle"
             />
 
-            <img
-              className="sidebar-mobile__pic sidebar-mobile__pic--open"
+            <img className="sidebar-mobile__pic sidebar-mobile__pic--open"
               src="/img/sidebar-mobile/angle-down-circle.svg"
               alt="angle-down-circle"
             />
@@ -171,5 +154,5 @@ export function SidebarMobile(props: SidebarMobileProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

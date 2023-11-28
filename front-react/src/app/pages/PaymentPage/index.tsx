@@ -13,7 +13,6 @@ import { SelectorOptions, Selector } from "@components/Selector"
 import CopyToClipboard from "react-copy-to-clipboard"
 import toast from "react-hot-toast"
 import QRCode from "react-qr-code"
-import { subWeeks } from "date-fns"
 
 
 type OrderError = { type: "unknown" | "not_found" }
@@ -53,13 +52,6 @@ interface PaymentOrder {
   projectName: string
   merchantName: string
   paymentData?: PaymentData | null
-}
-
-interface Currency {
-  currency: string
-  name?: string
-  rate?: string
-  chain?: string
 }
 
 interface OrderPaymentRequest {
@@ -152,12 +144,9 @@ export function PaymentPage() {
   const {
     register,
     setValue,
-    setError,
     handleSubmit,
     control,
     formState: { errors },
-    getValues,
-    reset,
   } = useForm<PaymentFormData>({
     resolver: yupResolver(paymentFormValidator),
   })
