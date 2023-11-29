@@ -8,13 +8,13 @@ const useShortString = (initialValue: string, maxLength = 10) => {
         setShortingString(shortString(string))
     },[string])
 
-    function shortString(newString: any) {
+    function shortString(newString: any,) {
         if(!newString) return ''
         if(newString.length <= maxLength) return newString
         return newString.slice(0, maxLength).trim() + '...'
     }
 
-    return [shortingString, setString]
+    return [shortingString, setString, shortString]
 }
 
 export { useShortString }

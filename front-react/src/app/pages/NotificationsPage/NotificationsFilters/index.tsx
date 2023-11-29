@@ -3,8 +3,8 @@ import { AccountNotifiFilterType } from "../../../hooks/useAccountNotifications"
 import { useEffect, useState } from "react"
 import { AuthorizedService } from "@awex-api"
 
-import { DepositsFiltersSelect, DepositsFiltersSelectProps } from "@components/DepositsFilterSelect";
-import { DepositsFilterDate, DepositsFilterDateProps, DateRange } from "@components/DepositsFilterDate";
+import { DepositsFiltersSelect } from "@components/DepositsFilterSelect";
+import { DepositsFilterDate, DateRange } from "@components/DepositsFilterDate";
 
 interface NotificationsFiltersProps {
     setFilter: (filter: AccountNotifiFilterType)=>void
@@ -19,6 +19,7 @@ const projectsFilterDefault = {
     value: '',
     options: [{value: '', label: 'Все'}]
 }
+
 const statusFilterDefault = {
     value: '0',
     options: [
@@ -83,10 +84,6 @@ export function NotificationsFilters({ setFilter }: NotificationsFiltersProps) {
     }
 
     function dateFilterChangeFine() {
-        console.log({
-            startTime: dataValue.from ? Date.parse(dataValue.from.toString()).toString() : '',
-            endTime: dataValue.to ? Date.parse(dataValue.to.toString()).toString() : '',
-        })
         setFilter({
             startTime: dataValue.from ? (Date.parse(dataValue.from.toString()) / 1000).toString() : '',
             endTime: dataValue.to ? (Date.parse(dataValue.to.toString()) / 1000).toString() : '',

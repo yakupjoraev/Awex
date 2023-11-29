@@ -1404,4 +1404,19 @@ export class AuthorizedService {
             },
         })
     }
+    
+    public static getTransactionParameters(): CancelablePromise<{ 
+        parameters: {
+            classes: string[],
+            types: string[],
+        }
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/transaction/parameters',
+            errors: {
+                403: `request failed`,
+            },
+        })
+    }
 }
