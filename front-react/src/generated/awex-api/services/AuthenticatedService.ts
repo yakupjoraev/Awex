@@ -494,4 +494,17 @@ export class AuthenticatedService {
             }
         })
     }
+
+    public static accountProfileCurrencies(): CancelablePromise<{
+        currencies: string[]
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/account/profile/currencies',
+            errors: {
+                403: 'request failed',
+            }
+            
+        })
+    }
 }

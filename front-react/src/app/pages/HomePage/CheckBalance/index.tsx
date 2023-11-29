@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react"
-import { AuthenticatedService } from "@awex-api"
+import { useEffect, useState } from "react"
+import { useAppSelector, useAppDispatch } from "@store/hooks"
+import { getAccountBalance } from "@store/accountBalance/slice"
+
 
 interface Balance {
   balance: {
@@ -9,38 +11,35 @@ interface Balance {
   currency: string
 }
 
+
 export function CheckBalance() {
-  
   const [userBalance, setUserBalance] = useState<Balance | null>(null)
+  const dispatch = useAppDispatch()
+  const accountBalance = useAppSelector((state) => state.accountBalance.data)
   
-  useEffect(()=>{
-    getAccountBalance()
+
+  useEffect(() => {
+    dispatch(getAccountBalance())
   },[])
 
-  function getAccountBalance(): void {
-    AuthenticatedService.accountBalance()
-      .then((response) => {
-        if(!response) {
-          setUserBalance(null)
-          return
-        }
+  useEffect(() => {
+    formattingBalance()
+  },[accountBalance])
 
-        const {balance, currency} = response
-        const balanceSegmented: string[] = balance.split('.')
-        setUserBalance({
-          balance: {
-            int: balanceSegmented[0],
-            fract: balanceSegmented[1] ? balanceSegmented[1] : '',
-          },
-          currency
-        })
-      })
-      .catch((error) => {
-        setUserBalance(null)
-        console.error(error)
-      })
-      // .finally(() => {})
+
+  function formattingBalance(): void {
+    const {balance, currency} = accountBalance
+    const balanceSegmented: string[] = balance.split('.')
+    setUserBalance({
+      balance: {
+        int: balanceSegmented[0],
+        fract: balanceSegmented[1] ? balanceSegmented[1] : '',
+      },
+      currency
+    })
   }
+
+
   return (
     <div className="about-check__balance">
       <div className="about-check__balance-inner">
@@ -84,11 +83,11 @@ export function CheckBalance() {
         type="button"
         className="about-check__btn main-btn"
         onClick={() => {
-          alert("NOT IMPLEMENTED");
+          alert("NOT IMPLEMENTED")
         }}
       >
         Заказ наличных в офис
       </button>
     </div>
-  );
+  )
 }
