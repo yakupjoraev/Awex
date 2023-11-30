@@ -78,13 +78,13 @@ export function AdminAreaLayout() {
                   </Link>
                 </li>
                 <li className="nav__item">
-                  <a
-                    href="/admin/applications"
+                  <Link
+                    to="/admin/applications/projects"
                     className="nav__item-link"
                     data-scroll=""
                   >
                     Заявки
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav__item">
                   <a href="#" className="nav__item-link" data-scroll="">

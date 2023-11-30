@@ -22,21 +22,29 @@ const AdminApplicationAreaNavbar: React.FC = () => {
     {
       title: "Обработка депозитов",
       path: "/admin-applications-page/deposit-processing",
+      disable: true,
     },
     {
       title: "Увеличение количества проектов",
       path: "/admin/applications/projects",
       amountOfNewApplications,
+      disable: false,
     },
     {
       title: "Изменение/добавление юр.счета",
       path: "/admin-applications-page/bank-account",
+      disable: true,
     },
     {
       title: "Изменение/добавление юр. адреса",
       path: "/admin-applications-page/legal-address",
+      disable: true,
     },
   ];
+
+  const handleClick = (e: any, disable: boolean) => {
+    if (disable) e.preventDefault();
+  };
 
   return (
     <nav className={classes["container"]}>
@@ -45,6 +53,9 @@ const AdminApplicationAreaNavbar: React.FC = () => {
           <li key={index} className={classes["navigation-list__li"]}>
             <NavLink
               to={item.path}
+              onClick={(e) =>
+                item.disable ? handleClick(e, item.disable) : null
+              }
               className={({ isActive }) =>
                 isActive
                   ? classes["navigation-list__item--active"]
