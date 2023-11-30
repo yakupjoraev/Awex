@@ -22,6 +22,9 @@ import { InfocenterPage } from "./pages/InfocenterPage";
 import { MyAssetsPage } from "./pages/MyAssetsPage";
 import { AssetPage } from "./pages/AssetPage";
 import {
+  ADMIN_APPLICATIONS_PROJECTS_DETAILS_ROUTE,
+  ADMIN_APPLICATIONS_PROJECTS_ROUTE,
+  ADMIN_APPLICATIONS_ROUTE,
   ADMIN_MERCHANTS_ROUTE,
   ADMIN_MERCHANT_STATS_SUBROUTE,
   ADMIN_STATS_ROUTE,
@@ -37,6 +40,10 @@ import { AdminStatsPage } from "./pages/AdminStats";
 import { UserAreaNotFoundPage } from "./pages/UserAreaNotFoundPage";
 import { PaymentPage } from "./pages/PaymentPage";
 import { NotificationsPage } from "./pages/NotificationsPage";
+import AdminApplicationsPage from "./pages/AdminApplicationsPage";
+import AdminApplicationAreaLayout from "./layouts/AdminAreaLayout/AdminApplicationAreaLayout";
+import ProjectsIncrease from "./pages/AdminApplicationsPage/ProjectsIncrease";
+import AdminProject from "./pages/AdminApplicationsPage/AdminProject";
 
 export function App() {
   return (
@@ -60,6 +67,23 @@ export function App() {
             element={<AdminMerchantStats />}
           />
           <Route path={ADMIN_STATS_ROUTE} element={<AdminStatsPage />} />
+          <Route
+            path={ADMIN_APPLICATIONS_ROUTE}
+            element={<AdminApplicationAreaLayout />}
+          >
+            <Route
+              path={ADMIN_APPLICATIONS_ROUTE}
+              element={<AdminApplicationsPage />}
+            />
+            <Route
+              path={ADMIN_APPLICATIONS_PROJECTS_ROUTE}
+              element={<ProjectsIncrease />}
+            />
+            <Route
+              path={ADMIN_APPLICATIONS_PROJECTS_DETAILS_ROUTE}
+              element={<AdminProject />}
+            />
+          </Route>
         </Route>
         <Route
           element={
