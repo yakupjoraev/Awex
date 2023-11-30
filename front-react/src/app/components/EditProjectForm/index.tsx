@@ -1,30 +1,30 @@
-import { ReactNode, useEffect, useId, useMemo, useState } from "react";
-import { useForm, Controller, FieldErrors } from "react-hook-form";
-import { useDropdown } from "../../hooks/useDropdown";
-import classNames from "classnames";
-import { Project } from "@awex-api";
-import { CompanyProfileModalContainer } from "@containers/CompanyProfileModalContainer";
-import { Selector } from "@components/Selector";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { editProjectFormValidator } from "./validators";
-import style from "./style.module.css";
-import { AppProject } from "src/types";
+import { ReactNode, useEffect, useId, useMemo, useState } from "react"
+import { useForm, Controller, FieldErrors } from "react-hook-form"
+import { useDropdown } from "../../hooks/useDropdown"
+import classNames from "classnames"
+import { CompanyProfileModalContainer } from "@containers/CompanyProfileModalContainer"
+import { Selector } from "@components/Selector"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { editProjectFormValidator } from "./validators"
+import style from "./style.module.css"
+import { AppProject } from "src/types"
+
 
 export type EditProjectFormData = {
-  companyId: string;
-  name: string;
-  description: string;
-  feePayee: boolean;
-  paymentBills: boolean;
-  paymentWeb: boolean;
-  paymentTelegram: boolean;
-  activity: string;
-  convertTo?: string;
-  urlWeb: string;
-  urlNotification: string;
-  urlPaymentSuccess: string;
-  urlPaymentFailure: string;
-};
+  companyId: string
+  name: string
+  description: string
+  feePayee: boolean
+  paymentBills: boolean
+  paymentWeb: boolean
+  paymentTelegram: boolean
+  activity: string
+  convertTo?: string
+  urlWeb: string
+  urlNotification: string
+  urlPaymentSuccess: string
+  urlPaymentFailure: string
+}
 
 const DEFAULT_FORM_DATA: EditProjectFormData = {
   companyId: "",
@@ -40,32 +40,32 @@ const DEFAULT_FORM_DATA: EditProjectFormData = {
   urlNotification: "",
   urlPaymentSuccess: "",
   urlPaymentFailure: "",
-};
+}
 
 const currencyToLabel: Record<string, string> = {
   rub: "RUB",
   eur: "EURO",
   usd: "USD",
   usdt: "USDT",
-};
-
-export interface EditProjectFormProps {
-  project?: AppProject;
-  loading?: boolean;
-  error?: string;
-  currencies?: { name: string; type: "fiat" | "crypto" }[];
-  companies?: { id: string; companyName: string }[];
-  onSubmit: (formData: EditProjectFormData) => void;
-  header?: ReactNode;
-  footer?: ReactNode;
 }
 
-export function EditProjectForm(props: EditProjectFormProps) {
-  const formId = useId();
-  const [companyModalOpened, setCompanyModalOpened] = useState(false);
-  const [currencyType, setCurrencyType] = useState<"fiat" | "crypto">("fiat");
-  const csmDropdown = useDropdown<HTMLDivElement>();
+export interface EditProjectFormProps {
+  project?: AppProject
+  loading?: boolean
+  error?: string
+  currencies?: { name: string; type: "fiat" | "crypto" }[]
+  companies?: { id: string; companyName: string }[]
+  onSubmit: (formData: EditProjectFormData) => void
+  header?: ReactNode
+  footer?: ReactNode
+}
 
+
+export function EditProjectForm(props: EditProjectFormProps) {
+  const formId = useId()
+  const [companyModalOpened, setCompanyModalOpened] = useState(false)
+  const [currencyType, setCurrencyType] = useState<"fiat" | "crypto">("fiat")
+  const csmDropdown = useDropdown<HTMLDivElement>()
   const {
     register,
     setValue,
@@ -78,13 +78,14 @@ export function EditProjectForm(props: EditProjectFormProps) {
   } = useForm<EditProjectFormData>({
     defaultValues: DEFAULT_FORM_DATA,
     resolver: yupResolver(editProjectFormValidator),
-  });
+  })
+
 
   useEffect(() => {
     if (props.project === undefined) {
-      const currentFormData = getValues();
+      const currentFormData = getValues()
       if (currentFormData !== DEFAULT_FORM_DATA) {
-        reset(DEFAULT_FORM_DATA);
+        reset(DEFAULT_FORM_DATA)
       }
     } else {
       const nextFormState: EditProjectFormData = {
@@ -100,52 +101,54 @@ export function EditProjectForm(props: EditProjectFormProps) {
         urlNotification: "",
         urlPaymentSuccess: "",
         urlPaymentFailure: "",
-      };
-      reset(createEditProjectFormData(props.project));
+      }
+      reset(createEditProjectFormData(props.project))
     }
-  }, [props.project]);
+  }, [props.project])
 
   useEffect(() => {
     if (props.error) {
-      setError("root", { message: props.error });
+      setError("root", { message: props.error })
     }
-  }, [props.error]);
+  }, [props.error])
+  
+  useEffect(() => {
+    setValue("convertTo", "")
+  }, [currencyType])
+
 
   const handleCompanyModalClose = () => {
-    setCompanyModalOpened(false);
-  };
+    setCompanyModalOpened(false)
+  }
 
   const handleProjectFormSubmit = handleSubmit((formData) => {
-    props.onSubmit(formData);
-  });
+    props.onSubmit(formData)
+  })
 
   const companyOptions: { value: string; label: string }[] = useMemo(() => {
     if (!props.companies) {
-      return [];
+      return []
     }
     return props.companies.map(({ id, companyName }) => ({
       value: id,
       label: companyName,
-    }));
-  }, [props.companies]);
+    }))
+  }, [props.companies])
 
   const currencyOptions: { value: string; label: string }[] = useMemo(() => {
     if (!props.currencies) {
-      return [];
+      return []
     }
     return props.currencies
       .filter(({ type }) => {
-        return type === currencyType;
+        return type === currencyType
       })
       .map(({ name }) => ({
         value: name,
         label: currencyToLabel[name] || name,
-      }));
-  }, [props.currencies, currencyType]);
+      }))
+  }, [props.currencies, currencyType])
 
-  useEffect(() => {
-    setValue("convertTo", "");
-  }, [currencyType]);
 
   return (
     <>
@@ -163,6 +166,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
             >
               Название проекта
             </label>
+
             <input
               className="my-projects__input project-input"
               id={`${formId}name`}
@@ -170,6 +174,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
               placeholder="ООО “Первый”"
               {...register("name", { required: true })}
             />
+
             {renderFieldError(errors, "name")}
           </div>
 
@@ -188,6 +193,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
               placeholder="Введите род деятельности"
               {...register("activity", { required: true })}
             />
+
             {renderFieldError(errors, "activity")}
           </div>
         </div>
@@ -200,12 +206,14 @@ export function EditProjectForm(props: EditProjectFormProps) {
             >
               Описание проекта
             </label>
+
             <textarea
               className="my-projects__textarea project-textarea"
               id={`${formId}description`}
               placeholder="Введите краткое описание проекта"
               {...register("description", { required: true })}
             ></textarea>{" "}
+
             {renderFieldError(errors, "description")}
           </div>
 
@@ -225,6 +233,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                   Конвертировать оплату в:
                 </label>
               </div>
+
               <div className="my-projects__radio-container">
                 <div className="my-projects__radio-group">
                   <input
@@ -235,6 +244,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                     checked={currencyType === "crypto"}
                     onChange={() => void setCurrencyType("crypto")}
                   />
+
                   <label
                     className="my-projects__radio-label"
                     htmlFor={`${formId}currency_type_crypto`}
@@ -252,6 +262,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                     checked={currencyType === "fiat"}
                     onChange={() => void setCurrencyType("fiat")}
                   />
+
                   <label
                     className="my-projects__radio-label"
                     htmlFor={`${formId}currency_type_fiat`}
@@ -261,6 +272,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                 </div>
               </div>
             </div>
+
             <Controller
               name="convertTo"
               control={control}
@@ -272,9 +284,10 @@ export function EditProjectForm(props: EditProjectFormProps) {
                     disabled={props.loading}
                     onChange={field.onChange}
                   />
-                );
+                )
               }}
             />
+
             {renderFieldError(errors, "convertTo")}
           </div>
         </div>
@@ -293,6 +306,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                   alt="tooltip"
                 />
               </label>
+
               <Controller
                 name="feePayee"
                 control={control}
@@ -312,6 +326,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                           }}
                           onBlur={onBlur}
                         />
+
                         <label
                           className="my-projects__radio-label"
                           htmlFor={`${formId}fee_payee_merchant`}
@@ -319,6 +334,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                           Мерчант
                         </label>
                       </div>
+
                       <div className="my-projects__radio-group">
                         <input
                           className="my-projects__radio"
@@ -333,6 +349,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                           }}
                           onBlur={onBlur}
                         />
+
                         <label
                           className="my-projects__radio-label"
                           htmlFor={`${formId}fee_payee_client`}
@@ -341,7 +358,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                         </label>
                       </div>
                     </div>
-                  );
+                  )
                 }}
               />
             </div>
@@ -492,6 +509,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
             >
               Профиль бизнеса
             </label>
+            
             <Controller
               name="companyId"
               control={control}
@@ -514,9 +532,10 @@ export function EditProjectForm(props: EditProjectFormProps) {
                     }
                     onChange={field.onChange}
                   />
-                );
+                )
               }}
             />
+
             {renderFieldError(errors, "companyId")}
           </div>
           <div className={style["project-group-filler"]}></div>
@@ -543,6 +562,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
               placeholder="https://www.gemini.com/"
               {...register("urlWeb", { required: true })}
             />
+
             {renderFieldError(errors, "urlWeb")}
           </div>
 
@@ -566,6 +586,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
               placeholder="Введите URL"
               {...register("urlPaymentSuccess", { required: true })}
             />
+
             {renderFieldError(errors, "urlPaymentSuccess")}
           </div>
         </div>
@@ -591,6 +612,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
               placeholder="Введите URL"
               {...register("urlNotification", { required: true })}
             />
+
             {renderFieldError(errors, "urlNotification")}
           </div>
 
@@ -606,6 +628,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
                 alt="tooltip"
               />
             </label>
+
             <input
               className="my-projects__input project-input"
               id={`${formId}url_payment_failure`}
@@ -613,6 +636,7 @@ export function EditProjectForm(props: EditProjectFormProps) {
               placeholder="Введите URL"
               {...register("urlPaymentFailure", { required: true })}
             />
+
             {renderFieldError(errors, "urlPaymentFailure")}
           </div>
         </div>
@@ -623,23 +647,24 @@ export function EditProjectForm(props: EditProjectFormProps) {
 
         {props.footer}
       </form>
+
       <CompanyProfileModalContainer
         open={companyModalOpened}
         onClose={handleCompanyModalClose}
       />
     </>
-  );
+  )
 }
 
 function renderFieldError(
   errors: FieldErrors<EditProjectFormData>,
   field: keyof EditProjectFormData
 ) {
-  const error = errors[field];
+  const error = errors[field]
   if (!error || !error.message) {
-    return null;
+    return null
   }
-  return <div className="project-error">{error.message}</div>;
+  return <div className="project-error">{error.message}</div>
 }
 
 function createEditProjectFormData(project: AppProject): EditProjectFormData {
@@ -691,5 +716,5 @@ function createEditProjectFormData(project: AppProject): EditProjectFormData {
       project.urlPaymentFailure !== undefined
         ? project.urlPaymentFailure
         : DEFAULT_FORM_DATA.urlPaymentFailure,
-  };
+  }
 }

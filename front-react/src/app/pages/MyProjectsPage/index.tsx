@@ -1,29 +1,33 @@
-import { useEffect } from "react";
-import { ProjectItem } from "./ProjectItem";
-import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { getProjects } from "@store/projects/slice";
-import { currencyToName } from "@constants/currency-names";
+import { useEffect } from "react"
+import { ProjectItem } from "./ProjectItem"
+import { Helmet } from "react-helmet-async"
+import { useNavigate } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from "@store/hooks"
+import { getProjects } from "@store/projects/slice"
+import { currencyToName } from "@constants/currency-names"
+
 
 export function MyProjectsPage() {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const projects = useAppSelector((state) => state.projects.data);
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const projects = useAppSelector((state) => state.projects.data)
+
 
   useEffect(() => {
-    dispatch(getProjects());
-  }, [dispatch]);
+    dispatch(getProjects())
+  }, [dispatch])
+
 
   const handleGeneratePaymentLink = (projectId: string): void => {
-    // alert("NOT IMPLEMENTED");
+    // alert("NOT IMPLEMENTED")
     navigate('/invoice')
     navigate('/invoice', { state: { projectId } })
-  };
+  }
 
   return (
     <div className="wrapper">
       <Helmet title="Мои проекты" />
+
       <section className="my-projects">
         <div className="my-projects__header">
           <h1 className="my-projects__title main-title">Мои проекты</h1>
@@ -51,7 +55,8 @@ export function MyProjectsPage() {
           <ul className="my-projects__items">
             {projects &&
               projects.map(({ id, project }) => {
-                let currency: string = "...";
+                let currency: string = "..."
+
                 if (project.convertTo !== undefined) {
                   if (
                     Object.prototype.hasOwnProperty.call(
@@ -59,11 +64,12 @@ export function MyProjectsPage() {
                       project.convertTo
                     )
                   ) {
-                    currency = currencyToName[project.convertTo];
+                    currency = currencyToName[project.convertTo]
                   } else {
-                    currency = project.convertTo;
+                    currency = project.convertTo
                   }
                 }
+
                 return (
                   <ProjectItem
                     id={id}
@@ -79,11 +85,11 @@ export function MyProjectsPage() {
                     key={id}
                     onGeneratePaymentLink={handleGeneratePaymentLink}
                   />
-                );
+                )
               })}
           </ul>
         </div>
       </section>
     </div>
-  );
+  )
 }

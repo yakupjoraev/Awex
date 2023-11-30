@@ -1,38 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 export interface ProjectItemProps {
-  id: string;
-  name: string;
-  tokenIcon: string;
-  tokenSymbol: string;
-  url: string;
-  commissionPaidBy: "client" | "merchant";
-  onGeneratePaymentLink: (id: string) => void;
+  id: string
+  name: string
+  tokenIcon: string
+  tokenSymbol: string
+  url: string
+  commissionPaidBy: "client" | "merchant"
+  onGeneratePaymentLink: (id: string) => void
 }
 
 export function ProjectItem(props: ProjectItemProps) {
   const handleGenerateLinkBtnClick = () => {
-    props.onGeneratePaymentLink(props.id);
-  };
+    props.onGeneratePaymentLink(props.id)
+  }
 
-  let commissionPayByLabel;
+  let commissionPayByLabel
   switch (props.commissionPaidBy) {
     case "client": {
-      commissionPayByLabel = "клиент";
-      break;
+      commissionPayByLabel = "клиент"
+      break
     }
     case "merchant": {
-      commissionPayByLabel = "мерчант";
-      break;
+      commissionPayByLabel = "мерчант"
+      break
     }
   }
 
   return (
     <li className="my-projects__item">
       <div className="my-projects__item-info">
+        {/* *** черновик *** */}
+
         <h3 className="my-projects__item-title main-title">
           {props.name}
+
           <Link to={"/projects/" + props.id}>
             <img
               className="my-projects__item-icon"
@@ -42,8 +44,7 @@ export function ProjectItem(props: ProjectItemProps) {
           </Link>
         </h3>
 
-        <a
-          className="my-projects__item-address"
+        <a className="my-projects__item-address"
           href={props.url}
           rel="noopener"
           target="_blank"
@@ -55,6 +56,7 @@ export function ProjectItem(props: ProjectItemProps) {
       <div className="my-projects__item-convertion">
         <div className="my-projects__item-for">
           <div className="my-projects__item-text">конвертация в:</div>
+
           <div className="my-projects__item-currency">
             <img
               className="my-projects__item-pic"
@@ -79,5 +81,5 @@ export function ProjectItem(props: ProjectItemProps) {
         Сгенерировать платежную ссылку
       </button>
     </li>
-  );
+  )
 }
