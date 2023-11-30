@@ -1361,14 +1361,17 @@ export class AuthorizedService {
         })
     }
 
-    public static getTransactions(query: {
-        startTime?: string
-        endTime?: string
-        projectId?: string
-        currency?: string
-        type?: string
-        classType?: string
-    }): CancelablePromise<{
+    public static getTransactions(
+        query: {
+            startTime?: string
+            endTime?: string
+            projectId?: string
+            currency?: string
+            type?: string
+            classType?: string
+        },
+        page?: string
+    ): CancelablePromise<{
         page: number
         pages: number
         list: Array<{
@@ -1392,6 +1395,7 @@ export class AuthorizedService {
             method: 'GET',
             url: '/transaction',
             query: {
+                'page': page,
                 'startTime': query.startTime,
                 'endTime': query.endTime,
                 'projectId': query.projectId,
@@ -1409,6 +1413,7 @@ export class AuthorizedService {
         parameters: {
             classes: string[],
             types: string[],
+            currencies: string[],
         }
     }> {
         return __request(OpenAPI, {

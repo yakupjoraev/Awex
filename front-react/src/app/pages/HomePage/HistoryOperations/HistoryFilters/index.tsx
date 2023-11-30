@@ -128,7 +128,7 @@ export function HistoryFilters({ setFilter }: HistoryFiltersProps) {
         AuthorizedService.getTransactionParameters()
         .then((response) => {
             if(!response) return
-            const { classes, types } = response.parameters
+            const { currencies, types } = response.parameters
             const newOperationFilterOptions = types.map((item) => {
                 return {
                     value: item,
@@ -138,6 +138,16 @@ export function HistoryFilters({ setFilter }: HistoryFiltersProps) {
             setOperationFilter({
                 ...operationFilter,
                 options: [{value: '', label: 'Все'}, ...newOperationFilterOptions]
+            })
+            const newCurrencyFilter = currencies.map((item) => {
+                return {
+                    value: item,
+                    label: item
+                }
+            })
+            setCurrencyFilter({
+                ...currencyFilter,
+                options: [{value: '', label: 'Все'}, ...newCurrencyFilter]
             })
         })
     }

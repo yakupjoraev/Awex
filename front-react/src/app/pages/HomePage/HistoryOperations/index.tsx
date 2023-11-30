@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { AuthorizedService } from "@awex-api"
 import { HistoryFilters } from "./HistoryFilters"
 import { useShortString } from "../../../hooks/useShortString"
+import { useInView } from 'react-intersection-observer'
+
 
 interface TransactionsQuery {
   startTime?: string
@@ -12,7 +14,7 @@ interface TransactionsQuery {
   classType?: string
 }
 
-interface HistoryItem {
+interface History {
   id: number
   orderId: number
   date: number
@@ -29,43 +31,41 @@ interface HistoryItem {
   projectId: number
 }
 
-interface Histories {
-  page: number
-  pages: number
-  list: Array<HistoryItem>
-}
-
 interface HistoryOperationsProps {}
 
-const historyDefault: Histories = {
-  page: 0,
-  pages: 0,
-  list: []
-}
 
 export function HistoryOperations(props: HistoryOperationsProps) {
-  const [historyFilter, setHistoryFilter] = useState<TransactionsQuery>({})
-  const [histories, setHistories] = useState<Histories>(historyDefault)
   const [shortingString, setString, shortString] = useShortString('', 8)
+  const { ref, inView } = useInView({
+    threshold: 0,
+  })
+  const [historyFilter, setHistoryFilter] = useState<TransactionsQuery>({})
+  const [histories, setHistories] = useState<History[]>([])
+  const [historyPage, setHistoryPage] = useState<number>(1)
+  const [pages, setPages] = useState<number>(1)
 
 
   useEffect(() => {
     getHistory()
-  }, [historyFilter])
+  }, [historyFilter, historyPage])
 
+  useEffect(() => {
+    scrollLaod()
+  }, [inView])
+  
 
   function getHistory() {
-    console.log('historyFilter', historyFilter)
-    AuthorizedService.getTransactions(historyFilter)
+    AuthorizedService.getTransactions(historyFilter, historyPage?.toString())
     .then((response) => {
+      console.log('getHistory response', response)
       if(!response) {
-        setHistories(historyDefault)
+        setHistories([])
         return
       }
-      setHistories({
-        ...histories,
-        list: response.list
-      })
+      const newHistories = historyPage === 1 ? [...response.list] : [...histories, ...response.list]
+      console.log('getHistory newHistories', newHistories)
+      setHistories(newHistories)
+      setPages(response.pages)
     })
     .catch((error) => {
       console.error(error)
@@ -78,6 +78,12 @@ export function HistoryOperations(props: HistoryOperationsProps) {
       ...newFilter,
     }
     setHistoryFilter(newHistoryFilter)
+    setHistoryPage(1)
+  }
+
+  function scrollLaod(): void {
+    if(!inView) return
+    historyPage < pages && setHistoryPage(historyPage + 1)
   }
 
 
@@ -114,8 +120,8 @@ export function HistoryOperations(props: HistoryOperationsProps) {
             <div className="history-operations__item-details">Детали</div>
           </li>
 
-          { histories && histories.list.length > 0 && (
-            histories.list.map((history) => {
+          { histories && histories.length > 0 && (
+            histories.map((history) => {
               const historyDate = new Date(history.date * 1000)
               const day = historyDate.getDate()
               const month = historyDate.getMonth()
@@ -140,6 +146,8 @@ export function HistoryOperations(props: HistoryOperationsProps) {
               )
             })
           )}
+          
+          <li className="history-operations__item" ref={ref}></li>
         </ul>
       </div>
     </div>
