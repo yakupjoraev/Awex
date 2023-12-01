@@ -109,6 +109,13 @@ export function IndividualFeeForm(props: FeeFormProps) {
     });
   });
 
+  const handleRollbackCommission = () => {
+    props.onSubmit(0, null, (_success: boolean) => {
+      reset();
+      setUpdating(false);
+    });
+  };
+
   const submittedSearchText = useMemo(() => {
     const searchText = searchParams.get(QUERY_PARAM_SEARCH);
     return searchText === null ? DEFAULT_SEARCH : searchText;
@@ -125,11 +132,17 @@ export function IndividualFeeForm(props: FeeFormProps) {
     submitTextFilter();
   }, [searchInputFocused]);
 
-  useEffect(() => {}, [searchParams]);
+  const backBtnDisabled =
+    updating ||
+    props.feeStatus === "loading" ||
+    props.fee.next === undefined ||
+    props.fee.nextTimestamp === undefined ||
+    searchParams.get("merchant") === null;
 
-  const disabled = updating || props.feeStatus === "loading";
-
-  console.log(props.fee);
+  const updateBtnDisabled =
+    updating ||
+    props.feeStatus === "loading" ||
+    searchParams.get("merchant") === null;
 
   return (
     <form className="admin-comission__item" onSubmit={handleFormSubmit}>
@@ -212,7 +225,7 @@ export function IndividualFeeForm(props: FeeFormProps) {
                 id={personalNextFeeId}
                 value={field.value}
                 inputRef={field.ref}
-                disabled={disabled}
+                disabled={updateBtnDisabled}
                 error={"Field is required"}
                 onChange={field.onChange}
                 onBlur={field.onBlur}
@@ -231,7 +244,7 @@ export function IndividualFeeForm(props: FeeFormProps) {
                 className="admin-comission__group--last-child"
                 id={personalStartId}
                 value={field.value}
-                disabled={disabled}
+                disabled={updateBtnDisabled}
                 onChange={field.onChange}
                 onBlur={field.onBlur}
               />
@@ -250,16 +263,17 @@ export function IndividualFeeForm(props: FeeFormProps) {
 
         <div className="admin-comission__btns">
           <button
-            className="admin-comission__btn main-btn"
+            className="admin-comission__btn--main-btn"
             type="button"
-            disabled={disabled}
+            disabled={backBtnDisabled}
+            onClick={handleRollbackCommission}
           >
             Откатить
           </button>
           <button
-            className="admin-comission__btn second-btn"
+            className="admin-comission__btn--second-btn"
             type="submit"
-            disabled={disabled}
+            disabled={updateBtnDisabled}
           >
             Изменить
           </button>

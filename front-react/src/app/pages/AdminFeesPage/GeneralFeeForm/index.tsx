@@ -75,6 +75,19 @@ export function FeeForm(props: FeeFormProps) {
     });
   });
 
+  const handleRollbackCommission = () => {
+    props.onSubmit(0, null, (_success: boolean) => {
+      reset();
+      setUpdating(false);
+    });
+  };
+
+  const rollbackBtnDisabled =
+    updating ||
+    props.feeStatus === "loading" ||
+    props.fee.next === undefined ||
+    props.fee.nextTimestamp === undefined;
+
   const disabled = updating || props.feeStatus === "loading";
 
   return (
@@ -148,14 +161,15 @@ export function FeeForm(props: FeeFormProps) {
 
         <div className="admin-comission__btns">
           <button
-            className="admin-comission__btn main-btn"
+            className="admin-comission__btn--main-btn"
             type="button"
-            disabled={disabled}
+            disabled={rollbackBtnDisabled}
+            onClick={handleRollbackCommission}
           >
             Откатить
           </button>
           <button
-            className="admin-comission__btn second-btn"
+            className="admin-comission__btn--second-btn"
             type="submit"
             disabled={disabled}
           >

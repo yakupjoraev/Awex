@@ -139,8 +139,79 @@
 
   // .admin-comission__btn
 
-  &__btn {
-    width: fit-content;
+  &__btn--main-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--text-color);
+    border: 1px solid var(--text-color);
+    border-radius: 10px;
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    color: var(--white-color);
+
+    transition: color 0.2s linear;
+
+    &:hover {
+      color: var(--grey-color);
+    }
+
+    &:active {
+      color: var(--grey-color-2);
+    }
+
+    &:focus {
+      color: var(--grey-color);
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+
+    &:disabled {
+      background-color: rgb(192, 192, 192);
+      border: 1px solid var(--grey-color-2);
+      color: gray;
+      cursor: not-allowed;
+    }
+  }
+
+  // .admin-comission__btn--second-btn
+
+  &__btn--second-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--second-color);
+    border: 1px solid var(--second-color);
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 120%;
+    font-weight: 600;
+    color: var(--text-color);
+
+    transition: color 0.2s linear;
+
+    &:hover {
+      color: #eeb90b;
+    }
+
+    &:active,
+    &:focus {
+      color: #eeb90b;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   .admin-comission__retry-btn {

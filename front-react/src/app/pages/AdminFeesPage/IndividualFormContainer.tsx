@@ -28,7 +28,7 @@ export function IndividualFeeFormContainer() {
       .then(() => {
         toast.success("Коммиссия обновлена");
         setFeeStatus("loading");
-        return AuthorizedService.feeGet();
+        return AuthorizedService.personalFeeGet(searchParams.get("merchant")!);
       })
       .then((response) => {
         setFeeStatus("success");
