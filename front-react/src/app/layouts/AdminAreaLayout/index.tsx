@@ -9,7 +9,11 @@ import { Link, Outlet, useSearchParams } from "react-router-dom";
 const DEFAULT_SEARCH = "";
 const QUERY_PARAM_SEARCH = "search";
 
-export function AdminAreaLayout() {
+interface IProps {
+  isSearchable?: boolean;
+}
+
+export function AdminAreaLayout<IProps>({ isSearchable = true }) {
   const [searchInputFocused, setSearchInputFocused] = useState(false);
   const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
 
@@ -87,9 +91,13 @@ export function AdminAreaLayout() {
                   </Link>
                 </li>
                 <li className="nav__item">
-                  <a href="#" className="nav__item-link" data-scroll="">
+                  <Link
+                    to="/admin/commission"
+                    className="nav__item-link"
+                    data-scroll=""
+                  >
                     Комиссия
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav__item">
                   <Link
@@ -167,41 +175,43 @@ export function AdminAreaLayout() {
           </div>
         </nav>
       </header>
-      <div className="admin-statistic admin-marchants ">
-        <div className="admin-statistic__container">
-          <form
-            className="admin-applications__from"
-            onSubmit={handleSearchFormSubmit}
-          >
-            <div className="admin-applications__search search-group">
-              <input
-                className="admin-applications__src search-input"
-                type="search"
-                name="query"
-                placeholder="Поиск по ID/имени мерчанта/названию/ИНН/адресу/телефону/юрисдикции"
-                value={searchText}
-                onChange={handleSearchInputChange}
-                onFocus={() => setSearchInputFocused(true)}
-                onBlur={() => setSearchInputFocused(false)}
-              />
-              <img
-                className="admin-applications__search-img search-img"
-                src="/img/icons/search.svg"
-                alt="Поиск"
-              />
-              <button
-                className={classNames(
-                  "search-apply-btn",
-                  searchInputFocused && "search-apply-btn--active"
-                )}
-                type="button"
-              >
-                Применить
-              </button>
-            </div>
-          </form>
+      {/* {isSearchable && (
+        <div className="admin-statistic admin-marchants ">
+          <div className="admin-statistic__container">
+            <form
+              className="admin-applications__from"
+              onSubmit={handleSearchFormSubmit}
+            >
+              <div className="admin-applications__search search-group">
+                <input
+                  className="admin-applications__src search-input"
+                  type="search"
+                  name="query"
+                  placeholder="Поиск по ID/имени мерчанта/названию/ИНН/адресу/телефону/юрисдикции"
+                  value={searchText}
+                  onChange={handleSearchInputChange}
+                  onFocus={() => setSearchInputFocused(true)}
+                  onBlur={() => setSearchInputFocused(false)}
+                />
+                <img
+                  className="admin-applications__search-img search-img"
+                  src="/img/icons/search.svg"
+                  alt="Поиск"
+                />
+                <button
+                  className={classNames(
+                    "search-apply-btn",
+                    searchInputFocused && "search-apply-btn--active"
+                  )}
+                  type="button"
+                >
+                  Применить
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      )} */}
       <Outlet />
     </div>
   );

@@ -57,7 +57,8 @@ export function App() {
             </PrivateRoute>
           }
         >
-          <Route path="/admin/" element={<AdminFeesPage />} />
+          <Route path="/admin/commission" element={<AdminFeesPage />} />
+          <Route path={ADMIN_STATS_ROUTE} element={<AdminStatsPage />} />
           <Route
             path={ADMIN_MERCHANTS_ROUTE}
             element={<AdminMerchantsPage />}
@@ -66,7 +67,6 @@ export function App() {
             path={`${ADMIN_MERCHANTS_ROUTE}/:merchantId${ADMIN_MERCHANT_STATS_SUBROUTE}`}
             element={<AdminMerchantStats />}
           />
-          <Route path={ADMIN_STATS_ROUTE} element={<AdminStatsPage />} />
           <Route
             path={ADMIN_APPLICATIONS_ROUTE}
             element={<AdminApplicationAreaLayout />}

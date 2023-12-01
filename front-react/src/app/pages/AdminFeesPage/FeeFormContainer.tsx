@@ -33,7 +33,6 @@ export function FeeFormContainer() {
     startAt: Date | null,
     cb: (success: boolean) => void
   ) => {
-    console.log("ST", startAt);
     const timestamp = createTimetampSec(startAt ?? new Date());
     AuthorizedService.feeSet({ fee, timestamp })
       .then(() => {

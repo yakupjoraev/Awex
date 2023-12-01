@@ -1,10 +1,12 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { DateInput } from "../DateInput";
 import { FeeInput } from "../FeeInput";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { generalFeeFormSchema } from "./validators";
+import { individualFeeFormSchema } from "./validators";
 import { format } from "date-fns";
+import { useSearchParams } from "react-router-dom";
+import classNames from "classnames";
 
 export interface Fee {
   current: number;
@@ -35,11 +37,43 @@ const DEFAULT_FORM_DATA: FeeFormData = {
   startAt: undefined,
 };
 
-export function FeeForm(props: FeeFormProps) {
-  const currentFeeId = useId();
-  const nextFeeId = useId();
-  const startId = useId();
+const DEFAULT_SEARCH = "";
+const QUERY_PARAM_SEARCH = "merchant";
+
+export function IndividualFeeForm(props: FeeFormProps) {
+  const personalCurrentFeeId = useId();
+  const personalNextFeeId = useId();
+  const personalStartId = useId();
   const [updating, setUpdating] = useState(false);
+  const [searchInputFocused, setSearchInputFocused] = useState(false);
+  const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleSearchFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+    ev.preventDefault();
+    submitTextFilter();
+  };
+
+  const submitTextFilter = () => {
+    const normalizedSearchText = searchText.trim();
+
+    if (searchParams.get(QUERY_PARAM_SEARCH) === normalizedSearchText) {
+      return;
+    }
+
+    const nextSearchParams = new URLSearchParams(searchParams);
+    if (normalizedSearchText.length === 0) {
+      nextSearchParams.delete(QUERY_PARAM_SEARCH);
+    } else {
+      nextSearchParams.set(QUERY_PARAM_SEARCH, normalizedSearchText);
+    }
+    setSearchParams(nextSearchParams);
+  };
+
+  const handleSearchInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(ev.currentTarget.value);
+  };
 
   const {
     handleSubmit,
@@ -48,7 +82,7 @@ export function FeeForm(props: FeeFormProps) {
     control,
   } = useForm<FeeFormData>({
     defaultValues: DEFAULT_FORM_DATA,
-    resolver: yupResolver(generalFeeFormSchema),
+    resolver: yupResolver(individualFeeFormSchema),
   });
 
   const handleFormSubmit = handleSubmit((formData) => {
@@ -75,22 +109,90 @@ export function FeeForm(props: FeeFormProps) {
     });
   });
 
+  const submittedSearchText = useMemo(() => {
+    const searchText = searchParams.get(QUERY_PARAM_SEARCH);
+    return searchText === null ? DEFAULT_SEARCH : searchText;
+  }, [searchParams]);
+
+  useEffect(() => {
+    setSearchText(submittedSearchText);
+  }, []);
+
+  useEffect(() => {
+    if (searchInputFocused) {
+      return;
+    }
+    submitTextFilter();
+  }, [searchInputFocused]);
+
+  useEffect(() => {}, [searchParams]);
+
   const disabled = updating || props.feeStatus === "loading";
+
+  console.log(props.fee);
 
   return (
     <form className="admin-comission__item" onSubmit={handleFormSubmit}>
-      <p className="admin-comission__label">Общая комиссия</p>
+      <p className="admin-comission__label">Индивидуальная комиссия</p>
+      <form onSubmit={handleSearchFormSubmit}>
+        <div className="admin-applications__search search-group">
+          <input
+            className="admin-applications__src search-input"
+            type="search"
+            name="merchant"
+            placeholder="Поиск по ID/названию/ИНН/адресу"
+            value={searchText}
+            onChange={handleSearchInputChange}
+            onFocus={() => setSearchInputFocused(true)}
+            onBlur={() => setSearchInputFocused(false)}
+          />
+          <img
+            className="admin-applications__search-img search-img"
+            src="/img/icons/search.svg"
+            alt="Поиск"
+          />
+          <button
+            className={classNames(
+              "search-apply-btn",
+              searchInputFocused && "search-apply-btn--active"
+            )}
+            type="button"
+          >
+            Применить
+          </button>
+        </div>
+      </form>
       <div className="admin-comission__groups">
         <div className="admin-comission__group">
           <label
             className="admin-comission__group-label"
-            htmlFor={currentFeeId}
+            htmlFor={personalCurrentFeeId}
+          >
+            Мерчант:
+          </label>
+          <input
+            className="admin-comission__group-input--disabled"
+            id={personalCurrentFeeId}
+            type="text"
+            value={
+              searchParams.get("merchant") === null
+                ? "..."
+                : `ID${searchParams.get("merchant")}` ?? ""
+            }
+            readOnly
+            disabled
+          />
+        </div>
+        <div className="admin-comission__group">
+          <label
+            className="admin-comission__group-label"
+            htmlFor={personalCurrentFeeId}
           >
             Текущая комиссия:
           </label>
           <input
             className="admin-comission__group-input--disabled"
-            id={currentFeeId}
+            id={personalCurrentFeeId}
             type="text"
             value={
               props.fee.current === -1
@@ -107,7 +209,7 @@ export function FeeForm(props: FeeFormProps) {
           render={({ field }) => {
             return (
               <FeeInput
-                id={nextFeeId}
+                id={personalNextFeeId}
                 value={field.value}
                 inputRef={field.ref}
                 disabled={disabled}
@@ -127,7 +229,7 @@ export function FeeForm(props: FeeFormProps) {
             return (
               <DateInput
                 className="admin-comission__group--last-child"
-                id={startId}
+                id={personalStartId}
                 value={field.value}
                 disabled={disabled}
                 onChange={field.onChange}

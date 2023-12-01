@@ -1,4 +1,5 @@
 import { FeeFormContainer } from "./FeeFormContainer";
+import { IndividualFeeFormContainer } from "./IndividualFormContainer";
 
 export function AdminFeesPage() {
   return (
@@ -7,6 +8,7 @@ export function AdminFeesPage() {
         <div className="admin-statistic__container">
           <div className="admin-comission__inner">
             <FeeFormContainer />
+            <IndividualFeeFormContainer />
           </div>
         </div>
       </div>
