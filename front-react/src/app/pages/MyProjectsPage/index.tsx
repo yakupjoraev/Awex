@@ -54,7 +54,7 @@ export function MyProjectsPage() {
         <div className="my-projects__items-wrapper">
           <ul className="my-projects__items">
             {projects &&
-              projects.map(({ id, project }) => {
+              projects.map(({ id, project }) => { console.log('project: ', id,  project)
                 let currency: string = "..."
 
                 if (project.convertTo !== undefined) {

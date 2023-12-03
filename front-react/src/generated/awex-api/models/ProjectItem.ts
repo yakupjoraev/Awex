@@ -14,5 +14,5 @@ export type ProjectItem = {
      * UNIX timestamp, time when request was sent
      */
     validationRequestedAt?: number | null;
-    validation?: ProjectValidation;
+    validation?: ProjectValidation | null;
 };
