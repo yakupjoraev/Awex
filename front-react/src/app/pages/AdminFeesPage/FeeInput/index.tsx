@@ -2,6 +2,7 @@ import { NumericFormat } from "react-number-format";
 
 export interface FeeInputProps {
   id?: string;
+  placeholder?: string;
   value?: string;
   error?: string;
   disabled?: boolean;
@@ -20,6 +21,7 @@ export function FeeInput(props: FeeInputProps) {
         className="admin-comission__group-input"
         id={props.id}
         suffix="%"
+        placeholder={props.placeholder}
         value={props.value}
         disabled={props.disabled}
         getInputRef={props.inputRef}

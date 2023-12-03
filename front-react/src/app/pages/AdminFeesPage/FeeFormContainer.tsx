@@ -29,13 +29,12 @@ export function FeeFormContainer() {
   }, []);
 
   const handleSubmit = (
-    fee: number,
-    startAt: Date | null,
-    cb: (success: boolean) => void
+    fee?: number,
+    startAt?: Date | null,
+    cb?: (success: boolean) => void
   ) => {
-    console.log("ST", startAt);
     const timestamp = createTimetampSec(startAt ?? new Date());
-    AuthorizedService.feeSet({ fee, timestamp })
+    AuthorizedService.feeSet({ fee: fee!, timestamp })
       .then(() => {
         toast.success("Коммиссия обновлена");
         setFeeStatus("loading");
@@ -48,12 +47,12 @@ export function FeeFormContainer() {
           next: response.next ?? undefined,
           nextTimestamp: response.nextTimestamp ?? undefined,
         });
-        cb(true);
+        cb!(true);
       })
       .catch((error) => {
         console.error(error);
         setFeeStatus("failed");
-        cb(false);
+        cb!(false);
       });
   };
 

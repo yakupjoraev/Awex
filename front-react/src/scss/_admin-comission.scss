@@ -1,12 +1,11 @@
 .admin-statistic {
-
   // .admin-statistic__container
 
-  &__container {}
+  &__container {
+  }
 }
 
 .admin-comission {
-
   // .admin-comission__inner
 
   &__inner {
@@ -65,7 +64,6 @@
     img {
       margin-left: auto;
     }
-
   }
 
   // .admin-comission__group-label
@@ -81,21 +79,34 @@
     padding: 10px 10px 10px 0;
   }
 
+  &__group-input--disabled {
+    flex: 1;
+    outline: none;
+    padding: 10px 10px 10px 0;
+    font-size: 24px;
+    line-height: 28.8px;
+    font-weight: 400;
+  }
+
   // .admin-comission__group-sum
 
-  &__group-sum {}
+  &__group-sum {
+  }
 
   // .admin-comission__group-grey
 
-  &__group-grey {}
+  &__group-grey {
+  }
 
   // .admin-comission__group-data
 
-  &__group-data {}
+  &__group-data {
+  }
 
   // .admin-comission__footer
 
-  &__footer {}
+  &__footer {
+  }
 
   // .admin-comission__notification
 
@@ -109,7 +120,7 @@
     margin-bottom: 46px;
     border-radius: 10px;
     border: 1px solid var(--grey-color);
-    background: var(--light-grey-20, rgba(209, 209, 209, 0.20));
+    background: var(--light-grey-20, rgba(209, 209, 209, 0.2));
 
     font-size: 13px;
     font-weight: 600;
@@ -128,8 +139,79 @@
 
   // .admin-comission__btn
 
-  &__btn {
-    width: fit-content;
+  &__btn--main-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--text-color);
+    border: 1px solid var(--text-color);
+    border-radius: 10px;
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    color: var(--white-color);
+
+    transition: color 0.2s linear;
+
+    &:hover {
+      color: var(--grey-color);
+    }
+
+    &:active {
+      color: var(--grey-color-2);
+    }
+
+    &:focus {
+      color: var(--grey-color);
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+
+    &:disabled {
+      background-color: rgb(192, 192, 192);
+      border: 1px solid var(--grey-color-2);
+      color: gray;
+      cursor: not-allowed;
+    }
+  }
+
+  // .admin-comission__btn--second-btn
+
+  &__btn--second-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--second-color);
+    border: 1px solid var(--second-color);
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 120%;
+    font-weight: 600;
+    color: var(--text-color);
+
+    transition: color 0.2s linear;
+
+    &:hover {
+      color: #eeb90b;
+    }
+
+    &:active,
+    &:focus {
+      color: #eeb90b;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
   }
 
   .admin-comission__retry-btn {
@@ -140,7 +222,7 @@
     background-color: var(--white-color);
     border: 1px solid var(--grey-color);
     border-radius: 10px;
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     font-weight: 600;
     font-size: 12px;
     line-height: 120%;

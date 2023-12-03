@@ -47,8 +47,6 @@ const DEFAULT_SEARCH = "";
 export function AdminMerchantsPage() {
   const dispatch = useAppDispatch();
 
-  const [searchInputFocused, setSearchInputFocused] = useState(false);
-
   const existingRolesLoading = useAppSelector(
     (state) => state.accountConfigSettings.loading
   );
@@ -96,10 +94,6 @@ export function AdminMerchantsPage() {
     const searchText = searchParams.get(QUERY_PARAM_SEARCH);
     return searchText === null ? DEFAULT_SEARCH : searchText;
   }, [searchParams]);
-
-  useEffect(() => {
-    setSearchText(submittedSearchText);
-  }, []);
 
   useEffect(() => {
     const pageStr = searchParams.get(QUERY_PARAM_PAGE);
@@ -186,38 +180,6 @@ export function AdminMerchantsPage() {
   useEffect(() => {
     dispatch(getConfigSettings());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (searchInputFocused) {
-      return;
-    }
-    submitTextFilter();
-  }, [searchInputFocused]);
-
-  const submitTextFilter = () => {
-    const normalizedSearchText = searchText.trim();
-
-    if (searchParams.get(QUERY_PARAM_SEARCH) === normalizedSearchText) {
-      return;
-    }
-
-    const nextSearchParams = new URLSearchParams(searchParams);
-    if (normalizedSearchText.length === 0) {
-      nextSearchParams.delete(QUERY_PARAM_SEARCH);
-    } else {
-      nextSearchParams.set(QUERY_PARAM_SEARCH, normalizedSearchText);
-    }
-    setSearchParams(nextSearchParams);
-  };
-
-  const handleSearchInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(ev.currentTarget.value);
-  };
-
-  const handleSearchFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
-    ev.preventDefault();
-    submitTextFilter();
-  };
 
   const handleToogleEnabled = (merchantId: number, enabled: boolean) => {
     const existsUpdateIndex = optimisticUpdates.findIndex(
@@ -310,39 +272,8 @@ export function AdminMerchantsPage() {
 
   return (
     <main className="main main--profile-filling">
-      <div className="admin-statistic admin-marchants ">
+      <div className="admin-statistic admin-marchants">
         <div className="admin-statistic__container">
-          <form
-            className="admin-applications__from"
-            onSubmit={handleSearchFormSubmit}
-          >
-            <div className="admin-applications__search search-group">
-              <input
-                className="admin-applications__src search-input"
-                type="search"
-                name="query"
-                placeholder="Поиск по ID/имени мерчанта/названию/ИНН/адресу/телефону/юрисдикции"
-                value={searchText}
-                onChange={handleSearchInputChange}
-                onFocus={() => setSearchInputFocused(true)}
-                onBlur={() => setSearchInputFocused(false)}
-              />
-              <img
-                className="admin-applications__search-img search-img"
-                src="/img/icons/search.svg"
-                alt="Поиск"
-              />
-              <button
-                className={classNames(
-                  "search-apply-btn",
-                  searchInputFocused && "search-apply-btn--active"
-                )}
-                type="button"
-              >
-                Применить
-              </button>
-            </div>
-          </form>
           <div className="admin-applications__main">
             <div className="admin-marchants__list">
               <div className="admin-marchants__item-labels">

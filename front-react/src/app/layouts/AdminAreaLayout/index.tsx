@@ -2,9 +2,64 @@ import {
   ADMIN_MERCHANTS_ROUTE,
   ADMIN_STATS_ROUTE,
 } from "@constants/path-locations";
-import { Link, Outlet } from "react-router-dom";
+import classNames from "classnames";
+import { useEffect, useMemo, useState } from "react";
+import { Link, Outlet, useSearchParams } from "react-router-dom";
 
-export function AdminAreaLayout() {
+const DEFAULT_SEARCH = "";
+const QUERY_PARAM_SEARCH = "search";
+
+interface IProps {
+  isSearchable?: boolean;
+}
+
+export function AdminAreaLayout<IProps>({ isSearchable = true }) {
+  const [searchInputFocused, setSearchInputFocused] = useState(false);
+  const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleSearchFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+    ev.preventDefault();
+    submitTextFilter();
+  };
+
+  const submitTextFilter = () => {
+    const normalizedSearchText = searchText.trim();
+
+    if (searchParams.get(QUERY_PARAM_SEARCH) === normalizedSearchText) {
+      return;
+    }
+
+    const nextSearchParams = new URLSearchParams(searchParams);
+    if (normalizedSearchText.length === 0) {
+      nextSearchParams.delete(QUERY_PARAM_SEARCH);
+    } else {
+      nextSearchParams.set(QUERY_PARAM_SEARCH, normalizedSearchText);
+    }
+    setSearchParams(nextSearchParams);
+  };
+
+  const handleSearchInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(ev.currentTarget.value);
+  };
+
+  const submittedSearchText = useMemo(() => {
+    const searchText = searchParams.get(QUERY_PARAM_SEARCH);
+    return searchText === null ? DEFAULT_SEARCH : searchText;
+  }, [searchParams]);
+
+  useEffect(() => {
+    setSearchText(submittedSearchText);
+  }, []);
+
+  useEffect(() => {
+    if (searchInputFocused) {
+      return;
+    }
+    submitTextFilter();
+  }, [searchInputFocused]);
+
   return (
     <div className="main__body main__body--white">
       <header className="header header--admin">
@@ -27,14 +82,22 @@ export function AdminAreaLayout() {
                   </Link>
                 </li>
                 <li className="nav__item">
-                  <a href="#" className="nav__item-link" data-scroll="">
+                  <Link
+                    to="/admin/applications/projects"
+                    className="nav__item-link"
+                    data-scroll=""
+                  >
                     Заявки
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav__item">
-                  <a href="#" className="nav__item-link" data-scroll="">
+                  <Link
+                    to="/admin/commission"
+                    className="nav__item-link"
+                    data-scroll=""
+                  >
                     Комиссия
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav__item">
                   <Link
@@ -112,6 +175,43 @@ export function AdminAreaLayout() {
           </div>
         </nav>
       </header>
+      {/* {isSearchable && (
+        <div className="admin-statistic admin-marchants ">
+          <div className="admin-statistic__container">
+            <form
+              className="admin-applications__from"
+              onSubmit={handleSearchFormSubmit}
+            >
+              <div className="admin-applications__search search-group">
+                <input
+                  className="admin-applications__src search-input"
+                  type="search"
+                  name="query"
+                  placeholder="Поиск по ID/имени мерчанта/названию/ИНН/адресу/телефону/юрисдикции"
+                  value={searchText}
+                  onChange={handleSearchInputChange}
+                  onFocus={() => setSearchInputFocused(true)}
+                  onBlur={() => setSearchInputFocused(false)}
+                />
+                <img
+                  className="admin-applications__search-img search-img"
+                  src="/img/icons/search.svg"
+                  alt="Поиск"
+                />
+                <button
+                  className={classNames(
+                    "search-apply-btn",
+                    searchInputFocused && "search-apply-btn--active"
+                  )}
+                  type="button"
+                >
+                  Применить
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )} */}
       <Outlet />
     </div>
   );

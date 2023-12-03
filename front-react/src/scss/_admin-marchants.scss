@@ -12,11 +12,10 @@
 }
 
 .admin-applications__others .my-projects__item--opened {
-  background: var(--light-grey-50, rgba(209, 209, 209, 0.50));
+  background: var(--light-grey-50, rgba(209, 209, 209, 0.5));
 }
 
 .admin-marchants {
-
   .admin-applications__others {
     padding: 0;
   }
@@ -38,7 +37,6 @@
   }
 }
 
-
 .admin-marchants__list {
   display: flex;
   flex-direction: column;
@@ -53,14 +51,15 @@
   padding: 0 20px;
 }
 
-.admin-marchants__item-label {}
+.admin-marchants__item-label {
+  text-align: start;
+}
 
 .admin-marchants__item {
-
   padding: 15px 20px;
   border-radius: 10px;
-  border: 1px solid var(--grey-color, #D1D1D1);
-  background: var(--grey-color-3, #F6F6F6);
+  border: 1px solid var(--grey-color, #d1d1d1);
+  background: var(--grey-color-3, #f6f6f6);
 
   &.active {
     .admin-marchants__item-content {
@@ -80,8 +79,6 @@
   align-items: flex-start;
   column-gap: 20px;
   font-weight: 600;
-
-
 }
 
 .admin-marchants__item-content {
@@ -102,9 +99,11 @@
   font-weight: 400;
 }
 
-.admin-marchants__item-data {}
+.admin-marchants__item-data {
+}
 
-.admin-marchants__item-comission {}
+.admin-marchants__item-comission {
+}
 
 .admin-marchants__item-action {
   display: flex;
@@ -181,4 +180,5 @@
   background-color: transparent;
 }
 
-.admin-applications__others {}
+.admin-applications__others {
+}

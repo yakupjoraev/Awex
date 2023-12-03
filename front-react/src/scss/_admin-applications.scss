@@ -1,12 +1,11 @@
 .admin-statistic {
-
   // .admin-statistic__container
 
-  &__container {}
+  &__container {
+  }
 }
 
 .admin-applications {
-
   // .admin-applications__from
 
   &__from {
@@ -15,15 +14,18 @@
 
   // .admin-applications__search
 
-  &__search {}
+  &__search {
+  }
 
   // .admin-applications__src
 
-  &__src {}
+  &__src {
+  }
 
   // .admin-applications__search-img
 
-  &__search-img {}
+  &__search-img {
+  }
 
   // .admin-applications__datapicker
 
@@ -66,7 +68,6 @@
       background-color: var(--text-color);
       color: var(--white-color);
     }
-
   }
 
   // .admin-applications__header-item-count
@@ -85,7 +86,8 @@
 
   // .admin-applications__main
 
-  &__main {}
+  &__main {
+  }
 
   // .admin-applications__list
 
@@ -129,10 +131,7 @@
   }
 }
 
-
-
 .admin-applications {
-
   // .admin-applications__back
 
   &__back {
@@ -154,7 +153,6 @@
       }
     }
   }
-
 
   // .admin-applications__request
 
@@ -195,7 +193,6 @@
   // .admin-applications__request-id
 
   &__request-id {
-
     span {
       font-weight: 600;
     }
@@ -228,8 +225,8 @@
     column-gap: 10px;
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid var(--grey-color, #D1D1D1);
-    background: var(--grey-color-3, #F6F6F6);
+    border: 1px solid var(--grey-color, #d1d1d1);
+    background: var(--grey-color-3, #f6f6f6);
   }
 
   // .admin-applications__block-label
@@ -257,7 +254,6 @@
   // .admin-applications__block-others
 
   &__block-others {
-
     .admin-applications__block {
       border: 0;
       background-color: transparent;
@@ -298,7 +294,8 @@
 
   // .admin-applications__btn
 
-  &__btn {}
+  &__btn {
+  }
 
   // .admin-applications__others
 
@@ -308,8 +305,8 @@
     .my-projects__item {
       padding: 5px 10px;
       border-radius: 10px;
-      border: 1px solid var(--grey-color, #D1D1D1);
-      background: var(--light-grey-20, rgba(209, 209, 209, 0.20));
+      border: 1px solid var(--grey-color, #d1d1d1);
+      background: var(--light-grey-20, rgba(209, 209, 209, 0.2));
     }
 
     .my-projects__item-title {
@@ -355,9 +352,7 @@
   }
 }
 
-
 .admin-legal {
-
   // .admin-legal__infos
 
   &__infos {
@@ -369,7 +364,8 @@
 
   // .admin-legal__info
 
-  &__info {}
+  &__info {
+  }
 
   // .admin-legal__info-blocks
 
@@ -461,22 +457,20 @@
     column-gap: 10px;
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid var(--grey-color, #D1D1D1);
-    background-color: var(--grey-color-3, #F6F6F6);
+    border: 1px solid var(--grey-color, #d1d1d1);
+    background-color: var(--grey-color-3, #f6f6f6);
 
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
 
     &:hover {
-      border: 1px solid #EEB90B;
+      border: 1px solid #eeb90b;
     }
   }
 }
 
-
 .admin-legal {
-
   // .admin-legal__inputs
 
   &__inputs {
@@ -573,10 +567,9 @@
   }
 }
 
-
 .admin-applications__item--waiting-dark {
   border: 1px solid var(--text-color, #292421);
-  background: var(--grey-color-2, #6F6F6F);
+  background: var(--grey-color-2, #6f6f6f);
   color: var(--white-color);
 
   .admin-applications__item-content:last-child {
@@ -585,8 +578,8 @@
 }
 
 .admin-applications__item--rejected {
-  border: 1px solid var(--error-color, #EE2F2B);
-  background: rgba(238, 47, 43, 0.10);
+  border: 1px solid var(--error-color, #ee2f2b);
+  background: rgba(238, 47, 43, 0.1);
 
   .admin-applications__item-content:last-child {
     color: var(--error-color);
@@ -594,7 +587,7 @@
 }
 
 .admin-applications__item--waiting-grey {
-  background: var(--light-grey-50, rgba(209, 209, 209, 0.50));
+  background: var(--light-grey-50, rgba(209, 209, 209, 0.5));
 
   .admin-applications__item-content:last-child {
     color: var(--grey-color-2);
@@ -602,8 +595,8 @@
 }
 
 .admin-applications__item--sussfily {
-  border: 1px solid var(--green-color, #33A02C);
-  background: rgba(51, 160, 44, 0.10);
+  border: 1px solid var(--green-color, #33a02c);
+  background: rgba(51, 160, 44, 0.1);
 
   .admin-applications__item-content:last-child {
     color: var(--green-color);
@@ -611,7 +604,6 @@
 }
 
 .admin-legal {
-
   // .admin-legal__documents-header
 
   &__documents-header {
@@ -625,7 +617,6 @@
       margin-bottom: 0;
     }
   }
-
 }
 
 .admin-legal__documents-footer {
