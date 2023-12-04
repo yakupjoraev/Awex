@@ -205,7 +205,8 @@ const AdminProject: React.FC = () => {
         </div>
       </div>
 
-      {application?.validation?.status === "read" && (
+      {application?.validation?.status === "read" ||
+      application?.validation?.status === "waiting" ? (
         <div className={classes.buttons}>
           <button
             onClick={() => setIsAdminRejectProjectModalOpened(true)}
@@ -223,7 +224,7 @@ const AdminProject: React.FC = () => {
             Подтвердить
           </button>
         </div>
-      )}
+      ) : null}
 
       <RequestAdditionalInfoModalContainer
         open={isRequestAdditionalInfoModalOpened}
