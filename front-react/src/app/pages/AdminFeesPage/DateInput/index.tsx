@@ -39,10 +39,13 @@ export function DateInput(props: DateInputProps) {
 
   const handleChangeTime = (e: any) => {
     const timeValue = e.target.value;
-    const dateValue = props.value?.toISOString().split("T")[0];
+    const dateValue = props.value?.toLocaleDateString().split("/");
+    const dateStringValue = `${dateValue![2]}-${dateValue![0]}-${
+      dateValue![1]?.length === 1 ? `0${dateValue![1]}` : dateValue![1]
+    }`;
 
     if (props.onChange && !props.disabled) {
-      props.onChange(new Date(`${dateValue}T${timeValue}`));
+      props.onChange(new Date(`${dateStringValue}T${timeValue}`));
     }
   };
 
