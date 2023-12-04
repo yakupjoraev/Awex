@@ -168,11 +168,9 @@ export function IndividualFeeForm(props: FeeFormProps) {
             className="admin-applications__src search-input"
             type="search"
             name="merchant"
-            placeholder="Поиск по ID/названию/ИНН/адресу"
+            placeholder="Поиск по ID/имени/адресу электронной почты"
             value={searchText}
             onChange={handleSearchInputChange}
-            // onFocus={() => setSearchInputFocused(true)}
-            // onBlur={() => setSearchInputFocused(false)}
           />
           <img
             className="admin-applications__search-img search-img"
@@ -216,7 +214,7 @@ export function IndividualFeeForm(props: FeeFormProps) {
             id={personalCurrentFeeId}
             type="text"
             value={
-              searchParams.get("merchant") === null
+              searchParams.get("merchant") === null || props.fee.current === -1
                 ? "..."
                 : `ID${searchParams.get("merchant")}` ?? ""
             }
