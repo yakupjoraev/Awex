@@ -1,3 +1,5 @@
+@import "./vars"
+
 .d-none
   display: none !important
 
@@ -187,3 +189,18 @@
 @media (max-width: 767.98px) 
   .payment-details__qr-img_fix
     min-width: 70px
+
+.validtext
+  font-size: 11px
+  font-weight: bold
+  text-transform: uppercase
+  &_notvalidate,
+  &_onvalidate,
+  &_rejected
+    @extend .validtext
+  &_notvalidate
+    color: var(--error-color)
+  &_onvalidate
+    color: var(--dark-yellow)
+  &_rejected
+    color: var(--error-color)

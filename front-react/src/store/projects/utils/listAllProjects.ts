@@ -1,20 +1,17 @@
-import { ApiError, AuthorizedService } from "@awex-api";
-import { AppProject } from "src/types";
+import { ApiError, AuthorizedService } from "@awex-api"
+import { AppProject } from "src/types"
 
 export async function listAllProjects() {
-  const idToProject = new Map<string, AppProject>();
+  const idToProject = new Map<string, AppProject>()
 
-  let i = 1;
-  while (true) {
-    // server response is invalid
-    const nextPage = await AuthorizedService.projectsList(i.toString());
-    if (!nextPage.list) {
-      break;
-    }
+  let i = 1
+  while (true) { // server response is invalid
+    const nextPage = await AuthorizedService.projectsList(i.toString())
 
-    const idListRaw = nextPage.list as unknown;
+    if (!nextPage.list)  break
+    const idListRaw = nextPage.list as unknown
+    const idList: string[] = []
 
-    const idList: string[] = [];
     if (idListRaw instanceof Array) {
       for (const listItem of idListRaw) {
         if (
@@ -22,48 +19,45 @@ export async function listAllProjects() {
           listItem !== null &&
           typeof listItem.id === "number"
         ) {
-          idList.push(listItem.id.toString());
+          idList.push(listItem.id.toString())
         }
       }
     }
 
     for (const id of idList) {
-      let projectAndDraftRaw;
+      let projectAndDraftRaw
+
       try {
-        projectAndDraftRaw = await AuthorizedService.projectGet(id);
+        projectAndDraftRaw = await AuthorizedService.projectGet(id)
       } catch (error) {
-        if (error instanceof ApiError && error.status === 404) {
-          continue;
-        }
-        throw error;
+        if (error instanceof ApiError && error.status === 404) continue
+        throw error
       }
-      let projectAndDraft: any = projectAndDraftRaw;
-      if (typeof projectAndDraft !== "object" || projectAndDraft === null) {
-        continue;
-      }
-      if (typeof projectAndDraft.draft !== "object") {
-        continue;
-      }
-      if (typeof projectAndDraft.data !== "object") {
-        continue;
-      }
-      const { data, draft } = projectAndDraft;
+      let projectAndDraft: any = projectAndDraftRaw
+
+      if (typeof projectAndDraft !== "object" || projectAndDraft === null) continue
+      if (typeof projectAndDraft.draft !== "object") continue
+      if (typeof projectAndDraft.data !== "object") continue
+      const { data, draft, validationRequestedAt, validation } = projectAndDraft
+      let project: AppProject 
+
       if (draft) {
-        idToProject.set(id, draft);
+        project = { ...draft, validationRequestedAt, validation }
+        idToProject.set(id, project)
       } else {
-        idToProject.set(id, data);
+        project = { ...data, validationRequestedAt, validation }
+        idToProject.set(id, project)
       }
     }
 
-    i++;
-    if (nextPage.pages === undefined || nextPage.pages < i) {
-      break;
-    }
+    i++
+
+    if (nextPage.pages === undefined || nextPage.pages < i) break
   }
 
   const projects: { id: string; project: AppProject }[] = Array.from(
     idToProject.entries()
-  ).map(([id, project]) => ({ id, project }));
+  ).map(([id, project]) => ({ id, project }))
 
-  return projects;
+  return projects
 }
