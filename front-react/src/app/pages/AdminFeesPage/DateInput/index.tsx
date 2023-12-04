@@ -2,8 +2,9 @@ import { CustomDayPicker } from "@components/CustomDayPicker";
 import classNames from "classnames";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
-import { RefCallback, RefObject, useState } from "react";
+import { RefCallback, useState } from "react";
 import { ContentRenderer, Popover } from "react-tiny-popover";
+import classes from "./styles.module.css";
 
 export interface DateInputProps {
   className?: string;
@@ -15,6 +16,7 @@ export interface DateInputProps {
   onBlur?: () => void;
   onFocus?: () => void;
   onChange?: (value?: Date) => void;
+  onChangeTime?: (value?: Date) => void;
 }
 
 export function DateInput(props: DateInputProps) {
@@ -35,9 +37,18 @@ export function DateInput(props: DateInputProps) {
     }
   };
 
+  const handleChangeTime = (e: any) => {
+    const timeValue = e.target.value;
+    const dateValue = props.value?.toISOString().split("T")[0];
+
+    if (props.onChange && !props.disabled) {
+      props.onChange(new Date(`${dateValue}T${timeValue}`));
+    }
+  };
+
   const renderPopoverContent: ContentRenderer = () => {
     return (
-      <div>
+      <div className={classes["date-time-picker--container"]}>
         <CustomDayPicker
           initialFocus={popoverOpen}
           mode="single"
@@ -46,6 +57,15 @@ export function DateInput(props: DateInputProps) {
           weekStartsOn={0}
           showOutsideDays={true}
           onSelect={handelChange}
+        />
+        <input
+          className={classes["date-time-picket--time"]}
+          type="time"
+          min="00:00"
+          max="23:59"
+          disabled={props.value === undefined}
+          pattern="[0-2][0-9]:[0-5][0-9]"
+          onChange={handleChangeTime}
         />
       </div>
     );

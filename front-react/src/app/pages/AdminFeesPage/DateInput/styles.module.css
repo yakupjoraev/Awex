@@ -1,0 +1,16 @@
+.date-time-picker--container {
+    position: relative;
+}
+
+.date-time-picket--time {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    margin-left: 50px;
+    margin-right: 45px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    appearance: none;
+}

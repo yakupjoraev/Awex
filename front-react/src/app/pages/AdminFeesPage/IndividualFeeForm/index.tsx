@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { DateInput } from "../DateInput";
 import { FeeInput } from "../FeeInput";
 import { useForm, Controller } from "react-hook-form";
@@ -6,7 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { individualFeeFormSchema } from "./validators";
 import { format } from "date-fns";
 import { useSearchParams } from "react-router-dom";
-import classNames from "classnames";
+import debounce from "lodash.debounce";
+import { AuthorizedService, MerchantList } from "@awex-api";
+import "./styles.scss";
 
 export interface Fee {
   current: number;
@@ -45,17 +47,19 @@ export function IndividualFeeForm(props: FeeFormProps) {
   const personalNextFeeId = useId();
   const personalStartId = useId();
   const [updating, setUpdating] = useState(false);
-  const [searchInputFocused, setSearchInputFocused] = useState(false);
   const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
+  const [listOfMerchants, setListOfMerchants] = useState<MerchantList[]>([]);
+  const dropdownRef = useRef(null);
+  const [visible, setVisible] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSearchFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    submitTextFilter();
+    setVisible(false);
   };
 
-  const submitTextFilter = () => {
+  const handleChooseMerchant = () => {
     const normalizedSearchText = searchText.trim();
 
     if (searchParams.get(QUERY_PARAM_SEARCH) === normalizedSearchText) {
@@ -69,11 +73,38 @@ export function IndividualFeeForm(props: FeeFormProps) {
       nextSearchParams.set(QUERY_PARAM_SEARCH, normalizedSearchText);
     }
     setSearchParams(nextSearchParams);
+    setVisible(false);
   };
 
   const handleSearchInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(ev.currentTarget.value);
   };
+
+  const debouncedResults = useMemo(() => {
+    return debounce(handleSearchInputChange, 300);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (searchText.length >= 2) {
+      setVisible(true);
+      AuthorizedService.merchantList(undefined, searchText)
+        .then((response) => {
+          setListOfMerchants(response.list!);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      setVisible(false);
+      setListOfMerchants([]);
+    }
+  }, [searchText]);
 
   const {
     handleSubmit,
@@ -116,22 +147,6 @@ export function IndividualFeeForm(props: FeeFormProps) {
     });
   };
 
-  const submittedSearchText = useMemo(() => {
-    const searchText = searchParams.get(QUERY_PARAM_SEARCH);
-    return searchText === null ? DEFAULT_SEARCH : searchText;
-  }, [searchParams]);
-
-  useEffect(() => {
-    setSearchText(submittedSearchText);
-  }, []);
-
-  useEffect(() => {
-    if (searchInputFocused) {
-      return;
-    }
-    submitTextFilter();
-  }, [searchInputFocused]);
-
   const backBtnDisabled =
     updating ||
     props.feeStatus === "loading" ||
@@ -156,23 +171,36 @@ export function IndividualFeeForm(props: FeeFormProps) {
             placeholder="Поиск по ID/названию/ИНН/адресу"
             value={searchText}
             onChange={handleSearchInputChange}
-            onFocus={() => setSearchInputFocused(true)}
-            onBlur={() => setSearchInputFocused(false)}
+            // onFocus={() => setSearchInputFocused(true)}
+            // onBlur={() => setSearchInputFocused(false)}
           />
           <img
             className="admin-applications__search-img search-img"
             src="/img/icons/search.svg"
             alt="Поиск"
           />
-          <button
-            className={classNames(
-              "search-apply-btn",
-              searchInputFocused && "search-apply-btn--active"
-            )}
-            type="button"
-          >
-            Применить
-          </button>
+        </div>
+        <div ref={dropdownRef} className={`dropdown ${visible && "v"}`}>
+          {visible && (
+            <ul>
+              {listOfMerchants.length === 0 && (
+                <li key="zxc" className={"dropdown_item--empty"}>
+                  No result
+                </li>
+              )}
+              {listOfMerchants.length !== 0 &&
+                listOfMerchants?.map((merchant) => (
+                  <li
+                    key={merchant.id}
+                    onClick={handleChooseMerchant}
+                    className="dropdown_item"
+                  >
+                    <div className={"item_text1"}>ID{merchant.id}</div>
+                    <div className={"item_text2"}>{merchant.data?.name}</div>
+                  </li>
+                ))}
+            </ul>
+          )}
         </div>
       </form>
       <div className="admin-comission__groups">
