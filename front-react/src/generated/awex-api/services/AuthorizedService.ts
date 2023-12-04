@@ -1075,6 +1075,7 @@ export class AuthorizedService {
     public static projectCreate(
         requestBody: ProjectData,
     ): CancelablePromise<{
+        id?: number
         message?: string
     }> {
         return __request(OpenAPI, {

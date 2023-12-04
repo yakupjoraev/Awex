@@ -88,19 +88,18 @@ export function CreateProjectPage() {
     }
 
     setProjectsLoading(true)
-    dispatch(createProject({ project: projectData }))
-      .unwrap()
-      .then(() => {
-        toast.success("Проект создан!")
-        navigate("/projects")
-      })
-      .catch((error) => {
-        console.error(error)
-        toast.error("Не удалось создать проект.")
-      })
-      .finally(() => {
-        setProjectsLoading(false)
-      })
+    AuthorizedService.projectCreate(projectData)
+    .then((response) => {
+      toast.success("Проект создан! Теперь вам нужно отправить его на валидацию.")
+      navigate(`/projects/${response?.id}`)
+    })
+    .catch((error) => {
+      console.error(error)
+      toast.error("Не удалось создать проект.")
+    })
+    .finally(() => {
+      setProjectsLoading(false)
+    })
   }
 
   const companiesNormalized: { id: string; companyName: string }[] =

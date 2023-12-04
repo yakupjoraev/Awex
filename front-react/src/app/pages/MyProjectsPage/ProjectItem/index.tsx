@@ -1,4 +1,10 @@
 import { Link } from "react-router-dom"
+import { ProjectValidation } from "src/types"
+
+interface Validation {
+  validation?: ProjectValidation | null
+  validationRequestedAt?: number | null
+}
 
 export interface ProjectItemProps {
   id: string
@@ -7,7 +13,21 @@ export interface ProjectItemProps {
   tokenSymbol: string
   url: string
   commissionPaidBy: "client" | "merchant"
+  validation: Validation | null
   onGeneratePaymentLink: (id: string) => void
+}
+
+function Validation({validation, validationRequestedAt}: {validation?: ProjectValidation | null, validationRequestedAt?: number | null}) {
+  if(validation === null && validationRequestedAt === null) {
+    return (<span className="validtext_notvalidate">Черновик</span>)
+  }
+  if(validation?.status === 'onReview' || validation?.status === 'waiting') {
+    return (<span className="validtext_onvalidate">На модерации</span>)
+  }
+  if(validation?.status === 'rejected') {
+    return (<span className="validtext_rejected">Отклонен ({ validation?.rejectReason })</span>)
+  }
+  return(<></>)
 }
 
 export function ProjectItem(props: ProjectItemProps) {
@@ -30,7 +50,10 @@ export function ProjectItem(props: ProjectItemProps) {
   return (
     <li className="my-projects__item">
       <div className="my-projects__item-info">
-        {/* *** черновик *** */}
+      <Validation
+        validation={props.validation?.validation}
+        validationRequestedAt={props.validation?.validationRequestedAt}
+      />
 
         <h3 className="my-projects__item-title main-title">
           {props.name}

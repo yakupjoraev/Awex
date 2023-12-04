@@ -38,14 +38,15 @@ export async function listAllProjects() {
       if (typeof projectAndDraft !== "object" || projectAndDraft === null) continue
       if (typeof projectAndDraft.draft !== "object") continue
       if (typeof projectAndDraft.data !== "object") continue
-      const { data, draft } = projectAndDraft
-
-      console.log('projectAndDraft', projectAndDraft, data, draft)
+      const { data, draft, validationRequestedAt, validation } = projectAndDraft
+      let project: AppProject 
 
       if (draft) {
-        idToProject.set(id, draft)
+        project = { ...draft, validationRequestedAt, validation }
+        idToProject.set(id, project)
       } else {
-        idToProject.set(id, data)
+        project = { ...data, validationRequestedAt, validation }
+        idToProject.set(id, project)
       }
     }
 
@@ -53,8 +54,6 @@ export async function listAllProjects() {
 
     if (nextPage.pages === undefined || nextPage.pages < i) break
   }
-
-  console.log('idToProject', idToProject)
 
   const projects: { id: string; project: AppProject }[] = Array.from(
     idToProject.entries()

@@ -54,7 +54,7 @@ export function MyProjectsPage() {
         <div className="my-projects__items-wrapper">
           <ul className="my-projects__items">
             {projects &&
-              projects.map(({ id, project }) => { console.log('project: ', id,  project)
+              projects.map(({ id, project }) => {
                 let currency: string = "..."
 
                 if (project.convertTo !== undefined) {
@@ -72,6 +72,7 @@ export function MyProjectsPage() {
 
                 return (
                   <ProjectItem
+                    key={id}
                     id={id}
                     name={project.name}
                     tokenIcon="actives-1.png"
@@ -82,7 +83,7 @@ export function MyProjectsPage() {
                     }
                     url={project.urlWeb || "#"}
                     commissionPaidBy={project.feePayee ? "merchant" : "client"}
-                    key={id}
+                    validation={project ? { validation: project?.validation, validationRequestedAt: project?.validationRequestedAt } : null}
                     onGeneratePaymentLink={handleGeneratePaymentLink}
                   />
                 )

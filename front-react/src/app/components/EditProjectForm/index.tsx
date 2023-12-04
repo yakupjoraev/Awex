@@ -81,6 +81,31 @@ export function EditProjectForm(props: EditProjectFormProps) {
   })
 
 
+  const companyOptions: { value: string; label: string }[] = useMemo(() => {
+    if (!props.companies) {
+      return []
+    }
+    return props.companies.map(({ id, companyName }) => ({
+      value: id,
+      label: companyName,
+    }))
+  }, [props.companies])
+
+  const currencyOptions: { value: string; label: string }[] = useMemo(() => {
+    if (!props.currencies) {
+      return []
+    }
+    return props.currencies
+      .filter(({ type }) => {
+        return type === currencyType
+      })
+      .map(({ name }) => ({
+        value: name,
+        label: currencyToLabel[name] || name,
+      }))
+  }, [props.currencies, currencyType])
+
+
   useEffect(() => {
     if (props.project === undefined) {
       const currentFormData = getValues()
@@ -124,30 +149,6 @@ export function EditProjectForm(props: EditProjectFormProps) {
   const handleProjectFormSubmit = handleSubmit((formData) => {
     props.onSubmit(formData)
   })
-
-  const companyOptions: { value: string; label: string }[] = useMemo(() => {
-    if (!props.companies) {
-      return []
-    }
-    return props.companies.map(({ id, companyName }) => ({
-      value: id,
-      label: companyName,
-    }))
-  }, [props.companies])
-
-  const currencyOptions: { value: string; label: string }[] = useMemo(() => {
-    if (!props.currencies) {
-      return []
-    }
-    return props.currencies
-      .filter(({ type }) => {
-        return type === currencyType
-      })
-      .map(({ name }) => ({
-        value: name,
-        label: currencyToLabel[name] || name,
-      }))
-  }, [props.currencies, currencyType])
 
 
   return (
