@@ -38,14 +38,14 @@ export async function listAllProjects() {
       if (typeof projectAndDraft !== "object" || projectAndDraft === null) continue
       if (typeof projectAndDraft.draft !== "object") continue
       if (typeof projectAndDraft.data !== "object") continue
-      const { data, draft, validationRequestedAt, validation } = projectAndDraft
+      const { data, draft, companyId, validationRequestedAt, validation } = projectAndDraft
       let project: AppProject 
 
       if (draft) {
-        project = { ...draft, validationRequestedAt, validation }
+        project = { ...draft, companyId, validationRequestedAt, validation }
         idToProject.set(id, project)
       } else {
-        project = { ...data, validationRequestedAt, validation }
+        project = { ...data, companyId, validationRequestedAt, validation }
         idToProject.set(id, project)
       }
     }
