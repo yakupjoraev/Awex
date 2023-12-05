@@ -186,6 +186,8 @@ export function Sidebar(props: SidebarProps) {
               </ul>
             </li>
 
+
+            {/* /history */}
             <li className="sidebar__menu-item">
               <a href="#" className="sidebar__menu-link">
                 <span className="sidebar__menu-icon">

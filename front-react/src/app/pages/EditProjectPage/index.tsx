@@ -179,6 +179,7 @@ export function EditProjectPage() {
         <EditProjectForm
           project={project}
           loading={companiesLoading || currenciesLoading || projectsLoading}
+          companies={companies}
           onSubmit={handleSubmit}
           header={<EditProjectHeader project={project} />}
           footer={<EditProjectFooter

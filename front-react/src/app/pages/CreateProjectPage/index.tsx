@@ -102,17 +102,6 @@ export function CreateProjectPage() {
     })
   }
 
-  const companiesNormalized: { id: string; companyName: string }[] =
-    useMemo(() => {
-      if (!companies) {
-        return []
-      }
-      return Object.entries(companies).map(([id, companyName]) => ({
-        id,
-        companyName,
-      }))
-    }, [companies])
-
   return (
     <div className="wrapper">
       <Helmet title="Добавление проекта" />
@@ -128,7 +117,7 @@ export function CreateProjectPage() {
 
         <EditProjectForm
           currencies={currencies}
-          companies={companiesNormalized}
+          companies={companies}
           loading={companiesLoading || currenciesLoading || projectsLoading}
           footer={<CreateProjectFooter onCancel={handleCancelBtnClick} />}
           onSubmit={handleSubmit}

@@ -54,7 +54,7 @@ export interface EditProjectFormProps {
   loading?: boolean
   error?: string
   currencies?: { name: string; type: "fiat" | "crypto" }[]
-  companies?: { id: string; companyName: string }[]
+  companies?:  Record<string, string>
   onSubmit: (formData: EditProjectFormData) => void
   header?: ReactNode
   footer?: ReactNode
@@ -80,16 +80,16 @@ export function EditProjectForm(props: EditProjectFormProps) {
     resolver: yupResolver(editProjectFormValidator),
   })
 
-
-  const companyOptions: { value: string; label: string }[] = useMemo(() => {
-    if (!props.companies) {
-      return []
-    }
-    return props.companies.map(({ id, companyName }) => ({
-      value: id,
-      label: companyName,
-    }))
-  }, [props.companies])
+  const companyOptions: { value: string; label: string }[] =
+    useMemo(() => {
+      if (!props.companies) {
+        return []
+      }
+      return Object.entries(props.companies).map(([id, companyName]) => ({
+        value: id,
+        label: companyName,
+      }))
+    }, [props.companies])
 
   const currencyOptions: { value: string; label: string }[] = useMemo(() => {
     if (!props.currencies) {
@@ -669,6 +669,7 @@ function renderFieldError(
 }
 
 function createEditProjectFormData(project: AppProject): EditProjectFormData {
+  console.log('createEditProjectFormData', project)
   return {
     companyId:
       project.companyId !== undefined
