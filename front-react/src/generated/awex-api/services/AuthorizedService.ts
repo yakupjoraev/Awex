@@ -1392,6 +1392,7 @@ export class AuthorizedService {
             projectId: number
           }>
     }> {
+        console.log('query====', query)
         return __request(OpenAPI, {
             method: 'GET',
             url: '/transaction',

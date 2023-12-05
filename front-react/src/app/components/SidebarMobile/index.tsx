@@ -60,15 +60,16 @@ export function SidebarMobile(props: SidebarMobileProps) {
           </div>
         </div>
 
-        <div className="sidebar-mobile__middle">
-          <a href="#" className="sidebar-mobile__item">
+        <div className="sidebar-mobile__middle">          
+          <Link className="sidebar-mobile__item" to="/history">
             <img className="sidebar-mobile__pic"
               src="/img/sidebar-mobile/clock.svg"
-              alt="clock"
+              alt="chat-dots"
             />
 
             <p className="sidebar-mobile__item-text">История</p>
-          </a>
+          </Link>
+
 
           <a href="#" className="sidebar-mobile__item">
             <img className="sidebar-mobile__pic"
