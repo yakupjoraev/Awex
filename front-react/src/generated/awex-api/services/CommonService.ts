@@ -306,25 +306,20 @@ export class CommonService {
 
     public static paymentUsdtRate(
         amount: string,
-        rate: string,
+        currency: string,
     ): CancelablePromise<{
-        currencies?: Array<{
-            currency?: string
-            name?: string
-            rate?: string
-        }>
-    }> {
+        rate: string
+      }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/payment/usdt-rate',
             query: {
                 'amount': amount,
-                'rate': rate,
+                'currency': currency,
             },
             errors: {
                 403: `request failed`,
             },
-        });
+        })
     }
-
 }

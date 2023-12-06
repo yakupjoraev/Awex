@@ -63,13 +63,11 @@ export function HistoryOperations(props: HistoryOperationsProps) {
     setGetingHistoryInProcess(true)
     AuthorizedService.getTransactions(historyFilter, historyPage?.toString())
     .then((response) => {
-      console.log('response', response)
       if(!response) {
         setHistories([])
         return
       }
       const newHistories = historyPage === 1 ? [...response.list] : [...histories, ...response.list]
-      console.log('getHistory newHistories', newHistories)
       setHistories(newHistories)
       setPages(response.pages)
     })
