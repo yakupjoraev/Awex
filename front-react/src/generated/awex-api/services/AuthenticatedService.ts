@@ -15,7 +15,7 @@ export class AuthenticatedService {
             url: '/account/otp/set-google-authenticator',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -34,7 +34,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -53,7 +53,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -73,7 +73,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -92,7 +92,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -103,7 +103,7 @@ export class AuthenticatedService {
             url: '/account/otp/enabled',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -123,7 +123,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -136,7 +136,7 @@ export class AuthenticatedService {
             url: '/account/otp/send-gmail',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -156,7 +156,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -175,7 +175,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -188,7 +188,7 @@ export class AuthenticatedService {
             method: 'GET',
             url: '/account/ip',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -207,7 +207,7 @@ export class AuthenticatedService {
                 'page': page,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         });
     }
@@ -225,7 +225,7 @@ export class AuthenticatedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -238,7 +238,7 @@ export class AuthenticatedService {
             method: 'POST',
             url: '/account/session/delete',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -258,7 +258,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -275,7 +275,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -285,7 +285,7 @@ export class AuthenticatedService {
             method: 'GET',
             url: '/account/profile',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -302,7 +302,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         });
     }
@@ -312,7 +312,7 @@ export class AuthenticatedService {
             method: 'GET',
             url: '/account/profile/notifications',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -331,7 +331,7 @@ export class AuthenticatedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -343,7 +343,7 @@ export class AuthenticatedService {
             method: 'GET',
             url: '/account/profile/currency',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -358,7 +358,7 @@ export class AuthenticatedService {
             method: 'GET',
             url: '/account/config/settings',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -370,7 +370,7 @@ export class AuthenticatedService {
             method: 'GET',
             url: '/account/referral/link',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -388,7 +388,7 @@ export class AuthenticatedService {
             method: 'GET',
             url: '/account/referral/statistics',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -401,7 +401,7 @@ export class AuthenticatedService {
             method: 'GET',
             url: '/account/referral/admin/fees',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -414,7 +414,7 @@ export class AuthenticatedService {
             method: 'GET',
             url: '/account/balance',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         });
     }
@@ -478,7 +478,7 @@ export class AuthenticatedService {
             body: requestBody,
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }

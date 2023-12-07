@@ -35,7 +35,7 @@ export class AuthorizedService {
                 'page': page,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -57,7 +57,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -72,7 +72,7 @@ export class AuthorizedService {
                 'id': id,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -97,7 +97,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -116,7 +116,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -135,7 +135,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         });
@@ -154,7 +154,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -178,7 +178,7 @@ export class AuthorizedService {
                 'role': role,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -199,7 +199,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -214,7 +214,7 @@ export class AuthorizedService {
                 'id': id,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -238,7 +238,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -257,7 +257,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -276,7 +276,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -295,7 +295,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -317,7 +317,7 @@ export class AuthorizedService {
                 'search': search,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -332,7 +332,7 @@ export class AuthorizedService {
                 'id': id,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -351,7 +351,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -370,7 +370,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -389,7 +389,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -415,7 +415,7 @@ export class AuthorizedService {
                 'endTime': endTime,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -440,7 +440,7 @@ export class AuthorizedService {
                 'endTime': endTime,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -460,7 +460,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -479,7 +479,7 @@ export class AuthorizedService {
                 'page': page,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -496,7 +496,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -511,7 +511,7 @@ export class AuthorizedService {
                 'id': id,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -533,7 +533,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -552,7 +552,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -567,7 +567,7 @@ export class AuthorizedService {
             method: 'GET',
             url: '/fee',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -587,7 +587,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -606,7 +606,7 @@ export class AuthorizedService {
                 'id': id,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -631,7 +631,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -659,7 +659,7 @@ export class AuthorizedService {
                 'endTime': endTime,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -687,7 +687,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -711,7 +711,7 @@ export class AuthorizedService {
                 'id': id,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -736,7 +736,7 @@ export class AuthorizedService {
                 'id': id,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -764,7 +764,7 @@ export class AuthorizedService {
                 'endTime': endTime,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -789,7 +789,7 @@ export class AuthorizedService {
                 'endTime': endTime,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -807,7 +807,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -825,7 +825,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -848,7 +848,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -871,7 +871,7 @@ export class AuthorizedService {
             mediaType: 'multipart/form-data',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -891,7 +891,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -916,7 +916,7 @@ export class AuthorizedService {
                 'endTime': endTime,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -941,7 +941,7 @@ export class AuthorizedService {
                 'endTime': endTime,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -964,7 +964,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -982,7 +982,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1005,7 +1005,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1027,7 +1027,7 @@ export class AuthorizedService {
                 'amount': amount,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1048,7 +1048,7 @@ export class AuthorizedService {
                 'currency': currency,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1067,7 +1067,7 @@ export class AuthorizedService {
                 'page': page,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1085,7 +1085,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1100,7 +1100,7 @@ export class AuthorizedService {
                 'id': id,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -1122,7 +1122,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -1141,7 +1141,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
                 409: `request failed`,
             },
@@ -1161,7 +1161,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -1185,7 +1185,7 @@ export class AuthorizedService {
                 'search': search,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1200,7 +1200,7 @@ export class AuthorizedService {
                 'id': id,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -1224,7 +1224,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -1243,7 +1243,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -1267,7 +1267,7 @@ export class AuthorizedService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -1278,7 +1278,7 @@ export class AuthorizedService {
             method: 'GET',
             url: '/project/admin/statuses',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1294,7 +1294,7 @@ export class AuthorizedService {
             method: 'GET',
             url: '/project/currencies',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1316,7 +1316,7 @@ export class AuthorizedService {
             },
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1341,7 +1341,7 @@ export class AuthorizedService {
                 'currency': currency,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         })
@@ -1357,7 +1357,7 @@ export class AuthorizedService {
             method: 'GET',
             url: '/project/names',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1392,7 +1392,6 @@ export class AuthorizedService {
             projectId: number
           }>
     }> {
-        console.log('query====', query)
         return __request(OpenAPI, {
             method: 'GET',
             url: '/transaction',
@@ -1406,7 +1405,7 @@ export class AuthorizedService {
                 'classType': query.classType
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -1422,7 +1421,7 @@ export class AuthorizedService {
             method: 'GET',
             url: '/transaction/parameters',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
