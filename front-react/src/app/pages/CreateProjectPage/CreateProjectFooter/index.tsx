@@ -1,5 +1,5 @@
 export interface CreateProjectFooterProps {
-  onCancel: () => void;
+  onCancel: () => void
 }
 
 export function CreateProjectFooter(props: CreateProjectFooterProps) {
@@ -12,6 +12,7 @@ export function CreateProjectFooter(props: CreateProjectFooterProps) {
       >
         Отменить
       </button>
+
       <button type="submit" className="my-projects__btn second-btn">
         Создать проект
       </button>

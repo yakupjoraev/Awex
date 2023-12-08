@@ -38,9 +38,9 @@ export function DepositsFiltersSelect(props: DepositsFiltersSelectProps) {
     return props.options.find((option) => option.value === props.value) || null;
   }, [props.value, props.options]);
 
-  const handleOptionClick = (ev: React.MouseEvent<HTMLLIElement>) => {
+  const handleOptionClick = (value: string) => {
     setDropdownOpened(false);
-    const value = ev.currentTarget.getAttribute("data-value");
+    // const value = ev.currentTarget.getAttribute("data-value");
     if (value !== null) {
       props.onChange(value);
     }
@@ -79,8 +79,8 @@ export function DepositsFiltersSelect(props: DepositsFiltersSelectProps) {
             <li
               className="deposits__filter-item select-item"
               data-select-item=""
-              data-value={option.value}
-              onClick={handleOptionClick}
+              // data-value={option.value}
+              onClick={() => handleOptionClick(option.value)}
               key={option.value}
             >
               {option.label}

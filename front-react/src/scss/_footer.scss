@@ -1,0 +1,275 @@
+// Footer
+.footer {
+  padding: 50px;
+  background-color: var(--white-color);
+
+  @media (max-width: $breakpoint768) {
+    display: none;
+  }
+
+  // .footer__container
+
+  &__container {
+    max-width: 1220px;
+    width: 100%;
+    padding: 0 10px;
+    margin: 0 auto;
+  }
+
+  // .footer__inner
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+
+    @media (max-width: $breakpoint768) {
+      row-gap: 20px;
+    }
+  }
+
+  // .footer__lists
+
+  &__lists {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 40px;
+
+    @media (max-width: $breakpoint1200) {
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 40px;
+    }
+
+
+
+
+
+
+
+    @media (max-width: $breakpoint768) {
+      display: none;
+    }
+
+
+
+
+
+
+  }
+
+  // .footer__list
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  // .footer__item
+
+  &__item {}
+
+  // .footer__item--header
+
+  &__item--header {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  // .footer__link
+
+  &__link {
+    white-space: nowrap;
+    font-size: 14px;
+    color: var(--grey-color-2);
+
+    &:hover {
+      color: var(--text-color);
+    }
+  }
+
+  // .footer__socials
+
+  &__socials {
+    grid-column: span 2;
+
+    max-width: 175px;
+    margin-left: auto;
+
+    @media (max-width: $breakpoint1200) {
+      max-width: 100%;
+      width: 46%;
+    }
+  }
+
+  // .footer__socials-title
+
+  &__socials-title {
+    margin-bottom: 35px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  // .footer__socials-list
+
+  &__socials-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 15px;
+    column-gap: 12px;
+    margin-bottom: 35px;
+  }
+
+  // .footer__socials-item
+
+  &__socials-item {
+    transition: transform 0.2s linear;
+
+    &:hover {
+      transform: scale(1.08);
+    }
+  }
+
+  // .footer__socials-link
+
+  &__socials-link {
+    width: 100%;
+    height: 36px;
+  }
+
+  // .footer__copys
+
+  &__copys {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid #D1D1D133;
+  }
+
+  // .footer__copy-name
+
+  &__copy-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--grey-color-2);
+  }
+
+  // .footer__copy-text
+
+  &__copy-text {
+    font-size: 14px;
+    color: var(--grey-color-2);
+
+    a {
+      color: var(--grey-color-2);
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--text-color);
+      }
+    }
+  }
+}
+
+.footer__app {
+  margin-bottom: -30px;
+
+  @media (max-width: $breakpoint768) {
+    margin-bottom: 0;
+  }
+}
+
+.footer__app-label {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.footer__app-list {
+  display: flex;
+  align-items: center;
+  column-gap: 25px;
+
+  @media (max-width: $breakpoint768) {
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+}
+
+.footer__app-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
+  column-gap: 15px;
+  padding: 30px;
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 120%;
+  color: #000;
+
+  img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+  }
+
+  @media (max-width: $breakpoint768) {
+    padding: 20px;
+  }
+}
+
+.footer__app-link--row {
+  flex-direction: row;
+  padding: 20px 30px;
+
+  img {
+    width: 70px;
+    height: 70px;
+  }
+
+  @media (max-width: $breakpoint768) {
+    padding: 10px 20px;
+  }
+}
+
+.footer-app {
+  @media (max-width: $breakpoint768) {
+    display: block;
+    padding: 30px 20px;
+
+    .footer__lists {
+      grid-template-columns: repeat(1, 1fr);
+      row-gap: 20px;
+    }
+
+    .footer__socials {
+      grid-column: span 1;
+      margin-left: 0;
+    }
+
+    .footer__item--header {
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    .footer__list {
+      row-gap: 4px;
+    }
+
+    .footer__link {
+      font-size: 13px;
+    }
+  }
+
+
+  @media (max-width: $breakpoint480) {
+    .footer__socials {
+      width: 100%;
+    }
+
+  }
+}

@@ -1,22 +1,24 @@
-import { OpenAPI } from "@awex-api";
-import * as React from "react";
-import ReactDOM from "react-dom/client";
-import { HelmetProvider } from "react-helmet-async";
-import reportWebVitals from "./reportWebVitals";
-import { App } from "./app";
-import store from "./store";
-import { Provider } from "react-redux";
-import "./style.css";
-import { getUser } from "./services/user.service";
+import { OpenAPI } from "@awex-api"
+import * as React from "react"
+import ReactDOM from "react-dom/client"
+import { HelmetProvider } from "react-helmet-async"
+import reportWebVitals from "./reportWebVitals"
+import { App } from "./app"
+import store from "./store"
+import { Provider } from "react-redux"
+import "./scss/style.scss"
+import "./scss/custom.sass"
+import { getUser } from "./services/user.service"
 
-const user = getUser();
+
+const user = getUser()
 if (user) {
-  OpenAPI.TOKEN = user.token;
+  OpenAPI.TOKEN = user.token
 }
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
-);
+)
 
 root.render(
   <HelmetProvider>
@@ -26,6 +28,6 @@ root.render(
       </Provider>
     </React.StrictMode>
   </HelmetProvider>
-);
+)
 
-reportWebVitals();
+reportWebVitals()

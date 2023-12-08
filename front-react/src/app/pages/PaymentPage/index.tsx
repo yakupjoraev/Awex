@@ -6,6 +6,13 @@ import { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { useParams } from "react-router-dom"
 import { PaymentCurrencySelector } from "./PaymentCurrencySelector"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { useForm, Controller } from "react-hook-form"
+import { paymentFormValidator } from "./validators"
+import { SelectorOptions, Selector } from "@components/Selector"
+import CopyToClipboard from "react-copy-to-clipboard"
+import toast from "react-hot-toast"
+import QRCode from "react-qr-code"
 
 
 type OrderError = { type: "unknown" | "not_found" }
@@ -22,10 +29,19 @@ interface PaymentData {
   currency: string
   paymentAmount: string
   address: string
+  fee?: string
+  depositWithdrawCurrency: string
+  depositWithdrawChain: string
+  depositWithdrawAddress: string
+  cryptoPaymentAddressId: number
 }
 
 interface PaymentOrder {
   amount: string
+  expired: boolean
+  depositAmount: number
+  depositReturnTime: number
+  expiredDate: number
   paid: boolean
   type: string
   currency: string
@@ -33,20 +49,63 @@ interface PaymentOrder {
   userCurrency: string
   userChain: string
   name?: string | undefined
+  projectName: string
+  merchantName: string
   paymentData?: PaymentData | null
-}
-
-interface Currency {
-  currency: string
-  name?: string
-  rate?: string
-  chain?: string
 }
 
 interface OrderPaymentRequest {
   type: string
   currency: string
   chain: string
+  depositWithdrawCurrency: string,
+  depositWithdrawChain: string,
+  depositWithdrawAddress: string
+}
+
+interface PaymentFormData {
+  amount?: string
+  currency?: string
+  userChain?: string
+  useDeposit?: boolean
+  withdrawCurrency?: string
+  withdrawNet?: string
+  withdrawEmail?: string
+  withdrawWalletId?: string
+}
+
+interface ExpiresTimer {
+  hours: number | string
+  minutes: number | string
+  seconds: number | string
+}
+
+interface WithdrawCurrencies {
+  currency: string
+  name: string
+  rate: string
+  chain: string
+  chainName: string
+}
+
+interface paymentCurrency {
+  currency: string
+  name: string
+  rate: string
+  chain: string
+  chainName: string
+}
+
+interface userChains {
+  value: string
+  label: string
+}
+
+interface formattedCurrency {
+  currency: string,
+  name: string,
+  rate: string,
+  chains: Array<userChains>
 }
 
 type PaymentStatus = 'invoicing' | 'prepared' | 'paid' | 'expired' | 'success'
@@ -60,6 +119,7 @@ const DEFAULT_PAYER_CURRENCY: PayerCurrency = {
 export function PaymentPage() {
 
   let checkingPaidTimer: any = null
+  let expiredTimer: any = null
 
   const { uniqueId } = useParams()
   const [orderLoading, setOrderLoading] = useState<boolean>(false)
@@ -67,39 +127,223 @@ export function PaymentPage() {
   const [orderError, setOrderError] = useState<OrderError | null>(null)
   const [orderCurrency, setOrderCurrency] = useState<PayerCurrency>(DEFAULT_PAYER_CURRENCY)
   const [paymentOrder, setPaymentOrder] = useState<PaymentOrder | null>(null)
-  const [currencies, setCurrencies] = useState<Currency[] | null>(null)
+  // const [currencies, setCurrencies] = useState<Currency[] | null>(null)
+  const [currencies, setCurrencies] = useState<formattedCurrency[] | null>(null)
   const [currenciesError, setCurrenciesError] = useState<string | null>(null)
   const [paymentAmountValue, setPaymentAmountValue] = useState<string | undefined>(undefined)
   const [paymentStatus, setPaymentStatus] = useState<PaymentStatus>('invoicing')
+  const [expiresIn, setExpiresIn] = useState<string | null>(null)
 
+  const [withdrawCurrencies, setWithdrawCurrencies] = useState<WithdrawCurrencies[] | null>(null)
+  const [withdrawCurrenciesName, setWithdrawCurrenciesName] = useState<SelectorOptions[] | null>(null)
+  const [withdrawChains, setWithdrawChains] = useState<SelectorOptions[] | null>(null)
+  const [isDeposit, setIsDeposit] = useState<boolean>(false)
+  // const [isOpenPaimentDetalisMobile, setIsOpenPaimentDetalisMobile] = useState(false)
+  const [userChains, setUserChains] = useState<userChains[]>([])
+
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<PaymentFormData>({
+    resolver: yupResolver(paymentFormValidator),
+  })
+
+  // useEffect(() => {
+  //   document.addEventListener('click', closePaimentDetalisMobile)
+
+  //   return () => document.removeEventListener('click', closePaimentDetalisMobile)
+  // }, [])
+
+  // useEffect(() => {
+  //   CommonService.orderPaymentWithdrawCurrencies()
+  //   .then((response) => {
+  //     if(response && response.currencies) {
+  //       setWithdrawCurrencies(response.currencies)
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error(error)
+  //   })
+  // }, [])
+
+  useEffect(() => {
+    updateCurrencies()
+  }, [withdrawCurrencies])
 
   useEffect(() => {
     getOrderPayment(uniqueId)
     return () => {
       clearInterval(checkingPaidTimer)
+      clearInterval(expiredTimer)
     }
   }, [uniqueId])
 
   useEffect(() => {
-    if(!paymentOrder) {
-      setPaymentAmountValue(undefined)
-      return
-    }
-    let newpaymentAmountValue
-    if(paymentOrder.paymentData) {
-      newpaymentAmountValue = paymentOrder.paymentData.paymentAmount
-    } else {
-      newpaymentAmountValue = Number(paymentOrder.amount) * currencyRate(paymentOrder.userCurrency, paymentOrder.userChain)
-    }
-    setPaymentAmountValue(newpaymentAmountValue.toString())
+    ( function(){
+      if(!paymentOrder) {
+        setPaymentAmountValue(undefined)
+        return
+      }
+      let newpaymentAmountValue
+      if(paymentOrder.paymentData && paymentOrder.userCurrency === paymentOrder.paymentData.currency) {
+        newpaymentAmountValue = paymentOrder.paymentData.paymentAmount
+      } else {
+        newpaymentAmountValue = Number(paymentOrder.amount) / currencyRate(paymentOrder.userCurrency)
+      }
+      setPaymentAmountValue(newpaymentAmountValue.toString())
+
+      if(!paymentOrder.expired) {
+        toggleExpiredTimer(paymentOrder.expiredDate)
+      }
+    }());
+        
+    (function(){
+      if(!paymentOrder) {
+        setIsDeposit(false)
+        return
+      }
+      if(paymentOrder.depositAmount) {
+        setIsDeposit(true)
+        return
+      }
+      setIsDeposit(false)
+    }());
   }, [paymentOrder])
 
-  function currencyRate(userCurrency: string, userChain: string): number {
+  useEffect(() => {
+    (function(){
+      if(!paymentOrder) return
+      setValue('currency', paymentOrder.userCurrency)
+      
+      const userCurrency = currencies?.find((item) => item.currency === paymentOrder.userCurrency)
+      const newUserChains: userChains[] = userCurrency?.chains ? userCurrency?.chains : []
+      setUserChains(newUserChains)
+      setValue('userChain', paymentOrder.chain)
+
+      if(!paymentOrder.paymentData) return
+      setValue('withdrawCurrency', paymentOrder.paymentData.depositWithdrawCurrency)
+      setValue('withdrawNet', paymentOrder.paymentData.depositWithdrawChain)
+      setValue('withdrawWalletId', paymentOrder.paymentData.depositWithdrawAddress)
+    }());
+  }, [paymentOrder, currencies])
+
+  useEffect(() => {
+    setValue('amount', paymentAmountValue)
+  }, [paymentAmountValue])
+
+  useEffect(() => {
+    setValue('useDeposit', isDeposit)
+    if(isDeposit) {
+      getOrderPaymentWithdrawCurrencies()
+    }
+  },[isDeposit])
+
+  function getOrderPaymentWithdrawCurrencies() {
+    CommonService.orderPaymentWithdrawCurrencies()
+    .then((response) => {
+      if(response && response.currencies) {
+        setWithdrawCurrencies(response.currencies)
+      }
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+  }
+  
+  function updateCurrencies(currencyFilter?: string): void {
+    if(!withdrawCurrencies) {
+      setWithdrawCurrenciesName(null)
+      setWithdrawChains(null)
+      return
+    }
+
+    const currencies = withdrawCurrencies.map((item) => {
+      return { label: item.name, value: item.currency }
+    })
+
+    let filteredCurrencies: SelectorOptions[] = []
+
+    currencies.forEach((item) => {
+      if(filteredCurrencies.find((filteredItem) => filteredItem.value === item.value)) return
+      filteredCurrencies.push(item)
+    })
+
+    setWithdrawCurrenciesName([...filteredCurrencies])
+
+    if(!currencyFilter) {
+      setWithdrawChains(null)
+      return
+    }
+
+    let filteredWithdrawCurrenciesForChains: WithdrawCurrencies[] = withdrawCurrencies.filter(
+      (item) => currencyFilter === item.currency
+    )
+    const chains = new Set(
+      filteredWithdrawCurrenciesForChains.map((item) => {
+        return { label: item.chainName, value: item.chain }
+      })
+    )
+    setWithdrawChains([...chains])
+  }
+
+  function toggleExpiredTimer(expiredDate: number) {
+    clearInterval(expiredTimer)
+
+    if(setEndtime(expiredDate)) {
+      expiredTimer = setInterval(() => {
+        if(!setEndtime(expiredDate)) {
+          clearInterval(expiredTimer)
+        }
+      }, 1000)
+      return
+    }
+  }
+
+  function setEndtime(expiredDate: number): boolean {
+    const now = Date.now()
+    let endtime = (expiredDate && (expiredDate > now)) ? expiredDate - now : 0
+    if(endtime <= 0) {
+      setExpiresIn(null)
+      setPaymentStatus('expired')
+      return false
+    }
+    setExpiresIn(getTimeString(getTimeObject(endtime)))
+    return true
+  }
+
+  function getTimeString(timeObject: ExpiresTimer): string {
+    if(!timeObject || !timeObject.hours || !timeObject.minutes || !timeObject.seconds) return ''
+    return `${timeObject?.hours} : ${timeObject?.minutes} : ${timeObject?.seconds}`
+  }
+
+  function getTimeObject(t: number): ExpiresTimer {
+    if(!t) return {
+      hours: '00',
+      minutes: '00',
+      seconds: '00',
+    }
+    let seconds: number | string = Math.floor( (t/1000) % 60 )
+    let minutes: number | string = Math.floor( (t/1000/60) % 60 )
+    let hours: number | string = Math.floor( (t/(1000*60*60)))
+    seconds = seconds < 10 ? `0${seconds}` : seconds.toString()
+    minutes = minutes < 10 ? `0${minutes}` : minutes.toString()
+    hours = hours < 10 ? `0${hours}` : hours.toString()
+    return {
+     hours,
+     minutes,
+     seconds,
+    };  
+  }
+
+  function currencyRate(userCurrency: string): number {
     if(!currencies) {
       return 1
     }
-    const currency: Currency = currencies.filter((item) =>  item.chain === userChain && item.currency === userCurrency)[0]
-    return Number(currency.rate)
+    const currency: formattedCurrency[] = currencies.filter((item) => item.currency === userCurrency)
+    return Number(currency[0].rate)
   }
 
   function getOrderPayment(uniqueId: string | undefined): void {
@@ -113,13 +357,7 @@ export function PaymentPage() {
     setOrderLoading(true)
     CommonService.orderPaymentGet(uniqueId)
       .then((response) => {
-        const {amount, expired, name, paid, paymentData} = response
-
-        if(expired && !paid) {
-          setPaymentOrder(null)
-          setPaymentStatus('expired')
-          return
-        }
+        const {amount, expired, name, paid, paymentData, depositAmount, depositReturnTime, expiredDate, projectName, merchantName} = response
         
         if (!amount) {
           setPaymentOrder(null)
@@ -129,15 +367,34 @@ export function PaymentPage() {
         }
         setPaymentOrder({
           amount: amount.toString(),
-          paid: paid,
+          expired,
+          depositAmount,
+          depositReturnTime,
+          // expiredDate:
+          // 1. Дату на сервере приводим к UTC+0 (т.к. на сервере UTC+3, то отнимаем 10800000)
+          // 2. потом от UTC+0 приводим к часовому поясу клиента (отнимаем потому, что getTimezoneOffset возвращает отрицательное число)
+          // А умножаем на 60000 чтобы привести к миллисекундам
+          // expiredDate: (Number(expiredDate) * 1000) - 10800000 - (new Date().getTimezoneOffset() * 60000),
+          
+          expiredDate: Number(expiredDate) * 1000,
+          paid,
           name: name ? name : undefined,
           type: orderCurrency.type,
           currency: orderCurrency.currency,
           chain: orderCurrency.chain,
           userCurrency: paymentData ? paymentData.currency : orderCurrency.currency,
           userChain: paymentData ? paymentData.chain : orderCurrency.chain,
+          projectName,
+          merchantName,
           paymentData: paymentData ? paymentData : null
         })
+
+        if(expired && !paid) {
+          // setPaymentOrder(null)
+          setPaymentStatus('expired')
+          return
+        }
+
         setPaymentStatus(paid ? 'success' : paymentData ? 'prepared' : 'invoicing')
         getPaymentCurrencies(paymentOrder?.amount)
       })
@@ -162,16 +419,7 @@ export function PaymentPage() {
         if (!response.currencies) {
           setCurrencies(null)
         } else {
-          const nextCurrencies: Currency[] = []
-          for (const currency of response.currencies) {
-            nextCurrencies.push({
-              currency: currency.currency,
-              name: currency.name,
-              rate: currency.rate,
-              chain: currency.chain,
-            });
-          }
-          setCurrencies(nextCurrencies)
+          setCurrencies(formattingСurrencies(response.currencies))
         }
       })
       .catch((error) => {
@@ -186,25 +434,72 @@ export function PaymentPage() {
         setCurrenciesLoading(false)
       })
   }
+
+  function formattingСurrencies(currencies: paymentCurrency[]): formattedCurrency[] {
+    const unicMap = new Map()
+    const formattedCurrencies:formattedCurrency[] = []
+
+    currencies.forEach((currencyItem) => {
+      const { currency, name, rate, chain, chainName } = currencyItem
+      let idx = unicMap.get(currency)
+
+      if(idx !== undefined) {
+        formattedCurrencies[idx].chains.push({ value: chain, label: chainName })
+      } else {
+        formattedCurrencies.push({
+          currency,
+          name,
+          rate,
+          chains: [{ value: chain, label: chainName }]
+        })
+        unicMap.set(currency, formattedCurrencies.length - 1)
+      }
+    })
+    return formattedCurrencies
+  }
   
-  function networkPaymentSelected(currency: string, chain?: string | null): void {
+  // function networkPaymentSelected(currency: string, onChange: any, chain?: string | null): void {
+  //   onChange(currency)
+  //   setPaymentOrder(paymentOrder ? {
+  //     ...paymentOrder,
+  //     userCurrency: currency,
+  //     userChain: chain ? chain : paymentOrder.chain,
+  //     paymentData: paymentOrder.paymentData ? {...paymentOrder.paymentData} : null
+  //   } : null)
+  // }
+  
+  function currencySelected(currency: string): void {
+    const userCurrency = currencies?.find((item) => item.currency === currency)
+    const newUserChains: userChains[] = userCurrency?.chains ? userCurrency?.chains : []
+    setUserChains(newUserChains)
+    setValue('userChain', newUserChains[0].value)
+
     setPaymentOrder(paymentOrder ? {
       ...paymentOrder,
       userCurrency: currency,
-      userChain: chain ? chain : paymentOrder.chain,
+      chain: newUserChains[0].value,
       paymentData: paymentOrder.paymentData ? {...paymentOrder.paymentData} : null
     } : null)
   }
 
-  function toPay(event: any): void {
-    event.preventDefault()
-
+  function chainSelected(value: string): void {
+    setPaymentOrder(paymentOrder ? {
+      ...paymentOrder,
+      chain: value,
+      paymentData: paymentOrder.paymentData ? {...paymentOrder.paymentData} : null
+    } : null)
+  }
+ 
+  const toPay = handleSubmit((formData) => {
     if(!paymentOrder || !uniqueId) return
     setOrderLoading(true)
     const request: OrderPaymentRequest = {
       type: paymentOrder.type,
       currency: paymentOrder.userCurrency.toLocaleLowerCase(),
       chain: paymentOrder.userChain,
+      depositWithdrawCurrency: formData.withdrawCurrency || '',
+      depositWithdrawChain: formData.withdrawNet || '',
+      depositWithdrawAddress: formData.withdrawWalletId || ''
     }
     CommonService.orderPaymentSet(uniqueId, request)
     .then((response) => {
@@ -214,6 +509,11 @@ export function PaymentPage() {
         currency: response.paymentData.currency,
         chain: response.paymentData.chain,
         address: response.paymentData.address,
+        fee: response.paymentData.fee,
+        depositWithdrawCurrency: response.paymentData.depositWithdrawCurrency,
+        depositWithdrawChain: response.paymentData.depositWithdrawChain,
+        depositWithdrawAddress: response.paymentData.depositWithdrawAddress,
+        cryptoPaymentAddressId: response.paymentData.cryptoPaymentAddressId,
       } : null
 
       if(!paymentOrder || !dataOrder) return
@@ -235,7 +535,7 @@ export function PaymentPage() {
     .finally(() => {
       setOrderLoading(false)
     })
-  }
+  })
 
   function changeMethod(event: any) {
     event.preventDefault()
@@ -271,6 +571,19 @@ export function PaymentPage() {
       console.error(error)
     })
     return status
+  }
+
+  // function toggleIsOpenPaimentDetalisMobile(event: React.MouseEvent): void {
+  //   event.stopPropagation()
+  //   setIsOpenPaimentDetalisMobile(!isOpenPaimentDetalisMobile)
+  // }
+
+  // function closePaimentDetalisMobile(): void {
+  //   setIsOpenPaimentDetalisMobile(false)
+  // }
+
+  const handleLinkCopy = () => {
+    toast.success("Скопировано!");
   }
 
   if (orderLoading) {
@@ -315,13 +628,15 @@ export function PaymentPage() {
           </a>
 
           { paymentStatus === 'invoicing' && (
-            <form className="payment__from payment-form" action="#">
+            <form className="payment__from payment-form"
+              onSubmit={toPay}
+            >
               <div className="payment-form__group">
                 <p className="payment-form__label">
                   Выберете способ оплаты
                 </p>
 
-                <div className="payment-form__radios">
+                {/* <div className="payment-form__radios">
                   <div className="payment-form__radio">
                     <input className="payment-form__radio-input" type="radio" name="pay" id="pay1" checked />
                     <label className="payment-form__radio-label" htmlFor="pay1">Крипто</label>
@@ -340,91 +655,165 @@ export function PaymentPage() {
                   <div className="tooltip" data-tooltip="Доступно для операций до 99.000 RUB" data-tooltip-pos="right" data-tooltip-length="medium">
                     <img className="payment-form__radio-pic" src="/img/icons/tooltip.svg" alt="tooltip" />
                   </div>
-                </div>
+                </div> */}
 
                 <div className="about-deposit__generation-select invoice__generation-select">
                   <div className="about-deposit__generation-selected">
                     <div className="about-deposit__generation-info">
-                      <input className="about-deposit__generation-input" type="number" placeholder="Введите сумму" value={paymentAmountValue} />
+                      <input className="about-deposit__generation-input"
+                        type="number"
+                        placeholder="Введите сумму"
+                        value={paymentAmountValue}
+                        {...register('amount')}
+                      />
+                      
+                      {errors.amount?.message && (
+                        <div className="project-error">
+                          {errors.amount.message}
+                        </div>
+                      )}
                     </div>
 
                     <div className="about-deposit__generation-currency open-modal-btn">
-                      <PaymentCurrencySelector
-                        currency={paymentOrder?.userCurrency}
-                        currencies={currencies ? currencies : undefined}
-                        loading={currenciesLoading}
-                        onChange={networkPaymentSelected}
+                      <Controller
+                        control={control}
+                        name="currency"
+                        defaultValue={paymentOrder?.userCurrency}
+                        render={({ field }) => {
+                          return (
+                            <PaymentCurrencySelector
+                              currency={field.value}
+                              currencies={currencies ? currencies : undefined}
+                              loading={currenciesLoading}
+                              // onChange={(value: string, chain?: string | null) => { networkPaymentSelected(value, field.onChange, chain)}}
+                              onChange={(value: string) => { currencySelected(value); field.onChange()}}
+                            />
+                          )
+                        }}
                       />
+                      
+                      {errors.currency?.message && (
+                        <div className="project-error">
+                          {errors.currency.message}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="payment-form__group">
-                <p className="payment-form__label">
-                  Выберете способ возврата депозита
-                </p>
-
-                <div className="payment-form__radios">
-                  <div className="payment-form__radio">
-                    <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay4" checked />
-                    <label className="payment-form__radio-label" htmlFor="pay4">Крипто</label>
-                  </div>
-
-                  <div className="payment-form__radio">
-                    <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay5" />
-                    <label className="payment-form__radio-label" htmlFor="pay5">Карта РФ</label>
-                  </div>
-                </div>
-
                 
-                <div className="invoice-project__group-select" data-select-wrapper>
-                  <div className="invoice-project__group-selected" data-select-arrow>
-                    Выберете криптовалюту
-                    <img className="invoice-project__group-select-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" />
-                  </div>
+                
+                { userChains && userChains.length > 0 && (
+                    <>
+                      <div className="invoice-project__group-select">
+                        <Controller
+                          control={control}
+                          name="userChain"
+                          render={({ field }) => {
+                            return (
+                              <Selector
+                                options={userChains}
+                                value={field.value}
+                                placeholder={'Выберете сеть'}
+                                onChange={(value: string) => { chainSelected(value); field.onChange(value)}}
+                              />
+                            )
+                          }}
+                        />
+                      </div>
+                      {errors.withdrawNet?.message && (
+                        <div className="project-error">{errors.withdrawNet.message}</div>
+                      )}
+                    </>
+                  )}
 
-                  <ul className="invoice-project__group-list select-list" data-select-list>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете криптовалюту</li>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете криптовалюту</li>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете криптовалюту</li>
-                  </ul>
-                </div>
-
-                <div className="invoice-project__group-select" data-select-wrapper>
-                  <div className="invoice-project__group-selected" data-select-arrow>
-                    Выберете сеть
-                    <img className="invoice-project__group-select-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" />
-                  </div>
-
-                  <ul className="invoice-project__group-list select-list" data-select-list>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
-                    <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
-                  </ul>
-                </div>
-
-                <div className="my-projects__group project-group">
-                  <label className="my-projects__label project-label" htmlFor="#">
-                    Адрес кошелька
-                  </label>
-                  <input className="my-projects__input project-input" type="text" placeholder="Введите адрес кошелька" />
-                </div>
-
-                {/* <div className="my-projects__group project-group">
-                  <label className="my-projects__label project-label" htmlFor="#">
-                    Введите номер карты
-                  </label>
-                  <input className="my-projects__input project-input" type="text" placeholder="Введите номер" />
-                </div>
-
-                <div className="my-projects__group project-group">
-                  <label className="my-projects__label project-label" htmlFor="#">
-                    ФИО владельца
-                  </label>
-                  <input className="my-projects__input project-input" type="text" placeholder="Введите ФИО" />
-                </div> */}
               </div>
+
+              { isDeposit && (
+                <div className="payment-form__group">
+                  <p className="payment-form__label">
+                    Выберете способ возврата депозита
+                  </p>
+
+                  {/* <div className="payment-form__radios">
+                    <div className="payment-form__radio">
+                      <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay4" checked />
+                      <label className="payment-form__radio-label" htmlFor="pay4">Крипто</label>
+                    </div>
+
+                    <div className="payment-form__radio">
+                      <input className="payment-form__radio-input" type="radio" name="returnPay" id="pay5" />
+                      <label className="payment-form__radio-label" htmlFor="pay5">Карта РФ</label>
+                    </div>
+                  </div> */}
+
+                  <input className="d-none" type="checkbox"
+                    {...register('useDeposit')}
+                  />
+
+                  { withdrawCurrenciesName && (
+                    <>
+                      <div className="invoice-project__group-select">
+                        <Controller
+                          control={control}
+                          name="withdrawCurrency"
+                          render={({ field }) => {
+                            return (
+                              <Selector
+                                options={withdrawCurrenciesName}
+                                value={field.value}
+                                placeholder={'Выберете криптовалюту'}
+                                onChange={(value) => {
+                                  updateCurrencies(value)
+                                  field.onChange(value)
+                                }}
+                              />
+                            )
+                          }}
+                        />
+                      </div>
+                      {errors.withdrawCurrency?.message && (
+                        <div className="project-error">{errors.withdrawCurrency.message}</div>
+                      )}
+                    </>
+                  )}
+
+                  { withdrawChains && (
+                    <>
+                      <div className="invoice-project__group-select">
+                        <Controller
+                          control={control}
+                          name="withdrawNet"
+                          render={({ field }) => {
+                            return (
+                              <Selector
+                                options={withdrawChains}
+                                value={field.value}
+                                placeholder={'Выберете сеть'}
+                                onChange={field.onChange}
+                              />
+                            )
+                          }}
+                        />
+                      </div>
+                      {errors.withdrawNet?.message && (
+                        <div className="project-error">{errors.withdrawNet.message}</div>
+                      )}
+                    </>
+                  )}
+
+                  <div className="my-projects__group project-group">
+                    <label className="my-projects__label project-label" htmlFor="#">
+                      Адрес кошелька
+                    </label>
+                    <input className="my-projects__input project-input" type="text" placeholder="Введите адрес кошелька"
+                      {...register('withdrawWalletId')}
+                    />
+                    {errors.withdrawWalletId?.message && (
+                      <div className="project-error">{errors.withdrawWalletId.message}</div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               <div className="payment-form__group">
                 <p className="payment-form__label">
@@ -435,29 +824,29 @@ export function PaymentPage() {
                   <label className="my-projects__label project-label" htmlFor="#">
                     E-mail
                   </label>
-                  <input className="my-projects__input project-input" type="text" placeholder="Введите ваш e-mail" />
+                  <input className="my-projects__input project-input" type="text" placeholder="Введите ваш e-mail" 
+                    {...register('withdrawEmail')}
+                  />
                 </div>
               </div>
 
               <div className="payment-form__btns">
-                <button className="payment-form__btn second-btn"
-                  onClick={toPay}
-                >
+                <button className="payment-form__btn second-btn" type="submit" >
                   Оплатить
                 </button>
 
-                <button className="payment-form__btn blue-btn">
+                {/* <button className="payment-form__btn blue-btn">
                   <img src="/img/icons/WalletConnect.svg" alt="" />
                 </button>
 
                 <button className="payment-form__btn second-btn">
                   <img src="/img/icons/payment-form-awex.svg" alt="" />
-                </button>
+                </button> */}
               </div>
 
               <div className="payment-form__footer">
                 Нажимая «Оплатить», вы принимаете
-                <a href="#">пользовательское соглашение..</a>
+                <a href="#"> пользовательское соглашение...</a>
               </div>
             </form>
             )}
@@ -493,7 +882,7 @@ export function PaymentPage() {
                   </div>
                 </div>
 
-                <div className="invoice-project__group-select" data-select-wrapper>
+                {/* <div className="invoice-project__group-select" data-select-wrapper>
                   <div className="invoice-project__group-selected" data-select-arrow>
                     Выберете сеть
                     <img className="invoice-project__group-select-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" />
@@ -504,10 +893,10 @@ export function PaymentPage() {
                     <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
                     <li className="invoice-project__group-item select-item" data-select-item>Выберете сеть</li>
                   </ul>
-                </div>
+                </div> */}
               </div>
 
-              <div className="payment-form__group">
+              {/* <div className="payment-form__group">
                 <p className="payment-form__label">
                   Возврат депозита на карту РФ
                   <a className="payment-form__label-link"
@@ -528,7 +917,48 @@ export function PaymentPage() {
                     IVANOV I.
                   </div>
                 </div>
-              </div>
+              </div> */}
+
+              { paymentOrder && paymentOrder.depositAmount > 0 && paymentOrder.paymentData && (
+                <div className="payment-form__group">
+                  <p className="payment-form__label">
+                    Возврат депозита на крипто кошелек
+
+                    <a className="payment-form__label-link"
+                      onClick={changeMethod}
+                    >
+                      Изменить способ
+                      <img className="payment-form__label-arrow" src="./img/icons/arrow-right.svg" alt="" />
+                    </a>
+                  </p>
+
+                  <div className="about-deposit__generation-select invoice__generation-select">
+                    <div className="about-deposit__generation-selected">
+                      <div className="about-deposit__generation-info">
+                        <div className="about-deposit__generation-val">
+                          { paymentOrder?.paymentData?.depositWithdrawChain }
+                        </div>
+                      </div>
+
+                      <div className="about-deposit__generation-currency">
+                        <div className="about-deposit__generation-curr">
+                          <img src="./img/usdt.png" alt="" />
+                          { paymentOrder?.paymentData?.depositWithdrawCurrency }
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="my-projects__group project-group">
+                    <label className="my-projects__label project-label" htmlFor="#">
+                      Адрес
+                    </label>
+
+                    <input className="my-projects__input project-input" type="text" placeholder="Адрес"
+                      value={paymentOrder?.paymentData?.depositWithdrawAddress} disabled />
+                  </div>
+                </div>
+              )}
 
               <div className="payment-form__btns">
                 <button className="payment-form__btn second-btn"
@@ -599,33 +1029,59 @@ export function PaymentPage() {
           </a>
 
           <div className="payment-details__block payment-details__block--main">
-            <h2 className="payment-details__title main-title">Детали счета №{uniqueId}</h2>
+            <h2 className="payment-details__title main-title">Детали счета № {uniqueId}</h2>
 
             <div className="payment-details__label">
-              <div className="payment-details__label-text">
-                Истечет через:
-              </div>
-              <div className="payment-details__label-time">12:34:56</div>
+              { expiresIn ? (
+                <>
+                  <div className="payment-details__label-text">
+                    Истечет через:
+                  </div>
+                  <div className="payment-details__label-time">
+                    { expiresIn }
+                  </div>
+                </>
+              ) : (
+                <div className="payment-details__label-text">
+                  Истек
+                </div>
+              )}
             </div>
 
-            <img className="payment-details__pic" src="/img/icons/info.svg" alt="" data-payment-details-btn />
+            {/* <img className="payment-details__pic"
+              src="/img/icons/info.svg"
+              alt=""
+              data-payment-details-btn
+              onClick={toggleIsOpenPaimentDetalisMobile}
+            /> */}
           </div>
 
 
-          <div className="payment-details__block-wrapper">
+          <div className="payment-details__block-wrapper"
+            onClick={(ev)=>ev.stopPropagation()}
+          >
             <div className="payment-details__block">
-              <h2 className="payment-details__title main-title">Детали счета №{uniqueId}</h2>
+              <h2 className="payment-details__title main-title">Детали счета № {uniqueId}</h2>
 
               <div className="payment-details__label">
-                <div className="payment-details__label-text">
-                  Истечет через:
-                </div>
-                <div className="payment-details__label-time">12:34:56</div>
+                { expiresIn ? (
+                  <>
+                    <div className="payment-details__label-text">
+                      Истечет через:
+                    </div>
+                    <div className="payment-details__label-time">
+                      { expiresIn }
+                    </div>
+                  </>
+                ) : (
+                  <div className="payment-details__label-text">
+                    Истек
+                  </div>
+                )}
               </div>
             </div>
 
-            
-            { paymentStatus === 'invoicing' && (
+            { (paymentStatus === 'invoicing' || paymentStatus === 'expired') && (
               <div className="payment-details__block">
                 <div className="payment-details__sum">
                   <div className="payment-details__sum-label">
@@ -643,23 +1099,26 @@ export function PaymentPage() {
               <div className="payment-details__salesman">
                 <div className="payment-details__salesman-label">Продавец:</div>
 
-                <div className="payment-details__salesman-name">ООО “Первый”</div>
+                <div className="payment-details__salesman-name">{ paymentOrder?.projectName }</div>
               </div>
             </div>
 
-            { paymentStatus === 'invoicing' && (
+            { (paymentStatus === 'invoicing' || paymentStatus === 'expired') && (
               <>
-                <div className="payment-details__block">
-                  <div className="payment-details__product">
-                    <div className="payment-details__product-label">
-                      Наименование товара или услуги:
-                    </div>
 
-                    <p className="payment-details__product-descr">
-                      {paymentOrder?.name}
-                    </p>
+                { paymentOrder && paymentOrder.name && (
+                  <div className="payment-details__block">
+                    <div className="payment-details__product">
+                      <div className="payment-details__product-label">
+                        Наименование товара или услуги:
+                      </div>
+
+                      <p className="payment-details__product-descr">
+                        {paymentOrder?.name}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className="payment-details__block">
                   <div className="payment-details__row">
@@ -668,21 +1127,26 @@ export function PaymentPage() {
                     </div>
 
                     <div className="payment-details__row-text">
-                      2.500 AED
+                      {(paymentOrder?.amount && paymentOrder?.depositAmount) ? Number(paymentOrder.amount) - Number(paymentOrder.depositAmount) : paymentOrder?.amount} {paymentOrder?.currency.toUpperCase()}
                     </div>
                   </div>
 
                   <div className="payment-details__row-border"></div>
 
-                  <div className="payment-details__row">
-                    <div className="payment-details__row-label">
-                      Депозит:
-                    </div>
+                  { paymentOrder?.depositAmount && (
+                    <div className="payment-details__row">
+                      <div className="payment-details__row-label">
+                        Депозит:
+                      </div>
 
-                    <div className="payment-details__row-text">
-                      1.000 AED <span>(срок: 21 день)</span>
+                      <div className="payment-details__row-text">
+                        {paymentOrder?.depositAmount} {paymentOrder?.currency.toUpperCase()}
+                        {paymentOrder?.depositReturnTime ? (
+                          <span>{`(срок: ${paymentOrder?.depositReturnTime} день)`}</span>
+                        ) : ''}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </>
             )}
@@ -696,30 +1160,45 @@ export function PaymentPage() {
 
                   <div className="payment-details__sum-count">
                     {paymentOrder?.paymentData?.paymentAmount} <span>{paymentOrder?.paymentData?.currency}</span>
-                    <img src="/img/icons/file.svg" alt="" />
+                    {paymentOrder && paymentOrder.paymentData && (
+                      <CopyToClipboard text={paymentOrder.paymentData.paymentAmount} onCopy={handleLinkCopy}>
+                        <img src="/img/icons/file.svg" alt="" />
+                      </CopyToClipboard>
+                    )}
                   </div>
                 </div>
 
-                <div className="payment-details__commission">
-                  <div className="payment-details__commission-label">
-                    в том числе комиссия:
+                { paymentOrder && paymentOrder.paymentData && paymentOrder.paymentData.fee && (
+                  <div className="payment-details__commission">
+                    <div className="payment-details__commission-label">
+                      в том числе комиссия:
+                    </div>
+
+                    <p className="payment-details__commission-sum">
+                      { paymentOrder.paymentData.fee }
+                      <span>USDT</span>
+                    </p>
                   </div>
+                )}
 
-                  <p className="payment-details__commission-sum">
-                    7,45
-                    <span>USDT</span>
-                  </p>
-                </div>
+                { paymentOrder && paymentOrder.paymentData && (
+                  <div className="payment-details__qr">
 
-                <div className="payment-details__qr">
-                  <img className="payment-details__qr-img" src="/img/payment-qr.png" alt="" />
+                    <CopyToClipboard text={paymentOrder.paymentData.address} onCopy={handleLinkCopy}>
+                      <QRCode
+                        className="payment-details__qr-img payment-details__qr-img_fix"
+                        value={paymentOrder.paymentData.address}
+                        size={156}
+                      />
+                    </CopyToClipboard>
 
-                  <p className="payment-details__qr-descr">
-                    Отправьте точную сумму по указанному адресу. После совершения оплаты нажмите на кнопку «Я оплатил» для
-                    проверки
-                    транзакции.
-                  </p>
-                </div>
+                    <p className="payment-details__qr-descr">
+                      Отправьте точную сумму по указанному адресу. После совершения оплаты нажмите на кнопку «Я оплатил» для
+                      проверки
+                      транзакции.
+                    </p>
+                  </div>
+                )}
 
                 <div className="payment-details__group my-projects__group project-group">
                   <label className="my-projects__label project-label" htmlFor="#">
@@ -730,10 +1209,14 @@ export function PaymentPage() {
                     {paymentOrder?.paymentData?.address}
                   </p>
 
-                  <img className="payment-details__group-copy" src="/img/icons/file.svg" alt="" />
+                  {paymentOrder && paymentOrder.paymentData && (
+                    <CopyToClipboard text={paymentOrder.paymentData.address} onCopy={handleLinkCopy}>
+                      <img className="payment-details__group-copy" src="/img/icons/file.svg" alt="" />
+                    </CopyToClipboard>
+                  )}
                 </div>
 
-                <div className="payment-details__group my-projects__group project-group">
+                {/* <div className="payment-details__group my-projects__group project-group">
                   <label className="my-projects__label project-label" htmlFor="#">
                     ФИО владельца
                   </label>
@@ -741,7 +1224,7 @@ export function PaymentPage() {
                   <p className="project-label__text">
                     {paymentOrder?.paymentData?.chain}
                   </p>
-                </div>
+                </div> */}
               </div>) }
 
           </div>

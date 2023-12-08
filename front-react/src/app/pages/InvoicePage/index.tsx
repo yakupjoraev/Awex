@@ -8,102 +8,101 @@ import { useForm, Controller, useWatch } from "react-hook-form";
 import { InvoiceProjectSelector } from "./InvoiceProjectSelector";
 import { InvoiceCurrencySelector } from "./InvoiceCurrencySelector";
 import { getProjects } from "@store/projects/slice";
-import { AuthenticatedService, AuthorizedService } from "@awex-api";
+import { AuthorizedService } from "@awex-api";
 import toast from "react-hot-toast";
 import usePortal from "react-useportal";
 import { PaymentLinkModal } from "@components/PaymentLinkModal";
-import { DepositCurrencySelector } from "./DepositCurrencySelector";
 import classNames from "classnames";
 import { useLocation } from "react-router-dom";
 
 const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = [];
-
 const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] =
   [];
 
 interface InvoiceFormData {
   projectId?: string;
   name: string;
-  amount: number;
+  amount: string; //number
   currency: string;
   useConvertTo?: boolean;
   useDeposit?: boolean;
   depositCurrency?: string;
-  depositAmount?: number;
+  depositAmount?: string; //number
   depositReturnAt?: number;
 }
 
 export function InvoicePage() {
   const dispatch = useAppDispatch();
-
   const nameId = useId();
   const amountId = useId();
   const useConvertToId = useId();
   const useDepositId = useId();
   const depositAmountId = useId();
   const depositReturnAtId = useId();
-
   const projects = useAppSelector(
     (state) => state.projects.data || DEFAULT_PROJECTS
   );
   const projectsError = useAppSelector((state) => state.projects.error);
-
   const [depositCurrencies, depositCurrenciesLoading] =
     useCurrencies(DEFAULT_CURRENCIES);
-
   const [invoiceCurrencies, invoiceCurrenciesLoading] =
     useCurrencies(DEFAULT_CURRENCIES);
-
   const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false);
   const [paymentToken, setPaymentToken] = useState<string | null>(null);
   const [paymentDescription, setPaymentDescription] = useState<
     string | undefined
   >(undefined);
   const { Portal } = usePortal();
-  const location = useLocation()
+  const location = useLocation();
+
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<InvoiceFormData>({
+    resolver: yupResolver(invoiceFormValidator),
+  });
+  const useConvertToValue = useWatch({ control, name: "useConvertTo" });
+  const useDepositValue = useWatch({ control, name: "useDeposit" });
+
+  useEffect(() => {
+    setValue("depositCurrency", "usdt");
+  }, []);
 
   useEffect(() => {
     dispatch(getProjects());
   }, [dispatch]);
 
-  const {
-    register,
-    setValue,
-    setError,
-    handleSubmit,
-    control,
-    formState: { errors },
-    getValues,
-    reset,
-  } = useForm<InvoiceFormData>({
-    resolver: yupResolver(invoiceFormValidator),
-  });
-
-  const useConvertToValue = useWatch({ control, name: "useConvertTo" });
-  const useDepositValue = useWatch({ control, name: "useDeposit" });
-  
   useEffect(() => {
-    if(!location || !('state' in location) || !location.state || !('projectId' in location.state)) return
+    if (
+      !location ||
+      !("state" in location) ||
+      !location.state ||
+      !("projectId" in location.state)
+    )
+      return;
     setValue("projectId", location.state.projectId);
-  }, [location, projects, setValue])
+  }, [location, projects, setValue]);
 
   const handleInvoiceFormSubmit = handleSubmit((formData) => {
     let projectId: number | undefined = undefined;
     if (formData.projectId) {
       projectId = parseInt(formData.projectId, 10);
-      if (isNaN(projectId)) {
-        return;
-      }
+      if (isNaN(projectId)) return;
     }
-
     const name = formData.name;
-    const price = formData.amount;
+    const price = parseFloat(formData.amount);
     const currency = formData.currency;
     let buyerIdentifier: string | undefined = undefined;
     let depositAmount: number | undefined = undefined;
     if (formData.useDeposit) {
-      depositAmount = formData.depositAmount;
+      depositAmount = formData.depositAmount
+        ? parseFloat(formData.depositAmount)
+        : 0;
     }
+    const depositReturnTime = formData.depositReturnAt;
 
     AuthorizedService.orderCreate({
       name,
@@ -112,6 +111,7 @@ export function InvoicePage() {
       projectId,
       buyerIdentifier,
       depositAmount,
+      depositReturnTime,
     })
       .then((response) => {
         if (response.uniqueId) {
@@ -206,7 +206,7 @@ export function InvoicePage() {
                       </label>
                     </div>
 
-                    <div className="invoice-project__radio-container">
+                    {/* <div className="invoice-project__radio-container">
                       <div className="invoice-project__radio-group">
                         <input
                           className="invoice-project__radio"
@@ -247,10 +247,10 @@ export function InvoicePage() {
                           Крипто
                         </label>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
-                <Controller
+                {/* <Controller
                   control={control}
                   name="depositCurrency"
                   render={({ field }) => {
@@ -264,11 +264,27 @@ export function InvoicePage() {
                       />
                     );
                   }}
+                /> */}
+
+                <Controller
+                  name="depositCurrency"
+                  control={control}
+                  render={({ field }) => {
+                    return (
+                      <InvoiceCurrencySelector
+                        currency={field.value}
+                        currencies={depositCurrencies}
+                        loading={depositCurrenciesLoading}
+                        disabled={useConvertToValue !== true}
+                        onChange={field.onChange}
+                      />
+                    );
+                  }}
                 />
               </div>
             </div>
 
-            <div className="invoice-project__group invoice-project__group--transparent project-group">
+            {/* <div className="invoice-project__group invoice-project__group--transparent project-group">
               <div className="invoice-project__radios">
                 <div
                   className={classNames(
@@ -322,6 +338,49 @@ export function InvoicePage() {
                   </div>
                 </div>
               </div>
+            </div> */}
+
+            <div className="invoice-project__group invoice-project__group--transparent project-group">
+              <div className="invoice-project__radios">
+                <div className="invoice-project__label project-label">
+                  Комиссию оплачивает:
+                </div>
+
+                <div className="invoice-project__radio-container">
+                  <div className="invoice-project__radio-group">
+                    <input
+                      className="invoice-project__radio"
+                      type="radio"
+                      name="pay"
+                      id="radio12"
+                      defaultChecked
+                    />
+
+                    <label
+                      className="invoice-project__radio-label"
+                      htmlFor="radio12"
+                    >
+                      Мерчант
+                    </label>
+                  </div>
+
+                  <div className="invoice-project__radio-group">
+                    <input
+                      className="invoice-project__radio"
+                      type="radio"
+                      name="pay"
+                      id="radio13"
+                    />
+
+                    <label
+                      className="invoice-project__radio-label"
+                      htmlFor="radio13"
+                    >
+                      Клиент
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -359,10 +418,10 @@ export function InvoicePage() {
               <input
                 className="invoice-project__input project-input"
                 id={depositAmountId}
-                type="number"
+                type="text"
                 placeholder="Введите сумму депозита"
                 disabled={useDepositValue !== true}
-                {...register("depositAmount", { valueAsNumber: true })}
+                {...register("depositAmount")}
               />
               {errors.depositAmount?.message && (
                 <div className="project-error">
@@ -384,7 +443,7 @@ export function InvoicePage() {
                 )}
                 htmlFor={depositReturnAtId}
               >
-                Срок депозита
+                Срок депозита (суток)
               </label>
 
               <input
@@ -416,9 +475,9 @@ export function InvoicePage() {
                 <input
                   className="about-deposit__generation-input"
                   id={amountId}
-                  type="number"
+                  type="text"
                   placeholder="Введите сумму"
-                  {...register("amount", { valueAsNumber: true })}
+                  {...register("amount")}
                 />
               </div>
               <Controller

@@ -1,0 +1,334 @@
+.deposit-retention {
+
+  // .deposit-retention__inner
+
+  &__inner {
+    padding: 30px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+
+    @media (max-width: $breakpoint768) {
+      padding: 10px;
+    }
+  }
+
+  // .deposit-retention__info
+
+  &__info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    column-gap: 30px;
+    margin-bottom: 30px;
+
+    @media (max-width: $breakpoint768) {
+      flex-direction: column;
+      row-gap: 30px;
+    }
+  }
+
+  &__info--1200 {
+    @media (max-width: $breakpoint1200) {
+      flex-direction: column;
+      row-gap: 30px;
+    }
+  }
+
+  // .deposit-retention__deposit
+
+  &__deposit {
+    margin-right: 50px;
+
+    @media (max-width: $breakpoint1300) {
+      margin-right: 0;
+    }
+
+  }
+
+  // .deposit-retention__deposit-label
+
+  &__deposit-label {
+    margin-bottom: 5px;
+  }
+
+  // .deposit-retention__deposit-sum
+
+  &__deposit-sum {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 120%;
+
+    span {
+      margin-bottom: -5px;
+      font-size: 40px;
+      color: var(--grey-color-2);
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 36px;
+
+      span {
+        font-size: 30px;
+      }
+    }
+  }
+
+  // .deposit-retention__project
+
+  &__project {
+    margin-right: 30px;
+  }
+
+  // .deposit-retention__project-label
+
+  &__project-label {
+    font-weight: 600;
+    margin-bottom: 10px;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+  }
+
+  // .deposit-retention__project-name
+
+  &__project-name {
+    margin-bottom: 5px;
+    font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+  }
+
+  // .deposit-retention__project-link
+
+  &__project-link {
+    color: var(--text-color);
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+  }
+
+  // .deposit-retention__about
+
+  &__about {
+    display: flex;
+    // flex-direction: column;
+    column-gap: 30px;
+    row-gap: 20px;
+
+    @media (max-width: $breakpoint1200) {
+      flex-direction: column;
+      row-gap: 30px;
+      width: 100%;
+    }
+  }
+
+  // .deposit-retention__id
+
+  &__id {}
+
+  // .deposit-retention__label
+
+  &__label {
+    margin-bottom: 10px;
+    font-weight: 600;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+  }
+
+  // .deposit-retention__descr
+
+  &__descr {
+    max-width: 540px;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+  }
+
+  // .deposit-retention__comments
+
+  &__comments {}
+
+  // .deposit-retention__form
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+
+    @media (max-width: $breakpoint1200) {
+      flex-direction: row;
+      column-gap: 15px;
+    }
+
+    @media (max-width: $breakpoint768) {
+      flex-direction: column;
+    }
+  }
+
+  // .deposit-retention__checks-view
+
+  &__checks-view {
+    margin-bottom: 30px;
+  }
+
+  // .deposit-retention__checkbox
+
+  &__checkbox {}
+
+  // .deposit-retention__checkbox-decor
+
+  &__checkbox-decor {}
+
+  // .deposit-retention__checkbox-text
+
+  &__checkbox-text {}
+
+  // .deposit-retention__item-btns
+
+  &__item-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+
+    @media (max-width: $breakpoint1200) {
+      width: 100%;
+    }
+  }
+
+  // .deposit-retention__btn
+
+  &__btn {
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  // .deposit-retention__checked-moment
+
+  &__checked-moment {
+
+    // display: none;
+
+    .deposit-retention__btn {
+      width: fit-content;
+    }
+  }
+
+  // .deposit-retention__groups
+
+  &__groups {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 30px;
+    margin-bottom: 30px;
+
+    .about-deposit__generation-select:not(:last-child) {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: $breakpoint1200) {
+      grid-template-columns: repeat(1, 1fr);
+      row-gap: 15px;
+      margin-bottom: 15px;
+    }
+  }
+
+  // .deposit-retention__file
+
+  &__file {
+    position: relative;
+    padding: 10px 40px 10px 10px;
+    background: var(--bg-grey-color);
+    border-radius: 10px;
+  }
+
+  // .deposit-retention__file-input
+
+  &__file-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -100;
+    opacity: 0;
+  }
+
+  // .deposit-retention__file-label
+
+  &__file-label {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    cursor: pointer;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 13px;
+    }
+  }
+
+  // .deposit-retention__file-text
+
+  &__file-text {
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--grey-color-2);
+  }
+
+  // .deposit-retention__file-img
+
+  &__file-img {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+  }
+}
+
+.deposit-retention__info-groups {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+
+  // @media (max-width: $breakpoint1200) {
+  //   flex: 0 1 300px;
+  // }
+}
+
+.deposit-retention__info-group {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 130px;
+
+  p+p {
+    margin-top: 5px;
+  }
+
+
+  @media (max-width: $breakpoint1450) {
+    column-gap: 20px;
+  }
+
+  @media (max-width: 359px) {
+    flex-direction: column;
+    row-gap: 15px;
+  }
+}
+
+.deposit-retention__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.deposit-retention__item {}

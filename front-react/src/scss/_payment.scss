@@ -1,0 +1,421 @@
+.payment {
+  flex: 0 1 50%;
+  width: 100%;
+  padding: 60px;
+  background-color: var(--white-color);
+  border-radius: 10px;
+  height: 100%;
+
+  @media (max-width: $breakpoint1200) {
+    padding: 60px 60px 60px 40px;
+  }
+
+  @media (max-width: $breakpoint992) {
+    flex: 0 1 60%;
+    padding: 60px 30px;
+  }
+
+  @media (max-width: $breakpoint768) {
+    flex: 0 1 auto;
+    text-align: center;
+    padding: 0 12px 0;
+
+    overflow: hidden;
+  }
+
+  // .payment__logo
+
+  &__logo {
+    display: inline-flex;
+    margin-bottom: 55px;
+
+    @media (max-width: $breakpoint768) {
+      display: none;
+    }
+  }
+
+  // .payment__logo-img
+
+  &__logo-img {}
+
+  // .payment__from
+
+  &__from {}
+}
+
+.payment-form {
+  max-width: 550px;
+
+  @media (max-width: $breakpoint768) {
+    max-width: 100%;
+  }
+
+  // .payment-form__group
+
+  &__group {
+    margin-bottom: 45px;
+
+    @media (max-width: $breakpoint1300) {
+      margin-bottom: 35px;
+    }
+
+  }
+
+  // .payment-form__label
+
+  &__label {
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  // .payment-form__radios
+
+  &__radios {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 15px;
+
+    @media (max-width: $breakpoint768) {
+      flex-wrap: wrap;
+      row-gap: 10px;
+    }
+  }
+
+  // .payment-form__radio
+
+  &__radio {}
+
+  // .payment-form__radio-input
+
+  &__radio-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -100;
+    opacity: 0;
+
+    &:checked~.payment-form__radio-label {
+      color: var(--text-color);
+    }
+  }
+
+  // .payment-form__radio-label
+
+  &__radio-label {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 120%;
+    color: var(--grey-color);
+    cursor: pointer;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 16px;
+    }
+
+  }
+
+  // .payment-form__radio-pic
+
+  &__radio-pic {
+    cursor: pointer;
+  }
+
+  & .about-deposit__generation-input {
+    font-size: 36px;
+    line-height: 120%;
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 24px;
+    }
+
+  }
+
+  & .about-deposit__generation-curr {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  & .my-projects__group {
+    margin-bottom: 15px;
+  }
+}
+
+.payment-form {
+
+  // .payment-form__btns
+
+  &__btns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  // .payment-form__btn
+
+  &__btn {
+    height: 46px;
+    padding: 10px;
+
+    transition: transform 0.2s linear;
+
+    &:hover {
+      transform: scale(1.06);
+    }
+  }
+
+  // .payment-form__footer
+
+  &__footer {
+
+    a {
+      text-decoration: underline;
+      color: var(--text-color);
+    }
+  }
+}
+
+.blue-btn {
+  border-radius: 10px;
+  background-color: var(--blue-color);
+}
+
+.payment-form__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 20px;
+
+  @media (max-width: $breakpoint1300) {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+}
+
+.payment-form__label-link {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+.payment__wait {
+  max-width: 485px;
+
+  @media (max-width: $breakpoint768) {
+    max-width: 100%;
+  }
+}
+
+.payment__wait-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 15px;
+  margin-bottom: 15px;
+
+  @media (max-width: $breakpoint768) {
+    flex-direction: column-reverse;
+    row-gap: 16px;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.payment__wait-img {
+  animation: spinner 3s linear infinite;
+}
+
+.invoice-project__group-selects {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+
+  @media (max-width: $breakpoint768) {
+    flex-direction: column;
+  }
+}
+
+.invoice-project__group-select-arrow {
+  width: 10px;
+  height: 12px;
+}
+
+.payment__from {
+  & .invoice-project__group-select {
+    margin-bottom: 15px;
+  }
+}
+
+.payment-form__info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3px;
+}
+
+.payment-form__info-label {
+  font-weight: 600;
+  line-height: 120%;
+
+  @media (max-width: $breakpoint1300) {
+    font-size: 13px;
+  }
+}
+
+.payment-form__inf-descr {
+
+  @media (max-width: $breakpoint1300) {
+    font-size: 13px;
+  }
+}
+
+.payment-form__btn--2 {
+  grid-column: span 2;
+}
+
+.about-deposit__generation-val {
+  padding: 10px 20px;
+  border-radius: 100px;
+  background-color: var(--text-color);
+  font-weight: 600;
+  color: var(--white-color);
+}
+
+.payment__wait--cash {
+  max-width: 620px;
+
+  & .payment__wait-header {
+    margin-bottom: 45px;
+
+    @media (max-width: $breakpoint1300) {
+      margin-bottom: 35px;
+    }
+
+    @media (max-width: $breakpoint768) {
+      flex-direction: column-reverse;
+      row-gap: 16px;
+      margin-bottom: 25px;
+    }
+  }
+
+  & .payment-form__info {
+    margin-bottom: 45px;
+
+    @media (max-width: $breakpoint1300) {
+      margin-bottom: 35px;
+    }
+
+    @media (max-width: $breakpoint768) {
+      margin-bottom: 25px;
+    }
+  }
+
+
+}
+
+.payment__wait-link {
+  width: fit-content;
+
+  @media (max-width: $breakpoint768) {
+    margin: 0 auto;
+  }
+}
+
+.payment__wait--dedline {
+  & .payment__wait-header {
+    justify-content: flex-start;
+
+    @media (max-width: $breakpoint768) {
+      justify-content: center;
+    }
+  }
+}
+
+
+.payment-form__btns--center {
+  display: flex;
+  justify-content: center;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip:after,
+.tooltip:before {
+  opacity: 0;
+  pointer-events: none;
+  bottom: 100%;
+  left: 50%;
+  position: absolute;
+  z-index: 10;
+  transform: translate(-50%, 10px);
+  transform-origin: top;
+  transition: all 0.18s ease-out 0.18s;
+}
+
+.tooltip:after {
+  border-radius: 10px;
+  background: rgba(254, 214, 2, 0.20);
+  content: attr(data-tooltip);
+  padding: 15px 20px;
+  white-space: nowrap;
+  margin-bottom: 11px;
+  font-size: 13px;
+}
+
+.tooltip:before {
+  width: 0;
+  height: 0;
+  content: "";
+  margin-bottom: 6px;
+}
+
+.tooltip:hover:before,
+.tooltip:hover:after {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+
+[data-tooltip-pos="right"]:before {
+  border-top: 6px solid transparent;
+  border-right: 6px solid #f5f5f5;
+  border-bottom: 6px solid transparent;
+  margin-left: 6px;
+}
+
+
+[data-tooltip-pos="right"]:before,
+[data-tooltip-pos="right"]:after {
+  bottom: auto;
+  left: 100%;
+  top: 50%;
+  transform: translate(-10px, -50%);
+}
+
+[data-tooltip-pos="right"]:after {
+  margin-left: 11px;
+}
+
+[data-tooltip-pos="right"]:hover:before,
+[data-tooltip-pos="right"]:hover:after {
+  transform: translate(0, -50%);
+}
+
+
+
+[data-tooltip-length="medium"]:after {
+  width: 300px;
+}
+
+.about-deposit__generation-select--white {
+  background-color: var(--white-color);
+  border: 1px solid var(--grey-color);
+}

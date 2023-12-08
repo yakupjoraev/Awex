@@ -1,3 +1,7 @@
+.d-none {
+  display: none !important;
+}
+
 .project-error {
   font-family: Raleway, sans-serif;
   font-weight: 400;
@@ -219,4 +223,15 @@
 .rc-tooltip-placement-leftTop,
 .rc-tooltip-placement-leftBottom {
   padding: 0 4px 0 5px;
+}
+
+.payment-details__qr-img_fix {
+  min-width: 100px;
+  border-radius: 0;
+}
+
+@media (max-width: 767.98px) { 
+  .payment-details__qr-img_fix {
+    min-width: 70px;
+  }
 }

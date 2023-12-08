@@ -1,0 +1,206 @@
+@import "./vars"
+
+.d-none
+  display: none !important
+
+.project-error
+  font-family: Raleway, sans-serif
+  font-weight: 400
+  font-size: 13px
+  color: red
+  margin-top: 10px
+
+.sidebar__menu-sublink.active::before
+  z-index: -1
+
+.my-projects__error
+  font-family: Raleway, sans-serif
+  font-weight: 400
+  font-size: 13px
+  color: red
+  margin-bottom: 10px
+
+.my-projects__group-selected--disabled
+  color: var(--grey-color-2)
+
+.settings-notifications .project-group:not(:last-child)
+  margin-bottom: 10px
+
+.settings-notifications__checkboxes-errored
+  margin-bottom: 0
+
+.settings-notifications__checkboxes-error
+  font-family: Raleway, sans-serif
+  font-weight: 400
+  font-size: 13px
+  color: red
+  margin-top: 10px
+  margin-bottom: 35px
+
+.modal-content__error
+  font-family: Raleway, sans-serif
+  font-weight: 400
+  font-size: 13px
+  color: red
+  margin-top: 10px
+
+.settings-profile__user-back
+  cursor: pointer
+
+.settings-security__input-error
+  margin-bottom: 10px
+
+.resend-btn
+  background-color: unset
+  cursor: pointer
+  color: var(--text-color)
+  display: block
+  margin-top: 5px
+
+.resend-btn:hover
+  color: var(--second-color)
+
+/* _base.scss */
+.select-list.active
+  max-height: 200px
+
+.search-apply-btn
+  position: absolute
+  top: 5px
+  right: 15px
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 5px 7px
+  background-color: var(--bg-grey-color)
+  border: 1px solid var(--bg-grey-color)
+  border-radius: 10px
+  font-family: Raleway, sans-serif
+  font-weight: 600
+  font-size: 12px
+  line-height: 120%
+  color: var(--text-color)
+  display: none
+
+.search-apply-btn:hover
+  color: var(--grey-color)
+
+.search-apply-btn--active
+  display: flex
+
+.wrapper-spinner
+  display: flex
+  justify-content: center
+  align-items: center
+
+/* admin-marchants.scss */
+.admin-marchants__item-action-btn
+  fill: #292421
+
+.admin-marchants__item-action-btn--mute
+  fill: #d1d1d1
+
+/* _admin-marchants.scss */
+.admin-marchants__item-statistic
+  color: #000
+
+/* _admin-statistics.scss */
+.admin-statistic__form-arrow
+  transition: transform 0.2s linear
+
+.admin-statistic__form-arrow--active
+  transform: rotate(180deg)
+
+/* _modals.scss */
+.modal-content__qr
+  background-color: var(--white-color)
+  display: flex
+  justify-content: center
+  align-items: center
+  aspect-ratio: 1/1
+
+.modal-content__qr-img
+  width: 80%
+  height: auto
+
+.modal-content__not-supported
+  text-align: center
+  color: var(--grey-color-2)
+  padding: 5px 0
+
+/* _successfully-invoice.scss */
+.successfully-invoice__item-code
+  color: var(--text-color)
+/* _deposits.scss */
+
+.deposits__filter-select
+  min-width: 160px
+
+/* _invoice.scss */
+.invoice-project__group--disabled
+  background-color: var(--bg-color)
+
+.invoice-project__label--disabled
+  color: var(--grey-color)
+
+.invoice-project__input:disabled::placeholder
+  color: var(--grey-color)
+
+.invoice-project__group-select--disabled
+  color: var(--grey-color)
+
+.invoice-project__group-selected--disabled
+  background-color: var(--bg-color)
+
+.invoice-project__group-select-arrow
+  fill: currentColor
+
+.invoice-project__radio-label--disabled
+  color: var(--bg-grey-color)
+
+.invoice-project__radio:checked ~ .invoice-project__radio-label--disabled
+  color: var(--grey-color)
+
+/* rc-tooltip/assets/bootstrap.css */
+.rc-tooltip-placement-top,
+.rc-tooltip-placement-topLeft,
+.rc-tooltip-placement-topRight
+  padding: 5px 0 4px 0
+
+.rc-tooltip-placement-right,
+.rc-tooltip-placement-rightTop,
+.rc-tooltip-placement-rightBottom
+  padding: 0 5px 0 4px
+
+.rc-tooltip-placement-bottom,
+.rc-tooltip-placement-bottomLeft,
+.rc-tooltip-placement-bottomRight
+  padding: 4px 0 5px 0
+
+.rc-tooltip-placement-left,
+.rc-tooltip-placement-leftTop,
+.rc-tooltip-placement-leftBottom 
+  padding: 0 4px 0 5px
+
+.payment-details__qr-img_fix
+  min-width: 100px
+  border-radius: 0
+
+@media (max-width: 767.98px) 
+  .payment-details__qr-img_fix
+    min-width: 70px
+
+.validtext
+  font-size: 11px
+  font-weight: bold
+  text-transform: uppercase
+  &_notvalidate,
+  &_onvalidate,
+  &_rejected
+    @extend .validtext
+  &_notvalidate
+    color: var(--error-color)
+  &_onvalidate
+    color: var(--dark-yellow)
+  &_rejected
+    color: var(--error-color)

@@ -3,15 +3,17 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Project } from './Project';
-import type { ProjectValidationAdmin } from './ProjectValidationAdmin';
+import type { Project } from "./Project";
+import type { ProjectValidationAdmin } from "./ProjectValidationAdmin";
 
 export type ProjectListAdmin = {
-    /**
-     * record id
-     */
-    id?: number;
-    data?: Project;
-    draft?: Project;
-    validation?: ProjectValidationAdmin;
+  /**
+   * record id
+   */
+  id?: number;
+  user_id?: number;
+  data?: Project;
+  draft?: Project;
+  validation_requested_at?: number | null;
+  validation?: ProjectValidationAdmin;
 };

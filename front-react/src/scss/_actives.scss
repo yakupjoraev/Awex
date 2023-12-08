@@ -1,0 +1,257 @@
+.actives-check {
+  flex: 0 0 502px;
+  width: 100%;
+  padding: 70px 30px;
+
+  @media (max-width: $breakpoint1720) {
+    flex: 0 0 442px;
+  }
+
+  @media (max-width: $breakpoint1300) {
+    flex: 0 0 400px;
+    padding: 70px 15px;
+  }
+
+  @media (max-width: $breakpoint1200) {
+    flex: 0 0 310px;
+    padding: 70px 10px;
+  }
+
+  @media (max-width: $breakpoint992) {
+    flex: 0 0 280px;
+  }
+
+  @media (max-width: $breakpoint768) {
+    flex: 0 1 auto;
+
+    padding-bottom: 160px;
+  }
+
+  // .actives-check__back
+
+  &__back {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    width: fit-content;
+    margin-bottom: 25px;
+
+    font-weight: 400;
+    line-height: 120%;
+    font-size: 13px;
+    color: var(--text-color);
+
+    transition: font-weight 0.2s linear;
+
+    &:hover {
+      font-weight: 600;
+
+      .actives-check__back-pic {
+        transform: translateX(-5px);
+      }
+    }
+
+    @media (max-width: $breakpoint1300) {
+      margin-bottom: 30px;
+    }
+  }
+
+  // .actives-check__back-pic
+
+  &__back-pic {
+    transition: transform 0.2s linear;
+  }
+
+  // .actives-check__main
+
+  &__main {
+    margin-bottom: 25px;
+  }
+
+  // .actives-check__currency
+
+  &__currency {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  // .actives-check__currency-pic
+
+  &__currency-pic {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    object-fit: contain;
+  }
+
+  // .actives-check__currency-name
+
+  &__currency-name {
+    margin-bottom: 2px;
+    font-weight: 600;
+    line-height: 120%;
+    font-size: 16px;
+  }
+
+  // .actives-check__currency-subname
+
+  &__currency-subname {
+    margin-bottom: 15px;
+  }
+
+  // .actives-check__count
+
+  &__count {
+    text-align: center;
+    font-weight: 500;
+    line-height: 120%;
+    font-size: 44px;
+    color: var(--text-color);
+    font-variant-numeric: lining-nums proportional-nums;
+    font-feature-settings: 'liga'off;
+
+    span {
+      display: block;
+      margin: 0 auto;
+
+      font-weight: 400;
+      line-height: 120%;
+      font-size: 13px;
+      color: var(--grey-color-2);
+    }
+
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 36px;
+
+    }
+  }
+
+  // .actives-check__actions
+
+  &__actions {
+    display: grid;
+    column-gap: 6px;
+    margin-bottom: 15px;
+  }
+
+  &__actions--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__actions--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // .actives-check__action
+
+  &__action {
+    display: grid;
+    row-gap: 2px;
+    justify-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--grey-color-3);
+
+    font-weight: 600;
+    line-height: 120%;
+    font-size: 13px;
+    color: var(--grey-color-2);
+
+    transition: background-color 0.2s linear;
+    cursor: pointer;
+
+    &.active {
+      background-color: var(--second-color);
+      color: var(--text-color);
+    }
+
+    &:hover {
+      background-color: var(--second-color);
+    }
+  }
+
+  // .actives-check__action-pic
+
+  &__action-pic {}
+
+  // .actives-check__action-text
+
+  &__action-text {
+    text-align: center;
+  }
+
+  // .actives-check__history
+
+  &__history {}
+
+  // .actives-check__history-label
+
+  &__history-label {
+    margin-bottom: 10px;
+    padding: 0 10px;
+    font-weight: 600;
+    line-height: 120%;
+    font-size: 13px;
+  }
+
+  // .actives-check__history-list
+
+  &__history-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  // .actives-check__history-item
+
+  &__history-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    column-gap: 14px;
+    padding: 5px 10px;
+  }
+
+  // .actives-check__history-info
+
+  &__history-info {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  // .actives-check__history-pic
+
+  &__history-pic {
+    width: 15px;
+    min-width: 15px;
+    height: 15px;
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  // .actives-check__history-descrs
+
+  &__history-descrs {}
+
+  // .actives-check__history-descr
+
+  &__history-descr {
+    font-size: 13px;
+  }
+
+  // .actives-check__history-counts
+
+  &__history-counts {
+    text-align: right;
+  }
+
+  // .actives-check__history-item--withdrawal
+
+  &__history-item--withdrawal {}
+}

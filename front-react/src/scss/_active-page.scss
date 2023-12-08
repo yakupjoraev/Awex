@@ -1,0 +1,41 @@
+.active-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.page-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.page-list__link {
+  user-select: none;
+  color: var(--grey-color);
+  cursor: pointer;
+  transition: color .3s;
+  &:hover {
+    color: var(--text-color);
+  }
+}
+
+.page-list__item {
+
+  &.active .page-list__link {
+    color: var(--text-color);
+    cursor: default;
+
+    &::before {
+      content: "[";
+    }
+
+    &::after {
+      content: "]";
+    }
+
+  }
+}
+

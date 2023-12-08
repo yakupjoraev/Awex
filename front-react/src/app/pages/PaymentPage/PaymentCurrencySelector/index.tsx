@@ -6,7 +6,7 @@ export interface PaymentCurrencySelectorProps {
   loading?: boolean;
   currency?: string;
   currencies?: { currency: string; name?: string; rate?: string; chain?: string; }[];
-  onChange?: (value: string, chain?: string | null) => void;
+  onChange: (value: string, chain?: string | null) => any;
 }
 
 export function PaymentCurrencySelector(props: PaymentCurrencySelectorProps) {

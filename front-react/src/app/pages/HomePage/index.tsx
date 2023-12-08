@@ -1,21 +1,19 @@
-import React from "react";
-import { Helmet } from "react-helmet-async";
-import { HistoryOperations } from "./HistoryOperations";
-import { MyActives } from "./MyActives";
-import { AboutCheckDeposit } from "./AboutCheckDeposit";
-import { AboutCheckBalance } from "./AboutCheckBalance";
+import React, { useEffect, useState } from "react"
+import { Helmet } from "react-helmet-async"
+import { HistoryOperations } from "./HistoryOperations"
+import { MyActives } from "./MyActives"
+import { InvoiceLight } from "../../components/InvoiceLight"
+import { CheckBalance } from "./CheckBalance"
+import { GenerationLinksModal } from "@components/GenerationLinksModal"
+import { AccountNotifications } from "@components/AccountNotifications"
+import { ActiveAccounts } from "./ActiveAccounts"
 
 export function HomePage() {
-  const projects = [
-    { id: "0", name: "Проект 1" },
-    { id: "1", name: "Проект 2" },
-    { id: "2", name: "Проект 3" },
-  ];
+  const [isGenerationLinksModal, setIsGenerationLinksModal] = useState<boolean>(false)
 
   const handleGeneratePaymentLink = () => {
-    // TODO: show modal
-    alert("NOT IMPLEMENTED");
-  };
+    setIsGenerationLinksModal(true)
+  }
 
   return (
     <div className="wrapper">
@@ -35,45 +33,10 @@ export function HomePage() {
           <div className="main-content__header">
             <div className="main-content__check about-check">
               <div className="about-check__header">
-                <div className="about-check__info">
-                  <div className="about-check__info-top">
-                    <h4 className="about-check__info-title">Активные счета:</h4>
 
-                    <span className="about-check__info-sum">350</span>
-                  </div>
+                <ActiveAccounts />
 
-                  <div className="about-check__info-labels">
-                    <div className="about-check__info-label">На сумму:</div>
-                    <div className="about-check__info-label">1.789.567.57</div>
-                  </div>
-                </div>
-
-                <div className="about-check__info">
-                  <div className="about-check__info-top">
-                    <h4 className="about-check__info-title">
-                      Активные депозиты:
-                    </h4>
-
-                    <span className="about-check__info-sum">350</span>
-                  </div>
-
-                  <div className="about-check__info-labels">
-                    <div className="about-check__info-label">На сумму:</div>
-                    <div className="about-check__info-label">1.789.567.57</div>
-                  </div>
-                </div>
-
-                <div className="about-deposit__header">
-                  <div className="about-deposit__header-notif">
-                    <img src="/img/icons/bell.svg" alt="" />
-                    Новые уведомления
-                    <span>350</span>
-                  </div>
-
-                  <div className="about-deposit__header-info">
-                    Закончился срок депозита по заявке №123...
-                  </div>
-                </div>
+                <AccountNotifications />
 
                 <div
                   className="generate__link"
@@ -84,11 +47,13 @@ export function HomePage() {
                 </div>
               </div>
 
-              <AboutCheckBalance />
+              <CheckBalance />
 
-              <AboutCheckDeposit
-                projects={projects}
-                onGeneratePaymentLink={handleGeneratePaymentLink}
+              <InvoiceLight isMobile={false} />
+
+              <GenerationLinksModal
+                open={isGenerationLinksModal}
+                onClose={() => setIsGenerationLinksModal(false)}
               />
             </div>
           </div>
@@ -99,5 +64,5 @@ export function HomePage() {
         </div>
       </section>
     </div>
-  );
+  )
 }

@@ -6,6 +6,7 @@ export interface InvoiceCurrencySelectorProps {
   loading?: boolean;
   currency?: string;
   currencies?: { currency: string; name?: string; rate?: string }[];
+  disabled?: boolean;
   onChange?: (value: string) => void;
 }
 
@@ -14,6 +15,9 @@ export function InvoiceCurrencySelector(props: InvoiceCurrencySelectorProps) {
   const [opened, setOpened] = useState(false);
 
   const handleSelectorClick = () => {
+    if (props.disabled) {
+      return;
+    }
     setOpened(true);
   };
 
@@ -24,7 +28,9 @@ export function InvoiceCurrencySelector(props: InvoiceCurrencySelectorProps) {
   return (
     <>
       <div
-        className="about-deposit__generation-currency open-modal-btn"
+        className={`about-deposit__generation-currency open-modal-btn ${
+          props.disabled ? "about-deposit__generation-currency--disabled" : ""
+        }`}
         onClick={handleSelectorClick}
       >
         <div className="about-deposit__generation-curr">

@@ -1,18 +1,8 @@
-/* generated using openapi-typescript-codegen -- do no edit */
-/* istanbul ignore file */
-/* tslint:disable */
-/* eslint-disable */
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from '../core/CancelablePromise'
+import { OpenAPI } from '../core/OpenAPI'
+import { request as __request } from '../core/request'
 
 export class CommonService {
-
-    /**
-     * API Information
-     * @returns any API Information
-     * @throws ApiError
-     */
     public static info(): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -20,29 +10,13 @@ export class CommonService {
         });
     }
 
-    /**
-     * endpoint for user registration
-     * User registration
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static registration(
         requestBody: {
-            /**
-             * password
-             */
-            password: string;
-            /**
-             * email
-             */
-            email: string;
+            password: string
+            email: string
         },
     ): CancelablePromise<{
-        /**
-         * request result
-         */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -55,41 +29,17 @@ export class CommonService {
         });
     }
 
-    /**
-     * endpoint for user authentication
-     * User login
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static login(
         requestBody: {
-            /**
-             * password
-             */
-            password: string;
-            /**
-             * email
-             */
-            email: string;
+            password: string
+            email: string
         },
     ): CancelablePromise<{
-        /**
-         * either email is verified or not, if true - jwt token is provided
-         */
-        verified?: boolean;
-        /**
-         * is provided only if email is verified should be used in "Authorization" header ( "Bearer token" ) for non common endpoints
-         */
-        token?: string;
-        /**
-         * unix timestamp until token is valid
-         */
-        expiration?: number;
-        /**
-         * true if 2FA is on, if true request to the | /account/otp/login with otp should be sent
-         */
-        otpRequired?: boolean;
+        sessionId?: number
+        verified?: boolean
+        token?: string
+        expiration?: number
+        otpRequired?: boolean
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -102,33 +52,14 @@ export class CommonService {
         });
     }
 
-    /**
-     * endpoint for password strength check
-     * password strength check
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static passwordStrength(
         requestBody: {
-            /**
-             * password
-             */
-            password: string;
+            password: string
         },
     ): CancelablePromise<{
-        /**
-         * password strength score (0, 1, 2, 3)
-         */
-        score?: number;
-        /**
-         * password strength description (very weak, weak, medium, strong)
-         */
-        strength?: string;
-        /**
-         * true if valid for usage in application (medium, strong)
-         */
-        valid?: boolean;
+        score?: number
+        strength?: string
+        valid?: boolean
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -141,25 +72,12 @@ export class CommonService {
         });
     }
 
-    /**
-     * endpoint for email confirmation
-     * email confirmation
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static confirm(
         requestBody: {
-            /**
-             * confirmation code from link in email message
-             */
-            code: string;
+            code: string
         },
     ): CancelablePromise<{
-        /**
-         * request result
-         */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -172,25 +90,12 @@ export class CommonService {
         });
     }
 
-    /**
-     * endpoint for confirmation email resending request
-     * confirmation email resending request
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static resend(
         requestBody: {
-            /**
-             * email
-             */
-            email: string;
+            email: string
         },
     ): CancelablePromise<{
-        /**
-         * request result
-         */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -203,25 +108,12 @@ export class CommonService {
         });
     }
 
-    /**
-     * endpoint for password reset email sending request
-     * password reset email sending request
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static send(
         requestBody: {
-            /**
-             * email
-             */
-            email: string;
+            email: string
         },
     ): CancelablePromise<{
-        /**
-         * request result
-         */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -235,29 +127,13 @@ export class CommonService {
         });
     }
 
-    /**
-     * endpoint for reset token obtaining
-     * reset token obtaining
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static resetConfirm(
         requestBody: {
-            /**
-             * reset code from link in email message
-             */
-            code: string;
+            code: string
         },
     ): CancelablePromise<{
-        /**
-         * should be used for password reset life time 1 hour
-         */
-        resetToken?: string;
-        /**
-         * request result
-         */
-        message?: string;
+        resetToken?: string
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -270,33 +146,14 @@ export class CommonService {
         });
     }
 
-    /**
-     * endpoint for password reset
-     * password reset
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static passwordReset(
         requestBody: {
-            /**
-             * password
-             */
-            resetToken: string;
-            /**
-             * old password
-             */
-            oldPassword: string;
-            /**
-             * new password
-             */
-            password: string;
+            resetToken: string
+            oldPassword: string
+            password: string
         },
     ): CancelablePromise<{
-        /**
-         * request result
-         */
-        message?: string;
+        message?: string
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -309,25 +166,12 @@ export class CommonService {
         });
     }
 
-    /**
-     * endpoint for a team membership confirmation
-     * team membership confirmation
-     * @param requestBody 
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static teamMembershipConfirmation(
         requestBody: {
-            /**
-             * confirmation code from link sent to email
-             */
-            code: string;
+            code: string
         },
         ): CancelablePromise<{
-            /**
-             * request result description
-             */
-            message?: string;
+            message?: string
         }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -336,32 +180,35 @@ export class CommonService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         });
     }
 
-    /**
-     * endpoint for getting payment data for order
-     * getting payment data for order
-     * @param uniqueId order public unique id
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static orderPaymentGet(
-        uniqueId: string,
+        uniqueId: string
     ): CancelablePromise<{
         amount?: number
+        depositAmount: number
+        depositReturnTime: number
+        expiredDate: number
         expired: boolean
         name?: string
         paid: boolean
+        projectName: string
+        merchantName: string
         paymentData?: {
             type: string
             chain: string
             currency: string
             paymentAmount: string
             address: string
+            fee: string
+            depositWithdrawCurrency: string
+            depositWithdrawChain: string
+            depositWithdrawAddress: string
+            cryptoPaymentAddressId: number
         }
     }> {
         return __request(OpenAPI, {
@@ -371,96 +218,36 @@ export class CommonService {
                 'uniqueId': uniqueId,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         });
     }
 
-    
-    // /**
-    //  * endpoint for creating users by admin with granting admin roles
-    //  * creating users by admin with granting admin roles
-    //  * @param uniqueId order public unique id
-    //  * @param requestBody 
-    //  * @returns any request succeeded
-    //  * @throws ApiError
-    //  */
-    // public static orderPaymentPost(
-    //     uniqueId: string,
-    //     requestBody: {
-    //         type: string;
-    //         currency: string;
-    //         chain: string | null | undefined;
-    //     },
-    // ): CancelablePromise<{
-    //     amount: string | undefined,
-    //     paymentData: {
-    //         paymentAmount: string | undefined,
-    //         currency: string | undefined,
-    //         chain: string | undefined,
-    //         address: string | undefined
-    //     }
-    // }> {
-    //     return __request(OpenAPI, {
-    //         method: 'POST',
-    //         url: '/order/payment/{uniqueId}',
-    //         path: {
-    //             'uniqueId': uniqueId,
-    //         },
-    //         body: requestBody,
-    //         mediaType: 'application/json',
-    //         errors: {
-    //             403: `request failed`,
-    //         },
-    //     });
-    // }
-
-    /**
-     * endpoint for setting payment data for order
-     * setting payment data for order
-     * @param uniqueId order public unique id
-     * @param requestBody 
-     * @returns any payment data
-     * @throws ApiError
-     */
     public static orderPaymentSet(
         uniqueId: string,
         requestBody: {
-            /**
-             * payment type
-             */
-            type: string //'fiat' | 'crypto';
-            /**
-             * payment asset name
-             */
-            currency: string;
-            /**
-             * payment asset network identifier
-             */
-            chain: string;
+            type: string //'fiat' | 'crypto'
+            currency: string
+            chain: string
+            depositWithdrawCurrency: string
+            depositWithdrawChain: string
+            depositWithdrawAddress: string
         },
     ): CancelablePromise<{
-        /**
-         * amount to be paid
-         */
-        amount?: number;
+        amount?: number
         paymentData?: {
             type: string,
-            paymentAmount: string;
-            /**
-             * payment asset name
-             */
-            currency: string;
-            /**
-             * payment asset network identifier
-             */
-            chain: string;
-            /**
-             * payment address
-             */
-            address: string;
-        };
+            paymentAmount: string
+            currency: string
+            chain: string
+            address: string
+            fee: string
+            depositWithdrawCurrency: string
+            depositWithdrawChain: string
+            depositWithdrawAddress: string
+            cryptoPaymentAddressId: number
+        }
     }> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -472,33 +259,38 @@ export class CommonService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
-        });
+        })
     }
 
-    /**
-     * endpoint for getting available currencies list
-     * available currencies list
-     * @param amount payment amount in usdt
-     * @returns any request succeeded
-     * @throws ApiError
-     */
+    public static orderPaymentWithdrawCurrencies(): CancelablePromise<{
+        currencies: Array<{
+            currency: string
+            name: string
+            rate: string
+            chain: string
+            chainName: string
+        }>
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/order/payment/withdraw-currencies',
+            errors: {
+                403: `Forbidden`,
+            },
+        })
+    }
+
     public static paymentCurrencies(
         amount?: string,
     ): CancelablePromise<{
         currencies?: Array<{
-            currency: string;
-            name: string;
-            rate: string;
-            /**
-             * chain unique name, should be passed for
-             */
-            chain: string;
-            /**
-             * display name for a chain
-             */
-            chainName: string;
+            currency: string
+            name: string
+            rate: string
+            chain: string
+            chainName: string
         }>;
     }> {
         return __request(OpenAPI, {
@@ -508,40 +300,27 @@ export class CommonService {
                 'amount': amount,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         });
     }
 
-    /**
-     * endpoint for getting rate of payment currency in usdt
-     * rate of payment currency in usdt
-     * @param amount payment amount in usdt
-     * @param rate payment currency rate in usdt
-     * @returns any request succeeded
-     * @throws ApiError
-     */
     public static paymentUsdtRate(
         amount: string,
-        rate: string,
+        currency: string,
     ): CancelablePromise<{
-        currencies?: Array<{
-            currency?: string;
-            name?: string;
-            rate?: string;
-        }>;
-    }> {
+        rate: string
+      }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/payment/usdt-rate',
             query: {
                 'amount': amount,
-                'rate': rate,
+                'currency': currency,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
-        });
+        })
     }
-
 }

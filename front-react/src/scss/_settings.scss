@@ -1,0 +1,128 @@
+.settings {
+
+  // .settings__inner
+
+  &__inner {}
+
+  // .settings__list
+
+  &__list {
+    position: relative;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 25px;
+
+    @media (max-width: $breakpoint768) {
+      display: flex;
+      flex-direction: column;
+      max-height: 40px;
+      overflow: hidden;
+      padding: 10px 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background-color: var(--text-color);
+
+      transition: max-height 0.3s linear, overflow 1s linear;
+
+      &.show {
+        max-height: 300px;
+        overflow: visible;
+
+        .settings__list-arrow {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  // .settings__item
+
+  &__item {
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 120%;
+    color: var(--grey-color);
+
+    transition: color 0.2s linear;
+
+    &.active {
+      color: var(--text-color);
+
+      @media (max-width: $breakpoint768) {
+        color: var(--white-color);
+      }
+    }
+
+    &:hover {
+      color: var(--text-color);
+
+      @media (max-width: $breakpoint768) {
+        color: var(--white-color);
+      }
+    }
+
+    @media (max-width: $breakpoint1300) {
+      font-size: 16px;
+    }
+
+    @media (max-width: $breakpoint768) {
+      padding: 15px 0;
+      width: 100%;
+
+      &:not(:first-child) {
+        border-bottom: 1px solid var(--grey-color-2);
+      }
+
+      &:first-child {
+        padding: 0 0 10px;
+      }
+
+      &:last-child {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 10px;
+      }
+
+    }
+  }
+
+  // .settings__content
+
+  &__content {}
+
+  // .settings__user
+
+  &__user {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  // .settings__user-img
+
+  &__user-img {}
+
+  // .settings__user-name
+
+  &__user-name {}
+
+  // .settings__user-id
+
+  &__user-id {}
+}
+
+.settings__list-arrow {
+  display: none;
+
+  @media (max-width: $breakpoint768) {
+    display: flex;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    background-color: transparent;
+    cursor: pointer;
+
+    transition: transform 0.2s linear;
+  }
+}

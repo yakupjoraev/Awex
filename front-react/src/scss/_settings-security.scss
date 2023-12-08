@@ -1,0 +1,151 @@
+.settings-security {
+
+  // .settings-security__form
+
+  &__form {}
+
+  .settings-profile__selects {
+    margin-top: 25px;
+
+    @media (max-width: $breakpoint992) {
+      &:first-child {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
+
+  .project-group:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  // .settings-security__header
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    column-gap: 20px;
+    margin-bottom: 25px;
+  }
+
+  &__middle {
+    margin-bottom: 25px;
+  }
+
+  &__header-btn {
+    white-space: nowrap;
+  }
+
+  &__header-btn--password {
+    display: none;
+
+    @media (max-width: $breakpoint992) {
+      display: flex;
+    }
+  }
+
+  .settings-profile__select {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // .settings-security__title
+
+  &__title {
+    font-size: 24px;
+    font-weight: 600;
+
+    @media (max-width: $breakpoint1450) {
+      font-size: 16px;
+    }
+
+  }
+
+  // .settings-security__btn
+
+  &__btn {
+    margin-top: auto;
+    width: fit-content;
+  }
+
+  // .settings-security__enters
+
+  &__enters {}
+
+  // .settings-security__enter
+
+  &__enter {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    margin-bottom: 25px;
+
+    &>img {
+      width: 24px;
+      height: 24px;
+      object-fit: cover;
+    }
+  }
+
+  // .settings-security__enter--green
+
+  &__enter--green {
+    color: var(--green-color);
+  }
+
+  // .settings-security__enter-info
+
+  &__enter-info {}
+
+  // .settings-security__enter-label
+
+  &__enter-label {
+    margin-bottom: 10px;
+    font-weight: 600;
+
+    @media (max-width: $breakpoint1450) {
+      font-size: 13px;
+    }
+  }
+
+  // .settings-security__enter-text
+
+  &__enter-text {
+    @media (max-width: $breakpoint1450) {
+      font-size: 13px;
+    }
+  }
+
+  // .settings-security__pages
+
+  &__pages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 35px;
+  }
+
+  // .settings-security__page
+
+  &__page {}
+
+  // .settings-security__page-link
+
+  &__page-link {
+    color: var(--grey-color-2);
+
+    &:hover {
+      color: var(--main-color);
+    }
+  }
+
+  // .settings-security__text
+
+  &__text {
+    @media (max-width: $breakpoint1450) {
+      font-size: 13px;
+    }
+  }
+}

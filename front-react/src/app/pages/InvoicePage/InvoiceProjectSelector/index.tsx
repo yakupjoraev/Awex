@@ -54,6 +54,7 @@ export function InvoiceProjectSelector(props: InvoiceProjectSelectorProps) {
   };
 
   const selectedLabel = useMemo(() => {
+    // if(props.value === undefined || props.options === undefined || props.options.length === 0) return "..." ???
     if (props.value === undefined) {
       return "...";
     }
