@@ -10,6 +10,7 @@ const userSchema = object({
 const USER_KEY = "user"
 
 export interface User {
+  sessionId: number
   email: string
   token: string
   expiration: number
@@ -46,8 +47,6 @@ export function getUser(): User | null {
 
 export function removeUser() {
   localStorage.removeItem(USER_KEY)
-  
-  console.log('LogOut')
 }
 
 export async function checkUser(): Promise<LoginStatus> {
@@ -66,4 +65,20 @@ export async function checkUser(): Promise<LoginStatus> {
       resolve('Error')
     }
   })
+}
+
+export async function logOut(): Promise<boolean> {
+  let user: User | null = getUser()
+
+  if(!user) return false
+  let id: string = user.sessionId.toString()
+
+  try {
+    const rezult = await AuthenticatedService.sessionDelete(id)
+    if(rezult) return true
+    return false
+  } catch(error) {
+    console.error(error)
+    return false
+  }
 }

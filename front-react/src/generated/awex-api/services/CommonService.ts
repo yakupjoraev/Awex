@@ -35,6 +35,7 @@ export class CommonService {
             email: string
         },
     ): CancelablePromise<{
+        sessionId?: number
         verified?: boolean
         token?: string
         expiration?: number

@@ -15,6 +15,7 @@ interface LoginPayload {
 }
 
 interface User {
+  sessionId: number
   email: string
   token: string
   expiration: number
@@ -67,8 +68,9 @@ export const signIn = createAsyncThunk<User, LoginPayload, { rejectValue: SignIn
       })
     }
 
-    const user = {
+    const user: User = {
       email: opts.login,
+      sessionId: authDetails.sessionId || 0,
       token: authDetails.token || "",
       expiration: authDetails.expiration || 0,
     }
