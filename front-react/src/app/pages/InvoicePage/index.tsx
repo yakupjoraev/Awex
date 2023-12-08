@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useId, useMemo, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { useAppDispatch, useAppSelector } from "@store/hooks"
@@ -14,11 +15,31 @@ import usePortal from "react-useportal"
 import { PaymentLinkModal } from "@components/PaymentLinkModal"
 import classNames from "classnames"
 import { NavLink, useLocation } from "react-router-dom"
+=======
+import { useEffect, useId, useMemo, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { AppProject } from "../../../types";
+import { invoiceFormValidator } from "./validators";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, Controller, useWatch } from "react-hook-form";
+import { InvoiceProjectSelector } from "./InvoiceProjectSelector";
+import { InvoiceCurrencySelector } from "./InvoiceCurrencySelector";
+import { getProjects } from "@store/projects/slice";
+import { AuthorizedService } from "@awex-api";
+import toast from "react-hot-toast";
+import usePortal from "react-useportal";
+import { PaymentLinkModal } from "@components/PaymentLinkModal";
+import classNames from "classnames";
+import { useLocation } from "react-router-dom";
+>>>>>>> 73e14fc41b69927bb0f33ac8a1d387cfb69c2ed9
 
-const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = []
-const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] = []
+const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = [];
+const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] =
+  [];
 
 interface InvoiceFormData {
+<<<<<<< HEAD
   projectId?: string
   name: string
   amount: string //number
@@ -49,6 +70,42 @@ export function InvoicePage() {
   const [paymentDescription, setPaymentDescription] = useState<string | undefined>(undefined)
   const { Portal } = usePortal()
   const location = useLocation()
+=======
+  projectId?: string;
+  name: string;
+  amount: string; //number
+  currency: string;
+  useConvertTo?: boolean;
+  useDeposit?: boolean;
+  depositCurrency?: string;
+  depositAmount?: string; //number
+  depositReturnAt?: number;
+}
+
+export function InvoicePage() {
+  const dispatch = useAppDispatch();
+  const nameId = useId();
+  const amountId = useId();
+  const useConvertToId = useId();
+  const useDepositId = useId();
+  const depositAmountId = useId();
+  const depositReturnAtId = useId();
+  const projects = useAppSelector(
+    (state) => state.projects.data || DEFAULT_PROJECTS
+  );
+  const projectsError = useAppSelector((state) => state.projects.error);
+  const [depositCurrencies, depositCurrenciesLoading] =
+    useCurrencies(DEFAULT_CURRENCIES);
+  const [invoiceCurrencies, invoiceCurrenciesLoading] =
+    useCurrencies(DEFAULT_CURRENCIES);
+  const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false);
+  const [paymentToken, setPaymentToken] = useState<string | null>(null);
+  const [paymentDescription, setPaymentDescription] = useState<
+    string | undefined
+  >(undefined);
+  const { Portal } = usePortal();
+  const location = useLocation();
+>>>>>>> 73e14fc41b69927bb0f33ac8a1d387cfb69c2ed9
 
   const {
     register,
@@ -58,39 +115,55 @@ export function InvoicePage() {
     formState: { errors },
   } = useForm<InvoiceFormData>({
     resolver: yupResolver(invoiceFormValidator),
-  })
-  const useConvertToValue = useWatch({ control, name: "useConvertTo" })
-  const useDepositValue = useWatch({ control, name: "useDeposit" })
-  
-  useEffect(()=>{
-    setValue("depositCurrency", 'usdt')
-  }, [])
+  });
+  const useConvertToValue = useWatch({ control, name: "useConvertTo" });
+  const useDepositValue = useWatch({ control, name: "useDeposit" });
 
   useEffect(() => {
-    dispatch(getProjects())
-  }, [dispatch])
-  
+    setValue("depositCurrency", "usdt");
+  }, []);
+
   useEffect(() => {
-    if(!location || !('state' in location) || !location.state || !('projectId' in location.state)) return
-    setValue("projectId", location.state.projectId)
-  }, [location, projects, setValue])
+    dispatch(getProjects());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (
+      !location ||
+      !("state" in location) ||
+      !location.state ||
+      !("projectId" in location.state)
+    )
+      return;
+    setValue("projectId", location.state.projectId);
+  }, [location, projects, setValue]);
 
   const handleInvoiceFormSubmit = handleSubmit((formData) => {
-    let projectId: number | undefined = undefined
+    let projectId: number | undefined = undefined;
     if (formData.projectId) {
-      projectId = parseInt(formData.projectId, 10)
-      if (isNaN(projectId)) return 
+      projectId = parseInt(formData.projectId, 10);
+      if (isNaN(projectId)) return;
     }
+<<<<<<< HEAD
     const name = formData.name
     const price = parseFloat(formData.amount)
     const currency = formData.currency
     const isTemplate = formData.isTemplate
     let buyerIdentifier: string | undefined = undefined
     let depositAmount: number | undefined = undefined
+=======
+    const name = formData.name;
+    const price = parseFloat(formData.amount);
+    const currency = formData.currency;
+    let buyerIdentifier: string | undefined = undefined;
+    let depositAmount: number | undefined = undefined;
+>>>>>>> 73e14fc41b69927bb0f33ac8a1d387cfb69c2ed9
     if (formData.useDeposit) {
-      depositAmount = formData.depositAmount ? parseFloat(formData.depositAmount) : 0
+      depositAmount = formData.depositAmount
+        ? parseFloat(formData.depositAmount)
+        : 0;
     }
-    const depositReturnTime = formData.depositReturnAt
+    const depositReturnTime = formData.depositReturnAt;
 
     AuthorizedService.orderCreate({
       name,
@@ -100,25 +173,28 @@ export function InvoicePage() {
       buyerIdentifier,
       depositAmount,
       depositReturnTime,
+<<<<<<< HEAD
       isTemplate,
+=======
+>>>>>>> 73e14fc41b69927bb0f33ac8a1d387cfb69c2ed9
     })
-    .then((response) => {
-      if (response.uniqueId) {
-        setPaymentLinkModalOpened(true)
-        setPaymentToken(response.uniqueId)
-        setPaymentDescription(formData.name)
-      } else {
-        toast.error("Не удалось создать платежную ссылку.")
-      }
-    })
-    .catch((error) => {
-      console.error(error)
-      toast.error("Не удалось создать платежную ссылку.")
-    })
-  })
+      .then((response) => {
+        if (response.uniqueId) {
+          setPaymentLinkModalOpened(true);
+          setPaymentToken(response.uniqueId);
+          setPaymentDescription(formData.name);
+        } else {
+          toast.error("Не удалось создать платежную ссылку.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Не удалось создать платежную ссылку.");
+      });
+  });
 
   const handlePaymentLinkModalClose = () => {
-    setPaymentLinkModalOpened(false)
+    setPaymentLinkModalOpened(false);
   };
 
   const projectOptions = useMemo(() => {
@@ -126,8 +202,8 @@ export function InvoicePage() {
       value: id,
       label: project.name,
       key: id,
-    }))
-  }, [projects])
+    }));
+  }, [projects]);
 
   return (
     <div className="wrapper">
@@ -154,18 +230,20 @@ export function InvoicePage() {
                   onChange={field.onChange}
                   onBlur={field.onBlur}
                 />
-              )
+              );
             }}
           />
 
           <div className="invoice-project__group project-group invoice__group-textarea">
-            <label className="invoice-project__label project-label"
+            <label
+              className="invoice-project__label project-label"
               htmlFor={nameId}
             >
               Наименование товара или услуги
             </label>
 
-            <textarea className="invoice-project__textarea project-textarea"
+            <textarea
+              className="invoice-project__textarea project-textarea"
               id={nameId}
               placeholder="Введите наименование товара, номер договора, ФИО клиента и комментарий, отображающий особенность услуги или товара"
               {...register("name")}
@@ -181,12 +259,14 @@ export function InvoicePage() {
                 <div className="invoice-project__radios">
                   <div className="invoice-project__label project-label">
                     <div className="checkbox-group">
-                      <input className="checkbox-input"
+                      <input
+                        className="checkbox-input"
                         type="checkbox"
                         id={useConvertToId}
                         {...register("useConvertTo")}
                       />
-                      <label className="checkbox-label"
+                      <label
+                        className="checkbox-label"
                         htmlFor={useConvertToId}
                       >
                         <div className="checkbox-decor"></div> Конвертировать в:
@@ -252,7 +332,7 @@ export function InvoicePage() {
                     );
                   }}
                 /> */}
-                
+
                 <Controller
                   name="depositCurrency"
                   control={control}
@@ -268,7 +348,6 @@ export function InvoicePage() {
                     );
                   }}
                 />
-
               </div>
             </div>
 
@@ -344,7 +423,10 @@ export function InvoicePage() {
                       defaultChecked
                     />
 
-                    <label className="invoice-project__radio-label" htmlFor="radio12">
+                    <label
+                      className="invoice-project__radio-label"
+                      htmlFor="radio12"
+                    >
                       Мерчант
                     </label>
                   </div>
@@ -357,7 +439,10 @@ export function InvoicePage() {
                       id="radio13"
                     />
 
-                    <label className="invoice-project__radio-label" htmlFor="radio13">
+                    <label
+                      className="invoice-project__radio-label"
+                      htmlFor="radio13"
+                    >
                       Клиент
                     </label>
                   </div>
@@ -368,7 +453,8 @@ export function InvoicePage() {
 
           <div className="invoice-project__label project-label invoice__group-textarea">
             <div className="checkbox-group">
-              <input className="checkbox-input"
+              <input
+                className="checkbox-input"
                 type="checkbox"
                 id={useDepositId}
                 {...register("useDeposit")}
@@ -396,7 +482,8 @@ export function InvoicePage() {
                 Депозит
               </label>
 
-              <input className="invoice-project__input project-input"
+              <input
+                className="invoice-project__input project-input"
                 id={depositAmountId}
                 type="text"
                 placeholder="Введите сумму депозита"
@@ -426,7 +513,8 @@ export function InvoicePage() {
                 Срок депозита (суток)
               </label>
 
-              <input className="invoice-project__input project-input"
+              <input
+                className="invoice-project__input project-input"
                 id={depositReturnAtId}
                 type="number"
                 placeholder="Введите количество дней"
@@ -444,13 +532,15 @@ export function InvoicePage() {
           <div className="about-deposit__generation-select invoice__generation-select">
             <div className="about-deposit__generation-selected about-deposit__generation-selected--not-reverse">
               <div className="about-deposit__generation-info">
-                <label className="about-deposit__generation-title"
+                <label
+                  className="about-deposit__generation-title"
                   htmlFor={amountId}
                 >
                   Сумма
                 </label>
 
-                <input className="about-deposit__generation-input"
+                <input
+                  className="about-deposit__generation-input"
                   id={amountId}
                   type="text"
                   placeholder="Введите сумму"
@@ -528,49 +618,49 @@ function useCurrencies(
   boolean,
   string | null
 ] {
-  const [currencies, setCurrencies] = useState(defaultValue)
-  const [currenciesLoading, setCurrenciesLoading] = useState(false)
-  const [currenciesError, setCurrenciesError] = useState<string | null>(null)
+  const [currencies, setCurrencies] = useState(defaultValue);
+  const [currenciesLoading, setCurrenciesLoading] = useState(false);
+  const [currenciesError, setCurrenciesError] = useState<string | null>(null);
 
   useEffect(() => {
-    setCurrenciesLoading(true)
+    setCurrenciesLoading(true);
     AuthorizedService.merchantCurrencies()
-    .then((response) => {
-      if (!response.currencies) {
-        setCurrencies(defaultValue)
-      } else {
-        const nextCurrencies: {
-          currency: string
-          name?: string
-          rate?: string
-          chain?: string
-        }[] = []
-        for (const listItem of response.currencies) {
-          if (listItem.currency === undefined) {
-            continue;
+      .then((response) => {
+        if (!response.currencies) {
+          setCurrencies(defaultValue);
+        } else {
+          const nextCurrencies: {
+            currency: string;
+            name?: string;
+            rate?: string;
+            chain?: string;
+          }[] = [];
+          for (const listItem of response.currencies) {
+            if (listItem.currency === undefined) {
+              continue;
+            }
+            nextCurrencies.push({
+              currency: listItem.currency,
+              name: listItem.name,
+              rate: listItem.rate,
+              chain: listItem.chain,
+            });
           }
-          nextCurrencies.push({
-            currency: listItem.currency,
-            name: listItem.name,
-            rate: listItem.rate,
-            chain: listItem.chain,
-          })
+          setCurrencies(nextCurrencies);
         }
-        setCurrencies(nextCurrencies);
-      }
-    })
-    .catch((error) => {
-      console.error(error)
-      setCurrenciesError(
-        typeof error.message === "string"
-          ? error.message
-          : "failed to load currencies"
-      )
-    })
-    .finally(() => {
-      setCurrenciesLoading(false)
-    })
-  }, [])
+      })
+      .catch((error) => {
+        console.error(error);
+        setCurrenciesError(
+          typeof error.message === "string"
+            ? error.message
+            : "failed to load currencies"
+        );
+      })
+      .finally(() => {
+        setCurrenciesLoading(false);
+      });
+  }, []);
 
-  return [currencies, currenciesLoading, currenciesError]
+  return [currencies, currenciesLoading, currenciesError];
 }

@@ -28,7 +28,9 @@ export function InvoiceCurrencySelector(props: InvoiceCurrencySelectorProps) {
   return (
     <>
       <div
-        className={`about-deposit__generation-currency open-modal-btn ${props.disabled ? 'about-deposit__generation-currency--disabled' : ''}`}
+        className={`about-deposit__generation-currency open-modal-btn ${
+          props.disabled ? "about-deposit__generation-currency--disabled" : ""
+        }`}
         onClick={handleSelectorClick}
       >
         <div className="about-deposit__generation-curr">
