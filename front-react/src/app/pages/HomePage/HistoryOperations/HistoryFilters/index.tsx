@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { AuthorizedService } from "@awex-api"
-import { DepositsFiltersSelect } from "../../../../components/DepositsFilterSelect"
+import { HistoryFilterSelect } from "../../../../components/HistoryFilterSelect"
 import { DepositsFilterDate, DateRange } from "../../../../components/DepositsFilterDate"
 
 
@@ -15,6 +15,7 @@ interface HistoryFilterType {
 
 interface HistoryFiltersProps {
     setFilter: (filter: HistoryFilterType) => void
+    isFullFrame?: boolean
 }
 
 interface SelectFilterType {
@@ -42,7 +43,7 @@ const defaultDateFilterValue: DateRange = {
 }
 
 
-export function HistoryFilters({ setFilter }: HistoryFiltersProps) {
+export function HistoryFilters({ setFilter, isFullFrame }: HistoryFiltersProps) {
     const [projectFilter, setProjectFilter] = useState<SelectFilterType>(projectsFilterDefault)
     const [currencyFilter, setCurrencyFilter] = useState<SelectFilterType>(currencyFilterDefault)
     const [operationFilter, setOperationFilter] = useState<SelectFilterType>(operationFilterDefault)
@@ -98,8 +99,8 @@ export function HistoryFilters({ setFilter }: HistoryFiltersProps) {
 
     function dateFilterChangeFine() {
         setFilter({
-            startTime: dateFilter?.from ? (Date.parse(dateFilter.from.toString()) / 1000).toString() : '',
-            endTime: dateFilter?.to ? (Date.parse(dateFilter.to.toString()) / 1000).toString() : '',
+            startTime: dateFilter?.from ? (Date.parse(dateFilter.from.toString()) / 1000).toString() : undefined,
+            endTime: dateFilter?.to ? (Date.parse(dateFilter.to.toString()) / 1000).toString() : undefined,
         })
     }
     
@@ -155,21 +156,21 @@ export function HistoryFilters({ setFilter }: HistoryFiltersProps) {
 
     return (
         <div className="history-operations__header">
-            <DepositsFiltersSelect
+            <HistoryFilterSelect
                 label="Проект"
                 value={projectFilter.value}
                 options={projectFilter.options}
                 onChange={handleProjectFilterChange}
             />
 
-            <DepositsFiltersSelect
+            <HistoryFilterSelect
                 label="Валюта"
                 value={currencyFilter.value}
                 options={currencyFilter.options}
                 onChange={handleCurrencyFilterChange}
             />
 
-            <DepositsFiltersSelect
+            <HistoryFilterSelect
                 label="Тип операции"
                 value={operationFilter.value}
                 options={operationFilter.options}
@@ -182,6 +183,8 @@ export function HistoryFilters({ setFilter }: HistoryFiltersProps) {
                 onChange={handleDateFilterChange}
                 onClose={dateFilterChangeFine}
             />
+            
+            { isFullFrame && (<a className="operations-history__content-exel main-btn" href="#"><span>Выгрузить</span> в Exel</a>) }
         </div>
     )
 }

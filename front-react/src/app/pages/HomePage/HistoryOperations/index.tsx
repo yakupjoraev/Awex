@@ -3,6 +3,7 @@ import { AuthorizedService } from "@awex-api"
 import { HistoryFilters } from "./HistoryFilters"
 import { useShortString } from "../../../hooks/useShortString"
 import { useInView } from 'react-intersection-observer'
+import { HistoryOperationsHeader } from "./HistoryOperationsHeader"
 
 
 interface TransactionsQuery {
@@ -31,18 +32,21 @@ interface History {
   projectId: number
 }
 
-interface HistoryOperationsProps {}
+interface HistoryOperationsProps {
+  isFullFrame?: boolean
+}
 
 
 export function HistoryOperations(props: HistoryOperationsProps) {
   const [shortingString, setString, shortString] = useShortString('', 8)
-  const { ref, inView } = useInView({
-    threshold: 0,
+  const { ref, inView, entry } = useInView({
+    threshold: 0.5,
   })
   const [historyFilter, setHistoryFilter] = useState<TransactionsQuery>({})
   const [histories, setHistories] = useState<History[]>([])
   const [historyPage, setHistoryPage] = useState<number>(1)
   const [pages, setPages] = useState<number>(1)
+  const [getingHistoryInProcess, setGetingHistoryInProcess] = useState<boolean>(false)
 
 
   useEffect(() => {
@@ -55,20 +59,23 @@ export function HistoryOperations(props: HistoryOperationsProps) {
   
 
   function getHistory() {
+    if(getingHistoryInProcess) return
+    setGetingHistoryInProcess(true)
     AuthorizedService.getTransactions(historyFilter, historyPage?.toString())
     .then((response) => {
-      console.log('getHistory response', response)
       if(!response) {
         setHistories([])
         return
       }
       const newHistories = historyPage === 1 ? [...response.list] : [...histories, ...response.list]
-      console.log('getHistory newHistories', newHistories)
       setHistories(newHistories)
       setPages(response.pages)
     })
     .catch((error) => {
       console.error(error)
+    })
+    .finally(() => {
+      setGetingHistoryInProcess(false)
     })
   }
 
@@ -89,25 +96,15 @@ export function HistoryOperations(props: HistoryOperationsProps) {
 
   return (
     <div className="history-operations">
-      <div className="history-operations__label">
-        <h3 className="history-operations__title main-title">
-          История операций
-        </h3>
 
-        <a className="history-operations__link" href="#">
-          Перейти в Операции
-          <img className="history-operations__link-img"
-            src="/img/icons/arrow-right.svg"
-            alt="Перейти в Операции"
-          />
-        </a>
-      </div>
-
+      { !props.isFullFrame && <HistoryOperationsHeader /> }
+      
       <HistoryFilters
+        isFullFrame={props.isFullFrame}
         setFilter={changeHistoryFilter}
       />
 
-      <div className="history-operations__container">
+      <div className={`history-operations__container${ props.isFullFrame ? ' history-operations__container_full' : '' }`}>
         <ul className="history-operations__list">
           <li className="history-operations__item history-operations__item-header">
             <div className="history-operations__item-data">Дата</div>
@@ -138,7 +135,7 @@ export function HistoryOperations(props: HistoryOperationsProps) {
                   <div className="history-operations__item-time">{ time }</div>
                   <div className="history-operations__item-user">{ history.userId }</div>
                   <div className="history-operations__item-type">{ history.type }</div>
-                  <div className="history-operations__item-sum">{ history.paymentTotalAmount } { history.currency }</div>
+                  <div className="history-operations__item-sum">{ history.paymentOrderAmount } { history.currency }</div>
                   <div className="history-operations__item-deposite">{ history.paymentDepositAmount } { history.currency }</div>
                   <div className="history-operations__item-check">{ shortString(history.invoice) }</div>
                   <div className="history-operations__item-details">{ history.details }</div>

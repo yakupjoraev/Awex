@@ -10,6 +10,7 @@ import "./scss/style.scss"
 import "./scss/custom.sass"
 import { getUser } from "./services/user.service"
 
+
 const user = getUser()
 if (user) {
   OpenAPI.TOKEN = user.token
@@ -17,7 +18,7 @@ if (user) {
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
-);
+)
 
 root.render(
   <HelmetProvider>

@@ -35,6 +35,7 @@ export class CommonService {
             email: string
         },
     ): CancelablePromise<{
+        sessionId?: number
         verified?: boolean
         token?: string
         expiration?: number
@@ -179,7 +180,7 @@ export class CommonService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         });
@@ -217,7 +218,7 @@ export class CommonService {
                 'uniqueId': uniqueId,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
                 404: `request failed`,
             },
         });
@@ -258,7 +259,7 @@ export class CommonService {
             mediaType: 'application/json',
             errors: {
                 400: `request failed`,
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -276,7 +277,7 @@ export class CommonService {
             method: 'GET',
             url: '/order/payment/withdraw-currencies',
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         })
     }
@@ -299,32 +300,27 @@ export class CommonService {
                 'amount': amount,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
         });
     }
 
     public static paymentUsdtRate(
         amount: string,
-        rate: string,
+        currency: string,
     ): CancelablePromise<{
-        currencies?: Array<{
-            currency?: string
-            name?: string
-            rate?: string
-        }>
-    }> {
+        rate: string
+      }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/order/payment/usdt-rate',
             query: {
                 'amount': amount,
-                'rate': rate,
+                'currency': currency,
             },
             errors: {
-                403: `request failed`,
+                403: `Forbidden`,
             },
-        });
+        })
     }
-
 }

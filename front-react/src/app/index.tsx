@@ -45,7 +45,46 @@ import ProjectsIncrease from "./pages/AdminApplicationsPage/ProjectsIncrease"
 import AdminProject from "./pages/AdminApplicationsPage/AdminProject"
 import { OperationsHistoryPage } from "./pages/OperationsHistoryPage"
 
+import { useEffect } from "react"
+import { OpenAPI } from "@awex-api"
+import { getUser, checkUser, LoginStatus } from "../services/user.service"
+import toast from "react-hot-toast"
+import { signOut } from "@store/auth/slice"
+import { useAppDispatch } from "@store/hooks"
+
+
 export function App() {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    checkLogin()
+  }, [])
+
+  async function checkLogin() {
+    const user = getUser()
+
+    if (!user) {
+      dispatch(signOut())
+      return
+    }
+    const userStatus: LoginStatus = await checkUser()
+
+    switch(userStatus) {
+      case 'Error':
+        console.error('Ошибка связи с сервером. Проверьте соединение с интернетом или попробуйте зайти позже.')
+        toast.error('Ошибка связи с сервером. Проверьте соединение с интернетом или попробуйте зайти позже.')
+      break
+
+      case 'Not authorized':
+        console.error('Вам необходимо авторизоваться!')
+        toast.error('Вам необходимо авторизоваться!')
+        OpenAPI.TOKEN = undefined
+        dispatch(signOut())
+      break
+    }
+  }
+
+
   return (
     <BrowserRouter>
       <Helmet titleTemplate="%s - Awex" defaultTitle="Awex"></Helmet>

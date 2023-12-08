@@ -44,7 +44,6 @@ const useAccountNotifications = () => {
         }, GETTING_TIMEOUT)
 
         return () => {
-            console.log('notificationsTimer close')
             clearInterval(notificationsTimer)
         }
     }, [notifiFilter])
@@ -64,7 +63,6 @@ const useAccountNotifications = () => {
                 setNotifications([])
                 return
             }
-                        console.log('getNotifications', response)
             const {list, page, pages, count} = response
             const notifications = list.slice(0)
             setPage(page)
