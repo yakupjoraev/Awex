@@ -13,7 +13,7 @@ import toast from "react-hot-toast"
 import usePortal from "react-useportal"
 import { PaymentLinkModal } from "@components/PaymentLinkModal"
 import classNames from "classnames"
-import { useLocation } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 
 const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = []
 const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] = []
@@ -28,6 +28,7 @@ interface InvoiceFormData {
   depositCurrency?: string
   depositAmount?: string //number
   depositReturnAt?: number
+  isTemplate?: boolean
 }
 
 export function InvoicePage() {
@@ -38,6 +39,7 @@ export function InvoicePage() {
   const useDepositId = useId()
   const depositAmountId = useId()
   const depositReturnAtId = useId()
+  const isTemplateId = useId()
   const projects = useAppSelector((state) => state.projects.data || DEFAULT_PROJECTS)
   const projectsError = useAppSelector((state) => state.projects.error)
   const [depositCurrencies, depositCurrenciesLoading] = useCurrencies(DEFAULT_CURRENCIES)
@@ -82,6 +84,7 @@ export function InvoicePage() {
     const name = formData.name
     const price = parseFloat(formData.amount)
     const currency = formData.currency
+    const isTemplate = formData.isTemplate
     let buyerIdentifier: string | undefined = undefined
     let depositAmount: number | undefined = undefined
     if (formData.useDeposit) {
@@ -96,7 +99,8 @@ export function InvoicePage() {
       projectId,
       buyerIdentifier,
       depositAmount,
-      depositReturnTime
+      depositReturnTime,
+      isTemplate,
     })
     .then((response) => {
       if (response.uniqueId) {
@@ -133,6 +137,8 @@ export function InvoicePage() {
           <div className="invoice__header-label">
             <h1 className="invoice__title main-title">Выставление счета</h1>
           </div>
+
+          <NavLink to={'/invoice-templates'} className="invoice__header-link second-btn">Выбрать шаблон</NavLink>
         </div>
 
         <form className="invoice__wrapper" onSubmit={handleInvoiceFormSubmit}>
@@ -482,13 +488,25 @@ export function InvoicePage() {
               Не удалось загрузить список проектов.
             </div>
           )}
-          <div className="invoice-project__item-btns my-projects__item-btns">
+          <div className="invoice-project__item-btns my-projects__item-btns flex-column">
             <button type="submit" className="invoice-project__btn second-btn">
               Сгенерировать платежную ссылку
             </button>
+            
+            <div className="checkbox-group pt15">
+              <input className="checkbox-input"
+                type="checkbox"
+                id={isTemplateId}
+                {...register("isTemplate")}
+              />
+              <label className="checkbox-label" htmlFor={isTemplateId}>
+                <div className="checkbox-decor"></div> Сохранить как шаблон
+              </label>
+            </div>
           </div>
         </form>
       </section>
+
       {paymentToken !== null && (
         <Portal>
           <PaymentLinkModal

@@ -674,6 +674,7 @@ export class AuthorizedService {
             depositAmount?: number
             depositReturnTime?: number
             convertTo?: 'fiat' | 'stablecoin'
+            isTemplate?: boolean
         },
     ): CancelablePromise<{
         id?: number
@@ -1420,6 +1421,30 @@ export class AuthorizedService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/transaction/parameters',
+            errors: {
+                403: `Forbidden`,
+            },
+        })
+    }
+    
+    public static getOrderTemplates(): CancelablePromise<{ 
+        list: Array<{
+            id: number
+            data: {
+              userId: number
+              name: string
+              price: number
+              currency: string
+              projectId: number
+              depositAmount: number
+              depositReturnTime: number
+            },
+            created_at: number
+        }>
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/order-template',
             errors: {
                 403: `Forbidden`,
             },

@@ -35,4 +35,5 @@ export const invoiceFormValidator = object({
       is: true,
       then: (schema) => schema.moreThan(0).required(MESSAGE_FIELD_REQUIRED),
     }),
-});
+    isTemplate: bool()
+})

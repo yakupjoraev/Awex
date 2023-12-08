@@ -204,3 +204,39 @@
     color: var(--dark-yellow)
   &_rejected
     color: var(--error-color)
+
+.templates-fix
+  .my-projects__item
+    justify-content: space-between
+    column-gap: 15px
+  .my-projects__item-btn
+    margin-left: 0
+  .main-title
+    font-size: 19px
+  .my-projects__item-info
+    flex: 0 1 280px
+    min-width: 200px
+  .my-projects__item-convertion
+    row-gap: 5px
+  @media (max-width: 1060px)
+    .main-title
+      font-size: 16px
+    .my-projects__item-text
+      font-size: 11px
+    .my-projects__item-client
+      font-size: 12px
+    .my-projects__item-for
+      column-gap: 5px
+  @media (max-width: 850px)
+    .my-projects__item-info
+      flex: 0 1 150px
+      min-width: 150px
+  @media (max-width: 767.98px)
+    .my-projects__item-info
+      flex: 0 1 auto
+
+.flex-column
+  flex-direction: column
+
+.pt15
+  padding-top: 15px
