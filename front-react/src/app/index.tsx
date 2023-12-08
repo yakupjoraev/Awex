@@ -44,6 +44,7 @@ import AdminApplicationAreaLayout from "./layouts/AdminAreaLayout/AdminApplicati
 import ProjectsIncrease from "./pages/AdminApplicationsPage/ProjectsIncrease"
 import AdminProject from "./pages/AdminApplicationsPage/AdminProject"
 import { OperationsHistoryPage } from "./pages/OperationsHistoryPage"
+import { InvoiceTemplates } from "./pages/InvoiceTemplates"
 
 import { useEffect } from "react"
 import { OpenAPI } from "@awex-api"
@@ -133,6 +134,7 @@ export function App() {
         >
           <Route path="/" element={<HomePage />} />
           <Route path="/invoice" element={<InvoicePage />} />
+          <Route path="/invoice-templates" element={<InvoiceTemplates />} />
           <Route path="/successfully-invoice" element={<InvoicesPage />} />
           <Route path="/deposits" element={<DepositsPage />} />
           <Route path="/deposit-retention" element={<DepositRetentionPage />} />
