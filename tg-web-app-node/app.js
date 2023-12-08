@@ -2,12 +2,10 @@ require("dotenv").config();
 const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
 const cors = require("cors");
-const url = require("url");
 
-const token = process.env.TELEGRAM_BOT_TOKEN;
-const webAppUrl = process.env.WEB_APP_URL;
-
-const bot = new TelegramBot(token, { polling: true });
+const bot = new TelegramBot("6119167331:AAGzhg57baM-7F_5DPYBEvQBWC5yG7IdxUU", {
+  polling: true,
+});
 
 const app = express();
 
@@ -19,7 +17,14 @@ bot.on("message", async (msg) => {
     try {
       await bot.sendMessage(chatId, "Welcome to AWEX B2B Bot", {
         reply_markup: {
-          inline_keyboard: [[{ text: "web app", web_app: { url: webAppUrl } }]],
+          inline_keyboard: [
+            [
+              {
+                text: "web app",
+                web_app: { url: "https://awex-telegram.freeblock.site/" },
+              },
+            ],
+          ],
         },
       });
 
@@ -74,10 +79,6 @@ app.post("/order-tracking", (req, res) => {
   res.send("ok");
 });
 
-const server = app.listen(3000, () => {
-  const host = server.address().address;
-  console.log(host);
-  const port = server.address().port;
-
-  console.log(`Сервер запущен по адресу http://${host}:${port}`);
+app.listen(3000, () => {
+  console.log(`Сервер запущен по адресу 3000`);
 });
