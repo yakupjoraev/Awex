@@ -63,13 +63,6 @@ async function checkPaymentStatus(channelId, uniqueId, intervalId) {
 }
 
 app.post("/order-tracking", (req, res) => {
-  const protocol = req.protocol;
-  const host = req.hostname;
-  const url = req.originalUrl;
-  const port = process.env.PORT || 3000;
-
-  const fullUrl = `${protocol}://${host}:${port}${url}`;
-  console.log(fullUrl);
   console.log("order-tracking", req.body);
   const { chatId, uniqueId } = req.body;
   const interval = 2 * 60 * 1000;
@@ -81,6 +74,10 @@ app.post("/order-tracking", (req, res) => {
   res.send("ok");
 });
 
-app.listen(3000, () => {
-  console.log(`server is running on port 3000`);
+const server = app.listen(3000, () => {
+  const host = server.address().address;
+  console.log(host);
+  const port = server.address().port;
+
+  console.log(`Сервер запущен по адресу http://${host}:${port}`);
 });
