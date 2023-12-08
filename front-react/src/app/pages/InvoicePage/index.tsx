@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect, useId, useMemo, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { useAppDispatch, useAppSelector } from "@store/hooks"
@@ -15,31 +14,12 @@ import usePortal from "react-useportal"
 import { PaymentLinkModal } from "@components/PaymentLinkModal"
 import classNames from "classnames"
 import { NavLink, useLocation } from "react-router-dom"
-=======
-import { useEffect, useId, useMemo, useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { AppProject } from "../../../types";
-import { invoiceFormValidator } from "./validators";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, Controller, useWatch } from "react-hook-form";
-import { InvoiceProjectSelector } from "./InvoiceProjectSelector";
-import { InvoiceCurrencySelector } from "./InvoiceCurrencySelector";
-import { getProjects } from "@store/projects/slice";
-import { AuthorizedService } from "@awex-api";
-import toast from "react-hot-toast";
-import usePortal from "react-useportal";
-import { PaymentLinkModal } from "@components/PaymentLinkModal";
-import classNames from "classnames";
-import { useLocation } from "react-router-dom";
->>>>>>> 73e14fc41b69927bb0f33ac8a1d387cfb69c2ed9
 
 const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = [];
 const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] =
   [];
 
 interface InvoiceFormData {
-<<<<<<< HEAD
   projectId?: string
   name: string
   amount: string //number
@@ -70,42 +50,6 @@ export function InvoicePage() {
   const [paymentDescription, setPaymentDescription] = useState<string | undefined>(undefined)
   const { Portal } = usePortal()
   const location = useLocation()
-=======
-  projectId?: string;
-  name: string;
-  amount: string; //number
-  currency: string;
-  useConvertTo?: boolean;
-  useDeposit?: boolean;
-  depositCurrency?: string;
-  depositAmount?: string; //number
-  depositReturnAt?: number;
-}
-
-export function InvoicePage() {
-  const dispatch = useAppDispatch();
-  const nameId = useId();
-  const amountId = useId();
-  const useConvertToId = useId();
-  const useDepositId = useId();
-  const depositAmountId = useId();
-  const depositReturnAtId = useId();
-  const projects = useAppSelector(
-    (state) => state.projects.data || DEFAULT_PROJECTS
-  );
-  const projectsError = useAppSelector((state) => state.projects.error);
-  const [depositCurrencies, depositCurrenciesLoading] =
-    useCurrencies(DEFAULT_CURRENCIES);
-  const [invoiceCurrencies, invoiceCurrenciesLoading] =
-    useCurrencies(DEFAULT_CURRENCIES);
-  const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false);
-  const [paymentToken, setPaymentToken] = useState<string | null>(null);
-  const [paymentDescription, setPaymentDescription] = useState<
-    string | undefined
-  >(undefined);
-  const { Portal } = usePortal();
-  const location = useLocation();
->>>>>>> 73e14fc41b69927bb0f33ac8a1d387cfb69c2ed9
 
   const {
     register,
@@ -144,20 +88,12 @@ export function InvoicePage() {
       projectId = parseInt(formData.projectId, 10);
       if (isNaN(projectId)) return;
     }
-<<<<<<< HEAD
     const name = formData.name
     const price = parseFloat(formData.amount)
     const currency = formData.currency
     const isTemplate = formData.isTemplate
     let buyerIdentifier: string | undefined = undefined
     let depositAmount: number | undefined = undefined
-=======
-    const name = formData.name;
-    const price = parseFloat(formData.amount);
-    const currency = formData.currency;
-    let buyerIdentifier: string | undefined = undefined;
-    let depositAmount: number | undefined = undefined;
->>>>>>> 73e14fc41b69927bb0f33ac8a1d387cfb69c2ed9
     if (formData.useDeposit) {
       depositAmount = formData.depositAmount
         ? parseFloat(formData.depositAmount)
@@ -173,10 +109,7 @@ export function InvoicePage() {
       buyerIdentifier,
       depositAmount,
       depositReturnTime,
-<<<<<<< HEAD
       isTemplate,
-=======
->>>>>>> 73e14fc41b69927bb0f33ac8a1d387cfb69c2ed9
     })
       .then((response) => {
         if (response.uniqueId) {
