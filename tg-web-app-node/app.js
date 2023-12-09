@@ -10,16 +10,6 @@ const bot = new TelegramBot("6687063743:AAHm6bLFnQbza_iMhW3ZhKFX-gdVTleT0IQ", {
 
 const app = express();
 
-bot.setChatMenuButton({
-  menu_button: {
-    type: "web_app",
-    text: "Войти в приложение",
-    web_app: {
-      url: "https://awex-telegram.freeblock.site",
-    },
-  },
-});
-
 bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;

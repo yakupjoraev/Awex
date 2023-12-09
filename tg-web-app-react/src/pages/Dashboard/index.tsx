@@ -73,9 +73,7 @@ const Dashboard: React.FC = () => {
       </button>
       <main>
         <div className="wrapper-middle">
-          <div className="status">
-            {JSON.stringify(window?.Telegram?.WebApp?.initDataUnsafe.chat)}
-          </div>
+          <div className="status">{JSON.stringify(tg.initDataUnsafe)}</div>
 
           <div className="balance">
             <h1 className="balance__title">Баланс</h1>
