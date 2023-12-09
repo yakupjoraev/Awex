@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
       ))} */}
       {/* <p>auth_date: {tg?.initDataUnsafe?.auth_date}</p>
       <p>hash: {tg?.initDataUnsafe?.hash}</p> */}
-      {/* <button onClick={handleClose}>close</button> */}
+      <button onClick={handleClose}>Выйти</button>
       <main>
         <div className="wrapper-middle">
           <div className="status">PRO</div>
