@@ -10,6 +10,16 @@ const bot = new TelegramBot("6687063743:AAHm6bLFnQbza_iMhW3ZhKFX-gdVTleT0IQ", {
 
 const app = express();
 
+bot.setChatMenuButton({
+  menu_button: {
+    type: "web_app",
+    text: "Войти в приложение",
+    web_app: {
+      url: "https://awex-telegram.freeblock.site",
+    },
+  },
+});
+
 bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
@@ -17,16 +27,16 @@ bot.on("message", async (msg) => {
   if (text === "/start") {
     try {
       await bot.sendMessage(chatId, "Добро пожаловать в B2B Awex Bot 🤖", {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "Application",
-                web_app: { url: "https://awex-telegram.freeblock.site" },
-              },
-            ],
-          ],
-        },
+        // reply_markup: {
+        //   inline_keyboard: [
+        //     [
+        //       {
+        //         text: "Application",
+        //         web_app: { url: "https://awex-telegram.freeblock.site" },
+        //       },
+        //     ],
+        //   ],
+        // },
         parse_mode: "Markdown",
       });
     } catch (err) {
