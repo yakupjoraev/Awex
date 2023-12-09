@@ -7,10 +7,12 @@ import {
   useGetTransactions,
 } from "../../services/account.services";
 import TransactionList from "./TransactionList";
+import { useInitData } from "@vkruglikov/react-telegram-web-app";
 
 const Dashboard: React.FC = () => {
   const { site } = useContext(AppContext);
   const tg = window?.Telegram?.WebApp;
+  const [initDataUnsafe] = useInitData();
   // const [statistics, setStatistics] = useState({});
   const { balance } = useGetBalance();
 
@@ -73,7 +75,7 @@ const Dashboard: React.FC = () => {
       </button>
       <main>
         <div className="wrapper-middle">
-          <div className="status">{tg?.initDataUnsafe?.chat?.id}</div>
+          <div className="status">{initDataUnsafe?.chat?.id}</div>
 
           <div className="balance">
             <h1 className="balance__title">Баланс</h1>
