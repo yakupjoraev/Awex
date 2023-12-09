@@ -74,7 +74,7 @@ const Dashboard: React.FC = () => {
       <main>
         <div className="wrapper-middle">
           <div className="status">
-            {JSON.stringify(window?.Telegram?.WebApp?.initDataUnsafe.chat)}
+            {JSON.stringify(window?.Telegram?.WebApp?.initData)}
           </div>
 
           <div className="balance">
