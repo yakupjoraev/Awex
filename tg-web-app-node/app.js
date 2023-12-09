@@ -16,19 +16,25 @@ bot.on("message", async (msg) => {
 
   if (text === "/start") {
     try {
-      await bot.sendMessage(chatId, "Добро пожаловать в B2B Awex Bot 🤖", {
-        // reply_markup: {
-        //   inline_keyboard: [
-        //     [
-        //       {
-        //         text: "Application",
-        //         web_app: { url: "https://awex-telegram.freeblock.site" },
-        //       },
-        //     ],
-        //   ],
-        // },
-        parse_mode: "Markdown",
-      });
+      await bot.sendMessage(
+        chatId,
+        `Добро пожаловать в B2B Awex Bot 🤖
+
+_Для начала работы нажмите на кнопку Войти и авторизуйтесь в свой Awex аккаунт._`,
+        {
+          // reply_markup: {
+          //   inline_keyboard: [
+          //     [
+          //       {
+          //         text: "Application",
+          //         web_app: { url: "https://awex-telegram.freeblock.site" },
+          //       },
+          //     ],
+          //   ],
+          // },
+          parse_mode: "Markdown",
+        }
+      );
     } catch (err) {
       console.log(err);
     }
