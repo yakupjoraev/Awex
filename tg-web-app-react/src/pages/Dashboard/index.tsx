@@ -69,10 +69,12 @@ const Dashboard: React.FC = () => {
       ))} */}
       {/* <p>auth_date: {tg?.initDataUnsafe?.auth_date}</p>
       <p>hash: {tg?.initDataUnsafe?.hash}</p> */}
-      <button onClick={handleClose}>Выйти</button>
+      <button className="second-btn w-max" onClick={handleClose}>
+        Выйти
+      </button>
       <main>
         <div className="wrapper-middle">
-          <div className="status">PRO</div>
+          {/* <div className="status">PRO</div> */}
 
           <div className="balance">
             <h1 className="balance__title">Баланс</h1>
