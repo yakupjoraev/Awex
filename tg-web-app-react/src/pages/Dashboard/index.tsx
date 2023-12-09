@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <h3>AWEX data</h3>
+      {/* <h3>AWEX data</h3> */}
       {/* {Object.entries(statistics)?.map((statistic, i) => (
         <p key={i}>
           {statistic[0]}: {statistic[1]}
@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
       ))} */}
       {/* <p>auth_date: {tg?.initDataUnsafe?.auth_date}</p>
       <p>hash: {tg?.initDataUnsafe?.hash}</p> */}
-      <button onClick={handleClose}>close</button>
+      {/* <button onClick={handleClose}>close</button> */}
       <main>
         <div className="wrapper-middle">
           <div className="status">PRO</div>

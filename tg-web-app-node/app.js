@@ -2,8 +2,9 @@ require("dotenv").config();
 const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
 const cors = require("cors");
+const axios = require("axios");
 
-const bot = new TelegramBot("6119167331:AAGzhg57baM-7F_5DPYBEvQBWC5yG7IdxUU", {
+const bot = new TelegramBot("6687063743:AAHm6bLFnQbza_iMhW3ZhKFX-gdVTleT0IQ", {
   polling: true,
 });
 
@@ -20,24 +21,32 @@ bot.on("message", async (msg) => {
           inline_keyboard: [
             [
               {
-                text: "web app",
-                web_app: { url: "https://awex-telegram.freeblock.site/" },
+                text: "Application",
+                web_app: { url: "https://awex-telegram.freeblock.site" },
               },
             ],
           ],
         },
+        parse_mode: "HTML",
       });
 
       await bot.sendMessage(chatId, "Welcome to AWEX B2B Bot", {
         reply_markup: {
-          keyboard: [[{ text: "web app", web_app: { url: webAppUrl } }]],
+          keyboard: [
+            [
+              {
+                text: "Application",
+                web_app: { url: "https://awex-telegram.freeblock.site" },
+              },
+            ],
+          ],
         },
+        parse_mode: "HTML",
       });
     } catch (err) {
       console.log(err);
     }
   }
-  console.log({ text });
 });
 
 app.use(express.json());
@@ -55,11 +64,16 @@ async function checkPaymentStatus(channelId, uniqueId, intervalId) {
     const paymentStatus = response.data.paid;
 
     if (paymentStatus) {
-      bot.sendMessage(channelId, "Оплата прошла успешно!");
+      bot.sendMessage(channelId, "Оплата прошла успешно!", {
+        parse_mode: "HTML",
+      });
       clearInterval(intervalId);
     }
 
     if (response.data.expired) {
+      bot.sendMessage(channelId, "Оплата не прошла!", {
+        parse_mode: "HTML",
+      });
       clearInterval(intervalId);
     }
   } catch (error) {
@@ -69,7 +83,8 @@ async function checkPaymentStatus(channelId, uniqueId, intervalId) {
 
 app.post("/order-tracking", (req, res) => {
   console.log("order-tracking", req.body);
-  const { chatId, uniqueId } = req.body;
+  const { uniqueId } = req.body;
+  const chatId = "5516286464";
   const interval = 2 * 60 * 1000;
 
   const intervalId = setInterval(() => {
