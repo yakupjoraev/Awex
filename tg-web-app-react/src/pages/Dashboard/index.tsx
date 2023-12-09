@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import cookies from "../../services/cookies";
-import { getBalance, getStatistics } from "../../apis/Awex";
 import { AppContext } from "../../store";
 import { Link } from "react-router-dom";
 import {
@@ -74,7 +73,7 @@ const Dashboard: React.FC = () => {
       </button>
       <main>
         <div className="wrapper-middle">
-          {/* <div className="status">PRO</div> */}
+          <div className="status">{tg?.initDataUnsafe?.chat?.id}</div>
 
           <div className="balance">
             <h1 className="balance__title">Баланс</h1>

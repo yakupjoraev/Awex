@@ -16,7 +16,7 @@ bot.on("message", async (msg) => {
 
   if (text === "/start") {
     try {
-      await bot.sendMessage(chatId, "Welcome to AWEX B2B Bot", {
+      await bot.sendMessage(chatId, "Добро пожаловать в B2B Awex Bot 🤖", {
         reply_markup: {
           inline_keyboard: [
             [
@@ -27,21 +27,7 @@ bot.on("message", async (msg) => {
             ],
           ],
         },
-        parse_mode: "HTML",
-      });
-
-      await bot.sendMessage(chatId, "Welcome to AWEX B2B Bot", {
-        reply_markup: {
-          keyboard: [
-            [
-              {
-                text: "Application",
-                web_app: { url: "https://awex-telegram.freeblock.site" },
-              },
-            ],
-          ],
-        },
-        parse_mode: "HTML",
+        parse_mode: "Markdown",
       });
     } catch (err) {
       console.log(err);
@@ -64,16 +50,34 @@ async function checkPaymentStatus(channelId, uniqueId, intervalId) {
     const paymentStatus = response.data.paid;
 
     if (paymentStatus) {
-      bot.sendMessage(channelId, "Оплата прошла успешно!", {
-        parse_mode: "HTML",
-      });
+      bot.sendMessage(
+        channelId,
+        `*Счет №${uniqueId}* успешно оплачен ✅
+*Название услуги или товара:* ${response.data.name}
+*Сумма:* ${
+          response?.data?.amount
+        } ${response?.data?.paymentData?.currency?.toUpperCase()}
+
+_❗️Прежняя ссылка больше не активна._
+      `,
+        {
+          parse_mode: "Markdown",
+        }
+      );
       clearInterval(intervalId);
     }
 
-    if (response.data.expired) {
-      bot.sendMessage(channelId, "Оплата не прошла!", {
-        parse_mode: "HTML",
-      });
+    if (response?.data?.expired) {
+      bot.sendMessage(
+        channelId,
+        `Срок действия счета *№${uniqueId}* истек ❌
+
+_❗️Пожалуйста, выставьте счет повторно._
+        `,
+        {
+          parse_mode: "Markdown",
+        }
+      );
       clearInterval(intervalId);
     }
   } catch (error) {
@@ -82,10 +86,8 @@ async function checkPaymentStatus(channelId, uniqueId, intervalId) {
 }
 
 app.post("/order-tracking", (req, res) => {
-  console.log("order-tracking", req.body);
-  const { uniqueId } = req.body;
-  const chatId = "5516286464";
-  const interval = 2 * 60 * 1000;
+  const { chatId, uniqueId } = req.body;
+  const interval = 2 * 61 * 1000;
 
   const intervalId = setInterval(() => {
     checkPaymentStatus(chatId, uniqueId, intervalId);
