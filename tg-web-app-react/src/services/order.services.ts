@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
-const API_URL = "http://localhost:3000/order-tracking";
+const API_URL = "https://awex.freeblock.site/tg-web/order-tracking";
 
 const setOrderTracking = (orderTracking: {
   chatId: string;
