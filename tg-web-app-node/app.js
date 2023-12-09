@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 
-const bot = new TelegramBot("6687063743:AAHm6bLFnQbza_iMhW3ZhKFX-gdVTleT0IQ", {
+const bot = new TelegramBot("6119167331:AAGzhg57baM-7F_5DPYBEvQBWC5yG7IdxUU", {
   polling: true,
 });
 
