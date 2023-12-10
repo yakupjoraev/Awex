@@ -1,11 +1,12 @@
 require("dotenv").config();
 const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
+const cors = require("cors");
+const axios = require("axios");
 
-const token = process.env.TELEGRAM_BOT_TOKEN;
-const webAppUrl = process.env.WEB_APP_URL;
-
-const bot = new TelegramBot(token, { polling: true });
+const bot = new TelegramBot("6119167331:AAGzhg57baM-7F_5DPYBEvQBWC5yG7IdxUU", {
+  polling: true,
+});
 
 const app = express();
 
@@ -15,25 +16,37 @@ bot.on("message", async (msg) => {
 
   if (text === "/start") {
     try {
-      await bot.sendMessage(chatId, "Welcome to AWEX B2B Bot", {
-        reply_markup: {
-          inline_keyboard: [[{ text: "web app", web_app: { url: webAppUrl } }]],
-        },
-      });
+      await bot.sendMessage(
+        chatId,
+        `Добро пожаловать в B2B Awex Bot 🤖
 
-      await bot.sendMessage(chatId, "Welcome to AWEX B2B Bot", {
-        reply_markup: {
-          keyboard: [[{ text: "web app", web_app: { url: webAppUrl } }]],
-        },
-      });
+_Для начала работы нажмите на кнопку Войти и авторизуйтесь в свой Awex аккаунт._`,
+        {
+          // reply_markup: {
+          //   inline_keyboard: [
+          //     [
+          //       {
+          //         text: "Application",
+          //         web_app: { url: "https://awex-telegram.freeblock.site" },
+          //       },
+          //     ],
+          //   ],
+          // },
+          parse_mode: "Markdown",
+        }
+      );
     } catch (err) {
       console.log(err);
     }
   }
-  console.log({ text });
 });
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 async function checkPaymentStatus(channelId, uniqueId, intervalId) {
   try {
@@ -43,11 +56,34 @@ async function checkPaymentStatus(channelId, uniqueId, intervalId) {
     const paymentStatus = response.data.paid;
 
     if (paymentStatus) {
-      bot.sendMessage(channelId, "Оплата прошла успешно!");
+      bot.sendMessage(
+        channelId,
+        `*Счет №${uniqueId}* успешно оплачен ✅
+*Название услуги или товара:* ${response.data.name}
+*Сумма:* ${
+          response?.data?.amount
+        } ${response?.data?.paymentData?.currency?.toUpperCase()}
+
+_❗️Прежняя ссылка больше не активна._
+      `,
+        {
+          parse_mode: "Markdown",
+        }
+      );
       clearInterval(intervalId);
     }
 
-    if (response.data.expired) {
+    if (response?.data?.expired) {
+      bot.sendMessage(
+        channelId,
+        `Срок действия счета *№${uniqueId}* истек ❌
+
+_❗️Пожалуйста, выставьте счет повторно._
+        `,
+        {
+          parse_mode: "Markdown",
+        }
+      );
       clearInterval(intervalId);
     }
   } catch (error) {
@@ -57,7 +93,7 @@ async function checkPaymentStatus(channelId, uniqueId, intervalId) {
 
 app.post("/order-tracking", (req, res) => {
   const { chatId, uniqueId } = req.body;
-  const interval = 2 * 60 * 1000;
+  const interval = 2 * 61 * 1000;
 
   const intervalId = setInterval(() => {
     checkPaymentStatus(chatId, uniqueId, intervalId);
@@ -67,5 +103,5 @@ app.post("/order-tracking", (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("server is running on port 3000");
+  console.log(`Сервер запущен по адресу 3000`);
 });

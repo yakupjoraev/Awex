@@ -15,7 +15,7 @@ export default function Invoice() {
   const { mutate: invoiceOrder, isPending } = useOrderInvoice((response) => {
     setUniqueId(response.uniqueId);
     setOrderTracking({
-      chatId: tg?.initDataUnsafe?.chat?.id,
+      chatId: tg?.initDataUnsafe?.user?.id,
       uniqueId: response.uniqueId,
     });
   });

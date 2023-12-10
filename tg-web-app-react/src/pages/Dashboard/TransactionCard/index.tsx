@@ -13,20 +13,27 @@ const TransactionCard: React.FC<IProps> = ({ transaction }) => {
 
         <div className="history-transactions__texts">
           <div className="history-transactions__text">
-            <span className="history-transactions__action">
-              {transaction?.type}:{" "}
+            <span className="history-transactions__action font-semibold">
+              {transaction?.type === "debit" ? "Пополнение" : ""}:{" "}
             </span>
-            <span>{transaction?.orderId}</span>
+            <span>#{transaction?.id}</span>
           </div>
           <div className="history-transactions__text">
-            <span>{new Date(transaction?.date).toLocaleDateString()}</span>
-            <span>{new Date(transaction?.date).toLocaleTimeString()}</span>
+            <span>
+              {new Date(transaction?.date * 1000).toLocaleDateString("ru")}{" "}
+            </span>
+            <span>
+              {new Date(transaction?.date * 1000).toLocaleTimeString("ru")}
+            </span>
           </div>
         </div>
       </div>
 
       <div className="history-transactions__sums">
-        <p className="history-transactions__sum">+9900 RUB</p>
+        <p className="history-transactions__sum">
+          +{transaction?.paymentOrderAmount}{" "}
+          {transaction?.currency?.toUpperCase()}
+        </p>
         <p className="history-transactions__status">Получено</p>
       </div>
     </li>

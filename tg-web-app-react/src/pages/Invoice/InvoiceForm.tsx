@@ -106,7 +106,7 @@ const InvoiceForm: React.FC<IProps> = ({
                   type="checkbox"
                   id="checkbox-5"
                   onChange={(e) => {
-                    onChange(e.target.checked === true ? "usdt" : "");
+                    onChange(e.target.checked === true ? "stablecoin" : "");
                   }}
                 />
 

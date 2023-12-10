@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import cookies from "../../services/cookies";
-import { getBalance, getStatistics } from "../../apis/Awex";
 import { AppContext } from "../../store";
 import { Link } from "react-router-dom";
 import {
@@ -26,7 +25,7 @@ const Dashboard: React.FC = () => {
   // const getStatisticsData = async () => {
   //   try {
   //     const response = await getStatistics();
-  //     if (response?.status == 200) {
+  //     if (response?.status ==initDataUnsafe 200) {
   //       setStatistics(response?.data);
   //     }
   //   } catch (error) {
@@ -51,7 +50,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <h3>AWEX data</h3>
+      {/* <h3>AWEX data</h3> */}
       {/* {Object.entries(statistics)?.map((statistic, i) => (
         <p key={i}>
           {statistic[0]}: {statistic[1]}
@@ -69,10 +68,12 @@ const Dashboard: React.FC = () => {
       ))} */}
       {/* <p>auth_date: {tg?.initDataUnsafe?.auth_date}</p>
       <p>hash: {tg?.initDataUnsafe?.hash}</p> */}
-      <button onClick={handleClose}>close</button>
+      <button className="second-btn w-max" onClick={handleClose}>
+        Выйти
+      </button>
       <main>
         <div className="wrapper-middle">
-          <div className="status">PRO</div>
+          {/* <div className="status">{JSON.stringify(tg.initDataUnsafe)}</div> */}
 
           <div className="balance">
             <h1 className="balance__title">Баланс</h1>
