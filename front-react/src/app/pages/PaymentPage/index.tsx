@@ -117,7 +117,6 @@ const DEFAULT_PAYER_CURRENCY: PayerCurrency = {
 }
 
 export function PaymentPage() {
-
   let checkingPaidTimer: any = null
   let expiredTimer: any = null
 
@@ -183,6 +182,7 @@ export function PaymentPage() {
 
   useEffect(() => {
     ( function(){
+      console.log('paymentOrder useEffect', paymentOrder)
       if(!paymentOrder) {
         setPaymentAmountValue(undefined)
         return
@@ -365,17 +365,14 @@ export function PaymentPage() {
           setOrderError({ type: "not_found" })
           return
         }
+        const paymentOrderAmount = amount.toString()
+        console.log('getOrderPayment response: ', response)
+        console.log('getOrderPayment paymentData: ', paymentData)
         setPaymentOrder({
-          amount: amount.toString(),
+          amount: paymentOrderAmount,
           expired,
           depositAmount,
-          depositReturnTime,
-          // expiredDate:
-          // 1. Дату на сервере приводим к UTC+0 (т.к. на сервере UTC+3, то отнимаем 10800000)
-          // 2. потом от UTC+0 приводим к часовому поясу клиента (отнимаем потому, что getTimezoneOffset возвращает отрицательное число)
-          // А умножаем на 60000 чтобы привести к миллисекундам
-          // expiredDate: (Number(expiredDate) * 1000) - 10800000 - (new Date().getTimezoneOffset() * 60000),
-          
+          depositReturnTime,          
           expiredDate: Number(expiredDate) * 1000,
           paid,
           name: name ? name : undefined,
@@ -388,6 +385,7 @@ export function PaymentPage() {
           merchantName,
           paymentData: paymentData ? paymentData : null
         })
+        
 
         if(expired && !paid) {
           // setPaymentOrder(null)
@@ -396,7 +394,7 @@ export function PaymentPage() {
         }
 
         setPaymentStatus(paid ? 'success' : paymentData ? 'prepared' : 'invoicing')
-        getPaymentCurrencies(paymentOrder?.amount)
+        getPaymentCurrencies(paymentOrderAmount)
       })
       .catch((error) => {
         if (error instanceof ApiError && error.status === 404) {
@@ -478,20 +476,25 @@ export function PaymentPage() {
       ...paymentOrder,
       userCurrency: currency,
       chain: newUserChains[0].value,
+      userChain: newUserChains[0].value,
       paymentData: paymentOrder.paymentData ? {...paymentOrder.paymentData} : null
     } : null)
   }
 
   function chainSelected(value: string): void {
+    console.log('paymentOrder: ', paymentOrder)
+    console.log('chain: value: ', value)
     setPaymentOrder(paymentOrder ? {
       ...paymentOrder,
       chain: value,
+      userChain: value,
       paymentData: paymentOrder.paymentData ? {...paymentOrder.paymentData} : null
     } : null)
   }
  
   const toPay = handleSubmit((formData) => {
     if(!paymentOrder || !uniqueId) return
+    console.log('toPay paymentOrder', paymentOrder)
     setOrderLoading(true)
     const request: OrderPaymentRequest = {
       type: paymentOrder.type,
@@ -501,6 +504,7 @@ export function PaymentPage() {
       depositWithdrawChain: formData.withdrawNet || '',
       depositWithdrawAddress: formData.withdrawWalletId || ''
     }
+    console.log('toPay request', request)
     CommonService.orderPaymentSet(uniqueId, request)
     .then((response) => {
       const dataOrder: PaymentData | null = response.paymentData ? {
