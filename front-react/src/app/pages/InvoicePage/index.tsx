@@ -15,9 +15,8 @@ import { PaymentLinkModal } from "@components/PaymentLinkModal"
 import classNames from "classnames"
 import { NavLink, useLocation } from "react-router-dom"
 
-const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = [];
-const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] =
-  [];
+const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = []
+const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] = []
 
 interface InvoiceFormData {
   projectId?: string
@@ -59,17 +58,17 @@ export function InvoicePage() {
     formState: { errors },
   } = useForm<InvoiceFormData>({
     resolver: yupResolver(invoiceFormValidator),
-  });
-  const useConvertToValue = useWatch({ control, name: "useConvertTo" });
-  const useDepositValue = useWatch({ control, name: "useDeposit" });
+  })
+  const useConvertToValue = useWatch({ control, name: "useConvertTo" })
+  const useDepositValue = useWatch({ control, name: "useDeposit" })
 
   useEffect(() => {
-    setValue("depositCurrency", "usdt");
-  }, []);
+    setValue("depositCurrency", "usdt")
+  }, [])
 
   useEffect(() => {
-    dispatch(getProjects());
-  }, [dispatch]);
+    dispatch(getProjects())
+  }, [dispatch])
 
   useEffect(() => {
     if (
@@ -80,13 +79,13 @@ export function InvoicePage() {
     )
       return;
     setValue("projectId", location.state.projectId);
-  }, [location, projects, setValue]);
+  }, [location, projects, setValue])
 
   const handleInvoiceFormSubmit = handleSubmit((formData) => {
-    let projectId: number | undefined = undefined;
+    let projectId: number | undefined = undefined
     if (formData.projectId) {
-      projectId = parseInt(formData.projectId, 10);
-      if (isNaN(projectId)) return;
+      projectId = parseInt(formData.projectId, 10)
+      if (isNaN(projectId)) return
     }
     const name = formData.name
     const price = parseFloat(formData.amount)
@@ -97,7 +96,7 @@ export function InvoicePage() {
     if (formData.useDeposit) {
       depositAmount = formData.depositAmount
         ? parseFloat(formData.depositAmount)
-        : 0;
+        : 0
     }
     const depositReturnTime = formData.depositReturnAt;
 
@@ -113,21 +112,21 @@ export function InvoicePage() {
     })
       .then((response) => {
         if (response.uniqueId) {
-          setPaymentLinkModalOpened(true);
-          setPaymentToken(response.uniqueId);
-          setPaymentDescription(formData.name);
+          setPaymentLinkModalOpened(true)
+          setPaymentToken(response.uniqueId)
+          setPaymentDescription(formData.name)
         } else {
-          toast.error("Не удалось создать платежную ссылку.");
+          toast.error("Не удалось создать платежную ссылку.")
         }
       })
       .catch((error) => {
-        console.error(error);
-        toast.error("Не удалось создать платежную ссылку.");
-      });
-  });
+        console.error(error)
+        toast.error("Не удалось создать платежную ссылку.")
+      })
+  })
 
   const handlePaymentLinkModalClose = () => {
-    setPaymentLinkModalOpened(false);
+    setPaymentLinkModalOpened(false)
   };
 
   const projectOptions = useMemo(() => {
@@ -135,8 +134,8 @@ export function InvoicePage() {
       value: id,
       label: project.name,
       key: id,
-    }));
-  }, [projects]);
+    }))
+  }, [projects])
 
   return (
     <div className="wrapper">
@@ -163,7 +162,7 @@ export function InvoicePage() {
                   onChange={field.onChange}
                   onBlur={field.onBlur}
                 />
-              );
+              )
             }}
           />
 
@@ -278,7 +277,7 @@ export function InvoicePage() {
                         disabled={useConvertToValue !== true}
                         onChange={field.onChange}
                       />
-                    );
+                    )
                   }}
                 />
               </div>
@@ -491,7 +490,7 @@ export function InvoicePage() {
                       loading={invoiceCurrenciesLoading}
                       onChange={field.onChange}
                     />
-                  );
+                  )
                 }}
               />
             </div>
@@ -553,47 +552,47 @@ function useCurrencies(
 ] {
   const [currencies, setCurrencies] = useState(defaultValue);
   const [currenciesLoading, setCurrenciesLoading] = useState(false);
-  const [currenciesError, setCurrenciesError] = useState<string | null>(null);
+  const [currenciesError, setCurrenciesError] = useState<string | null>(null)
 
   useEffect(() => {
-    setCurrenciesLoading(true);
+    setCurrenciesLoading(true)
     AuthorizedService.merchantCurrencies()
       .then((response) => {
         if (!response.currencies) {
-          setCurrencies(defaultValue);
+          setCurrencies(defaultValue)
         } else {
           const nextCurrencies: {
-            currency: string;
-            name?: string;
-            rate?: string;
-            chain?: string;
-          }[] = [];
+            currency: string
+            name?: string
+            rate?: string
+            chain?: string
+          }[] = []
           for (const listItem of response.currencies) {
             if (listItem.currency === undefined) {
-              continue;
+              continue
             }
             nextCurrencies.push({
               currency: listItem.currency,
               name: listItem.name,
               rate: listItem.rate,
               chain: listItem.chain,
-            });
+            })
           }
-          setCurrencies(nextCurrencies);
+          setCurrencies(nextCurrencies)
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error)
         setCurrenciesError(
           typeof error.message === "string"
             ? error.message
             : "failed to load currencies"
-        );
+        )
       })
       .finally(() => {
-        setCurrenciesLoading(false);
-      });
-  }, []);
+        setCurrenciesLoading(false)
+      })
+  }, [])
 
-  return [currencies, currenciesLoading, currenciesError];
+  return [currencies, currenciesLoading, currenciesError]
 }
