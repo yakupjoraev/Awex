@@ -3,7 +3,8 @@ import { useEffect, useState } from "react"
 import { useAppSelector } from "@store/hooks"
 import toast from "react-hot-toast"
 import { useShortString } from "../../hooks/useShortString"
-
+import { useDebounce } from 'usehooks-ts'
+import { useNavigate } from "react-router-dom"
 
 interface OrderTemplate {
     id: number
@@ -19,17 +20,32 @@ interface OrderTemplate {
     created_at: number
 }
 
+type InvoiceStates = 'new' | 'edit' | 'template'
+
+interface OrderTemplateData {
+    process: InvoiceStates
+    template: OrderTemplate
+}
 
 export function InvoiceTemplates() {
     const [orderTemplates, setOrderTemplates] = useState<OrderTemplate[]>([])
     const [isOrderTemplatesLoading, setIsOrderTemplatesLoading] = useState<boolean>(false)
     const projects = useAppSelector((state) => state.projects.data)
     const [shortingString, setString, shortString] = useShortString('', 30)
+    const [searchFilter, setSearchFilter] = useState<string>('')
+    const searchFilterDebounce = useDebounce<string>(searchFilter, 200)
+    const [orderTemplatesFiltered, setOrderTemplatesFiltered] = useState<OrderTemplate[]>([])
+    const navigate = useNavigate()
 
 
     useEffect(() => {
         getTemplates()
     }, [])
+
+    useEffect(() => {
+        filterOrderTemplates()
+    }, [orderTemplates, searchFilterDebounce])
+
 
 
     function getTemplates() {
@@ -50,20 +66,64 @@ export function InvoiceTemplates() {
         })
     }
 
+    function onSearch(event: any) {
+        setSearchFilter(event.target.value)
+    }
+
+    function filterOrderTemplates() {
+        if(searchFilter === '') {
+            setOrderTemplatesFiltered([...orderTemplates])
+            return
+        }
+        const filteredTemplates = orderTemplates.filter((item) => {
+            return item.data.name.indexOf(searchFilter) >= 0
+        })
+        setOrderTemplatesFiltered(filteredTemplates)
+    }
+
+    function editTemplate(template: OrderTemplate) {
+        const orderTemplateData: OrderTemplateData = {
+            process: 'edit',
+            template
+        }
+        openInvoicePage(orderTemplateData)
+    }
+
+    function openTemplate(template: OrderTemplate) {
+        const orderTemplateData: OrderTemplateData = {
+            process: 'template',
+            template
+        }
+        openInvoicePage(orderTemplateData)
+    }
+
+    function openInvoicePage(templateData: {process: InvoiceStates, template: OrderTemplate}) {
+        navigate("/invoice", { state: { templateData } })
+    }
+
 
     return (
         <div className="wrapper">
             <section className="my-projects">
-                <div className="my-projects__header">
-                    <h1 className="my-projects__title main-title">Мои шаблоны</h1>
+                <div className="my-actives__header">
+                    <h1 className="my-actives__title main-title">Мои шаблоны</h1>
 
-                    ####
+                    <div className="my-actives__search search-group">
+                        <input className="my-actives__src search-input"
+                            type="search"
+                            placeholder="Поиск"
+                            value={searchFilter}
+                            onChange={onSearch}
+                        />
+                        <img className="my-actives__search-img search-img" src="./img/icons/search.svg" alt="Поиск" />
+                    </div>
                 </div>
+                
 
                 <div className="my-projects__items-wrapper">
                     <ul className="my-projects__items templates-fix">
 
-                        { orderTemplates && orderTemplates.map((templateData) => {
+                        { orderTemplatesFiltered && projects && orderTemplatesFiltered.map((templateData) => {
                             const template = templateData.data
                             const templateName = shortString(template.name)
                             const project = projects ? projects.find((project) => project.id === template.projectId.toString()) : null
@@ -74,7 +134,9 @@ export function InvoiceTemplates() {
                                     <div className="my-projects__item-info">
                                         <h3 className="my-projects__item-title main-title">
                                             { templateName }
-                                            <img className="my-projects__item-icon" src="./img/icons/pen.svg" alt="pen" />
+                                            <img className="my-projects__item-icon" src="./img/icons/pen.svg" alt="pen"
+                                                onClick={() => editTemplate(templateData)}
+                                            />
                                         </h3>
                                     </div>
                                     
@@ -124,7 +186,9 @@ export function InvoiceTemplates() {
                                         </div>
                                     </div>
 
-                                    <a className="my-projects__item-btn second-btn" href="#">Выбрать шаблон</a>
+                                    <button className="my-projects__item-btn second-btn"
+                                        onClick={() => openTemplate(templateData)}
+                                    >Выбрать шаблон</button>
                                 </li>
                             )
                         }) }

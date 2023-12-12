@@ -14,9 +14,12 @@ import usePortal from "react-useportal"
 import { PaymentLinkModal } from "@components/PaymentLinkModal"
 import classNames from "classnames"
 import { NavLink, useLocation } from "react-router-dom"
+import { useCurrencies } from "../../hooks/useCurrencies"
+
 
 const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = []
 const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] = []
+
 
 interface InvoiceFormData {
   projectId?: string
@@ -30,6 +33,25 @@ interface InvoiceFormData {
   depositReturnAt?: number
   isTemplate?: boolean
 }
+
+interface OrderTemplateData {
+  userId: number
+  name: string
+  price: number
+  currency: string
+  projectId: number
+  depositAmount: number
+  depositReturnTime: number
+}
+
+interface OrderTemplate {
+  id: number
+  data: OrderTemplateData,
+  created_at: number
+}
+
+type InvoiceStates = 'new' | 'edit' | 'template'
+
 
 export function InvoicePage() {
   const dispatch = useAppDispatch()
@@ -47,9 +69,15 @@ export function InvoicePage() {
   const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false)
   const [paymentToken, setPaymentToken] = useState<string | null>(null)
   const [paymentDescription, setPaymentDescription] = useState<string | undefined>(undefined)
+  const [formProcess, setFormProcess] = useState<InvoiceStates>('new') // The form is universal, therefore it has several states: 
+  /*
+  * 'new'       : New payment without template. Normal state. Has a checkbox with saving the payment template
+  * 'template'  : Create a payment using a template. Has a chexbox for saving changes to the template
+  * 'edit'      : Editing a template. Does not allow creating a new payment
+  * */
+  const [editableOrderId, setEditableOrderId] = useState<number>(0)
   const { Portal } = usePortal()
   const location = useLocation()
-
   const {
     register,
     setValue,
@@ -62,6 +90,7 @@ export function InvoicePage() {
   const useConvertToValue = useWatch({ control, name: "useConvertTo" })
   const useDepositValue = useWatch({ control, name: "useDeposit" })
 
+
   useEffect(() => {
     setValue("depositCurrency", "usdt")
   }, [])
@@ -71,15 +100,58 @@ export function InvoicePage() {
   }, [dispatch])
 
   useEffect(() => {
+    checkLocationProjectId()
+    checkLocationOrderTemplate()
+  }, [location, projects, setValue])
+  
+
+  const projectOptions = useMemo(() => {
+    return projects.map(({ id, project }) => ({
+      value: id,
+      label: project.name,
+      key: id,
+    }))
+  }, [projects])
+
+
+  function checkLocationProjectId() {
     if (
       !location ||
       !("state" in location) ||
       !location.state ||
       !("projectId" in location.state)
     )
-      return;
-    setValue("projectId", location.state.projectId);
-  }, [location, projects, setValue])
+      return
+    setValue("projectId", location.state.projectId)
+  }
+
+  function checkLocationOrderTemplate() {
+    if (
+      !location ||
+      !("state" in location) ||
+      !location.state ||
+      !("templateData" in location.state)
+    )
+      return
+      
+    const process: InvoiceStates = location.state.templateData.process
+    setFormProcess(process)
+    const orderTemplate: OrderTemplate = location.state.templateData.template
+    if(!("data" in orderTemplate)) return
+    setEditableOrderId(orderTemplate.id)
+    const data: OrderTemplateData = orderTemplate.data;
+
+    
+    ("projectId" in data) && setValue("projectId", data.projectId.toString());
+    ("name" in data) && setValue("name", data.name)
+    if("depositAmount" in data) { 
+      setValue("depositAmount", data.depositAmount.toString())
+      setValue("useDeposit", true)
+    }
+    ("depositReturnTime" in data) && setValue("depositReturnAt", data.depositReturnTime);
+    ("price" in data) && setValue("amount", data.price.toString());
+    ("currency" in data) && setValue("currency", data.currency)
+  }
 
   const handleInvoiceFormSubmit = handleSubmit((formData) => {
     let projectId: number | undefined = undefined
@@ -98,18 +170,21 @@ export function InvoicePage() {
         ? parseFloat(formData.depositAmount)
         : 0
     }
-    const depositReturnTime = formData.depositReturnAt;
+    const depositReturnTime = formData.depositReturnAt
 
-    AuthorizedService.orderCreate({
-      name,
-      price,
-      currency,
-      projectId,
-      buyerIdentifier,
-      depositAmount,
-      depositReturnTime,
-      isTemplate,
-    })
+    console.log('handleInvoiceFormSubmit', formProcess, editableOrderId)
+
+    if(formProcess === 'new' || formProcess === 'template') {
+      AuthorizedService.orderCreate({
+        name,
+        price,
+        currency,
+        projectId,
+        buyerIdentifier,
+        depositAmount,
+        depositReturnTime,
+        isTemplate,
+      })
       .then((response) => {
         if (response.uniqueId) {
           setPaymentLinkModalOpened(true)
@@ -123,19 +198,34 @@ export function InvoicePage() {
         console.error(error)
         toast.error("Не удалось создать платежную ссылку.")
       })
+    }
+
+    if(formProcess === 'edit' && editableOrderId > 0) {
+      AuthorizedService.setOrderTemplate(editableOrderId.toString(), {
+        name,
+        price,
+        currency,
+        projectId: Number(projectId),
+        buyerIdentifier,
+        // comment: '',
+        depositAmount: Number(depositAmount),
+        depositReturnTime: Number(depositReturnTime),
+        convertTo: "stablecoin"
+      })
+      .then((response) => {
+        console.log('setOrderTemplate response', response)
+      })
+      .catch((error) => {
+        console.error(error)
+        toast.error('Не удалось сохранить изменения.')
+      })
+    }
   })
 
   const handlePaymentLinkModalClose = () => {
     setPaymentLinkModalOpened(false)
-  };
+  }
 
-  const projectOptions = useMemo(() => {
-    return projects.map(({ id, project }) => ({
-      value: id,
-      label: project.name,
-      key: id,
-    }))
-  }, [projects])
 
   return (
     <div className="wrapper">
@@ -505,26 +595,31 @@ export function InvoicePage() {
           {errors.root?.message && (
             <div className="my-projects__error">{errors.root.message}</div>
           )}
+
           {projectsError && (
             <div className="my-projects__error">
               Не удалось загрузить список проектов.
             </div>
           )}
+
           <div className="invoice-project__item-btns my-projects__item-btns flex-column">
             <button type="submit" className="invoice-project__btn second-btn">
-              Сгенерировать платежную ссылку
+              { (formProcess === 'new' || formProcess === 'template') && 'Сгенерировать платежную ссылку' }
+              { formProcess === 'edit' && 'Сохранить изменения' }
             </button>
             
-            <div className="checkbox-group pt15">
-              <input className="checkbox-input"
-                type="checkbox"
-                id={isTemplateId}
-                {...register("isTemplate")}
-              />
-              <label className="checkbox-label" htmlFor={isTemplateId}>
-                <div className="checkbox-decor"></div> Сохранить как шаблон
-              </label>
-            </div>
+            { formProcess === 'new' && (
+              <div className="checkbox-group pt15">
+                <input className="checkbox-input"
+                  type="checkbox"
+                  id={isTemplateId}
+                  {...register("isTemplate")}
+                />
+                <label className="checkbox-label" htmlFor={isTemplateId}>
+                  <div className="checkbox-decor"></div> Сохранить как шаблон
+                </label>
+              </div>
+            )}
           </div>
         </form>
       </section>
@@ -540,59 +635,5 @@ export function InvoicePage() {
         </Portal>
       )}
     </div>
-  );
-}
-
-function useCurrencies(
-  defaultValue: { currency: string; name?: string; rate?: string }[]
-): [
-  { currency: string; name?: string; rate?: string }[],
-  boolean,
-  string | null
-] {
-  const [currencies, setCurrencies] = useState(defaultValue);
-  const [currenciesLoading, setCurrenciesLoading] = useState(false);
-  const [currenciesError, setCurrenciesError] = useState<string | null>(null)
-
-  useEffect(() => {
-    setCurrenciesLoading(true)
-    AuthorizedService.merchantCurrencies()
-      .then((response) => {
-        if (!response.currencies) {
-          setCurrencies(defaultValue)
-        } else {
-          const nextCurrencies: {
-            currency: string
-            name?: string
-            rate?: string
-            chain?: string
-          }[] = []
-          for (const listItem of response.currencies) {
-            if (listItem.currency === undefined) {
-              continue
-            }
-            nextCurrencies.push({
-              currency: listItem.currency,
-              name: listItem.name,
-              rate: listItem.rate,
-              chain: listItem.chain,
-            })
-          }
-          setCurrencies(nextCurrencies)
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-        setCurrenciesError(
-          typeof error.message === "string"
-            ? error.message
-            : "failed to load currencies"
-        )
-      })
-      .finally(() => {
-        setCurrenciesLoading(false)
-      })
-  }, [])
-
-  return [currencies, currenciesLoading, currenciesError]
+  )
 }

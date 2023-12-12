@@ -1427,7 +1427,7 @@ export class AuthorizedService {
         })
     }
     
-    public static getOrderTemplates(): CancelablePromise<{ 
+    public static getOrderTemplates(): CancelablePromise<{
         list: Array<{
             id: number
             data: {
@@ -1446,6 +1446,37 @@ export class AuthorizedService {
             method: 'GET',
             url: '/order-template',
             errors: {
+                403: `Forbidden`,
+            },
+        })
+    }
+
+    public static setOrderTemplate(
+        id: string,
+        requestBody: {
+            name: string
+            price: number
+            currency: string
+            projectId: number
+            buyerIdentifier?: string
+            comment?: string
+            depositAmount: number
+            depositReturnTime: number
+            convertTo: "stablecoin"
+        },
+    ): CancelablePromise<{
+        message?: string
+    }> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/order-template/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `request failed`,
                 403: `Forbidden`,
             },
         })
