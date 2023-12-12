@@ -5,6 +5,8 @@ import toast from "react-hot-toast"
 import { useShortString } from "../../hooks/useShortString"
 import { useDebounce } from 'usehooks-ts'
 import { useNavigate } from "react-router-dom"
+import usePortal from "react-useportal"
+import { ConfirmationModal } from "@components/ConfirmationModal"
 
 interface OrderTemplate {
     id: number
@@ -36,6 +38,10 @@ export function InvoiceTemplates() {
     const searchFilterDebounce = useDebounce<string>(searchFilter, 200)
     const [orderTemplatesFiltered, setOrderTemplatesFiltered] = useState<OrderTemplate[]>([])
     const navigate = useNavigate()
+    const { Portal } = usePortal()
+    const [isOpenConfirmationModal, setIsOpenConfirmationModal] = useState<boolean>(false)
+    const [deleteConfirmationId, setDeleteConfirmationId] = useState<number>(0)
+    const [confirmationModalText, setConfirmationModalText] = useState<string>('')
 
 
     useEffect(() => {
@@ -99,6 +105,40 @@ export function InvoiceTemplates() {
 
     function openInvoicePage(templateData: {process: InvoiceStates, template: OrderTemplate}) {
         navigate("/invoice", { state: { templateData } })
+    }
+
+    function deleteTemplate(templateId: number, name: string) {
+        console.log('del templateId', templateId)
+        const confirmText = `Вы действительно хотите удалить шаблон "${name}"?`
+        setConfirmationModalText(confirmText)
+        setDeleteConfirmationId(templateId)
+        setIsOpenConfirmationModal(true)
+    }
+
+    function deleteTemplateConfirmation(id: number, ansver: boolean) {
+        if(!ansver) {
+            toast.error('Удаление отменено')
+            setIsOpenConfirmationModal(false)
+            return
+        }
+        AuthorizedService.deleteOrderTemplate(id.toString())
+        .then((response) => {
+            if(!response) {
+                toast.error('Произошла непредвиденная ошибка. Попробуйте повторить действие позже')
+                return
+            }
+            toast.success('Шаблон успешно удален')
+        })
+        .catch((error) => {
+            console.error(error)
+            toast.error('Не удалось удалить. Проверьте соединение с интернетом и повторте попытку')
+        })
+        .finally(() => {
+            setIsOpenConfirmationModal(false)
+            setDeleteConfirmationId(0)
+            setConfirmationModalText('')
+            getTemplates()
+        })
     }
 
 
@@ -186,9 +226,19 @@ export function InvoiceTemplates() {
                                         </div>
                                     </div>
 
-                                    <button className="my-projects__item-btn second-btn"
-                                        onClick={() => openTemplate(templateData)}
-                                    >Выбрать шаблон</button>
+                                    <div className="custom_buttons">
+                                        <button className="my-projects__item-btn second-btn"
+                                            onClick={() => openTemplate(templateData)}
+                                        >
+                                            Выбрать шаблон
+                                        </button>
+
+                                        <button className="my-projects__item-btn main-btn"
+                                            onClick={() => deleteTemplate(templateData.id, templateData.data.name)}
+                                        >
+                                            Удалить
+                                        </button>
+                                    </div>
                                 </li>
                             )
                         }) }
@@ -196,6 +246,15 @@ export function InvoiceTemplates() {
                     </ul>
                 </div>
             </section>
+
+            <Portal>
+                <ConfirmationModal
+                    isOpen={isOpenConfirmationModal}
+                    text={confirmationModalText}
+                    data={deleteConfirmationId}
+                    ansver={deleteTemplateConfirmation}
+                />
+            </Portal>
         </div>
     )
 }

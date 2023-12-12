@@ -1481,4 +1481,23 @@ export class AuthorizedService {
             },
         })
     }
+
+    public static deleteOrderTemplate(
+        id: string
+    ): CancelablePromise<{
+        message?: string
+    }> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/order-template/{id}/delete',
+            path: {
+                'id': id,
+            },
+            mediaType: 'application/json',
+            errors: {
+                400: `request failed`,
+                403: `Forbidden`,
+            },
+        })
+    }
 }
