@@ -1,68 +1,52 @@
-import React from "react"
-import classNames from "classnames"
 import daysjs from "dayjs"
+import { Deposit } from ".."
+
 
 export interface DepositItemProps {
-  id: string
-  depositStatus: "pending" | "active"
-  applicationStatus: "rejected" | "review"
-  comment: string
-  sum: {
-    value: number
-    symbol: string
-  }
-  date: Date
-  dateEnd: Date
+  deposit: Deposit
 }
 
+
+const statusLabels = new Map([
+  ['wait', 'Ожидает действий'],
+  ['paid', 'Оплаченный'],
+  ['expired', 'Истекший']
+]);
+
+
 export function DepositItem(props: DepositItemProps) {
-  let depositStatusLabel: string
-  switch (props.depositStatus) {
-    case "pending":
-      depositStatusLabel = "Ожидает действий"
-      break
+  const { id, data, deposit, depositAmount, status, createdAt } = props.deposit
 
-    case "active":
-      depositStatusLabel = "Активна"
-      break
-  }
-  let applicationStatusLabel: string
+  const depositStatusLabel = status ? statusLabels.get(status) : ''
+  const createdDate = createdAt ? createdAt * 1000 : 0
+  const returnTime = deposit?.returnTime ? createdDate + (deposit.returnTime * 86400000) : 0
 
-  switch (props.applicationStatus) {
-    case "rejected":
-      applicationStatusLabel = "Отклонена"
-      break
-    case "review":
-      applicationStatusLabel = "На проверке"
-      break
-  }
 
   return (
-    <li
-      className={classNames("deposits__item", {
-        "deposits__item-rejected": props.applicationStatus === "rejected",
-      })}
-    >
+    <li className="deposits__item">  {/* Class 'deposits__item-rejected' highlights the element with a red frame */}
       <div className="deposits__item-status">
-        {props.applicationStatus === "rejected" && (
+        {/* {props.applicationStatus === "rejected" && (
           <img src="/img/icons/rejected.svg" alt="" />
-        )}
+        )} */}
       </div>
-      <div className="deposits__item-id">{props.id}</div>
+      <div className="deposits__item-id">{ id }</div>
       <div className="deposits__item-data">
-        {daysjs(props.date).format("DD/MM/YY")}
+        {createdDate && daysjs(createdDate).format("DD.MM.YYYY")}
       </div>
-      <div className="deposits__item-status-deposite">{depositStatusLabel}</div>
+      <div className="deposits__item-status-deposite">{ depositStatusLabel }</div>
       <div className="deposits__item-sum">
-        {props.sum.value} {props.sum.symbol}
+        { depositAmount } { deposit && deposit.currency }
       </div>
       <div className="deposits__item-data-end">
-        {daysjs(props.dateEnd).format("DD/MM/YY")}
+        { returnTime && daysjs(returnTime).format("DD.MM.YYYY")}
+        {/* { deposit && deposit.returnTime && deposit.returnTime} */}
       </div>
       {/* <div className="deposits__item-status-application">
         {applicationStatusLabel}
       </div> */}
-      <div className="deposits__item-commets">{props.comment}</div>
+      <div className="deposits__item-commets">
+        { data && data.name }
+      </div>
     </li>
   )
 }

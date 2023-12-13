@@ -752,7 +752,7 @@ export class AuthorizedService {
     ): CancelablePromise<{
         page?: number
         pages?: number
-        list?: Array<Order>
+        list?: Order[] //Array<Order>
     }> {
         return __request(OpenAPI, {
             method: 'GET',

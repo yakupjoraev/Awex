@@ -39,7 +39,7 @@ interface HistoryOperationsProps {
 
 export function HistoryOperations(props: HistoryOperationsProps) {
   const [shortingString, setString, shortString] = useShortString('', 8)
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     threshold: 0.5,
   })
   const [historyFilter, setHistoryFilter] = useState<TransactionsQuery>({})

@@ -4,92 +4,33 @@
 /* eslint-disable */
 
 export type Order = {
-    /**
-     * order id
-     */
-    id?: number;
-    /**
-     * order data
-     */
+    id?: number
     data?: {
-/**
- * order name
- */
-name?: string;
-/**
- * order price in specified currency
- */
-price?: number;
-/**
- * order currency
- */
-currency?: string;
-/**
- * order currency rate to USDT
- */
-rate?: number;
-};
-    /**
-     * deposit data
-     */
+        name?: string
+        price?: number
+        currency?: string
+        rate?: number
+    }
     deposit?: {
-/**
- * order name
- */
-name?: string;
-/**
- * deposit amount in initial currency
- */
-amount?: number;
-/**
- * order currency
- */
-currency?: string;
-/**
- * order currency rate to USDT
- */
-rate?: number;
-/**
- * UTC timestamp of the deposit return time
- */
-returnTime?: number;
-};
-    /**
-     * price * rate
-     */
-    amount?: number;
-    /**
-     * deposit amount in usd
-     */
-    depositAmount?: number;
-    /**
-     * UTC timestamp time when deposit should be returned
-     */
-    depositReturnTime?: number;
-    /**
-     * buyer identifier for reference
-     */
-    buyerIdentifier?: string;
-    /**
-     * order status
-     */
-    status?: Order.status;
-    /**
-     * UNIX timestamp of creation time
-     */
-    createdAt?: number;
-};
+        name?: string
+        amount?: number
+        currency?: string
+        rate?: number
+        returnTime?: number
+    }
+    amount?: number
+    depositAmount?: number
+    depositReturnTime?: number
+    buyerIdentifier?: string
+    status?: OrderStatus.status
+    createdAt?: number
+}
 
-export namespace Order {
+export namespace OrderStatus {
 
-    /**
-     * order status
-     */
     export enum status {
         WAIT = 'wait',
         PAID = 'paid',
         EXPIRED = 'expired',
     }
-
-
 }

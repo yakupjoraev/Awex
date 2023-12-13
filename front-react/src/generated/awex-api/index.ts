@@ -15,7 +15,7 @@ export { EarningsList } from './models/EarningsList';
 export type { MerchantItem } from './models/MerchantItem';
 export type { MerchantList } from './models/MerchantList';
 export type { Notification } from './models/Notification';
-export { Order } from './models/Order';
+export { OrderStatus as Order } from './models/Order';
 export type { ProfileData } from './models/ProfileData';
 export { Project } from './models/Project';
 export { ProjectData } from './models/ProjectData';
