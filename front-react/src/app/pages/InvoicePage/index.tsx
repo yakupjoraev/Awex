@@ -213,7 +213,11 @@ export function InvoicePage() {
         convertTo: "stablecoin"
       })
       .then((response) => {
-        console.log('setOrderTemplate response', response)
+        if(response) {
+          toast.success('Изменения успешно сохранены!')
+          return
+        }
+        toast.error('Не удалось сохранить изменения.')
       })
       .catch((error) => {
         console.error(error)
