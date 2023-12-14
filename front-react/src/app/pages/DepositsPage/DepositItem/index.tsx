@@ -16,7 +16,6 @@ const statusLabels = new Map([
 
 export function DepositItem(props: DepositItemProps) {
   const { id, data, deposit, depositAmount, status, createdAt } = props.deposit
-
   const depositStatusLabel = status ? statusLabels.get(status) : ''
   const createdDate = createdAt ? createdAt * 1000 : 0
   const returnTime = deposit?.returnTime ? createdDate + (deposit.returnTime * 86400000) : 0

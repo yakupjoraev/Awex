@@ -27,6 +27,7 @@ const projectsFilterDefault: SelectFilterType = {
     value: '',
     options: [{value: '', label: 'Все'}]
 }
+
 const currencyFilterDefault: SelectFilterType = {
     value: '',
     options: [{value: '', label: 'Все'}]

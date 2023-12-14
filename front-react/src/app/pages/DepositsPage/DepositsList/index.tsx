@@ -13,19 +13,18 @@ interface DepositsListPropsTyeps {
 export function DepositsList(props: DepositsListPropsTyeps) {
     const { onLoadMore, depositsList } = props
     const { ref, inView } = useInView({
-      threshold: 0.5,
+        threshold: 0.5,
     })
     
-
     useEffect(() => {
         scrollLaod()
     }, [inView])
     
 
-  function scrollLaod(): void {
-    if(!inView) return
-    onLoadMore()
-  }
+    function scrollLaod(): void {
+        if(!inView) return
+        onLoadMore()
+    }
 
 
     return (

@@ -65,7 +65,7 @@ export function DepositsFilterDate(props: DepositsFilterDateProps) {
         <div className="deposits__filter-label">{props.label}</div>
 
         <div className="deposits__filter-selected" data-select-value="">
-          {!props.value ? "???-???" : formatRange(props.value)}
+          {!props.value ? "Все-все" : formatRange(props.value)}
         </div>
 
         <img
@@ -82,8 +82,8 @@ export function DepositsFilterDate(props: DepositsFilterDateProps) {
 }
 
 function formatRange(range: DateRange) {
-  let fromStr: string = "???";
-  let toStr: string = "???";
+  let fromStr: string = "Все";
+  let toStr: string = "все";
   if (range.from) {
     fromStr = format(range.from, "dd/MM/yyyy");
   }
