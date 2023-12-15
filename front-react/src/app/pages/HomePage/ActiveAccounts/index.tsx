@@ -45,14 +45,10 @@ export function ActiveAccounts() {
     const [ordersListIsLoading, setOrdersListIsLoading] = useState<boolean>(false)
     const [ordersCount, setOrdersCount] = useState<number>(0)
     const [ordersSumm, setOrdersSumm] = useState<string>('0')
-    const [depositsListIsLoading, setDepositsListIsLoading] = useState<boolean>(false)
-    const [depositsCount, setDepositsCount] = useState<number>(0)
-    const [depositsSumm, setDepositsSumm] = useState<string>('0')
     const displayCurrency = useAppSelector((state) => state.accountProfile.data?.displayCurrency)
 
     useEffect(() => {
         getAllWaitingOrdersList()
-        getAllWaitingDepositsList()
     }, [displayCurrency])
 
     async function getAllWaitingOrdersList() {
@@ -105,56 +101,6 @@ export function ActiveAccounts() {
         })
     }
 
-    async function getAllWaitingDepositsList() {
-        if(depositsListIsLoading || !displayCurrency) return
-        setDepositsListIsLoading(true)
-        let page = 1
-        const status: OrderStatus.status = OrderStatus.status.WAIT
-        let allDepositsList: Order[] = []
-
-        while(true) {
-            let newDepositsList: ordersList 
-            try {
-                newDepositsList = await getWaitDepositsList(page.toString(), status)
-            } catch(error) {
-                console.error(error)
-                break
-            }
-
-            if(!newDepositsList || !newDepositsList.list) break
-            allDepositsList = [...allDepositsList, ...newDepositsList.list]
-
-            if(!newDepositsList.pages || page >= newDepositsList.pages) break
-            page++
-        }
-
-        let newDepositsCount: number = allDepositsList.length
-        let newDepositsSumm: number = 0
-        allDepositsList.forEach((item) => {
-            newDepositsSumm += item.depositAmount ? Number(item.depositAmount) : 0
-        })
-        setDepositsCount(newDepositsCount)
-
-        if(newDepositsSumm === 0) {
-            setDepositsSumm('0')
-            setDepositsListIsLoading(false)
-            return
-        }
-        
-        CommonService.paymentUsdtRate(newDepositsSumm.toString(), displayCurrency.toLocaleLowerCase())
-        .then((response) => {
-            if(!response) return
-            const depositsSummAmount = newDepositsSumm / Number(response.rate)
-            setDepositsSumm(depositsSummAmount.toFixed(5))
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-        .finally(() => {
-            setDepositsListIsLoading(false)
-        })
-    }
-
     async function getWaitOrdersList(page: string, status: OrderStatus.status): Promise<ordersList> {
         let newOrdersList: ordersList
         try {
@@ -165,41 +111,17 @@ export function ActiveAccounts() {
         return newOrdersList
     }
 
-    async function getWaitDepositsList(page: string, status: OrderStatus.status): Promise<ordersList> {
-        let newDepositsList: ordersList
-        try {
-            newDepositsList = await AuthorizedService.depositsList(page, undefined, status)
-        } catch(error) {
-            throw(error)
-        }
-        return newDepositsList
-    }
-
     return (
-        <>
-            <div className="about-check__info">
-                <div className="about-check__info-top">
-                    <h4 className="about-check__info-title">Активные счета:</h4>
-                    <span className="about-check__info-sum">{ ordersCount }</span>
-                </div>
-
-                <div className="about-check__info-labels">
-                    <div className="about-check__info-label">На сумму:</div>
-                    <div className="about-check__info-label">{ ordersSumm }</div>
-                </div>
+        <div className="about-check__info">
+            <div className="about-check__info-top">
+                <h4 className="about-check__info-title">Активные счета:</h4>
+                <span className="about-check__info-sum">{ ordersCount }</span>
             </div>
-            
-            <div className="about-check__info">
-                <div className="about-check__info-top">
-                    <h4 className="about-check__info-title">Активные депозиты:</h4>
-                    <span className="about-check__info-sum">{ depositsCount }</span>
-                </div>
 
-                <div className="about-check__info-labels">
-                    <div className="about-check__info-label">На сумму:</div>
-                    <div className="about-check__info-label">{ depositsSumm }</div>
-                </div>
+            <div className="about-check__info-labels">
+                <div className="about-check__info-label">На сумму:</div>
+                <div className="about-check__info-label">{ ordersSumm }</div>
             </div>
-        </>
+        </div>
     )
 }

@@ -7,6 +7,7 @@ import { CheckBalance } from "./CheckBalance"
 import { GenerationLinksModal } from "@components/GenerationLinksModal"
 import { AccountNotifications } from "@components/AccountNotifications"
 import { ActiveAccounts } from "./ActiveAccounts"
+import { ActiveDeposits } from "./ActiveDeposits"
 
 export function HomePage() {
   const [isGenerationLinksModal, setIsGenerationLinksModal] = useState<boolean>(false)
@@ -35,6 +36,8 @@ export function HomePage() {
               <div className="about-check__header">
 
                 <ActiveAccounts />
+                
+                <ActiveDeposits />
 
                 <AccountNotifications />
 
