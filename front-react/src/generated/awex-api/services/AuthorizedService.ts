@@ -1500,4 +1500,22 @@ export class AuthorizedService {
             },
         })
     }
+    
+    public static getOrderDepositData(): CancelablePromise<{
+        withdrawRequestsNumber: number
+        withdrawRequestsAmount: string
+        activeDepositsNumber: number
+        activeDepositsAmount: string
+        onReviewWithdrawRequestsNumber: number
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/order/deposit/data',
+            errors: {
+                400: `request failed`,
+                403: `Forbidden`,
+            },
+        })
+    }
+
 }

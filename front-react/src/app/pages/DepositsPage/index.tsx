@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { DepositFilters } from "./DepositFilters"
 import { DepositInfo } from "./DepositInfo"
-import { DepositInSumm } from "./DepositInSumm"
 import { DepositsList } from "./DepositsList"
 import { AuthorizedService } from "@awex-api"
 import toast from "react-hot-toast"
@@ -133,8 +132,6 @@ export function DepositsPage() {
         </div>
 
         <DepositInfo />
-
-        <DepositInSumm />
 
         <DepositFilters
           setFilter={changeDepositsFilters}
