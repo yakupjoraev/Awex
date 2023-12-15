@@ -1,8 +1,9 @@
 import { useState } from "react"
 import classNames from "classnames"
-import { Link, NavLink } from "react-router-dom"
-import { HOME_PAGE_PATH } from "../../constants/path-locations"
+import { NavLink } from "react-router-dom"
 import { AppProject } from "../../../types"
+import { ROUTE } from "../../constants/path-locations"
+
 
 interface SidebarMobileProps {
   userName?: string
@@ -10,50 +11,37 @@ interface SidebarMobileProps {
   onLogout: () => void
 }
 
+
 export function SidebarMobile(props: SidebarMobileProps) {
   const [expanded, setExpanded] = useState(false)
 
-  const handleMenuBtnClick = () => {
-    setExpanded(!expanded)
-  };
+
+  const handleMenuBtnClick = () => { setExpanded(!expanded) }
+
 
   return (
-    <div className={classNames("sidebar-mobile", { show: expanded })}
-      data-sidebar-mobile=""
-    >
+    <div className={classNames("sidebar-mobile", { show: expanded })} data-sidebar-mobile="">
       <div className="sidebar-mobile__inner">
         <div className="sidebar-mobile__header">
-          <a href="#" className="sidebar-mobile__user">
+          <NavLink className="sidebar-mobile__user" to={ROUTE.SETTINGS_PATH}>
             <div className="sidebar-mobile__user-icon">
-              <img className="sidebar-mobile__pic"
-                src="/img/sidebar-mobile/user.svg"
-                alt="user"
-              />
+              <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/user.svg" alt="user" />
             </div>
-
             <p className="sidebar-mobile__user-name">{props.userName}</p>
-          </a>
+          </NavLink>
 
-          <Link className="sidebar-mobile__settings" to="/settings">
+          <NavLink className="sidebar-mobile__settings" to={ROUTE.SETTINGS_PATH}>
             <div className="sidebar-mobile__settings-icon">
-              <img className="sidebar-mobile__pic"
-                src="/img/sidebar-mobile/settings.svg"
-                alt="settings"
-              />
+              <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/settings.svg" alt="settings" />
             </div>
-
             <p className="sidebar-mobile__settings-name">Настройки</p>
-          </Link>
+          </NavLink>
 
-          <div className="sidebar-mobile__log-out"
-            role="button"
+          <div className="sidebar-mobile__log-out" role="button"
             onClick={props.onLogout}
           >
             <div className="sidebar-mobile__log-out-icon">
-              <img className="sidebar-mobile__pic"
-                src="/img/sidebar-mobile/log-out.svg"
-                alt="log-out"
-              />
+              <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/log-out.svg" alt="log-out" />
             </div>
 
             <p className="sidebar-mobile__log-out-name">Выйти</p>
@@ -61,95 +49,53 @@ export function SidebarMobile(props: SidebarMobileProps) {
         </div>
 
         <div className="sidebar-mobile__middle">          
-          <Link className="sidebar-mobile__item" to="/history">
-            <img className="sidebar-mobile__pic"
-              src="/img/sidebar-mobile/clock.svg"
-              alt="chat-dots"
-            />
-
+          <NavLink className="sidebar-mobile__item" to={ROUTE.HISTORY_PATH}>
+            <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/clock.svg" alt="chat-dots" />
             <p className="sidebar-mobile__item-text">История</p>
-          </Link>
+          </NavLink>
 
-
-          <a href="#" className="sidebar-mobile__item">
-            <img className="sidebar-mobile__pic"
-              src="/img/sidebar-mobile/sliders-horizontal-alt.svg"
-              alt="sliders-horizontal-alt"
-            />
-
+          <NavLink className="sidebar-mobile__item" to={ROUTE.INTEGRATION_PATH}>
+            <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/sliders-horizontal-alt.svg" alt="sliders-horizontal-alt" />
             <p className="sidebar-mobile__item-text">Интеграция</p>
-          </a>
+          </NavLink>
 
-          <Link className="sidebar-mobile__item" to="/infocenter">
-            <img className="sidebar-mobile__pic"
-              src="/img/sidebar-mobile/chat-dots.svg"
-              alt="chat-dots"
-            />
-
+          <NavLink className="sidebar-mobile__item" to={ROUTE.INFOCENTER_PATH}>
+            <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/chat-dots.svg" alt="chat-dots" />
             <p className="sidebar-mobile__item-text">Инфоцентр</p>
-          </Link>
+          </NavLink>
 
-          <a href="#" className="sidebar-mobile__item">
-            <img className="sidebar-mobile__pic"
-              src="/img/sidebar-mobile/home.svg"
-              alt="home"
-            />
-
+          <NavLink className="sidebar-mobile__item" to={ROUTE.REFERRAL_PATH}>
+            <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/home.svg" alt="home" />
             <p className="sidebar-mobile__item-text">Реф. программа</p>
-          </a>
+          </NavLink>
         </div>
 
         <div className="sidebar-mobile__main">
-          <NavLink className="sidebar-mobile__item" to={HOME_PAGE_PATH}>
-            <img className="sidebar-mobile__pic"
-              src="/img/sidebar-mobile/users-alt.svg"
-              alt="users-alt"
-            />
-
+          <NavLink className="sidebar-mobile__item" to={ROUTE.HOME_PAGE_PATH}>
+            <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/users-alt.svg" alt="users-alt" />
             <p className="sidebar-mobile__item-text">Главная</p>
           </NavLink>
 
-          <a href="#" className="sidebar-mobile__item">
-            <img className="sidebar-mobile__pic"
-              src="/img/sidebar-mobile/link.svg"
-              alt="link"
-            />
-
+          <NavLink className="sidebar-mobile__item" to={ROUTE.INVOICE_PATH}>
+            <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/link.svg" alt="link" />
             <p className="sidebar-mobile__item-text">Счета</p>
-          </a>
-
-          <a href="#" className="sidebar-mobile__item">
-            <img className="sidebar-mobile__pic"
-              src="/img/sidebar-mobile/bookmark.svg"
-              alt="bookmark"
-            />
-
+          </NavLink>
+          
+          <NavLink className="sidebar-mobile__item" to={ROUTE.DEPOSITS_PATH}>
+            <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/bookmark.svg" alt="bookmark" />
             <p className="sidebar-mobile__item-text">Депозиты</p>
-          </a>
+          </NavLink>
 
-          <NavLink className="sidebar-mobile__item" to="/projects">
-            <img className="sidebar-mobile__pic"
-              src="/img/sidebar-mobile/menu-left-alt.svg"
-              alt="menu-left-alt"
-            />
-
+          <NavLink className="sidebar-mobile__item" to={ROUTE.PROJECTS_PATH}>
+            <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/menu-left-alt.svg" alt="menu-left-alt" />
             <p className="sidebar-mobile__item-text">Проекты</p>
           </NavLink>
 
-          <div className="sidebar-mobile__item"
-            data-sidebar-mobile-btn=""
+          <div className="sidebar-mobile__item" data-sidebar-mobile-btn=""
             onClick={handleMenuBtnClick}
           >
-            <img className="sidebar-mobile__pic"
-              src="/img/sidebar-mobile/more-horizontal-circle.svg"
-              alt="more-horizontal-circle"
-            />
-
-            <img className="sidebar-mobile__pic sidebar-mobile__pic--open"
-              src="/img/sidebar-mobile/angle-down-circle.svg"
-              alt="angle-down-circle"
-            />
-
+            <img className="sidebar-mobile__pic" src="/img/sidebar-mobile/more-horizontal-circle.svg" alt="more-horizontal-circle" />
+            <img className="sidebar-mobile__pic sidebar-mobile__pic--open" src="/img/sidebar-mobile/angle-down-circle.svg" alt="angle-down-circle" />
             <p className="sidebar-mobile__item-text">Меню</p>
           </div>
         </div>

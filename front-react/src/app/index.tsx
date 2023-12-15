@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { IndexPage } from "./pages/IndexPage"
-import { NotFoundPage } from "./pages/NotFoundPage"
+// import { NotFoundPage } from "./pages/NotFoundPage"
 import { HomePage } from "./pages/HomePage"
 import { SettingsPage } from "./pages/SettingsPage"
 import { MyProjectsPage } from "./pages/MyProjectsPage"
@@ -21,13 +21,14 @@ import { InfocenterPage } from "./pages/InfocenterPage"
 import { MyAssetsPage } from "./pages/MyAssetsPage"
 import { AssetPage } from "./pages/AssetPage"
 import {
+  ROUTE,
   ADMIN_APPLICATIONS_PROJECTS_DETAILS_ROUTE,
   ADMIN_APPLICATIONS_PROJECTS_ROUTE,
   ADMIN_APPLICATIONS_ROUTE,
-  ADMIN_MERCHANTS_ROUTE,
   ADMIN_MERCHANT_STATS_SUBROUTE,
+  ADMIN_MERCHANTS_ROUTE,
   ADMIN_STATS_ROUTE,
-  ASSETS_ROUTE,
+  ADMIN_COMMISSION,
 } from "./constants/path-locations"
 import { AdminFeesPage } from "./pages/AdminFeesPage"
 import { AdminAreaLayout } from "./layouts/AdminAreaLayout"
@@ -45,6 +46,7 @@ import ProjectsIncrease from "./pages/AdminApplicationsPage/ProjectsIncrease"
 import AdminProject from "./pages/AdminApplicationsPage/AdminProject"
 import { OperationsHistoryPage } from "./pages/OperationsHistoryPage"
 import { InvoiceTemplates } from "./pages/InvoiceTemplates"
+import { ReferralPage } from "./pages/ReferralPage"
 
 import { useEffect } from "react"
 import { OpenAPI } from "@awex-api"
@@ -52,6 +54,7 @@ import { getUser, checkUser, LoginStatus } from "../services/user.service"
 import toast from "react-hot-toast"
 import { signOut } from "@store/auth/slice"
 import { useAppDispatch } from "@store/hooks"
+import { msg } from "@constants/messages"
 
 
 export function App() {
@@ -72,13 +75,13 @@ export function App() {
 
     switch(userStatus) {
       case 'Error':
-        console.error('Ошибка связи с сервером. Проверьте соединение с интернетом или попробуйте зайти позже.')
-        toast.error('Ошибка связи с сервером. Проверьте соединение с интернетом или попробуйте зайти позже.')
+        console.error(msg.SERVER_ERROR)
+        toast.error(msg.SERVER_ERROR)
       break
 
       case 'Not authorized':
-        console.error('Вам необходимо авторизоваться!')
-        toast.error('Вам необходимо авторизоваться!')
+        console.error(msg.NEED_LOGIN_ERROR)
+        toast.error(msg.NEED_LOGIN_ERROR)
         OpenAPI.TOKEN = undefined
         dispatch(signOut())
       break
@@ -90,74 +93,52 @@ export function App() {
     <BrowserRouter>
       <Helmet titleTemplate="%s - Awex" defaultTitle="Awex"></Helmet>
       <Routes>
-        <Route
-          element={
+        <Route element={
             <PrivateRoute>
               <AdminAreaLayout />
             </PrivateRoute>
           }
         >
-          <Route path="/admin/commission" element={<AdminFeesPage />} />
+          <Route path={ADMIN_COMMISSION} element={<AdminFeesPage />} />
           <Route path={ADMIN_STATS_ROUTE} element={<AdminStatsPage />} />
-          <Route
-            path={ADMIN_MERCHANTS_ROUTE}
-            element={<AdminMerchantsPage />}
-          />
-          <Route
-            path={`${ADMIN_MERCHANTS_ROUTE}/:merchantId${ADMIN_MERCHANT_STATS_SUBROUTE}`}
-            element={<AdminMerchantStats />}
-          />
-          <Route
-            path={ADMIN_APPLICATIONS_ROUTE}
-            element={<AdminApplicationAreaLayout />}
-          >
-            <Route
-              path={ADMIN_APPLICATIONS_ROUTE}
-              element={<AdminApplicationsPage />}
-            />
-            <Route
-              path={ADMIN_APPLICATIONS_PROJECTS_ROUTE}
-              element={<ProjectsIncrease />}
-            />
-            <Route
-              path={ADMIN_APPLICATIONS_PROJECTS_DETAILS_ROUTE}
-              element={<AdminProject />}
-            />
+          <Route path={ADMIN_MERCHANTS_ROUTE} element={<AdminMerchantsPage />} />
+          <Route path={`${ADMIN_MERCHANTS_ROUTE}/:merchantId${ADMIN_MERCHANT_STATS_SUBROUTE}`} element={<AdminMerchantStats />} />
+          <Route path={ADMIN_APPLICATIONS_ROUTE} element={<AdminApplicationAreaLayout />} >
+            <Route path={ADMIN_APPLICATIONS_ROUTE} element={<AdminApplicationsPage />} />
+            <Route path={ADMIN_APPLICATIONS_PROJECTS_ROUTE} element={<ProjectsIncrease />} />
+            <Route path={`${ADMIN_APPLICATIONS_PROJECTS_DETAILS_ROUTE}/:projectId`} element={<AdminProject />} />
           </Route>
         </Route>
-        <Route
-          element={
+        <Route element={
             <PrivateRoute>
               <UserAreaLayout />
             </PrivateRoute>
           }
         >
-          <Route path="/" element={<HomePage />} />
-          <Route path="/invoice" element={<InvoicePage />} />
-          <Route path="/invoice-templates" element={<InvoiceTemplates />} />
-          <Route path="/successfully-invoice" element={<InvoicesPage />} />
-          <Route path="/deposits" element={<DepositsPage />} />
-          <Route path="/deposit-retention" element={<DepositRetentionPage />} />
-          <Route path="/projects" element={<MyProjectsPage />} />
-          <Route path="/projects/:projectId" element={<EditProjectPage />} />
-          <Route path="/projects/new-project" element={<CreateProjectPage />} />
-          <Route path="/settings/*" element={<SettingsPage />} />
-          <Route path={ASSETS_ROUTE} element={<MyAssetsPage />} />
-          <Route
-            path={`${ASSETS_ROUTE}/:assetId/:action?`}
-            element={<AssetPage />}
-          />
-          <Route path="/infocenter" element={<InfocenterPage />} />
-          <Route path="/date-picker" element={<DatePickerPage />} />
-          <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path={ROUTE.HOME_PAGE_PATH} element={<HomePage />} />
+          <Route path={ROUTE.INVOICE_PATH} element={<InvoicePage />} />
+          <Route path={ROUTE.INVOICE_TEMPLATES_PATH} element={<InvoiceTemplates />} />
+          <Route path={ROUTE.SUCCESSFULLY_INVOICE_PATH} element={<InvoicesPage />} />
+          <Route path={ROUTE.DEPOSITS_PATH} element={<DepositsPage />} />
+          <Route path={ROUTE.DEPOSIT_RETENTION_PATH} element={<DepositRetentionPage />} />
+          <Route path={ROUTE.PROJECTS_PATH} element={<MyProjectsPage />} />
+          <Route path={`${ROUTE.PROJECTS_PROJECTID_PATH}/:projectId`} element={<EditProjectPage />} />
+          <Route path={ROUTE.PROJECTS_NEW_PROJECT_PATH} element={<CreateProjectPage />} />
+          <Route path={`${ROUTE.SETTINGS_PATH}/*`} element={<SettingsPage />} />
+          <Route path={ROUTE.ASSETS_ROUTE_PATH} element={<MyAssetsPage />} />
+          <Route path={`${ROUTE.ASSETS_ROUTE_ASSETID_ACTION_PATH}/:assetId/:action?`} element={<AssetPage />} />
+          <Route path={ROUTE.INFOCENTER_PATH} element={<InfocenterPage />} />
+          <Route path={ROUTE.DATE_PICKER_PATH} element={<DatePickerPage />} />
+          <Route path={ROUTE.NOTIFICATIONS_PATH} element={<NotificationsPage />} />
+          <Route path={ROUTE.HISTORY_PATH} element={<OperationsHistoryPage />} />
+          <Route path={ROUTE.REFERRAL_PATH} element={<ReferralPage />} />
           <Route path="*" element={<UserAreaNotFoundPage />} />
-          <Route path="/history" element={<OperationsHistoryPage />} />
         </Route>
-        <Route path="/payment-crypto/:stage" element={<PaymentCryptoPage />} />
-        <Route path="/payment/:uniqueId" element={<PaymentPage />} />
-        <Route path="/index" element={<IndexPage />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/admin/auth" element={<AdminAuthPage />} />
+        <Route path={`${ROUTE.PAYMENT_CRYPTO_STAGE_PATH}/:stage`} element={<PaymentCryptoPage />} />
+        <Route path={`${ROUTE.PAYMENT_UNIQUEID_PATH}/:uniqueId`} element={<PaymentPage />} />
+        <Route path={ROUTE.INDEX_PATH} element={<IndexPage />} />
+        <Route path={ROUTE.AUTH_PATH} element={<AuthPage />} />
+        <Route path={ROUTE.ADMIN_AUTH_PATH} element={<AdminAuthPage />} />
       </Routes>
       <Toaster />
     </BrowserRouter>

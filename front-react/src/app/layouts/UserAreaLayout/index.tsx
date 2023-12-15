@@ -9,6 +9,8 @@ import { signOut } from "@store/auth/slice"
 import { getAccountProfile } from "@store/accountProfile/slice"
 import { logOut } from "../../../services/user.service"
 import toast from "react-hot-toast"
+import { msg } from "@constants/messages"
+
 
 export function UserAreaLayout() {
   const dispatch = useAppDispatch()
@@ -29,9 +31,9 @@ export function UserAreaLayout() {
   async function userlogOut() {
     let rezult = await logOut()
     if(!rezult) {
-      toast.error('Не удалось выйти. Проверьте соединение с интернетом или попробуйте позже')
+      toast.error(msg.LOGOUT_ERROR)
     }
-    toast.success('Вы успешно вышли из профиля.')
+    toast.success(msg.LOGOUT_SUCCESS)
   }
 
   return (
@@ -48,5 +50,5 @@ export function UserAreaLayout() {
       />
       <Outlet />
     </main>
-  );
+  )
 }
