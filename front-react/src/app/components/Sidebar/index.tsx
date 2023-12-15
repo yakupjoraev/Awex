@@ -159,7 +159,7 @@ export function Sidebar(props: SidebarProps) {
                       <li className="sidebar__menu-subitem"
                         key={id}
                       >
-                        <NavLink className="sidebar__menu-sublink" to={ROUTE.PROJECTS_PATH + id} >
+                        <NavLink className="sidebar__menu-sublink" to={`${ROUTE.PROJECTS_PATH}/${id}`} >
                           {project.name}
                         </NavLink>
                       </li>
