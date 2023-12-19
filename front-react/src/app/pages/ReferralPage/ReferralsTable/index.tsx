@@ -102,7 +102,7 @@ export function ReferralsTable() {
                 setFilter={changeReferralFilters}
             />
 
-            <div className="history-operations__container history-operations__container_full">
+            
                 <ul className="history-operations__list">
                     <li className="history-operations__item history-operations__item-header">
                         <div className="history-operations__item-data">ID реферала</div>
@@ -110,7 +110,10 @@ export function ReferralsTable() {
                         <div className="history-operations__item-user">Получено</div>
                         <div className="history-operations__item-type">Дата</div>
                     </li>
+                </ul>
 
+            <div className="history-operations__container history-operations__container_full">
+                <ul className="history-operations__list">
                     { referralsList && referralsList.map((referral) => {
                         const data = referral.createdAt ? referral.createdAt * 1000 : 0
                         const status = referral.status ? referralStatuses.get(referral.status) : ''
@@ -125,7 +128,7 @@ export function ReferralsTable() {
                         )
                     }) }
 
-                    <li ref={ref}></li>
+                    <li className="history-operations__item" ref={ref}></li>
                 </ul>
             </div>
         </div>
