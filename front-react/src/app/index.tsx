@@ -47,6 +47,7 @@ import AdminProject from "./pages/AdminApplicationsPage/AdminProject"
 import { OperationsHistoryPage } from "./pages/OperationsHistoryPage"
 import { InvoiceTemplates } from "./pages/InvoiceTemplates"
 import { ReferralPage } from "./pages/ReferralPage"
+import { ReferralAuthPage } from "./pages/ReferralAuthPage"
 
 import { useEffect } from "react"
 import { OpenAPI } from "@awex-api"
@@ -139,6 +140,7 @@ export function App() {
         <Route path={ROUTE.INDEX_PATH} element={<IndexPage />} />
         <Route path={ROUTE.AUTH_PATH} element={<AuthPage />} />
         <Route path={ROUTE.ADMIN_AUTH_PATH} element={<AdminAuthPage />} />
+        <Route path={`${ROUTE.REFERRAL_LINK_PATH}/:referralId`} element={<ReferralAuthPage />} />
       </Routes>
       <Toaster />
     </BrowserRouter>

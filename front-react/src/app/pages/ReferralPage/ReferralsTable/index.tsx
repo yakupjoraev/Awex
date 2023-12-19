@@ -102,14 +102,13 @@ export function ReferralsTable() {
                 setFilter={changeReferralFilters}
             />
 
-            <div className="history-operations__container">
+            <div className="history-operations__container history-operations__container_full">
                 <ul className="history-operations__list">
                     <li className="history-operations__item history-operations__item-header">
                         <div className="history-operations__item-data">ID реферала</div>
                         <div className="history-operations__item-time">Статус</div>
                         <div className="history-operations__item-user">Получено</div>
                         <div className="history-operations__item-type">Дата</div>
-                        <div className="history-operations__item-sum">Тип вознаграждения</div>
                     </li>
 
                     { referralsList && referralsList.map((referral) => {
@@ -117,12 +116,11 @@ export function ReferralsTable() {
                         const status = referral.status ? referralStatuses.get(referral.status) : ''
 
                         return (
-                            <li className="history-operations__item">
+                            <li className="history-operations__item" key={referral.referralId}>
                                 <div className="history-operations__item-data">{ referral.referralId }</div>
                                 <div className="history-operations__item-time">{ status }</div>
                                 <div className="history-operations__item-user">{ referral.amount }$</div>
                                 <div className="history-operations__item-type">{ daysjs(data).format("DD.MM.YYYY") }</div>
-                                <div className="history-operations__item-sum">комиссия</div>
                             </li>
                         )
                     }) }

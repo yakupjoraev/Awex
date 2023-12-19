@@ -1,98 +1,108 @@
-import { ApiError, CommonService } from "@awex-api";
-import { RegisterModal, RegisterStage } from "@components/RegisterModal";
-import { signIn } from "@store/auth/slice";
-import { useAppDispatch } from "@store/hooks";
-import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import { ApiError, CommonService } from "@awex-api"
+import { RegisterModal, RegisterStage } from "@components/RegisterModal"
+import { signIn } from "@store/auth/slice"
+import { useAppDispatch } from "@store/hooks"
+import { useEffect, useState } from "react"
+import { toast } from "react-hot-toast"
+import { useLocalStorage } from "usehooks-ts"
+
 
 interface AuthData {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
+
+type Error = { type: "unknown"; message?: string } | undefined
 
 export interface RegisterModalContainerProps {
-  open: boolean;
-  onClose: () => void;
+  open: boolean
+  onClose: () => void
 }
 
+
 export function RegisterModalContainer(props: RegisterModalContainerProps) {
-  const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(false);
-  const [stage, setStage] = useState<RegisterStage>("register");
-  const [authData, setAuthData] = useState<AuthData | null>(null);
-  const [registerError, setRegisterError] = useState<
-    { type: "unknown"; message?: string } | undefined
-  >(undefined);
-  const [verifyError, setVerifyError] = useState<
-    { type: "unknown"; message?: string } | undefined
-  >(undefined);
+  const dispatch = useAppDispatch()
+  const [loading, setLoading] = useState(false)
+  const [stage, setStage] = useState<RegisterStage>("register")
+  const [authData, setAuthData] = useState<AuthData | null>(null)
+  const [registerError, setRegisterError] = useState<Error>(undefined)
+  const [verifyError, setVerifyError] = useState<Error>(undefined)
+  const [referralCodeData] = useLocalStorage('referral-code', '')
+
 
   useEffect(() => {
-    setLoading(false);
-    setRegisterError(undefined);
-    setStage("register");
-    setAuthData(null);
-  }, [props.open]);
+    setLoading(false)
+    setRegisterError(undefined)
+    setStage("register")
+    setAuthData(null)
+  }, [props.open])
 
-  const handleRegister = (opts: { email: string; password: string }) => {
+
+  const handleRegister = (opts: AuthData) => {
     if (stage !== "register") {
-      console.error('state error: "register" stage required');
-      return;
+      console.error('state error: "register" stage required')
+      return
     }
-    setLoading(true);
-    CommonService.registration({ email: opts.email, password: opts.password })
+    setLoading(true)
+    const referralCode: string | undefined = referralCodeData ? referralCodeData : undefined
+    CommonService.registration({ email: opts.email, password: opts.password, referralCode })
       .then(() => {
-        setStage("verify");
-        setAuthData({ email: opts.email, password: opts.password });
+        setStage("verify")
+        setAuthData({ email: opts.email, password: opts.password })
       })
       .catch((error) => {
-        console.error(error);
-        setRegisterError(makeUnknownError(error));
+        console.error(error)
+        setRegisterError(makeUnknownError(error))
       })
       .finally(() => {
-        setLoading(false);
-      });
-  };
+        setLoading(false)
+      })
+  }
 
   const handleResendCode = () => {
     if (stage !== "verify") {
-      console.error('state error: "verify" stage required');
-      return;
+      console.error('state error: "verify" stage required')
+      return
     }
+
     if (authData === null) {
-      console.log("state error: auth data required");
-      return;
+      console.log("state error: auth data required")
+      return
     }
+
     if (loading) {
-      return;
+      return
     }
-    setLoading(true);
+    setLoading(true)
     CommonService.resend({ email: authData.email })
       .then(() => {
-        toast.success("E-mail отправлен!");
+        toast.success("E-mail отправлен!")
       })
       .catch((error) => {
-        console.error(error);
-        toast.error("Не удалось отправить e-mail!");
+        console.error(error)
+        toast.error("Не удалось отправить e-mail!")
       })
       .finally(() => {
-        setLoading(false);
-      });
-  };
+        setLoading(false)
+      })
+  }
 
   const handleConfirm = (code: string) => {
     if (stage !== "verify") {
-      console.error('state error: "verify" stage required');
-      return;
+      console.error('state error: "verify" stage required')
+      return
     }
+
     if (authData === null) {
-      console.log("state error: auth data required");
-      return;
+      console.log("state error: auth data required")
+      return
     }
+
     if (loading) {
-      return;
+      return
     }
-    setLoading(true);
+
+    setLoading(true)
     CommonService.confirm({ code: code })
       .then(() => {
         return dispatch(
@@ -100,24 +110,24 @@ export function RegisterModalContainer(props: RegisterModalContainerProps) {
         )
           .unwrap()
           .then(() => {
-            props.onClose();
+            props.onClose()
           })
           .catch((error) => {
-            let message = undefined;
+            let message = undefined
             if (error && typeof error.message === "string") {
-              message = error.message;
+              message = error.message
             }
-            setRegisterError({ type: "unknown", message });
-          });
+            setRegisterError({ type: "unknown", message })
+          })
       })
       .catch((error) => {
-        console.error(error);
-        setVerifyError(makeUnknownError(error));
+        console.error(error)
+        setVerifyError(makeUnknownError(error))
       })
       .finally(() => {
-        setLoading(false);
-      });
-  };
+        setLoading(false)
+      })
+  }
 
   return (
     <RegisterModal
@@ -132,12 +142,12 @@ export function RegisterModalContainer(props: RegisterModalContainerProps) {
       onConfirm={handleConfirm}
       onResendCode={handleResendCode}
     />
-  );
+  )
 }
 
 function makeUnknownError(error: unknown): {
-  type: "unknown";
-  message?: string;
+  type: "unknown"
+  message?: string
 } {
   if (
     error instanceof ApiError &&
@@ -145,8 +155,8 @@ function makeUnknownError(error: unknown): {
     error.body.errors instanceof Array &&
     error.body.errors.length
   ) {
-    const firstError = error.body.errors[0];
-    return { type: "unknown", message: firstError };
+    const firstError = error.body.errors[0]
+    return { type: "unknown", message: firstError }
   }
-  return { type: "unknown" };
+  return { type: "unknown" }
 }

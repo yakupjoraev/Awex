@@ -14,6 +14,7 @@ export class CommonService {
         requestBody: {
             password: string
             email: string
+            referralCode?: string
         },
     ): CancelablePromise<{
         message?: string
