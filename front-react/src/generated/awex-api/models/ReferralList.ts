@@ -7,33 +7,16 @@
  * referral data
  */
 export type ReferralList = {
-    /**
-     * referral account id
-     */
-    referralId?: number;
-    /**
-     * registration date
-     */
-    createdAt?: number;
-    /**
-     * active if earnings > 0, inActive otherwise
-     */
-    status?: ReferralList.status;
-    /**
-     * earnings from this referral
-     */
-    amount?: number;
+    referralId?: number
+    createdAt?: number
+    status?: ReferralList.status
+    amount?: number
 };
 
 export namespace ReferralList {
 
-    /**
-     * active if earnings > 0, inActive otherwise
-     */
     export enum status {
         ACTIVE = 'active',
         IN_ACTIVE = 'inActive',
     }
-
-
 }

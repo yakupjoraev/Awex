@@ -1,17 +1,20 @@
-import React from "react";
-import classNames from "classnames";
-import QRCode from "react-qr-code";
+import classNames from "classnames"
+import QRCode from "react-qr-code"
 
 export interface QrModalPorps {
-  open: boolean;
-  value: string;
-  onClose: () => void;
+  open: boolean
+  value: string
+  onClose: () => void
+}
+
+function stop(event: any) {
+  event.stopPropagation()
 }
 
 export function QrModal(props: QrModalPorps) {
   return (
-    <div className={classNames("modal", { show: props.open })}>
-      <form action="#" className="modal-content">
+    <div className={classNames("modal", { show: props.open })} onClick={props.onClose}>
+      <form action="#" className="modal-content" onClick={stop}>
         <div className="modal-content__header">
           <button
             className="close-modal-btn"
@@ -34,5 +37,5 @@ export function QrModal(props: QrModalPorps) {
         </div>
       </form>
     </div>
-  );
+  )
 }

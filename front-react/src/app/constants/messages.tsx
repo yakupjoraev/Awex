@@ -7,6 +7,7 @@ export const msg = {
     DELETED_SUCCESS: 'Удалено успешно',
     ADDED_SUCCESS: 'Добавлено успешно',
     SAVED_SUCCESS: 'Сохранено успешно',
+    CORYED_SUCCESS: 'Скопировано!',
     LOGOUT_SUCCESS: 'Вы успешно вышли из профиля.',
     
     // Errors

@@ -45,7 +45,7 @@ import { NotificationsPage } from "./pages/NotificationsPage";
 import AdminApplicationsPage from "./pages/AdminApplicationsPage";
 import AdminApplicationAreaLayout from "./layouts/AdminAreaLayout/AdminApplicationAreaLayout";
 import ProjectsIncrease from "./pages/AdminApplicationsPage/ProjectsIncrease";
-import AdminProjectDetails from "./pages/AdminApplicationsPage/AdminProjectDetails";
+import AdminProject from "./pages/AdminApplicationsPage/AdminProject";
 import { OperationsHistoryPage } from "./pages/OperationsHistoryPage";
 import { InvoiceTemplates } from "./pages/InvoiceTemplates";
 import { ReferralPage } from "./pages/ReferralPage";
@@ -59,6 +59,8 @@ import { useAppDispatch } from "@store/hooks";
 import { msg } from "@constants/messages";
 import AdminOfficeAddress from "./pages/AdminApplicationsPage/AdminOfficeAddresses";
 import AdminOfficeAddressDetails from "./pages/AdminApplicationsPage/AdminOfficeAddressDetails";
+import AdminProjectDetails from "./pages/AdminApplicationsPage/AdminProjectDetails";
+import { ReferralAuthPage } from "./pages/ReferralAuthPage";
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -199,6 +201,10 @@ export function App() {
         <Route path={ROUTE.INDEX_PATH} element={<IndexPage />} />
         <Route path={ROUTE.AUTH_PATH} element={<AuthPage />} />
         <Route path={ROUTE.ADMIN_AUTH_PATH} element={<AdminAuthPage />} />
+        <Route
+          path={`${ROUTE.REFERRAL_LINK_PATH}/:referralId`}
+          element={<ReferralAuthPage />}
+        />
       </Routes>
       <Toaster />
     </BrowserRouter>

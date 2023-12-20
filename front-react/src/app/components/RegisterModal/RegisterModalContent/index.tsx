@@ -1,66 +1,47 @@
-import { useEffect, useId, useState } from "react";
-import { FieldErrors, useForm } from "react-hook-form";
-import classNames from "classnames";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { registerFormSchema } from "./validators";
-import { passwordStrength } from "check-password-strength";
-import { useDebounce } from "usehooks-ts";
+import { useEffect, useId, useState } from "react"
+import { FieldErrors, useForm } from "react-hook-form"
+import classNames from "classnames"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { registerFormSchema } from "./validators"
+import { passwordStrength } from "check-password-strength"
+import { useDebounce } from "usehooks-ts"
+
 
 export interface RegisterModalContentProps {
-  open: boolean;
-  loading: boolean;
-  error?: { type: "unknown"; message?: string };
-  onClose: () => void;
-  onRegister: (opts: { email: string; password: string }) => void;
+  open: boolean
+  loading: boolean
+  error?: { type: "unknown"; message?: string }
+  onClose: () => void
+  onRegister: (opts: { email: string; password: string }) => void
 }
 
 export type RegisterModalFormData = {
-  email: string;
-  password: string;
-  passwordRepeat: string;
-  agreement: boolean;
-};
+  email: string
+  password: string
+  passwordRepeat: string
+  agreement: boolean
+}
 
-type PasswordStrength = "weak" | "medium" | "strong";
+type PasswordStrength = "weak" | "medium" | "strong"
 
 const DEFAULT_FORM_DATA: RegisterModalFormData = {
   email: "",
   password: "",
   passwordRepeat: "",
   agreement: false,
-};
+}
+
 
 export function RegisterModalContent(props: RegisterModalContentProps) {
-  const emailId = useId();
-  const passwordId = useId();
-  const passwordRepeatId = useId();
-  const agreementId = useId();
-
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [passwordRepeatVisible, setPasswordRepeatVisible] = useState(false);
-
-  const [currentPassword, setCurrentPassword] = useState<string>("");
-  const debouncedCurrentPassword = useDebounce(currentPassword, 200);
-  const [passwordStrength, setPasswordStrength] =
-    useState<PasswordStrength | null>(null);
-
-  useEffect(() => {
-    if (props.error) {
-      setError("root", {
-        message: props.error.message || "Ошибка регистрации!",
-      });
-    }
-  }, [props.error]);
-
-  useEffect(() => {
-    if (debouncedCurrentPassword.length === 0) {
-      setPasswordStrength(null);
-      return;
-    }
-    const nextPasswordStrength = getPasswordStrength(debouncedCurrentPassword);
-    setPasswordStrength(nextPasswordStrength);
-  }, [debouncedCurrentPassword]);
-
+  const emailId = useId()
+  const passwordId = useId()
+  const passwordRepeatId = useId()
+  const agreementId = useId()
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [passwordRepeatVisible, setPasswordRepeatVisible] = useState(false)
+  const [currentPassword, setCurrentPassword] = useState<string>("")
+  const debouncedCurrentPassword = useDebounce(currentPassword, 200)
+  const [passwordStrength, setPasswordStrength] = useState<PasswordStrength | null>(null)
   const {
     register,
     handleSubmit,
@@ -70,41 +51,58 @@ export function RegisterModalContent(props: RegisterModalContentProps) {
   } = useForm<RegisterModalFormData>({
     defaultValues: DEFAULT_FORM_DATA,
     resolver: yupResolver(registerFormSchema),
-  });
+  })
+
 
   useEffect(() => {
-    reset();
-    setPasswordStrength(null);
-  }, [props.open]);
+    if (props.error) {
+      setError("root", { message: props.error.message || "Ошибка регистрации!" })
+    }
+  }, [props.error])
+
+  useEffect(() => {
+    if (debouncedCurrentPassword.length === 0) {
+      setPasswordStrength(null)
+      return
+    }
+    const nextPasswordStrength = getPasswordStrength(debouncedCurrentPassword)
+    setPasswordStrength(nextPasswordStrength)
+  }, [debouncedCurrentPassword])
+
+  useEffect(() => {
+    reset()
+    setPasswordStrength(null)
+  }, [props.open])
+
 
   const handleRegisterFormSumbit = handleSubmit((formData) => {
     if (formData.password !== formData.passwordRepeat) {
-      setError("passwordRepeat", { message: "Пароль не совпадает!" });
-      return;
+      setError("passwordRepeat", { message: "Пароль не совпадает!" })
+      return
     }
 
-    const nextPasswordStrength = getPasswordStrength(formData.password);
+    const nextPasswordStrength = getPasswordStrength(formData.password)
     if (passwordStrength === "weak") {
-      setPasswordStrength(nextPasswordStrength);
-      setError("password", { type: "passwordStrength" });
-      return;
+      setPasswordStrength(nextPasswordStrength)
+      setError("password", { type: "passwordStrength" })
+      return
     }
 
-    props.onRegister({ email: formData.email, password: formData.password });
-  });
+    props.onRegister({ email: formData.email, password: formData.password })
+  })
 
   const handlePasswordInputKeyUp = (
     ev: React.KeyboardEvent<HTMLInputElement>
   ) => {
-    setCurrentPassword(ev.currentTarget.value);
-  };
+    setCurrentPassword(ev.currentTarget.value)
+  }
+
 
   return (
     <form className="modal-content" onSubmit={handleRegisterFormSumbit}>
       <div className="modal-content__header">
         <div className="modal-content__header-logo">
           <img src="/img/icons/logo-mini.svg" alt="" />
-
           <h2>Регистрация</h2>
         </div>
 
@@ -260,18 +258,18 @@ export function RegisterModalContent(props: RegisterModalContentProps) {
         Создать аккаунт
       </button>
     </form>
-  );
+  )
 }
 
 function renderFieldError(
   errors: FieldErrors<RegisterModalFormData>,
   field: keyof RegisterModalFormData
 ) {
-  const error = errors[field];
+  const error = errors[field]
   if (!error || !error.message) {
-    return null;
+    return null
   }
-  return <div className="project-error">{error.message}</div>;
+  return <div className="project-error">{error.message}</div>
 }
 
 function getPasswordInputModifier(
@@ -279,19 +277,19 @@ function getPasswordInputModifier(
   passwordStrength: PasswordStrength | null
 ): string | null {
   if (errors.password) {
-    return "project-group--error";
+    return "project-group--error"
   }
 
   switch (passwordStrength) {
     case "weak": {
-      return "project-group--error";
+      return "project-group--error"
     }
     case "medium":
     case "strong": {
-      return "project-group--successfully";
+      return "project-group--successfully"
     }
     case null: {
-      return null;
+      return null
     }
   }
 }
@@ -306,7 +304,7 @@ function renderPasswordStrengthLabel(
           <div className="project-password__complexity-circle"></div>
           <p className="project-password__complexity-text">Плохой пароль</p>
         </div>
-      );
+      )
     }
     case "medium": {
       return (
@@ -314,7 +312,7 @@ function renderPasswordStrengthLabel(
           <div className="project-password__complexity-circle"></div>
           <p className="project-password__complexity-text">Средний пароль</p>
         </div>
-      );
+      )
     }
     case "strong": {
       return (
@@ -322,10 +320,10 @@ function renderPasswordStrengthLabel(
           <div className="project-password__complexity-circle"></div>
           <p className="project-password__complexity-text">Хороший пароль</p>
         </div>
-      );
+      )
     }
     case null: {
-      return null;
+      return null
     }
   }
 }
@@ -335,13 +333,13 @@ function getPasswordStrength(password: string): PasswordStrength {
   switch (strength.id) {
     case 0:
     case 1: {
-      return "weak";
+      return "weak"
     }
     case 2: {
-      return "medium";
+      return "medium"
     }
     default: {
-      return "strong";
+      return "strong"
     }
   }
 }

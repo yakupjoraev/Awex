@@ -42,4 +42,5 @@ export const ROUTE = {
   INTEGRATION_API_PATH: "/integration-api",
   INTEGRATION_CMS_MODULE_PATH: "/integration-cms-module",
   INTEGRATION_HTML_WIDJET_PATH: "/integration-html-widjet",
+  REFERRAL_LINK_PATH: "/referral-link",
 };
