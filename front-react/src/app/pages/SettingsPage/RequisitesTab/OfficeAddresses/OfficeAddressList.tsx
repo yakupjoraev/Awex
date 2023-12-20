@@ -9,7 +9,10 @@ const OfficeAddressList: React.FC<IProps> = ({ officeAddresses }) => {
   return (
     <ul className="settings-requisites__list settings-requisites__list--addresses">
       {officeAddresses?.map((officeAddress) => (
-        <OfficeAddressCard officeAddress={officeAddress} />
+        <OfficeAddressCard
+          key={officeAddress?.id}
+          officeAddress={officeAddress}
+        />
       ))}
     </ul>
   );

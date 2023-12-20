@@ -20,6 +20,8 @@ import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
 import { OfficeAddressListAdmin } from "../models/OfficeAddressAdminList";
 import { OfficeAddressAdminItem } from "../models/OfficeAddressAdminItem";
+import { TCardList } from "../models/CardList";
+import { Card } from "../models/Card";
 
 export class AuthorizedService {
   public static teamMembersList(page?: string): CancelablePromise<{
@@ -1590,6 +1592,31 @@ export class AuthorizedService {
         400: `request failed`,
         403: `Forbidden`,
         404: `request failed`,
+      },
+    });
+  }
+
+  public static getCardsList(): CancelablePromise<TCardList> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/account/card",
+      errors: {
+        403: `Forbidden`,
+      },
+    });
+  }
+
+  public static addNewCard(requestBody: Card): CancelablePromise<{
+    message?: string;
+  }> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/account/card",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        400: `request failed`,
+        403: `Forbidden`,
       },
     });
   }
