@@ -1,0 +1,100 @@
+.application-card {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 20px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border: 1px solid #D1D1D1;
+    background-color: #F6F6F6;
+    border-radius: 10px;
+}
+
+.application-card--approved {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 20px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border: 1px solid #33A02C;
+    background-color: #33A02C1A;
+    border-radius: 10px;
+}
+
+.application-card--waiting {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 20px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border: 1px solid #D1D1D1;
+    background-color: #D1D1D180;
+    border-radius: 10px;
+}
+
+.application-card--rejected {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 20px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border: 1px solid #EE2F2B;
+    background-color: #EE2F2B1A;
+    border-radius: 10px;
+}
+
+.application-card--new {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 20px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border: 1px solid #292421;
+    background-color: #6F6F6F;
+    color: white;
+    border-radius: 10px;
+}
+
+.application-card--read {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 20px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border: 1px solid #D1D1D1;
+    background-color: #F6F6F6;
+    border-radius: 10px;
+}
+
+.application-card__more {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    color: black
+}
+
+.application-card__status-label__approved {
+    text-align: right;
+    font-size: 13px;
+    margin-right: 5px;
+    color: #33A02C;
+}
+
+.application-card__status-label__waiting {
+    text-align: right;
+    font-size: 13px;
+    color: #868686;
+}
+
+.application-card__status-label__rejected {
+    text-align: right;
+    font-size: 13px;
+    margin-right: 5px;
+    color: #EE2F2B;
+}
+
+.application-card__status-label__new {
+    text-align: right;
+    font-size: 13px;
+    color: #292421;
+}

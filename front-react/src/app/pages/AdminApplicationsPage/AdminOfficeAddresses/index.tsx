@@ -1,18 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
-import ApplicationList from "./ApplicationForNewProjectList";
-import { AuthorizedService, ProjectListAdmin } from "@awex-api";
-import classes from "./ProjectIncrease.module.css";
+import ApplicationList from "../ProjectsIncrease/ApplicationForNewProjectList";
+import { AuthorizedService } from "@awex-api";
+import classes from "../ProjectsIncrease/ProjectIncrease.module.css";
 import { useSearchParams } from "react-router-dom";
 import classNames from "classnames";
 import AdminApplicationAreaNavbar from "../../../layouts/AdminAreaLayout/AdminApplicationAreaLayout/AdminApplicationAreaNavbar";
+import ApplicationForNewOfficeAddressList from "./ApplicationForNewOfficeAddressList";
+import { OfficeAddressListAdmin } from "src/generated/awex-api/models/OfficeAddressAdminList";
 
 const DEFAULT_SEARCH = "";
 const QUERY_PARAM_SEARCH = "search";
 
-const ProjectsIncrease: React.FC = () => {
-  const [applications, setApplications] = React.useState<ProjectListAdmin[]>(
-    []
-  );
+const AdminOfficeAddress: React.FC = () => {
+  const [applications, setApplications] =
+    React.useState<OfficeAddressListAdmin>();
   const [searchInputFocused, setSearchInputFocused] = useState(false);
   const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
 
@@ -61,11 +62,13 @@ const ProjectsIncrease: React.FC = () => {
 
   useEffect(() => {
     const searchText = searchParams.get(QUERY_PARAM_SEARCH);
-    AuthorizedService.adminProjectsList(undefined, undefined, searchText!).then(
-      (res) => {
-        setApplications(res.list!);
-      }
-    );
+    AuthorizedService.getAdminOfficeAddresses(
+      undefined,
+      undefined,
+      searchText!
+    ).then((res) => {
+      setApplications(res);
+    });
   }, []);
 
   return (
@@ -117,11 +120,11 @@ const ProjectsIncrease: React.FC = () => {
             <p className="admin-marchants__item-label" />
           </div>
 
-          <ApplicationList applications={applications} />
+          <ApplicationForNewOfficeAddressList applications={applications!} />
         </div>
       </div>
     </>
   );
 };
 
-export default ProjectsIncrease;
+export default AdminOfficeAddress;

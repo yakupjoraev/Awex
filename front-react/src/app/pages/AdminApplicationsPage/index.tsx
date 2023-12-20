@@ -1,8 +1,5 @@
 import React from "react";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 import classes from "./AdminApplicationsPage.module.css";
-import ProjectsIncrease from "./ProjectsIncrease";
 
 const AdminApplicationsPage: React.FC = () => {
   return (

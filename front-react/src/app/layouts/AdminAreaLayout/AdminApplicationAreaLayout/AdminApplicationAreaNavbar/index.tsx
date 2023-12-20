@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import classes from "./AdminApplicationAreaNavbar.module.css";
 import { NavLink } from "react-router-dom";
 import { AuthorizedService, ProjectListAdmin } from "@awex-api";
+import { ADMIN_APPLICATIONS_OFFICE_ADDRESS_ROUTE } from "@constants/path-locations";
 
 const AdminApplicationAreaNavbar: React.FC = () => {
   const [applications, setApplications] = React.useState<ProjectListAdmin[]>(
@@ -12,7 +13,7 @@ const AdminApplicationAreaNavbar: React.FC = () => {
     AuthorizedService.adminProjectsList().then((res) => {
       setApplications(res.list!);
     });
-  }, [applications]);
+  }, []);
 
   const amountOfNewApplications = applications.filter(
     (application) => application?.validation?.status === "new"
@@ -37,8 +38,8 @@ const AdminApplicationAreaNavbar: React.FC = () => {
     },
     {
       title: "Изменение/добавление юр. адреса",
-      path: "/admin-applications-page/legal-address",
-      disable: true,
+      path: ADMIN_APPLICATIONS_OFFICE_ADDRESS_ROUTE,
+      disable: false,
     },
   ];
 

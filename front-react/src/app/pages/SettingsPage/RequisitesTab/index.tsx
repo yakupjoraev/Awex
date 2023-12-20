@@ -1,3 +1,5 @@
+import OfficeAddresses from "./OfficeAddresses";
+
 export function RequisitesTab() {
   const handleClick = (ev: React.MouseEvent) => {
     ev.preventDefault();
@@ -170,77 +172,7 @@ export function RequisitesTab() {
         </ul>
       </div>
 
-      <div className="settings-requisites__list-wrapper">
-        <div className="settings-requisites__header">
-          <h3 className="settings-requisites__title">
-            Мои адреса для доставки наличных
-          </h3>
-
-          <a
-            className="settings-requisites__added"
-            href="#"
-            onClick={handleClick}
-          >
-            Добавить адрес
-          </a>
-        </div>
-
-        <ul className="settings-requisites__list settings-requisites__list--addresses">
-          <li className="settings-requisites__item">
-            <div className="settings-requisites__item-block">ООО “Первый”</div>
-
-            <div className="settings-requisites__item-border"></div>
-
-            <div className="settings-requisites__item-block settings-requisites__item--addresses">
-              Россия, г. Москва, ул. Ленина, 21, офис 1
-            </div>
-
-            <a
-              className="settings-requisites__item-btn third-btn"
-              href="#"
-              onClick={handleClick}
-            >
-              <span>Подтверждающие</span> документы
-            </a>
-          </li>
-
-          <li className="settings-requisites__item">
-            <div className="settings-requisites__item-block">ООО “Первый”</div>
-
-            <div className="settings-requisites__item-border"></div>
-
-            <div className="settings-requisites__item-block settings-requisites__item--addresses">
-              Россия, г. Москва, ул. Ленина, 21, офис 1
-            </div>
-
-            <a
-              className="settings-requisites__item-btn third-btn"
-              href="#"
-              onClick={handleClick}
-            >
-              <span>Подтверждающие</span> документы
-            </a>
-          </li>
-
-          <li className="settings-requisites__item">
-            <div className="settings-requisites__item-block">ООО “Первый”</div>
-
-            <div className="settings-requisites__item-border"></div>
-
-            <div className="settings-requisites__item-block settings-requisites__item--addresses">
-              Россия, г. Москва, ул. Ленина, 21, офис 1
-            </div>
-
-            <a
-              className="settings-requisites__item-btn third-btn"
-              href="#"
-              onClick={handleClick}
-            >
-              <span>Подтверждающие</span> документы
-            </a>
-          </li>
-        </ul>
-      </div>
+      <OfficeAddresses />
     </div>
   );
 }
