@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { getConfigSettings } from "@store/accountConfigSettings/slice";
 import { useSearchParams } from "react-router-dom";
 import style from "./style.module.css";
-import classNames from "classnames";
 
 type OptimisticUpdatesAction =
   | { type: "add_update"; update: ListingItemUpdate }
