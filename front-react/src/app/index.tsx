@@ -20,18 +20,7 @@ import { PrivateRoute } from "@components/PrivateRoute";
 import { InfocenterPage } from "./pages/InfocenterPage";
 import { MyAssetsPage } from "./pages/MyAssetsPage";
 import { AssetPage } from "./pages/AssetPage";
-import {
-  ROUTE,
-  ADMIN_APPLICATIONS_PROJECTS_DETAILS_ROUTE,
-  ADMIN_APPLICATIONS_PROJECTS_ROUTE,
-  ADMIN_APPLICATIONS_ROUTE,
-  ADMIN_MERCHANT_STATS_SUBROUTE,
-  ADMIN_MERCHANTS_ROUTE,
-  ADMIN_STATS_ROUTE,
-  ADMIN_COMMISSION,
-  ADMIN_APPLICATIONS_OFFICE_ADDRESS_ROUTE,
-  ADMIN_APPLICATIONS_OFFICE_ADDRESS_DETAILS_ROUTE,
-} from "./constants/path-locations";
+import { ROUTE } from "./constants/path-locations";
 import { AdminFeesPage } from "./pages/AdminFeesPage";
 import { AdminAreaLayout } from "./layouts/AdminAreaLayout";
 import { AdminAuthPage } from "./pages/AdminAuthPage";
@@ -45,7 +34,6 @@ import { NotificationsPage } from "./pages/NotificationsPage";
 import AdminApplicationsPage from "./pages/AdminApplicationsPage";
 import AdminApplicationAreaLayout from "./layouts/AdminAreaLayout/AdminApplicationAreaLayout";
 import ProjectsIncrease from "./pages/AdminApplicationsPage/ProjectsIncrease";
-import AdminProject from "./pages/AdminApplicationsPage/AdminProject";
 import { OperationsHistoryPage } from "./pages/OperationsHistoryPage";
 import { InvoiceTemplates } from "./pages/InvoiceTemplates";
 import { ReferralPage } from "./pages/ReferralPage";
@@ -104,38 +92,41 @@ export function App() {
             </PrivateRoute>
           }
         >
-          <Route path={ADMIN_COMMISSION} element={<AdminFeesPage />} />
-          <Route path={ADMIN_STATS_ROUTE} element={<AdminStatsPage />} />
           <Route
-            path={ADMIN_MERCHANTS_ROUTE}
+            path={ROUTE.ADMIN_COMMISSION_PATH}
+            element={<AdminFeesPage />}
+          />
+          <Route path={ROUTE.ADMIN_STATS_PATH} element={<AdminStatsPage />} />
+          <Route
+            path={ROUTE.ADMIN_MERCHANTS_PATH}
             element={<AdminMerchantsPage />}
           />
           <Route
-            path={`${ADMIN_MERCHANTS_ROUTE}/:merchantId${ADMIN_MERCHANT_STATS_SUBROUTE}`}
+            path={`${ROUTE.ADMIN_MERCHANTS_PATH}/:merchantId${ROUTE.ADMIN_MERCHANT_STATS_SUBROUTE_PATH}`}
             element={<AdminMerchantStats />}
           />
           <Route
-            path={ADMIN_APPLICATIONS_ROUTE}
+            path={ROUTE.ADMIN_APPLICATIONS_PATH}
             element={<AdminApplicationAreaLayout />}
           >
             <Route
-              path={ADMIN_APPLICATIONS_ROUTE}
+              path={ROUTE.ADMIN_APPLICATIONS_PATH}
               element={<AdminApplicationsPage />}
             />
             <Route
-              path={ADMIN_APPLICATIONS_PROJECTS_ROUTE}
+              path={ROUTE.ADMIN_APPLICATIONS_PROJECTS_PATH}
               element={<ProjectsIncrease />}
             />
             <Route
-              path={`${ADMIN_APPLICATIONS_PROJECTS_DETAILS_ROUTE}`}
+              path={`${ROUTE.ADMIN_APPLICATIONS_PROJECTS_DETAILS_PATH}`}
               element={<AdminProjectDetails />}
             />
             <Route
-              path={ADMIN_APPLICATIONS_OFFICE_ADDRESS_ROUTE}
+              path={ROUTE.ADMIN_APPLICATIONS_OFFICE_ADDRESS_PATH}
               element={<AdminOfficeAddress />}
             />
             <Route
-              path={ADMIN_APPLICATIONS_OFFICE_ADDRESS_DETAILS_ROUTE}
+              path={ROUTE.ADMIN_APPLICATIONS_OFFICE_ADDRESS_DETAILS_PATH}
               element={<AdminOfficeAddressDetails />}
             />
           </Route>

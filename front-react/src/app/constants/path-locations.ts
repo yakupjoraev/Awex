@@ -2,19 +2,6 @@ export const HOME_PAGE_PATH = "/";
 export const ASSETS_ROUTE = "/assets";
 export const NOTIFICATIONS_PAGE = "/notifications";
 
-export const ADMIN_MERCHANTS_ROUTE = "/admin/merchants";
-export const ADMIN_MERCHANT_STATS_SUBROUTE = "/stats";
-export const ADMIN_STATS_ROUTE = "/admin/statistics";
-export const ADMIN_APPLICATIONS_ROUTE = "/admin/applications";
-export const ADMIN_APPLICATIONS_PROJECTS_ROUTE = "/admin/applications/projects";
-export const ADMIN_APPLICATIONS_PROJECTS_DETAILS_ROUTE =
-  "/admin/applications/projects/:projectId";
-export const ADMIN_APPLICATIONS_OFFICE_ADDRESS_ROUTE =
-  "/admin/applications/office-address";
-export const ADMIN_APPLICATIONS_OFFICE_ADDRESS_DETAILS_ROUTE =
-  "/admin/applications/office-address/:applicationId";
-export const ADMIN_COMMISSION = "/admin/commission";
-
 export const ROUTE = {
   HOME_PAGE_PATH: "/",
   INVOICE_PATH: "/invoice",
@@ -43,4 +30,15 @@ export const ROUTE = {
   INTEGRATION_CMS_MODULE_PATH: "/integration-cms-module",
   INTEGRATION_HTML_WIDJET_PATH: "/integration-html-widjet",
   REFERRAL_LINK_PATH: "/referral-link",
+  ADMIN_MERCHANTS_PATH: "/admin/merchants",
+  ADMIN_MERCHANT_STATS_SUBROUTE_PATH: "/stats",
+  ADMIN_STATS_PATH: "/admin/statistics",
+  ADMIN_APPLICATIONS_PATH: "/admin/applications",
+  ADMIN_APPLICATIONS_PROJECTS_PATH: "/admin/applications/projects",
+  ADMIN_APPLICATIONS_PROJECTS_DETAILS_PATH:
+    "/admin/applications/projects/:projectId",
+  ADMIN_APPLICATIONS_OFFICE_ADDRESS_PATH: "/admin/applications/office-address",
+  ADMIN_APPLICATIONS_OFFICE_ADDRESS_DETAILS_PATH:
+    "/admin/applications/office-address/:applicationId",
+  ADMIN_COMMISSION_PATH: "/admin/commission",
 };
