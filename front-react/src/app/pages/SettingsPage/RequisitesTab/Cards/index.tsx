@@ -22,7 +22,7 @@ const Cards: React.FC = () => {
         setCards(res);
       }
     });
-  }, []);
+  }, [isNewCardModalOpen]);
 
   return (
     <div className="settings-requisites__list-wrapper">

@@ -7,6 +7,7 @@ import classNames from "classnames";
 import AdminApplicationAreaNavbar from "../../../layouts/AdminAreaLayout/AdminApplicationAreaLayout/AdminApplicationAreaNavbar";
 import ApplicationForNewOfficeAddressList from "./ApplicationForNewOfficeAddressList";
 import { OfficeAddressListAdmin } from "src/generated/awex-api/models/OfficeAddressAdminList";
+import { Pagination } from "@components/Pagination";
 
 const DEFAULT_SEARCH = "";
 const QUERY_PARAM_SEARCH = "search";
@@ -16,6 +17,8 @@ const AdminOfficeAddress: React.FC = () => {
     React.useState<OfficeAddressListAdmin>();
   const [searchInputFocused, setSearchInputFocused] = useState(false);
   const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -49,6 +52,10 @@ const AdminOfficeAddress: React.FC = () => {
     return searchText === null ? DEFAULT_SEARCH : searchText;
   }, [searchParams]);
 
+  const changePage = (page: number): void => {
+    setPage(page);
+  };
+
   useEffect(() => {
     setSearchText(submittedSearchText);
   }, []);
@@ -63,11 +70,13 @@ const AdminOfficeAddress: React.FC = () => {
   useEffect(() => {
     const searchText = searchParams.get(QUERY_PARAM_SEARCH);
     AuthorizedService.getAdminOfficeAddresses(
-      undefined,
+      page,
       undefined,
       searchText!
     ).then((res) => {
       setApplications(res);
+      setTotalPages(res.pages!);
+      setPage(res.page!);
     });
   }, []);
 
@@ -122,6 +131,12 @@ const AdminOfficeAddress: React.FC = () => {
 
           <ApplicationForNewOfficeAddressList applications={applications!} />
         </div>
+
+        <Pagination
+          goToPage={changePage}
+          pages={totalPages}
+          currentPage={page}
+        />
       </div>
     </>
   );

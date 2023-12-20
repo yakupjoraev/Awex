@@ -1487,7 +1487,7 @@ export class AuthorizedService {
   public static uploadOfficeAddressDocument(
     id: string,
     formData: {
-      upload: Blob;
+      upload: Blob[];
     }
   ): CancelablePromise<{
     message?: string;
@@ -1592,6 +1592,40 @@ export class AuthorizedService {
         400: `request failed`,
         403: `Forbidden`,
         404: `request failed`,
+      },
+    });
+  }
+
+  // public static administratorGetOfficeAddressDocument(
+  //   filename: string
+  // ): CancelablePromise<any> {
+  //   return __request(OpenAPI, {
+  //     method: "GET",
+  //     url: "/api/uploaded-files/{fileName}",
+  //     errors: {
+  //       400: `request failed`,
+  //       403: `Forbidden`,
+  //       404: `request failed`,
+  //     },
+  //     path: {
+  //       fileName: filename,
+  //     },
+  //   });
+  // }
+
+  public static administratorGetOfficeAddressDocument(
+    fileName: string
+  ): CancelablePromise<any> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/uploaded-files/{fileName}",
+      errors: {
+        400: `request failed`,
+        403: `Forbidden`,
+        404: `request failed`,
+      },
+      path: {
+        fileName: fileName,
       },
     });
   }

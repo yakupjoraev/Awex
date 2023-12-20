@@ -23,21 +23,20 @@ export function SupportingDocumentsForOfficeModalContainer(
   const handleSubmitSupportingDocuments = (opts: { files: File[] }) => {
     setLoading(true);
 
-    opts?.files?.forEach((file) => {
-      const formData = new FormData();
+    const formData = new FormData();
 
+    opts?.files?.forEach((file) => {
       const fileObject = new Blob([file], { type: file.type });
       formData.append("upload", fileObject, file.name);
-
-      const uploadData = {
-        upload: formData.get("upload") as Blob,
-      };
-
-      AuthorizedService.uploadOfficeAddressDocument(
-        props.addressId,
-        uploadData
-      );
     });
+
+    const uploadData = {
+      upload: formData.getAll("upload") as Blob[],
+    };
+
+    console.log(uploadData);
+
+    AuthorizedService.uploadOfficeAddressDocument(props.addressId, uploadData);
 
     AuthorizedService.requestOfficeAddressValidation(props?.addressId).then(
       (res) => {

@@ -4,6 +4,7 @@ import { AuthorizedService, ProjectListAdmin } from "@awex-api";
 import classes from "./ProjectIncrease.module.css";
 import { useSearchParams } from "react-router-dom";
 import classNames from "classnames";
+import { Pagination } from "@components/Pagination";
 import AdminApplicationAreaNavbar from "../../../layouts/AdminAreaLayout/AdminApplicationAreaLayout/AdminApplicationAreaNavbar";
 
 const DEFAULT_SEARCH = "";
@@ -15,6 +16,8 @@ const ProjectsIncrease: React.FC = () => {
   );
   const [searchInputFocused, setSearchInputFocused] = useState(false);
   const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -43,6 +46,10 @@ const ProjectsIncrease: React.FC = () => {
     setSearchText(ev.currentTarget.value);
   };
 
+  function changePage(page: number): void {
+    setPage(page);
+  }
+
   const submittedSearchText = useMemo(() => {
     const searchText = searchParams.get(QUERY_PARAM_SEARCH);
     return searchText === null ? DEFAULT_SEARCH : searchText;
@@ -61,12 +68,16 @@ const ProjectsIncrease: React.FC = () => {
 
   useEffect(() => {
     const searchText = searchParams.get(QUERY_PARAM_SEARCH);
-    AuthorizedService.adminProjectsList(undefined, undefined, searchText!).then(
-      (res) => {
-        setApplications(res.list!);
-      }
-    );
-  }, []);
+    AuthorizedService.adminProjectsList(
+      page.toString(),
+      undefined,
+      searchText!
+    ).then((res) => {
+      setApplications(res.list!);
+      setTotalPages(res.pages!);
+      setPage(res.page!);
+    });
+  }, [page, totalPages]);
 
   return (
     <>
@@ -119,6 +130,12 @@ const ProjectsIncrease: React.FC = () => {
 
           <ApplicationList applications={applications} />
         </div>
+
+        <Pagination
+          currentPage={page}
+          goToPage={changePage}
+          pages={totalPages}
+        />
       </div>
     </>
   );
