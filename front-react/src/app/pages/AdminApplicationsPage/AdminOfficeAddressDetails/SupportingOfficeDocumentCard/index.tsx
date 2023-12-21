@@ -9,22 +9,13 @@ interface IProps {
 
 const SupportingOfficeDocumentCard: React.FC<IProps> = ({ document }) => {
   const [isFileOpen, setIsFileOpen] = useState(false);
-  const [file, setFile] = useState("");
-
-  const handleOpenFile = async () => {
-    await AuthorizedService.administratorGetOfficeAddressDocument(
-      document
-    ).then((res) => {
-      console.log(res);
-      if (res) {
-        setFile(res);
-      }
-    });
-    setIsFileOpen(true);
-  };
 
   const handleCloseFile = () => {
     setIsFileOpen(false);
+  };
+
+  const handleOpenFile = () => {
+    setIsFileOpen(true);
   };
 
   return (
@@ -36,7 +27,7 @@ const SupportingOfficeDocumentCard: React.FC<IProps> = ({ document }) => {
       <AdminSupportingDocumentsViewModalContainer
         open={isFileOpen}
         onClose={handleCloseFile}
-        img={document}
+        fileName={document}
       />
     </>
   );

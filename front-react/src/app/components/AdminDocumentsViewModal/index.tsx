@@ -4,7 +4,7 @@ import React from "react";
 export interface AdminDocumentsViewModalProps {
   open: boolean;
   onClose: () => void;
-  img: string;
+  fileName: string;
 }
 
 const AdminDocumentsViewModal: React.FC<AdminDocumentsViewModalProps> = (
@@ -30,7 +30,10 @@ const AdminDocumentsViewModal: React.FC<AdminDocumentsViewModalProps> = (
         </div>
 
         <div className="modal-content__main">
-          <img src={props.img} alt="file" />
+          <img
+            src={`https://awex.freeblock.site/api/uploaded-files/${props.fileName}`}
+            alt="file"
+          />
         </div>
       </div>
     </div>

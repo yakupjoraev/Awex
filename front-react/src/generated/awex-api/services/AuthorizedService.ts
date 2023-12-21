@@ -16,7 +16,7 @@ import type { Statistics } from "../models/Statistics";
 import type { TeamMember } from "../models/TeamMember";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
+import { OpenAPI, StaticOpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
 import { OfficeAddressListAdmin } from "../models/OfficeAddressAdminList";
 import { OfficeAddressAdminItem } from "../models/OfficeAddressAdminItem";
@@ -1596,29 +1596,12 @@ export class AuthorizedService {
     });
   }
 
-  // public static administratorGetOfficeAddressDocument(
-  //   filename: string
-  // ): CancelablePromise<any> {
-  //   return __request(OpenAPI, {
-  //     method: "GET",
-  //     url: "/api/uploaded-files/{fileName}",
-  //     errors: {
-  //       400: `request failed`,
-  //       403: `Forbidden`,
-  //       404: `request failed`,
-  //     },
-  //     path: {
-  //       fileName: filename,
-  //     },
-  //   });
-  // }
-
   public static administratorGetOfficeAddressDocument(
     fileName: string
   ): CancelablePromise<any> {
-    return __request(OpenAPI, {
+    return __request(StaticOpenAPI, {
       method: "GET",
-      url: "/api/uploaded-files/{fileName}",
+      url: "/uploaded-files/{fileName}",
       errors: {
         400: `request failed`,
         403: `Forbidden`,
@@ -1648,6 +1631,39 @@ export class AuthorizedService {
       url: "/account/card",
       body: requestBody,
       mediaType: "application/json",
+      errors: {
+        400: `request failed`,
+        403: `Forbidden`,
+      },
+    });
+  }
+
+  public static getLog(
+    page?: string,
+    event?: string,
+    startTime?: number,
+    endTime?: number
+  ): CancelablePromise<{
+    page: number;
+    pages: number;
+    list: Array<{
+      id: number;
+      event: string;
+      data: {
+        user_id: number;
+      };
+      createdAt: number;
+    }>;
+  }> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/log",
+      query: {
+        page: page,
+        event: event,
+        startTime: startTime,
+        endTime: endTime,
+      },
       errors: {
         400: `request failed`,
         403: `Forbidden`,
