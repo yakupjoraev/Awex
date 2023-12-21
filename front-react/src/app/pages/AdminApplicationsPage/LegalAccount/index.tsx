@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import classes from "./LegalAccount.module.css";
-import ApplicationList from "../ApplicationList";
+import ApplicationList from "../ProjectsIncrease/ApplicationForNewProjectList";
 import { AuthorizedService, ProjectListAdmin } from "@awex-api";
 
 const LegalAccount: React.FC = () => {

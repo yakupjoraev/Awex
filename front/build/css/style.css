@@ -762,6 +762,14 @@ body.locked {
   outline: 0;
 }
 
+.project-input__file-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+}
+
 .project-input::-webkit-input-placeholder {
   font-family: "Raleway", sans-serif;
   font-weight: 400;

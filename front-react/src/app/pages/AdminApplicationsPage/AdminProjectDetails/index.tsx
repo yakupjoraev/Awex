@@ -7,10 +7,10 @@ import {
 } from "@awex-api";
 import { RequestAdditionalInfoModalContainer } from "@containers/RequestAdditionalInfoModalContainer";
 import { AdminRejectProjectModalContainer } from "@containers/AdminRejectProjectModalContainer";
-import ApplicationList from "../ApplicationList";
+import ApplicationForNewProjectList from "../ProjectsIncrease/ApplicationForNewProjectList";
 import classes from "./AdminProject.module.css";
 
-const AdminProject: React.FC = () => {
+const AdminProjectDetails: React.FC = () => {
   const [application, setApplication] = useState<ProjectItemAdmin>();
   const [
     isRequestAdditionalInfoModalOpened,
@@ -62,7 +62,7 @@ const AdminProject: React.FC = () => {
           <p className="admin-marchants__item-label" />
         </div>
 
-        <ApplicationList
+        <ApplicationForNewProjectList
           applications={[
             {
               id: projectId,
@@ -239,4 +239,4 @@ const AdminProject: React.FC = () => {
   );
 };
 
-export default AdminProject;
+export default AdminProjectDetails;

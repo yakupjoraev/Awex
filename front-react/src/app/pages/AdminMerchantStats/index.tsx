@@ -5,10 +5,7 @@ import { useEffect, useState } from "react";
 import { AuthorizedService, Statistics } from "@awex-api";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { getConfigSettings } from "@store/accountConfigSettings/slice";
-import {
-  ADMIN_MERCHANTS_ROUTE,
-  ADMIN_STATS_ROUTE,
-} from "@constants/path-locations";
+import { ROUTE } from "@constants/path-locations";
 import { PAGE_ID_ADMIN_MERCHANTS, PAGE_ID_ADMIN_STATS } from "@constants/pages";
 import { QUERY_PARAM_NAVBACK } from "@constants/common-params";
 
@@ -157,7 +154,7 @@ function renderNavBack(token: string | null): JSX.Element | null {
         <div className="admin-statistic__detal-header">
           <Link
             className="admin-statistic__detal-back"
-            to={ADMIN_MERCHANTS_ROUTE}
+            to={ROUTE.ADMIN_MERCHANTS_PATH}
           >
             <img
               src="/img/icons/angle-left-circle.svg"
@@ -171,7 +168,10 @@ function renderNavBack(token: string | null): JSX.Element | null {
     case PAGE_ID_ADMIN_STATS: {
       return (
         <div className="admin-statistic__detal-header">
-          <Link className="admin-statistic__detal-back" to={ADMIN_STATS_ROUTE}>
+          <Link
+            className="admin-statistic__detal-back"
+            to={ROUTE.ADMIN_STATS_PATH}
+          >
             <img
               src="/img/icons/angle-left-circle.svg"
               alt="angle-left-circle"

@@ -6,10 +6,7 @@ import Tooltip from "rc-tooltip";
 import { EditRolesPopover } from "@components/admin/EditRolesPopover";
 import { EditRolesForm } from "@components/admin/EditRolesForm";
 import { Link } from "react-router-dom";
-import {
-  ADMIN_MERCHANTS_ROUTE,
-  ADMIN_MERCHANT_STATS_SUBROUTE,
-} from "@constants/path-locations";
+import { ROUTE } from "@constants/path-locations";
 import { QUERY_PARAM_NAVBACK } from "@constants/common-params";
 import { PAGE_ID_ADMIN_MERCHANTS } from "@constants/pages";
 
@@ -138,7 +135,7 @@ export function StatsItem(props: MerchantItemProps) {
         </div>
         <Link
           className="admin-marchants__item-statistic"
-          to={`${ADMIN_MERCHANTS_ROUTE}/${props.merchantId}${ADMIN_MERCHANT_STATS_SUBROUTE}?${QUERY_PARAM_NAVBACK}=${PAGE_ID_ADMIN_MERCHANTS}`}
+          to={`${ROUTE.ADMIN_MERCHANTS_PATH}/${props.merchantId}${ROUTE.ADMIN_MERCHANT_STATS_SUBROUTE_PATH}?${QUERY_PARAM_NAVBACK}=${PAGE_ID_ADMIN_MERCHANTS}`}
         >
           <img src="/img/icons/chart-pie.svg" alt="chart-pie" />
           Статистика мерчанта

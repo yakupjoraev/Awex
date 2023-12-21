@@ -1,8 +1,4 @@
-import {
-  ADMIN_MERCHANTS_ROUTE,
-  ADMIN_STATS_ROUTE,
-} from "@constants/path-locations";
-import classNames from "classnames";
+import { ROUTE } from "@constants/path-locations";
 import { useEffect, useMemo, useState } from "react";
 import { Link, Outlet, useSearchParams } from "react-router-dom";
 
@@ -74,7 +70,7 @@ export function AdminAreaLayout<IProps>({ isSearchable = true }) {
               <ul className="nav__menu">
                 <li className="nav__item">
                   <Link
-                    to={ADMIN_MERCHANTS_ROUTE}
+                    to={ROUTE.ADMIN_MERCHANTS_PATH}
                     className="nav__item-link"
                     data-scroll=""
                   >
@@ -103,7 +99,7 @@ export function AdminAreaLayout<IProps>({ isSearchable = true }) {
                   <Link
                     className="nav__item-link"
                     data-scroll=""
-                    to={ADMIN_STATS_ROUTE}
+                    to={ROUTE.ADMIN_STATS_PATH}
                   >
                     Статистика
                   </Link>

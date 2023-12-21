@@ -357,6 +357,7 @@
     font-size: 13px;
     line-height: 120%;
     color: var(--text-color);
+    letter-spacing: 0.01em;
   }
 
   &:disabled {
@@ -384,6 +385,24 @@
     line-height: 120%;
     color: var(--text-color);
   }
+}
+
+.project-file-input__file-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.project-file-input__file-item {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  width: 100%;
+  padding: 10px;
+  background: var(--bg-grey-color);
+  border-radius: 10px;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 @keyframes spinner {

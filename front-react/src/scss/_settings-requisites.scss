@@ -1,6 +1,12 @@
 .settings-requisites {
-
   // .settings-requisites__lists
+
+  &__card-expired__wrapper {
+    display: flex;
+    column-gap: 25px;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   &__lists {
     display: flex;
@@ -10,7 +16,8 @@
 
   // .settings-requisites__list-wrapper
 
-  &__list-wrapper {}
+  &__list-wrapper {
+  }
 
   // .settings-requisites__header
 
@@ -88,7 +95,8 @@
 
   // .settings-requisites__item-block
 
-  &__item-block {}
+  &__item-block {
+  }
 
   // .settings-requisites__item-border
 
