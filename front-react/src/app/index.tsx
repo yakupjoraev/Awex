@@ -48,6 +48,7 @@ import { OperationsHistoryPage } from "./pages/OperationsHistoryPage"
 import { InvoiceTemplates } from "./pages/InvoiceTemplates"
 import { ReferralPage } from "./pages/ReferralPage"
 import { ReferralAuthPage } from "./pages/ReferralAuthPage"
+import { EmployeeActivityPage } from "./pages/EmployeeActivityPage"
 
 import { useEffect } from "react"
 import { OpenAPI } from "@awex-api"
@@ -133,6 +134,7 @@ export function App() {
           <Route path={ROUTE.NOTIFICATIONS_PATH} element={<NotificationsPage />} />
           <Route path={ROUTE.HISTORY_PATH} element={<OperationsHistoryPage />} />
           <Route path={ROUTE.REFERRAL_PATH} element={<ReferralPage />} />
+          <Route path={ROUTE.EMPLOYEE_ACTIVITY_PATH} element={<EmployeeActivityPage />} />
           <Route path="*" element={<UserAreaNotFoundPage />} />
         </Route>
         <Route path={`${ROUTE.PAYMENT_CRYPTO_STAGE_PATH}/:stage`} element={<PaymentCryptoPage />} />

@@ -1517,5 +1517,38 @@ export class AuthorizedService {
             },
         })
     }
+    
+    public static getLog(
+        page?: string,
+        event?: string,
+        startTime?: number,
+        endTime?: number
+    ): CancelablePromise<{
+        page: number,
+        pages: number,
+        list: Array<{
+            id: number,
+            event: string,
+            data: {
+                user_id: number,
+            },
+            createdAt: number
+          }>
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/log',
+            query: {
+                'page': page,
+                'event': event,
+                'startTime': startTime,
+                'endTime': endTime,
+            },
+            errors: {
+                400: `request failed`,
+                403: `Forbidden`,
+            },
+        })
+    }
 
 }

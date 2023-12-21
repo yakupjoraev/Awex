@@ -38,4 +38,5 @@ export const ROUTE = {
   INTEGRATION_CMS_MODULE_PATH: '/integration-cms-module',
   INTEGRATION_HTML_WIDJET_PATH: '/integration-html-widjet',
   REFERRAL_LINK_PATH: '/referral-link',
+  EMPLOYEE_ACTIVITY_PATH: '/employee-activity',
 }
