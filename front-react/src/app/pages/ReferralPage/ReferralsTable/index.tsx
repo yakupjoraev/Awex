@@ -103,14 +103,14 @@ export function ReferralsTable() {
             />
 
             
-                <ul className="history-operations__list">
-                    <li className="history-operations__item history-operations__item-header">
-                        <div className="history-operations__item-data">ID реферала</div>
-                        <div className="history-operations__item-time">Статус</div>
-                        <div className="history-operations__item-user">Получено</div>
-                        <div className="history-operations__item-type">Дата</div>
-                    </li>
-                </ul>
+            <ul className="history-operations__list">
+                <li className="history-operations__item history-operations__item-header">
+                    <div className="history-operations__item-data">ID реферала</div>
+                    <div className="history-operations__item-time">Статус</div>
+                    <div className="history-operations__item-user">Получено</div>
+                    <div className="history-operations__item-type">Дата</div>
+                </li>
+            </ul>
 
             <div className="history-operations__container history-operations__container_full">
                 <ul className="history-operations__list">

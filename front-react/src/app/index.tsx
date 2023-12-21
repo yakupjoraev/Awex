@@ -37,6 +37,8 @@ import ProjectsIncrease from "./pages/AdminApplicationsPage/ProjectsIncrease";
 import { OperationsHistoryPage } from "./pages/OperationsHistoryPage";
 import { InvoiceTemplates } from "./pages/InvoiceTemplates";
 import { ReferralPage } from "./pages/ReferralPage";
+import { ReferralAuthPage } from "./pages/ReferralAuthPage"
+import { EmployeeActivityPage } from "./pages/EmployeeActivityPage"
 
 import { useEffect } from "react";
 import { OpenAPI } from "@awex-api";
@@ -48,7 +50,6 @@ import { msg } from "@constants/messages";
 import AdminOfficeAddress from "./pages/AdminApplicationsPage/AdminOfficeAddresses";
 import AdminOfficeAddressDetails from "./pages/AdminApplicationsPage/AdminOfficeAddressDetails";
 import AdminProjectDetails from "./pages/AdminApplicationsPage/AdminProjectDetails";
-import { ReferralAuthPage } from "./pages/ReferralAuthPage";
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -179,6 +180,7 @@ export function App() {
             element={<OperationsHistoryPage />}
           />
           <Route path={ROUTE.REFERRAL_PATH} element={<ReferralPage />} />
+          <Route path={ROUTE.EMPLOYEE_ACTIVITY_PATH} element={<EmployeeActivityPage />} />
           <Route path="*" element={<UserAreaNotFoundPage />} />
         </Route>
         <Route

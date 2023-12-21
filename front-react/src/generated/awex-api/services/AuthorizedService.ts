@@ -1448,6 +1448,7 @@ export class AuthorizedService {
       },
     });
   }
+
   public static getOfficeAddresses(): CancelablePromise<{
     list: Array<{
       id: number;

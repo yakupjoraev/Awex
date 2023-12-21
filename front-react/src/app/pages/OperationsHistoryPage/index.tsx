@@ -1,9 +1,5 @@
-import { useEffect, useState } from "react"
 import { HistoryOperations } from "../HomePage/HistoryOperations"
 
-interface setPayments {
-
-}
 
 export function OperationsHistoryPage() {
     
