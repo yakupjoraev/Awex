@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { useInView } from 'react-intersection-observer'
 import daysjs from "dayjs"
+import { EmployeeActivityFilters } from "./EmployeeActivityFilters"
+import { isNull } from "lodash"
 
 
 type ActivityLog = {
@@ -15,7 +17,7 @@ type ActivityLog = {
     createdAt: number
 }
 
-type ActivityLogFilters = {
+export type ActivityLogFilters = {
     event?: string
     startTime?: number
     endTime?: number
@@ -76,6 +78,17 @@ export function EmployeeActivityPage() {
         page < pages && setPage(page + 1)
     }
 
+    function changeReferralFilters(newFilter: ActivityLogFilters): void {
+        if(!isNull(newFilter)) {
+            const newActivityLogFilters = {
+              ...activityLogFilters,
+              ...newFilter,
+            }
+            setActivityLogFilters(newActivityLogFilters)
+            setPage(1)
+          }
+    } 
+
 
     return (
         <div className="wrapper">
@@ -83,6 +96,10 @@ export function EmployeeActivityPage() {
                 <div className="deposits__header">
                     <h1 className="deposits__title main-title">История действий сотрудников</h1>
                 </div>
+
+                <EmployeeActivityFilters
+                    setFilter={changeReferralFilters}
+                />
     
                 <div className="settings__inner">    
                     <div className="operations-history__content">
@@ -109,7 +126,7 @@ export function EmployeeActivityPage() {
                                                 <div className="history-operations__item-data"> { daysjs(data).format("DD.MM.YYYY") } </div>
                                                 <div className="history-operations__item-time"> { daysjs(data).format("HH:mm") } </div>
                                                 <div className="history-operations__item-user"> { activityLog.data.user_id } </div>
-                                                <div className="history-operations__item-details"> { activityLog.event } </div>
+                                                <div className="history-operations__item-details hoid_fix"> { activityLog.event } </div>
                                             </li>
                                         )
                                     }) }

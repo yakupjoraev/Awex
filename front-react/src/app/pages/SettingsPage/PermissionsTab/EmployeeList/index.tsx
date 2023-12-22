@@ -5,6 +5,8 @@ import { useDebounce } from "usehooks-ts";
 import escapeRegExp from "lodash/escapeRegExp";
 import classNames from "classnames";
 import { AppTeamMember } from "@store/accountTeam/slice";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "@constants/path-locations";
 
 export interface EmployeeListProps {
   className?: string;
@@ -22,6 +24,7 @@ export function EmployeeList(props: EmployeeListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState<string>("");
   const debouncedSearchText = useDebounce(searchText, SEARCH_THROTTLE);
+  const navigate = useNavigate()
 
   const employeesBySearchText = useMemo(() => {
     const normalizedSearchText = debouncedSearchText.trim().toLowerCase();
@@ -72,6 +75,15 @@ export function EmployeeList(props: EmployeeListProps) {
     <div className={classNames("settings-profile__select", props.className)}>
       <div className="settings-security__header">
         <h3 className="settings-security__title">Мои сотрудники</h3>
+
+        <button
+          type="button"
+          className="settings-security__header-btn main-btn"
+          onClick={() => navigate(ROUTE.EMPLOYEE_ACTIVITY_PATH)}
+        >
+          {/* Журнал действий */}
+          История сотрудников
+        </button>
 
         <button
           type="button"
