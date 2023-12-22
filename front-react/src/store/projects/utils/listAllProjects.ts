@@ -1,15 +1,17 @@
 import { ApiError, AuthorizedService } from "@awex-api"
 import { AppProject } from "src/types"
 
+interface Project { id: string; project: AppProject }
+
 export async function listAllProjects() {
   const idToProject = new Map<string, AppProject>()
 
   let i = 1
-  while (true) { // server response is invalid
+  while (true) {
     const nextPage = await AuthorizedService.projectsList(i.toString())
 
     if (!nextPage.list)  break
-    const idListRaw = nextPage.list as unknown
+    const idListRaw = nextPage.list
     const idList: string[] = []
 
     if (idListRaw instanceof Array) {
@@ -24,38 +26,30 @@ export async function listAllProjects() {
       }
     }
 
-    for (const id of idList) {
-      let projectAndDraftRaw
-
-      try {
-        projectAndDraftRaw = await AuthorizedService.projectGet(id)
-      } catch (error) {
-        if (error instanceof ApiError && error.status === 404) continue
-        throw error
-      }
-      let projectAndDraft: any = projectAndDraftRaw
-
-      if (typeof projectAndDraft !== "object" || projectAndDraft === null) continue
-      if (typeof projectAndDraft.draft !== "object") continue
-      if (typeof projectAndDraft.data !== "object") continue
-      const { data, draft, companyId, validationRequestedAt, validation } = projectAndDraft
+    idListRaw.forEach((projectItem) => {
+      if ((typeof projectItem !== "object" || projectItem === null) ||
+          (typeof projectItem.draft !== "object") ||
+          (typeof projectItem.data !== "object") ||
+          (projectItem.id === undefined)
+      ) return
+      const { id, data, draft, companyId, validationRequestedAt, validation } = projectItem
       let project: AppProject 
 
       if (draft) {
         project = { ...draft, companyId, validationRequestedAt, validation }
-        idToProject.set(id, project)
+        idToProject.set(id.toString(), project)
       } else {
         project = { ...data, companyId, validationRequestedAt, validation }
-        idToProject.set(id, project)
+        idToProject.set(id.toString(), project)
       }
-    }
+    })
 
     i++
 
     if (nextPage.pages === undefined || nextPage.pages < i) break
   }
 
-  const projects: { id: string; project: AppProject }[] = Array.from(
+  const projects: Project[] = Array.from(
     idToProject.entries()
   ).map(([id, project]) => ({ id, project }))
 
