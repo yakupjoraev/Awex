@@ -5,13 +5,16 @@ import { useShortString } from "../../hooks/useShortString"
 import { useAccountNotifications } from "../../hooks/useAccountNotifications"
 import { accountNotificationsType } from "../../hooks/useAccountNotifications"
 
+
 export function AccountNotifications() {
     const {
         notificationsFiltered,
         count,
+        unread,
     } = useAccountNotifications()
     const [isOpenList, setIsOpenList] = useState<boolean>(false)
     const [shortMessage, setShortMessage] = useShortString('', 40)
+
 
     useEffect(() => {
         if(!notificationsFiltered.length) {
@@ -20,6 +23,7 @@ export function AccountNotifications() {
         }
         setShortMessage(notificationsFiltered[0].short)
     }, [notificationsFiltered])
+
 
     function toggleOpenList(state?: boolean): void {
         if(notificationsFiltered.length <= 0) {
@@ -34,6 +38,7 @@ export function AccountNotifications() {
         setIsOpenList(state)
     }
 
+
   return (
     <>
         <div className="about-deposit__header"
@@ -42,7 +47,7 @@ export function AccountNotifications() {
             <div className="about-deposit__header-notif">
                 <img src="/img/icons/bell.svg" alt="" />
                 Новые уведомления
-                { count && ( <span>{ count }</span> )}
+                { (unread && (unread > 0)) ? ( <span>{ unread }</span> ) : ('') }
             </div>
 
             { notificationsFiltered.length && (
@@ -55,7 +60,7 @@ export function AccountNotifications() {
         { notificationsFiltered.length && (
             <NotificationsList
                 notifications={notificationsFiltered}
-                count={count}
+                unread={unread}
                 isOpenList={isOpenList}
                 onClose={()=>setIsOpenList(false)}
             />

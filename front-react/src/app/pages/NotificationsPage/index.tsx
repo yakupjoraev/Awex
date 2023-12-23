@@ -15,6 +15,7 @@ export function NotificationsPage() {
         page,
         pages,
         count,
+        unread,
         notificationTypes,
         setNotificationFilter,
         setStatusRead
@@ -50,7 +51,7 @@ export function NotificationsPage() {
                     <h1 className="notifications__title main-title">
                         Уведомления
                     </h1>
-                    <span>{ count }</span>
+                    { (unread && (unread > 0)) ? ( <span>{ unread }</span> ) : ('') }
                 </div>
 
                 <NotificationsFilters

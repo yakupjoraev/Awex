@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { AuthenticatedService } from "@awex-api"
 
+
 const GETTING_TIMEOUT = 60000
+
 
 export interface AccountNotifiFilterType {
     page?: string,
@@ -23,6 +25,7 @@ export interface accountNotificationsType {
     }
 }
 
+
 const useAccountNotifications = () => {
     const [notifications, setNotifications] = useState<accountNotificationsType[]>([])
     const [notifiFilter, setNotifiFilter] = useState<AccountNotifiFilterType>({})
@@ -30,9 +33,11 @@ const useAccountNotifications = () => {
     const [page, setPage] = useState<number>(0)
     const [pages, setPages] = useState<number>(0)
     const [count, setCount] = useState<number>(0)
+    const [unread, setUnread] = useState<number>(0)
     const [notificationsFiltered, setNotificationsFiltered] = useState<accountNotificationsType[]>([])
     const [notificationsIsLoading, setNotificationsIsLoading] = useState<boolean>(false)
     
+
     useEffect(() => {
         let notificationsTimer: any = null
         getNotifications()
@@ -51,6 +56,7 @@ const useAccountNotifications = () => {
     useEffect(() => {
         getFiterredNotifications()
     },[notifications])
+
     
     function getNotifications(): boolean {
         if(notificationsIsLoading) return false
@@ -63,11 +69,12 @@ const useAccountNotifications = () => {
                 setNotifications([])
                 return
             }
-            const {list, page, pages, count} = response
+            const {list, page, pages, count, unread} = response
             const notifications = list.slice(0)
             setPage(page)
             setPages(pages)
             setCount(count)
+            setUnread(unread)
             setNotifications(notifications)
             responseStatus = true
         })
@@ -130,6 +137,7 @@ const useAccountNotifications = () => {
         page,
         pages,
         count,
+        unread,
         notificationTypes,
         setNotificationFilter,
         setStatusRead

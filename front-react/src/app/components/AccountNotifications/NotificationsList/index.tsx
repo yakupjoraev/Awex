@@ -2,15 +2,18 @@ import { NOTIFICATIONS_PAGE } from "@constants/path-locations"
 import { accountNotificationsType } from "src/app/hooks/useAccountNotifications"
 import { useNavigate } from "react-router-dom"
 
+
 export interface NotificationsListProps {
     notifications: accountNotificationsType[]
-    count: number
+    unread: number
     isOpenList: boolean
     onClose: () => void
 }
 
-export function NotificationsList({notifications, count, isOpenList, onClose}: NotificationsListProps) {
+
+export function NotificationsList({notifications, unread, isOpenList, onClose}: NotificationsListProps) {
     const navigate = useNavigate()
+
 
     function close(): void {
         onClose()
@@ -26,6 +29,7 @@ export function NotificationsList({notifications, count, isOpenList, onClose}: N
         navigate(NOTIFICATIONS_PAGE, { replace: false })
     }
 
+
   return (
     <div
         className={`modal modal-notifications modal-genation-links${isOpenList ? ' show' : ''}`}
@@ -38,7 +42,7 @@ export function NotificationsList({notifications, count, isOpenList, onClose}: N
             <div className="modal-content__header">
                 <h4 className="modal-content__title">
                     Уведомления
-                    <span>{ count }</span>
+                    { (unread && (unread > 0)) ? ( <span>{ unread }</span> ) : ('') }
                 </h4>
 
                 <button className="close-modal-btn"

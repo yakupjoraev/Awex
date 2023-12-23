@@ -440,6 +440,7 @@ export class AuthenticatedService {
         page: number
         pages: number
         count: number
+        unread: number
     }> {
         const { page, read, projectId, startTime, endTime } = parameters
         

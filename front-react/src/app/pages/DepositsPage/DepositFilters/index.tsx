@@ -59,7 +59,7 @@ export function DepositFilters(props: DepositFiltersProps) {
     const [statusFilter, setStatusFilter] = useState<StatusFilterType>(statusFilterDefault)
     const [dateFilter, setDateFilter] = useState<DateRange | undefined>(defaultDateFilterValue)
     const [searchString, setSearchString] = useState<string>('')
-    const searchFilterDebounce = useDebounce<string>(searchString, 200)
+    const searchFilterDebounce = useDebounce<string>(searchString, 500)
 
         
     useEffect(() => {
@@ -163,7 +163,7 @@ export function DepositFilters(props: DepositFiltersProps) {
 
             <div className="deposits__filter-search search-group">
                 <input className="deposits__filter-src search-input" type="search"
-                    placeholder="Поиск по ID или комментарию"
+                    placeholder="Поиск по комментарию"
                     value={searchString}
                     onInput={onSearch}
                 />

@@ -39,6 +39,7 @@ interface DepositsFilters {
   status?: DepositStatus
   startTime?: number
   endTime?: number
+  search?: string
 }
 
 
@@ -47,33 +48,28 @@ const depositsFiltersDefault:DepositsFilters = {
   status: undefined,
   startTime: undefined,
   endTime: undefined,
+  search: undefined,
 }
 
 
 export function DepositsPage() {
   const [deposits, setDeposits] = useState<Deposit[]>([])
-  const [filteredDeposits, setFilteredDeposits] = useState<Deposit[]>([])
   const [depositsPage, setDepositsPage] = useState<number>(1)
   const [depositsPages, setDepositsPages] = useState<number>(1)
   const [depositsFilters, setDepositsFilters] = useState<DepositsFilters>(depositsFiltersDefault)
   const [getDepositsInProcess, setGetDepositsInProcess] = useState<boolean>(false)
-  const [searchString, setSearchString] = useState<string>('')
 
 
   useEffect(() => {
     getDeposits()
   }, [depositsFilters, depositsPage])
 
-  useEffect(() => {
-    fiterDeposits()
-  }, [searchString, deposits])
-
 
   function getDeposits(): void {
     if(getDepositsInProcess) return
     setGetDepositsInProcess(true)
-    const { projectId, status, startTime, endTime } = depositsFilters
-    AuthorizedService.depositsList(depositsPage.toString(), projectId, status, startTime, endTime)
+    const { projectId, status, startTime, endTime, search } = depositsFilters
+    AuthorizedService.depositsList(depositsPage.toString(), projectId, status, startTime, endTime, search)
     .then((response) => {
       if(!response || response.list === undefined) {
         toast.error(msg.UNEXPECTED_ERROR)
@@ -81,7 +77,6 @@ export function DepositsPage() {
         return
       }
       const newDeposits: Deposit[] = depositsPage === 1 ? [...response.list] : [...deposits, ...response.list]
-      // console.log('newDeposits', newDeposits)
       setDeposits(newDeposits)
       setDepositsPages(response.pages ? response.pages : 1)
     })
@@ -95,31 +90,28 @@ export function DepositsPage() {
   }
   
   function changeDepositsFilters(newSearchString: string | null, newFilter: DepositsFilters | null): void {
+    let newDepositsFilter: DepositsFilters | null = null
+
     if(!isNull(newSearchString)) {
-      setSearchString(newSearchString)
+      newDepositsFilter = {
+        ...depositsFilters,
+        search: newSearchString ? newSearchString : undefined,
+      }
     }
 
     if(!isNull(newFilter)) {
-      const newDepositsFilter = {
+      newDepositsFilter = {
         ...depositsFilters,
         ...newFilter,
       }
-      setDepositsFilters(newDepositsFilter)
-      setDepositsPage(1)
     }
+    
+    setDepositsFilters(newDepositsFilter ? newDepositsFilter : depositsFiltersDefault)
+    setDepositsPage(1)
   }
 
   function scrollLoad() {
     depositsPage < depositsPages && setDepositsPage(depositsPage + 1)
-  }
-
-  function fiterDeposits(): void {
-    const newFilteredDeposits = deposits.filter((deposit) => {
-      if(deposit.id === Number(searchString)) return true
-      if(deposit.data?.name && deposit.data.name.indexOf(searchString) >= 0) return true
-      return false
-    })
-    setFilteredDeposits(newFilteredDeposits)
   }
 
 
@@ -138,7 +130,7 @@ export function DepositsPage() {
         />
 
         <DepositsList
-          depositsList={filteredDeposits}
+          depositsList={deposits}
           onLoadMore={scrollLoad}
         />
       </section>

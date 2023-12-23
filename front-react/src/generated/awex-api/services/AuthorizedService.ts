@@ -701,7 +701,8 @@ export class AuthorizedService {
     projectId?: number,
     status?: "wait" | "paid" | "expired",
     startTime?: number,
-    endTime?: number
+    endTime?: number,
+    search?: string,
   ): CancelablePromise<{
     page?: number;
     pages?: number;
@@ -716,6 +717,7 @@ export class AuthorizedService {
         status: status,
         startTime: startTime,
         endTime: endTime,
+        search: search,
       },
       errors: {
         403: `Forbidden`,
