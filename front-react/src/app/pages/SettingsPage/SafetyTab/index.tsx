@@ -1,4 +1,6 @@
+import { AddCodeWord } from "./AddCodeWord";
 import { ChangePasswordFormContainer } from "./ChangePasswordFormContainer";
+import { IPBinding } from "./IPBinding";
 import { SessionList } from "./SessionList";
 
 export function SafetyTab() {
@@ -14,27 +16,7 @@ export function SafetyTab() {
       </div>
 
       <div className="settings-profile__selects">
-        <div className="settings-profile__select">
-          <div className="settings-security__header">
-            <h3 className="settings-security__title">Привязка IP</h3>
-          </div>
-
-          <div className="settings-security__middle">
-            <p className="settings-security__text">
-              Фактор позволяет существенно поднять уровень безопасности
-              аккаунта, разрешая выполнять определённые операции исключительно с
-              привязанного IP
-            </p>
-          </div>
-
-          <button
-            type="button"
-            className="settings-security__btn main-btn"
-            onClick={handleClick}
-          >
-            Привязать
-          </button>
-        </div>
+        <IPBinding />
 
         <div className="settings-profile__select">
           <div className="settings-security__header">
@@ -59,6 +41,10 @@ export function SafetyTab() {
           </button>
         </div>
       </div>
+
+      <div className="settings-profile__selects">
+        <AddCodeWord />
+      </div>
     </div>
-  );
+  )
 }

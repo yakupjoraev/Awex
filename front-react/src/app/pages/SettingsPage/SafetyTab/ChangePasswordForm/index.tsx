@@ -122,9 +122,9 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
 
           <input
             className="my-projects__input project-input"
-            id={newPasswordId}
+            id={oldPasswordId}
             type="password"
-            placeholder="Введите новый пароль"
+            placeholder="Введите старый пароль"
             disabled={props.loading}
             {...register("password")}
           />
@@ -191,7 +191,7 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
             className="my-projects__input project-input"
             id={newPasswordRepeatId}
             type={newPasswordRepeatVisible ? "text" : "password"}
-            placeholder="Введите новый пароль"
+            placeholder="Повторите новый пароль"
             disabled={props.loading}
             {...register("newPasswordRepeat")}
           />
