@@ -508,4 +508,26 @@ export class AuthenticatedService {
             
         })
     }
+
+    public static accountProfileSetSecret(
+        oldSecret: string,
+        secret: string
+    ): CancelablePromise<{
+        message?: string
+    }> {
+        const requestBody = {
+            oldSecret,
+            secret
+        }
+
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/account/profile/set-secret',
+            body: requestBody,
+            errors: {
+                400: `request failed`,
+                403: `Forbidden`,
+            },
+        })
+    }
 }
