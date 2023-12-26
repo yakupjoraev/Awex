@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
-import { AdminStatisticsSelector } from "../AdminStatisticsSelector";
-import { currencyToName } from "@constants/currency-names";
+import React, { useEffect, useMemo, useState } from "react";
 import { DateRange } from "react-day-picker";
-import { AdminStatsDateRange } from "../AdminStatsDateRange";
-import { StatsSearch } from "../StatsSearch";
+import { AdminStatisticsSelector } from "../../AdminMerchantStats/AdminStatisticsSelector";
+import { StatsSearch } from "../../AdminMerchantStats/StatsSearch";
+import { currencyToName } from "@constants/currency-names";
 
 export interface StatsFilterState {
   currency?: string;
@@ -22,7 +21,7 @@ export interface StatsFilterProps {
   onSubmit: (filterState: StatsFilterState) => void;
 }
 
-export function StatsFilter(props: StatsFilterProps) {
+const StatisticsFilters: React.FC<StatsFilterProps> = (props) => {
   const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
   const [interactive, setInteractive] = useState(false);
   const [currencyValue, setCurrencyValue] =
@@ -50,9 +49,9 @@ export function StatsFilter(props: StatsFilterProps) {
     props.onSubmit(createFilterState(currencyValue, rangeValue, searchValue));
   };
 
-  const handleDateRangeChange = (value: DateRange | undefined) => {
-    setRangeValue(value);
-  };
+  //   const handleDateRangeChange = (value: DateRange | undefined) => {
+  //     setRangeValue(value);
+  //   };
 
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
@@ -99,20 +98,20 @@ export function StatsFilter(props: StatsFilterProps) {
         options={currencyOptions}
         onChange={handleCurrencyChange}
       />
-      <AdminStatsDateRange
+      {/* <AdminStatsDateRange
         label="Период"
         value={rangeValue}
         onChange={handleDateRangeChange}
         onInteractive={handleInteractive}
-      />
-      {/* <StatsSearch
+      /> */}
+      <StatsSearch
         value={searchValue}
         onChange={handleSearchChange}
         onInteractive={handleInteractive}
-      /> */}
+      />
     </form>
   );
-}
+};
 
 function createFilterState(
   currencyValue: string,
@@ -129,7 +128,7 @@ function createFilterState(
     search = undefined;
   }
 
-  return { currency, range: rangeValue, search };
+  return { search };
 }
 
 function equalsFilterState(
@@ -158,3 +157,5 @@ function equalsFilterState(
 
   return true;
 }
+
+export default StatisticsFilters;

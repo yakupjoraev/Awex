@@ -25,7 +25,7 @@ export function StatsDetails(props: StatsDetailsProps) {
             </div>
             <div className="admin-statistic__detal-item-sum">
               {(statistics.invoiceTotal === undefined
-                ? "..."
+                ? "0"
                 : statistics.invoiceTotal.toLocaleString()) + " USD"}
             </div>
           </div>
@@ -35,7 +35,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <p>Всего счетов:</p>
                 <b>
                   {statistics.invoiceNumber === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.invoiceNumber.toLocaleString()}
                 </b>
               </div>
@@ -45,18 +45,18 @@ export function StatsDetails(props: StatsDetailsProps) {
                   {(statistics.invoiceAverage !== undefined &&
                   statistics.invoiceAverage !== null
                     ? statistics.invoiceAverage.toLocaleString()
-                    : "...") + " USD"}
+                    : "0") + " USD"}
                 </b>
               </div>
               <div className="admin-statistic__detal-info">
                 <p>Оборот за период:</p>
-                <b>??? USD</b>
+                <b>0 USD</b>
               </div>
               <div className="admin-statistic__detal-info">
                 <p>Процент завершенных заявок:</p>
                 <b>
                   {(statistics.invoiceCompletedPercent === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.invoiceCompletedPercent.toLocaleString()) +
                     " %"}
                 </b>
@@ -72,7 +72,7 @@ export function StatsDetails(props: StatsDetailsProps) {
             </div>
             <div className="admin-statistic__detal-item-sum">
               {statistics.depositTotal === undefined
-                ? "..."
+                ? "0"
                 : statistics.depositTotal.toLocaleString() + " USD"}
             </div>
           </div>
@@ -83,7 +83,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <b>
                   {(statistics.depositAverage === null ||
                   statistics.depositAverage === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.depositAverage.toLocaleString()) + " USD"}
                 </b>
               </div>
@@ -91,7 +91,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <p>Всего депозитов:</p>
                 <b>
                   {statistics.depositNumber === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.depositNumber.toLocaleString()}
                 </b>
               </div>
@@ -99,7 +99,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <p>В работе:</p>
                 <b>
                   {statistics.depositInWork === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.depositInWork.toLocaleString()}
                 </b>
               </div>
@@ -107,7 +107,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <p>Завершено:</p>
                 <b>
                   {statistics.depositCompleted === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.depositCompleted.toLocaleString()}
                 </b>
               </div>
@@ -115,7 +115,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <p>Сумма удержания:</p>
                 <b>
                   {(statistics.depositWithholded === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.depositWithholded.toLocaleString()) + " USD"}
                 </b>
               </div>
@@ -130,7 +130,9 @@ export function StatsDetails(props: StatsDetailsProps) {
             <div className="admin-statistic__detal-item-volume">
               Общий объем:
             </div>
-            <div className="admin-statistic__detal-item-sum">??? USD</div>
+            <div className="admin-statistic__detal-item-sum">
+              {statistics.referralAverage} USD
+            </div>
           </div>
           <div className="admin-statistic__detal-bottom">
             <div className="admin-statistic__detal-infos">
@@ -139,7 +141,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <b>
                   {(statistics.referralAverage === null ||
                   statistics.referralAverage === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.referralAverage.toLocaleString()) + " USD"}
                 </b>
               </div>
@@ -147,7 +149,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <p>Количество рефералов:</p>
                 <b>
                   {statistics.referralNumber === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.referralNumber.toLocaleString()}
                 </b>
               </div>
@@ -155,7 +157,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <p>Активные:</p>
                 <b>
                   {statistics.referralActiveNumber === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.referralActiveNumber.toLocaleString()}
                 </b>
               </div>
@@ -163,7 +165,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <p>Получено с комиссии:</p>
                 <b>
                   {(statistics.referralFromFees === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.referralFromFees.toLocaleString()) + " USD"}
                 </b>
               </div>
@@ -171,7 +173,7 @@ export function StatsDetails(props: StatsDetailsProps) {
                 <p>Получено с оборота:</p>
                 <b>
                   {(statistics.referralFromTurnover === undefined
-                    ? "..."
+                    ? "0"
                     : statistics.referralFromTurnover.toLocaleString()) +
                     " USD"}
                 </b>

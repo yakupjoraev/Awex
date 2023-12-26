@@ -154,13 +154,13 @@ function renderNavBack(token: string | null): JSX.Element | null {
         <div className="admin-statistic__detal-header">
           <Link
             className="admin-statistic__detal-back"
-            to={ROUTE.ADMIN_MERCHANTS_PATH}
+            to={ROUTE.ADMIN_STATS_PATH}
           >
             <img
               src="/img/icons/angle-left-circle.svg"
               alt="angle-left-circle"
             />
-            Вернуться к Мерчанты
+            Вернуться к Мерчантам
           </Link>
         </div>
       );

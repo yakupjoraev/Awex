@@ -37,9 +37,8 @@ import ProjectsIncrease from "./pages/AdminApplicationsPage/ProjectsIncrease";
 import { OperationsHistoryPage } from "./pages/OperationsHistoryPage";
 import { InvoiceTemplates } from "./pages/InvoiceTemplates";
 import { ReferralPage } from "./pages/ReferralPage";
-import { ReferralAuthPage } from "./pages/ReferralAuthPage"
-import { EmployeeActivityPage } from "./pages/EmployeeActivityPage"
-
+import { ReferralAuthPage } from "./pages/ReferralAuthPage";
+import { EmployeeActivityPage } from "./pages/EmployeeActivityPage";
 import { useEffect } from "react";
 import { OpenAPI } from "@awex-api";
 import { getUser, checkUser, LoginStatus } from "../services/user.service";
@@ -97,7 +96,6 @@ export function App() {
             path={ROUTE.ADMIN_COMMISSION_PATH}
             element={<AdminFeesPage />}
           />
-          <Route path={ROUTE.ADMIN_STATS_PATH} element={<AdminStatsPage />} />
           <Route
             path={ROUTE.ADMIN_MERCHANTS_PATH}
             element={<AdminMerchantsPage />}
@@ -131,6 +129,8 @@ export function App() {
               element={<AdminOfficeAddressDetails />}
             />
           </Route>
+
+          <Route path={ROUTE.ADMIN_STATS_PATH} element={<AdminStatsPage />} />
         </Route>
         <Route
           element={
@@ -180,7 +180,10 @@ export function App() {
             element={<OperationsHistoryPage />}
           />
           <Route path={ROUTE.REFERRAL_PATH} element={<ReferralPage />} />
-          <Route path={ROUTE.EMPLOYEE_ACTIVITY_PATH} element={<EmployeeActivityPage />} />
+          <Route
+            path={ROUTE.EMPLOYEE_ACTIVITY_PATH}
+            element={<EmployeeActivityPage />}
+          />
           <Route path="*" element={<UserAreaNotFoundPage />} />
         </Route>
         <Route

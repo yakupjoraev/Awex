@@ -8,6 +8,11 @@ import { getConfigSettings } from "@store/accountConfigSettings/slice";
 import { useSearchParams } from "react-router-dom";
 import style from "./style.module.css";
 import classNames from "classnames";
+import {
+  StatsFilter,
+  StatsFilterState,
+} from "../AdminMerchantStats/StatsFilter";
+import StatisticsFilters from "./StatisticsFilters";
 
 type OptimisticUpdatesAction =
   | { type: "add_update"; update: ListingItemUpdate }
@@ -44,10 +49,20 @@ const DEFAULT_MERCHANT_ROLES: string[] = [];
 
 const DEFAULT_SEARCH = "";
 
+const DEFAULT_CURRENCIES: string[] = [];
+
+const DEFAULT_FILTER_STATE: StatsFilterState = {};
+
+type PageError = "unknown" | "not_found";
+
 export function AdminStatsPage() {
   const dispatch = useAppDispatch();
 
   const [searchInputFocused, setSearchInputFocused] = useState(false);
+
+  const [statisticsError, setStatisticsError] = useState<string | null>(null);
+
+  const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
 
   const existingRolesLoading = useAppSelector(
     (state) => state.accountConfigSettings.loading
@@ -92,15 +107,6 @@ export function AdminStatsPage() {
     return pageParsed;
   }, [searchParams, totalPages]);
 
-  const submittedSearchText = useMemo(() => {
-    const searchText = searchParams.get(QUERY_PARAM_SEARCH);
-    return searchText === null ? DEFAULT_SEARCH : searchText;
-  }, [searchParams]);
-
-  useEffect(() => {
-    setSearchText(submittedSearchText);
-  }, []);
-
   useEffect(() => {
     const pageStr = searchParams.get(QUERY_PARAM_PAGE);
     if (pageStr === null) {
@@ -120,7 +126,7 @@ export function AdminStatsPage() {
 
   useEffect(() => {
     setListingLoading(true);
-    AuthorizedService.adminList(submittedPage.toString(), submittedSearchText)
+    AuthorizedService.merchantList(submittedPage.toString(), filterState.search)
       .then(async (response) => {
         const list = response.list
           ? fixUserListing(response.list)
@@ -175,13 +181,13 @@ export function AdminStatsPage() {
         dispatchOptimisticUpdatesAction({ type: "clear_all" });
       })
       .catch((error) => {
-        console.error(error);
+        setStatisticsError(error);
         setListingError(error.message || "failed to load listing");
       })
       .finally(() => {
         setListingLoading(false);
       });
-  }, [submittedPage, submittedSearchText]);
+  }, [submittedPage, filterState]);
 
   useEffect(() => {
     dispatch(getConfigSettings());
@@ -238,8 +244,8 @@ export function AdminStatsPage() {
     });
 
     const asyncCall = enabled
-      ? AuthorizedService.adminEnable(merchantId.toString())
-      : AuthorizedService.adminDisable(merchantId.toString());
+      ? AuthorizedService.merchantEnable(merchantId.toString())
+      : AuthorizedService.merchantDisable(merchantId.toString());
 
     asyncCall
       .then(() => {
@@ -291,6 +297,24 @@ export function AdminStatsPage() {
       });
   };
 
+  const handleFilterChange = (filterState: StatsFilterState) => {
+    setFilterState(filterState);
+  };
+
+  const handleDeleteMerchant = (merchantId: number) => {
+    AuthorizedService.merchantDelete(merchantId.toString())
+      .then(() => {
+        toast.success("Мерчант успешно удален!");
+        setListing((prevListing) =>
+          prevListing.filter((item) => item.id !== merchantId)
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Не удалось удалить мерчанта.");
+      });
+  };
+
   const loading = listingLoading || existingRolesLoading;
   const error = listingError || existingRolesError;
 
@@ -308,83 +332,96 @@ export function AdminStatsPage() {
     [updatedListing, optimisticUpdates]
   );
 
+  const currencies = useAppSelector(
+    (state) => state.accountConfigSettings.data?.currencies
+  );
+  const currenciesLoading = useAppSelector(
+    (state) => state.accountConfigSettings.loading
+  );
+  const currenciesError = useAppSelector(
+    (state) => state.accountConfigSettings.error
+  );
+
+  const pageLoading = currenciesLoading;
+
+  let pageError = null;
+  if (currenciesError || statisticsError) {
+    pageError = "unknown";
+  }
+
   return (
     <main className="main main--profile-filling">
-      <div className="admin-statistic admin-marchants ">
-        <div className="admin-statistic__container">
-          <form
-            className="admin-applications__from"
-            onSubmit={handleSearchFormSubmit}
-          >
-            <div className="admin-applications__search search-group">
-              <input
-                className="admin-applications__src search-input"
-                type="search"
-                name="query"
-                placeholder="Поиск по ID/имени мерчанта/названию/ИНН/адресу/телефону/юрисдикции"
-                value={searchText}
-                onChange={handleSearchInputChange}
-                onFocus={() => setSearchInputFocused(true)}
-                onBlur={() => setSearchInputFocused(false)}
-              />
-              <img
-                className="admin-applications__search-img search-img"
-                src="/img/icons/search.svg"
-                alt="Поиск"
-              />
-              <button
-                className={classNames(
-                  "search-apply-btn",
-                  searchInputFocused && "search-apply-btn--active"
-                )}
-                type="button"
-              >
-                Применить
-              </button>
-            </div>
-          </form>
-          <div className="admin-applications__main">
-            <div className="admin-marchants__list">
-              <div className="admin-marchants__item-labels">
-                <p className="admin-marchants__item-label">Имя/ID</p>
-                <p className="admin-marchants__item-label">Дата регистрации</p>
-                <p className="admin-marchants__item-label">Комиссия</p>
-                <p className="admin-marchants__item-label">Действия</p>
-                <p className="admin-marchants__item-label" />
-                <p className="admin-marchants__item-label" />
-              </div>
-              {listingLoading && optimisticListing.length === 0 && "Loading..."}
-              {!loading && !!error && "Ошибка соединения."}
-              {optimisticListing.map((merchantDetails) => {
-                const merchantId = merchantDetails.id;
-                if (merchantId === undefined) {
-                  return null;
-                }
-                return (
-                  <StatsItem
-                    merchantId={merchantId.toString()}
-                    profileData={merchantDetails.data}
-                    enabled={merchantDetails.enabled}
-                    existingRoles={existingRoles || DEFAULT_EXISTING_ROLES}
-                    roles={merchantDetails.roles || DEFAULT_MERCHANT_ROLES}
-                    fee={merchantDetails.fee}
-                    onToggleEnabled={(enabled) =>
-                      handleToogleEnabled(merchantId, enabled)
-                    }
-                    onUpdateRoles={(roles, cb) => {
-                      handleUpdateRoles(merchantId, roles, cb);
-                    }}
-                    key={merchantId.toString()}
-                  />
-                );
-              })}
-              {optimisticListing.length > 0 && (
-                <MerchantPaginator
-                  className={style["paginator"]}
-                  queryParamPage={QUERY_PARAM_PAGE}
-                  currentPage={submittedPage}
-                  totalPages={totalPages}
+      <div className="admin-statistic__container">
+        <div className="admin-statistic">
+          <div className="admin-statistic__container">
+            <div className="admin-statistic__inner">
+              <div className="admin-statistic__header">
+                <h1 className="admin-statistic__title">Статистика</h1>
+                <StatisticsFilters
+                  currencies={currencies || DEFAULT_CURRENCIES}
+                  onSubmit={handleFilterChange}
                 />
+              </div>
+              {pageLoading ? "Загрузка..." : null}
+              {!pageLoading && pageError !== null
+                ? renderError(pageError as PageError)
+                : null}
+              {!pageLoading && pageError === null && (
+                <div className="admin-applications__main">
+                  <div className="admin-marchants__list">
+                    <div className="admin-marchants__item-labels">
+                      <p className="admin-marchants__item-label">Имя/ID</p>
+                      <p className="admin-marchants__item-label">
+                        Дата регистрации
+                      </p>
+                      <p className="admin-marchants__item-label">Комиссия</p>
+                      <p className="admin-marchants__item-label">Действия</p>
+                      <p className="admin-marchants__item-label" />
+                      <p className="admin-marchants__item-label" />
+                    </div>
+                    {listingLoading &&
+                      optimisticListing.length === 0 &&
+                      "Loading..."}
+                    {!loading && !!error && "Ошибка соединения."}
+                    {optimisticListing?.map((merchantDetails) => {
+                      const merchantId = merchantDetails.id;
+                      if (merchantId === undefined) {
+                        return null;
+                      }
+                      return (
+                        <StatsItem
+                          merchantId={merchantId.toString()}
+                          profileData={merchantDetails.data}
+                          enabled={merchantDetails.enabled}
+                          existingRoles={
+                            existingRoles || DEFAULT_EXISTING_ROLES
+                          }
+                          roles={
+                            merchantDetails.roles || DEFAULT_MERCHANT_ROLES
+                          }
+                          fee={merchantDetails.fee}
+                          onToggleEnabled={(enabled) =>
+                            handleToogleEnabled(merchantId, enabled)
+                          }
+                          onUpdateRoles={(roles, cb) => {
+                            handleUpdateRoles(merchantId, roles, cb);
+                          }}
+                          key={merchantId.toString()}
+                          createdAt={merchantDetails.createdAt}
+                          onDelete={() => handleDeleteMerchant(merchantId)}
+                        />
+                      );
+                    })}
+                    {optimisticListing.length > 0 && (
+                      <MerchantPaginator
+                        className={style["paginator"]}
+                        queryParamPage={QUERY_PARAM_PAGE}
+                        currentPage={submittedPage}
+                        totalPages={totalPages}
+                      />
+                    )}
+                  </div>
+                </div>
               )}
             </div>
           </div>
@@ -478,4 +515,15 @@ function fixUserListing(listing: AdminList[]): AdminList[] {
     }
     return item;
   });
+}
+
+function renderError(pageError: PageError) {
+  switch (pageError) {
+    case "not_found": {
+      return "Мерчант не найден.";
+    }
+    case "unknown": {
+      return "Ошибка загрузки данных. Пожалуйста, перезагрузите страницу.";
+    }
+  }
 }

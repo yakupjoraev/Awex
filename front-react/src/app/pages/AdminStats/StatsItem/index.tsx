@@ -1,6 +1,6 @@
-import { ProfileData } from "@awex-api";
+import { AuthorizedService, ProfileData, ProjectList } from "@awex-api";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import Tooltip from "rc-tooltip";
 import { EditRolesPopover } from "@components/admin/EditRolesPopover";
@@ -8,7 +8,11 @@ import { EditRolesForm } from "@components/admin/EditRolesForm";
 import { Link } from "react-router-dom";
 import { ROUTE } from "@constants/path-locations";
 import { QUERY_PARAM_NAVBACK } from "@constants/common-params";
-import { PAGE_ID_ADMIN_MERCHANTS } from "@constants/pages";
+import { PAGE_ID_ADMIN_STATS } from "@constants/pages";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { currencyToName } from "@constants/currency-names";
+import { format } from "date-fns";
+import MerchantProjectList from "./MerchantProjectList";
 
 export interface MerchantItemProps {
   merchantId: string;
@@ -17,13 +21,16 @@ export interface MerchantItemProps {
   roles: string[];
   existingRoles: string[];
   fee?: number;
+  createdAt?: number;
   onToggleEnabled: (enabled: boolean) => void;
   onUpdateRoles: (roles: string[], cb: () => void) => void;
+  onDelete: (merchantId: string) => void;
 }
 
 export function StatsItem(props: MerchantItemProps) {
   const [expanded, setExpanded] = useState(false);
   const [rolesPopoverOpen, setRolesPopoverOpen] = useState(false);
+  const [projects, setProjects] = useState<ProjectList[]>([]);
 
   const handleExpandBtnClick = () => {
     setExpanded(!expanded);
@@ -31,10 +38,6 @@ export function StatsItem(props: MerchantItemProps) {
 
   const handleСopied = () => {
     toast.success("Скопировано!");
-  };
-
-  const handleNotImplemented = () => {
-    toast("NOT IMPLEMENTED!");
   };
 
   const handleClickOutsideRolesPopover = () => {
@@ -45,8 +48,25 @@ export function StatsItem(props: MerchantItemProps) {
     setRolesPopoverOpen(!rolesPopoverOpen);
   };
 
+  const createdAtLabel = useMemo(
+    () =>
+      props.createdAt !== undefined
+        ? format(props.createdAt * 1000, "dd/MM/yy")
+        : null,
+    [props.createdAt]
+  );
+
+  useEffect(() => {
+    AuthorizedService.projectsList().then((projects) => {
+      setProjects(projects.list!);
+    });
+  }, [props.profileData]);
+
   return (
-    <div className="admin-marchants__item" data-marchants-item="">
+    <div
+      className={classNames("admin-marchants__item", { active: expanded })}
+      data-marchants-item=""
+    >
       <div className="admin-marchants__item-header">
         <div className="admin-marchants__item-id">
           {`ID${props.merchantId}`}
@@ -55,7 +75,7 @@ export function StatsItem(props: MerchantItemProps) {
           </p>
         </div>
         <div className="admin-marchants__item-data">
-          <span>10/01/23</span>
+          {createdAtLabel !== null && <span>{createdAtLabel}</span>}
         </div>
         <div className="admin-marchants__item-comission">
           {props.fee === undefined ? "..." : props.fee.toString() + "%"}
@@ -87,7 +107,7 @@ export function StatsItem(props: MerchantItemProps) {
               </svg>
             </button>
           </Tooltip>
-          <EditRolesPopover
+          {/* <EditRolesPopover
             isOpen={rolesPopoverOpen}
             positions={["bottom", "top", "left", "right"]}
             padding={10}
@@ -124,30 +144,97 @@ export function StatsItem(props: MerchantItemProps) {
                 </button>
               </Tooltip>
             </div>
-          </EditRolesPopover>
+          </EditRolesPopover> */}
           <button
             type="button"
             className="admin-marchants__item-action-btn"
-            onClick={handleNotImplemented}
+            onClick={() => props.onDelete(props.merchantId)}
           >
             <img src="/img/icons/trash.svg" alt="trash" />
           </button>
         </div>
         <Link
           className="admin-marchants__item-statistic"
-          to={`${ROUTE.ADMIN_MERCHANTS_PATH}/${props.merchantId}${ROUTE.ADMIN_MERCHANT_STATS_SUBROUTE_PATH}?${QUERY_PARAM_NAVBACK}=${PAGE_ID_ADMIN_MERCHANTS}`}
+          to={`${ROUTE.ADMIN_MERCHANTS_PATH}/${props.merchantId}${ROUTE.ADMIN_MERCHANT_STATS_SUBROUTE_PATH}?${QUERY_PARAM_NAVBACK}=${PAGE_ID_ADMIN_STATS}`}
         >
           <img src="/img/icons/chart-pie.svg" alt="chart-pie" />
           Статистика мерчанта
         </Link>
         <div
           className="admin-marchants__item-btn"
-          onClick={handleNotImplemented}
+          onClick={handleExpandBtnClick}
         >
-          <span>Подробнее</span>
+          <span>{expanded ? "Скрыть" : "Подробнее"}</span>
           <img src="/img/icons/arrow-down.svg" alt="" />
         </div>
       </div>
+      <div className="admin-marchants__item-content">
+        <div className="admin-marchants__item-blocks">
+          <div className="admin-marchants__item-block">
+            <p className="admin-marchants__item-block-label">Имя</p>
+            <p className="admin-marchants__item-block-text">
+              {props.profileData?.name || "..."}
+            </p>
+            {!!props.profileData?.name &&
+              renderCopyToClipboardBtn(props.profileData?.name, handleСopied)}
+          </div>
+          <div className="admin-marchants__item-block">
+            <p className="admin-marchants__item-block-label">Валюта</p>
+            <p className="admin-marchants__item-block-text">
+              {props.profileData?.displayCurrency
+                ? renderCurrencyName(props.profileData.displayCurrency)
+                : "..."}
+            </p>
+            {!!props.profileData?.displayCurrency &&
+              renderCopyToClipboardBtn(
+                props.profileData.displayCurrency,
+                handleСopied
+              )}
+          </div>
+          <div className="admin-marchants__item-block">
+            <p className="admin-marchants__item-block-label">Telegram</p>
+            <p className="admin-marchants__item-block-text">
+              {props.profileData?.telegram || "..."}
+            </p>
+            {!!props.profileData?.telegram &&
+              renderCopyToClipboardBtn(
+                props.profileData.telegram,
+                handleСopied
+              )}
+          </div>
+          <div className="admin-marchants__item-block">
+            <p className="admin-marchants__item-block-label">E-mail</p>
+            <p className="admin-marchants__item-block-text">
+              {props.profileData?.email || "..."}
+            </p>
+            {!!props.profileData?.email &&
+              renderCopyToClipboardBtn(props.profileData.email, handleСopied)}
+          </div>
+        </div>
+
+        <div className="admin-applications__others">
+          <div className="my-projects__items-wrapper">
+            {/* <MerchantProjectList projects={projects} /> */}
+          </div>
+        </div>
+      </div>
     </div>
+  );
+}
+
+function renderCurrencyName(name: string): string {
+  if (Object.prototype.hasOwnProperty.call(currencyToName, name)) {
+    return currencyToName[name];
+  }
+  return name;
+}
+
+function renderCopyToClipboardBtn(text: string, handleCopy: () => void) {
+  return (
+    <CopyToClipboard text={text} onCopy={handleCopy}>
+      <button type="button" className="admin-marchants__item-block-copy">
+        <img src="/img/icons/file-grey.svg" alt="" />
+      </button>
+    </CopyToClipboard>
   );
 }
