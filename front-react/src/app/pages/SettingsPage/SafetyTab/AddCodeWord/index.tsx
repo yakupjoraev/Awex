@@ -1,10 +1,14 @@
-import { useId } from "react"
+import { useEffect, useId, useState } from "react"
 import { FieldErrors, useForm } from "react-hook-form"
 import { addCodeWordFormSchema } from "./validators"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { AuthenticatedService } from "@awex-api"
+import toast from "react-hot-toast"
+import { msg } from "@constants/messages"
 
 
 interface AddCodeWordFormData {
+    oldWord?: string
     codeWord: string
     repeatCodeWord: string
 }
@@ -13,23 +17,74 @@ interface AddCodeWordFormData {
 export function AddCodeWord() {
     const codeWordId = useId()
     const repeatCodeWordId = useId()
+    const [isSet, setIsSet] = useState<boolean>(false)
+    const [settigInProcess, setSettigInProcess] = useState<boolean>(false)
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
         setError,
-      } = useForm<AddCodeWordFormData>({
+    } = useForm<AddCodeWordFormData>({
         resolver: yupResolver(addCodeWordFormSchema),
-      })
+    })
 
+
+    useEffect(() => {
+        checkSecret()
+    }, [])
+
+
+    function checkSecret() {
+        AuthenticatedService.accountProfileCheckSecret()
+        .then((response) => {
+            if(!response || !('isSet' in response)) {
+                setIsSet(false)
+                return
+            }
+            setIsSet(response.isSet)
+        })
+        .catch((error) => {
+            console.error(error)
+            setIsSet(false)
+        })
+    }
 
     const handleAddedSubmit = handleSubmit((formData) => {
-        if (formData.codeWord !== formData.repeatCodeWord) {
-            setError("repeatCodeWord", { message: "Слова не совпадают!" })
+        console.log('handleAddedSubmit start', settigInProcess)
+        if(settigInProcess) return
+
+        if(isSet && (!formData.oldWord || formData.oldWord?.length <= 0)) {
+            console.log('SECRET_WORD_ERROR')
+            toast.error(msg.SECRET_WORD_ERROR)
+            setError("oldWord", { message: msg.SECRET_WORD_ERROR })
             return
         }
 
-        console.log('formData.codeWord', formData.codeWord)
+        if (formData.codeWord !== formData.repeatCodeWord) {
+            console.log('SECRET_WORD_REPEAT_ERROR')
+            setError("repeatCodeWord", { message: msg.SECRET_WORD_REPEAT_ERROR })
+            return
+        }
+        setSettigInProcess(true)
+
+        AuthenticatedService.accountProfileSetSecret(formData.codeWord, formData.oldWord)
+        .then((response) => {
+            if(!response) {
+                toast.error(msg.UNEXPECTED_ERROR)
+                return
+            }
+            toast.success(msg.SAVED_SUCCESS)
+            checkSecret()
+        })
+        .catch((error) => {
+            console.error(error)
+            toast.error(msg.SERVER_ERROR)
+        })
+        .finally(() => {
+            setSettigInProcess(false)
+            reset()
+        })
     })
 
 
@@ -41,15 +96,32 @@ export function AddCodeWord() {
 
             <div className="settings-security__middle">
                 <p className="settings-security__text">
-                    Позволяет заблокировать ваш аккаунт в случае взлома и даже утрате доступа к нему. Обязательно запомните кодовое слово, т.к. вы не сможете его посмотреть или изменить.
+                    Позволяет заблокировать ваш аккаунт в случае взлома и даже утрате доступа к нему. Обязательно запомните кодовое слово, т.к. вы не сможете его посмотреть или изменить.<br/>
+                    Длина секретного поля должна быть больше или равна 12.
                 </p>
             </div>
 
             <div className="settings-security__middle">
+                { isSet && (
+                    <div className="my-projects__group project-group">
+                        <label className="my-projects__label project-label"
+                            htmlFor={codeWordId}
+                        >Текущее кодовое слово</label>
+
+                        <input className="my-projects__input project-input" type="text" placeholder="Введите текущее кодовое слово"
+                            id={codeWordId}
+                            {...register("oldWord")}
+                        />
+
+                        {renderFieldError(errors, "oldWord")}
+                    </div>
+                )}
+
                 <div className="my-projects__group project-group">
                     <label className="my-projects__label project-label"
                         htmlFor={codeWordId}
-                    >Кодовое слово</label>
+                    >Новое кодовое слово</label>
+
                     <input className="my-projects__input project-input" type="text" placeholder="Введите кодовое слово"
                         id={codeWordId}
                         {...register("codeWord")}
@@ -62,6 +134,7 @@ export function AddCodeWord() {
                     <label className="my-projects__label project-label"
                         htmlFor={repeatCodeWordId}
                     >Повторите кодовое слово</label>
+                    
                     <input className="my-projects__input project-input" type="text" placeholder="Введите кодовое слово"
                         id={repeatCodeWordId}
                         {...register("repeatCodeWord")}
