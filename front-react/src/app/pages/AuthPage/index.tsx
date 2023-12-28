@@ -8,6 +8,7 @@ import { Link } from "react-router-dom"
 import { HOME_PAGE_PATH } from "../../constants/path-locations"
 import { RecoverModalContainer } from "@containers/RecoverModalContainer"
 import { DescribeProblemModalContainer } from "@containers/DescribeProblemModalContainer"
+import { BlockProfileModalContainer } from "@containers/BlockProfileModalContainer"
 
 
 export function AuthPage() {
@@ -17,6 +18,7 @@ export function AuthPage() {
   const [registerModalOpened, setRegisterModalOpened] = useState(false)
   const [recoverModalOpened, setRecoverModalOpened] = useState(false)
   const [describeProblemModalOpened, setDescribeProblemModalOpened] = useState(false)
+  const [blockProfileModalOpened, setBlockProfileModalOpened] = useState(false)
 
 
   const handleSignInBtnClick = () => {
@@ -64,6 +66,15 @@ export function AuthPage() {
   const handleNavDescribeProblem = () => {
     setAuthModalOpened(false)
     setDescribeProblemModalOpened(true)
+  }
+
+  const onNavBlockProfile = () => {
+    setAuthModalOpened(false)
+    setBlockProfileModalOpened(true)
+  }
+
+  const handleCloseBlockProfileModal = () => {
+    setBlockProfileModalOpened(false)
   }
 
 
@@ -131,6 +142,7 @@ export function AuthPage() {
         onNavRegister={handleNavRegister}
         onNavRecover={handleNavRecover}
         onNavDescribeProblem={handleNavDescribeProblem}
+        onNavBlockProfile={onNavBlockProfile}
       />
 
       <RegisterModalContainer
@@ -146,6 +158,11 @@ export function AuthPage() {
       <DescribeProblemModalContainer
         open={describeProblemModalOpened}
         onClose={handleCloseDescribeProblemModal}
+      />
+
+      <BlockProfileModalContainer
+        open={blockProfileModalOpened}
+        onClose={handleCloseBlockProfileModal}
       />
     </section>
   )

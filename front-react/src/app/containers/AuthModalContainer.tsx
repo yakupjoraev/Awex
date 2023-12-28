@@ -17,6 +17,7 @@ export interface AuthModalContainerProps {
   onNavRegister: () => void;
   onNavRecover: () => void;
   onNavDescribeProblem: () => void;
+  onNavBlockProfile: () => void;
 }
 
 export function AuthModalContainer(props: AuthModalContainerProps) {
@@ -140,6 +141,7 @@ export function AuthModalContainer(props: AuthModalContainerProps) {
       onNavRegister={props.onNavRegister}
       onNavRecover={props.onNavRecover}
       onNavDescribeProblem={props.onNavDescribeProblem}
+      onNavBlockProfile={props.onNavBlockProfile}
       onResendCode={handleResendCode}
       onConfirmCode={handleConfirmCode}
     />

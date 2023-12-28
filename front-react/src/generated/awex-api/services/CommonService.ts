@@ -324,4 +324,24 @@ export class CommonService {
             },
         })
     }
+
+    public static accountProfileBlock(
+        email: string,
+        secret: string
+    ): CancelablePromise<{
+        message: string
+    }> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/account/profile/block',
+            body: {
+                email,
+                secret
+            },
+            mediaType: 'application/json',
+            errors: {
+                400: `request failed`,
+            },
+        })
+    }
 }
