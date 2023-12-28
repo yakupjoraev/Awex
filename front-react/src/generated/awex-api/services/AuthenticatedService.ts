@@ -510,8 +510,8 @@ export class AuthenticatedService {
     }
 
     public static accountProfileSetSecret(
-        oldSecret: string,
-        secret: string
+        secret: string,
+        oldSecret?: string
     ): CancelablePromise<{
         message?: string
     }> {
@@ -528,6 +528,19 @@ export class AuthenticatedService {
                 400: `request failed`,
                 403: `Forbidden`,
             },
+        })
+    }
+
+    public static accountProfileCheckSecret(): CancelablePromise<{
+        isSet: boolean
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/account/profile/check-secret',
+            errors: {
+                403: 'request failed',
+            }
+            
         })
     }
 }

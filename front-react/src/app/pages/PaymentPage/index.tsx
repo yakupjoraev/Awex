@@ -494,7 +494,6 @@ export function PaymentPage() {
  
   const toPay = handleSubmit((formData) => {
     if(!paymentOrder || !uniqueId) return
-    console.log('toPay paymentOrder', paymentOrder)
     setOrderLoading(true)
     const request: OrderPaymentRequest = {
       type: paymentOrder.type,

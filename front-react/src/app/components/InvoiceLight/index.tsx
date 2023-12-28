@@ -12,11 +12,13 @@ import usePortal from "react-useportal"
 import { PaymentLinkModal } from "@components/PaymentLinkModal"
 
 
-const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = []
+const EMPTY_FIELD = 'empty'
+const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = [{ id: EMPTY_FIELD,  project: { name: 'Без проекта' } }]
 const DEFAULT_CURRENCIES: { currency: string; name?: string; rate?: string }[] = []
 
+
 interface InvoiceFormData {
-  projectId: string
+  projectId?: string
   amount: string
   currency: string
 }
@@ -26,15 +28,29 @@ interface InvoiceLightProps {
   onSubmit?: () => void
 }
 
+
 export function InvoiceLight(props: InvoiceLightProps) {
   const projectSelectorRef = useRef<HTMLDivElement>(null)
   const [projectSelectorOpened, setProjectSelectorOpened] = useState(false)
   const [projectsOptions, setProjectsOptions] = useState<SelectorSimpleOptions[] | []>([])
   const [invoiceCurrencies, invoiceCurrenciesLoading] = useCurrencies(DEFAULT_CURRENCIES)
-  const projects = useAppSelector((state) => state.projects.data || DEFAULT_PROJECTS)
+  const projects = useAppSelector((state) => state.projects.data || null)
   const [paymentLinkModalOpened, setPaymentLinkModalOpened] = useState(false)
   const [paymentToken, setPaymentToken] = useState<string | null>(null)
   const { Portal } = usePortal()
+  const {
+    register,
+    setValue,
+    setError,
+    handleSubmit,
+    control,
+    formState: { errors },
+    getValues,
+    reset,
+  } = useForm<InvoiceFormData>({
+    resolver: yupResolver(invoiceFormValidator),
+  })
+
 
   useEffect(() => {
     if (!projectSelectorOpened) {
@@ -58,28 +74,24 @@ export function InvoiceLight(props: InvoiceLightProps) {
   }, [projectSelectorOpened])
 
   useEffect(() => {
-    setProjectsOptions(
-      projects.map((project)=>{
-        return {
-          label: project.project.name,
-          value: project.id
-        }
-      })
-    )
+    const filteredProjects = !projects ? [] : projects.filter((project) => {
+      if(project.project.validation?.status !== 'approved') return false
+      return true
+    })
+    const newProjectsOptions = !projects ? [] : filteredProjects.map((project) => {
+      
+      return {
+        label: project.project.name,
+        value: project.id
+      }
+    })
+    setProjectsOptions([ { value: DEFAULT_PROJECTS[0].id, label: DEFAULT_PROJECTS[0].project.name }, ...newProjectsOptions ])
   },[projects])
 
-  const {
-    register,
-    setValue,
-    setError,
-    handleSubmit,
-    control,
-    formState: { errors },
-    getValues,
-    reset,
-  } = useForm<InvoiceFormData>({
-    resolver: yupResolver(invoiceFormValidator),
-  })
+  useEffect(() => {
+    setValue('projectId', EMPTY_FIELD)
+  }, [projectsOptions])
+
 
   const handlePaymentLinkModalClose = () => {
     setPaymentLinkModalOpened(false)
@@ -88,8 +100,8 @@ export function InvoiceLight(props: InvoiceLightProps) {
   const handleInvoiceFormSubmit = handleSubmit((formData) => {
     let projectId: number | undefined = undefined
     if (formData.projectId) {
-      projectId = parseInt(formData.projectId, 10)
-      if (isNaN(projectId)) { return }
+      projectId = formData.projectId === EMPTY_FIELD ? undefined : parseInt(formData.projectId, 10)
+      if (projectId && isNaN(projectId)) { return }
     }
 
     const price = parseFloat(formData.amount)
@@ -118,8 +130,10 @@ export function InvoiceLight(props: InvoiceLightProps) {
       .finally(() => {
         if(props.onSubmit) props.onSubmit()
         reset()
+        setValue('projectId', EMPTY_FIELD)
       })
   })
+
 
   return (
     <>
