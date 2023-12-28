@@ -1,5 +1,6 @@
 import { ROUTE } from "@constants/path-locations";
 import { AuthModalContainer } from "@containers/AuthModalContainer";
+import { BlockProfileModalContainer } from "@containers/BlockProfileModalContainer";
 import { DescribeProblemModalContainer } from "@containers/DescribeProblemModalContainer";
 import { RecoverModalContainer } from "@containers/RecoverModalContainer";
 import { RegisterModalContainer } from "@containers/RegisterModalContainer";
@@ -13,6 +14,7 @@ const LandingBusinessPage: React.FC = () => {
   const [recoverModalOpened, setRecoverModalOpened] = useState(false);
   const [describeProblemModalOpened, setDescribeProblemModalOpened] =
     useState(false);
+  const [blockProfileModalOpened, setBlockProfileModalOpened] = useState(false);
 
   const authorized = useAppSelector((state) => state.auth.user !== undefined);
 
@@ -59,6 +61,15 @@ const LandingBusinessPage: React.FC = () => {
   const handleNavDescribeProblem = () => {
     setAuthModalOpened(false);
     setDescribeProblemModalOpened(true);
+  };
+
+  const onNavBlockProfile = () => {
+    setAuthModalOpened(false);
+    setBlockProfileModalOpened(true);
+  };
+
+  const handleCloseBlockProfileModal = () => {
+    setBlockProfileModalOpened(false);
   };
 
   return (
@@ -453,6 +464,7 @@ const LandingBusinessPage: React.FC = () => {
         onNavRegister={handleNavRegister}
         onNavRecover={handleNavRecover}
         onNavDescribeProblem={handleNavDescribeProblem}
+        onNavBlockProfile={onNavBlockProfile}
       />
 
       <RegisterModalContainer
@@ -468,6 +480,11 @@ const LandingBusinessPage: React.FC = () => {
       <DescribeProblemModalContainer
         open={describeProblemModalOpened}
         onClose={handleCloseDescribeProblemModal}
+      />
+
+      <BlockProfileModalContainer
+        open={blockProfileModalOpened}
+        onClose={handleCloseBlockProfileModal}
       />
     </main>
   );
