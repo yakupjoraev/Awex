@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { IndexPage } from "./pages/IndexPage";
 // import { NotFoundPage } from "./pages/NotFoundPage"
 import { HomePage } from "./pages/HomePage";
@@ -49,6 +49,9 @@ import { msg } from "@constants/messages";
 import AdminOfficeAddress from "./pages/AdminApplicationsPage/AdminOfficeAddresses";
 import AdminOfficeAddressDetails from "./pages/AdminApplicationsPage/AdminOfficeAddressDetails";
 import AdminProjectDetails from "./pages/AdminApplicationsPage/AdminProjectDetails";
+import LandingPersonalPage from "./pages/LandingPersonalPage";
+import LandingBusinessPage from "./pages/LandingBusinessPage";
+import LandingLayout from "./layouts/LandingLayout";
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -131,6 +134,21 @@ export function App() {
           </Route>
 
           <Route path={ROUTE.ADMIN_STATS_PATH} element={<AdminStatsPage />} />
+        </Route>
+
+        <Route path={ROUTE.HOME_PAGE_PATH} element={<LandingLayout />}>
+          <Route
+            path={ROUTE.HOME_PAGE_PATH}
+            element={<Navigate to={ROUTE.HOME_PERSONAL_PAGE_PATH} />}
+          />
+          <Route
+            path={ROUTE.HOME_PERSONAL_PAGE_PATH}
+            element={<LandingPersonalPage />}
+          />
+          <Route
+            path={ROUTE.HOME_BUSINESS_PAGE_PATH}
+            element={<LandingBusinessPage />}
+          />
         </Route>
         <Route
           element={

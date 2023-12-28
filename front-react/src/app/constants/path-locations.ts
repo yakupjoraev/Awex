@@ -4,6 +4,8 @@ export const NOTIFICATIONS_PAGE = "/dashboard/notifications";
 
 export const ROUTE = {
   HOME_PAGE_PATH: "/",
+  HOME_PERSONAL_PAGE_PATH: "/personal",
+  HOME_BUSINESS_PAGE_PATH: "/business",
   DASHBOARD_PATH: "/dashboard",
   INVOICE_PATH: "/dashboard/invoice",
   INVOICE_TEMPLATES_PATH: "/dashboard/invoice-templates",
@@ -24,7 +26,7 @@ export const ROUTE = {
   PAYMENT_CRYPTO_STAGE_PATH: "/dashboard/payment-crypto",
   PAYMENT_UNIQUEID_PATH: "/dashboard/payment",
   INDEX_PATH: "/dashboard/index",
-  AUTH_PATH: "/dashboard/auth",
+  AUTH_PATH: "/auth",
   ADMIN_AUTH_PATH: "/dashboard/admin/auth",
   INTEGRATION_PATH: "/dashboard/integration",
   INTEGRATION_API_PATH: "/dashboard/integration-api",

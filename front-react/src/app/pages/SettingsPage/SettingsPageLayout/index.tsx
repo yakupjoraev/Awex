@@ -47,7 +47,7 @@ export function SettingsPageLayout() {
             data-payment-details-content
             ref={tabsRef}
           >
-            <NavLink className="settings__item" to="/settings" end>
+            <NavLink className="settings__item" to="/dashboard/settings" end>
               Профиль
             </NavLink>
 
@@ -59,15 +59,18 @@ export function SettingsPageLayout() {
               onClick={handleTabsArrowClick}
             />
 
-            <NavLink className="settings__item" to="/settings/requisites">
+            <NavLink
+              className="settings__item"
+              to="/dashboard/settings/requisites"
+            >
               Реквизиты
             </NavLink>
-            <NavLink className="settings__item" to="/settings/safety">
+            <NavLink className="settings__item" to="/dashboard/settings/safety">
               Безопасность
             </NavLink>
             <NavLink
               className="settings__item"
-              to="/settings/permission-management"
+              to="/dashboard/settings/permission-management"
             >
               Управление правами
             </NavLink>
@@ -88,16 +91,16 @@ function getSectionModifier(pathname: string) {
     pathname = pathname.slice(0, -1);
   }
   switch (pathname) {
-    case "/settings": {
+    case "/dashboard/settings": {
       return "settings-profile";
     }
-    case "/settings/requisites": {
+    case "/dashboard/settings/requisites": {
       return "settings-requisites";
     }
-    case "/settings/safety": {
+    case "/dashboard/settings/safety": {
       return "settings-security";
     }
-    case "/settings/permission-management": {
+    case "/dashboard/settings/permission-management": {
       return "settings-notifications";
     }
     default: {
