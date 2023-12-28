@@ -28,7 +28,7 @@ export default function SignIn() {
       if (response?.status == 200) {
         cookies.set("token", response?.data?.token);
         site.setToken(response?.data?.token);
-        navigate("/");
+        navigate("/dashboard");
       }
     } catch (err) {
       if (err?.response?.status == 401 && err?.response?.data?.errors) {

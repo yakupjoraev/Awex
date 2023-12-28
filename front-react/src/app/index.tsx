@@ -139,7 +139,7 @@ export function App() {
             </PrivateRoute>
           }
         >
-          <Route path={ROUTE.HOME_PAGE_PATH} element={<HomePage />} />
+          <Route path={ROUTE.DASHBOARD_PATH} element={<HomePage />} />
           <Route path={ROUTE.INVOICE_PATH} element={<InvoicePage />} />
           <Route
             path={ROUTE.INVOICE_TEMPLATES_PATH}

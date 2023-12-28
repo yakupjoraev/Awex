@@ -34,18 +34,16 @@ export function SupportingDocumentsForOfficeModalContainer(
       upload: formData.getAll("upload") as Blob[],
     };
 
-    console.log(uploadData);
-
     AuthorizedService.uploadOfficeAddressDocument(props.addressId, uploadData);
 
-    AuthorizedService.requestOfficeAddressValidation(props?.addressId).then(
-      (res) => {
-        if (res.message) {
-          props.onClose();
-          setLoading(false);
-        }
-      }
-    );
+    // AuthorizedService.requestOfficeAddressValidation(props?.addressId).then(
+    //   (res) => {
+    //     if (res.message) {
+    //       props.onClose();
+    //       setLoading(false);
+    //     }
+    //   }
+    // );
   };
 
   return (
