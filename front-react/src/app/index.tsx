@@ -150,7 +150,9 @@ export function App() {
             element={<LandingBusinessPage />}
           />
         </Route>
+
         <Route
+          path={ROUTE.DASHBOARD_PATH}
           element={
             <PrivateRoute>
               <UserAreaLayout />
