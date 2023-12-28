@@ -1,35 +1,36 @@
-import { useEffect, useId } from "react";
-import classNames from "classnames";
-import { FieldErrors, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { authFormSchema } from "./validators";
+import { useEffect, useId } from "react"
+import classNames from "classnames"
+import { FieldErrors, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { authFormSchema } from "./validators"
 
-export type AuthStage = "auth" | "verify";
+export type AuthStage = "auth" | "verify"
 
 export interface AuthModalContentProps {
-  open: boolean;
-  loading: boolean;
-  error?: { type: "unknown" | "auth" };
-  onClose: () => void;
-  onSignIn: (opts: { login: string; password: string }) => void;
-  onNavRegister: () => void;
-  onNavRecover: () => void;
-  onNavDescribeProblem: () => void;
+  open: boolean
+  loading: boolean
+  error?: { type: "unknown" | "auth" }
+  onClose: () => void
+  onSignIn: (opts: { login: string; password: string }) => void
+  onNavRegister: () => void
+  onNavRecover: () => void
+  onNavDescribeProblem: () => void
+  onNavBlockProfile: () => void
 }
 
 export type AuthModalFormData = {
-  login: string;
-  password: string;
-};
+  login: string
+  password: string
+}
 
 const DEFAULT_FORM_DATA: AuthModalFormData = {
   login: "",
   password: "",
-};
+}
 
 export function AuthModalContent(props: AuthModalContentProps) {
-  const loginId = useId();
-  const passwordId = useId();
+  const loginId = useId()
+  const passwordId = useId()
 
   const {
     register,
@@ -40,27 +41,27 @@ export function AuthModalContent(props: AuthModalContentProps) {
   } = useForm<AuthModalFormData>({
     defaultValues: DEFAULT_FORM_DATA,
     resolver: yupResolver(authFormSchema),
-  });
+  })
 
   useEffect(() => {
     if (props.error && props.error.type === "auth") {
-      setError("login", { message: "Неверный логин или пароль!" });
+      setError("login", { message: "Неверный логин или пароль!" })
     }
     if (props.error && props.error.type === "unknown") {
-      setError("root", { message: "Ошибка соединения с AWEX!" });
+      setError("root", { message: "Ошибка соединения с AWEX!" })
     }
-  }, [props.error]);
+  }, [props.error])
 
   useEffect(() => {
-    reset();
-  }, [props.open]);
+    reset()
+  }, [props.open])
 
   const handleAuthFormSumbit = handleSubmit((formData) => {
     props.onSignIn({
       login: formData.login,
       password: formData.password,
-    });
-  });
+    })
+  })
 
   return (
     <div className={classNames("modal modal-enter", { show: props.open })}>
@@ -174,6 +175,18 @@ export function AuthModalContent(props: AuthModalContentProps) {
             }}
           >
             Не могу получить доступ
+          </a>
+        </div>
+
+        <div className="modal-content__enter-footer">
+          <a
+            href="#"
+            onClick={(ev) => {
+              ev.preventDefault()
+              props.onNavBlockProfile()
+            }}
+          >
+            Заблокировать профиль
           </a>
         </div>
       </form>

@@ -1,27 +1,31 @@
-import classNames from "classnames";
-import { AuthModalContent, AuthStage } from "./AuthModalContent";
-import { ConfirmEmailModalContent } from "@components/ConfirmEmailModalContent";
+import classNames from "classnames"
+import { AuthModalContent, AuthStage } from "./AuthModalContent"
+import { ConfirmEmailModalContent } from "@components/ConfirmEmailModalContent"
 
-export { type AuthStage } from "./AuthModalContent";
+
+export { type AuthStage } from "./AuthModalContent"
+
 
 export interface AuthModalProps {
-  open: boolean;
-  stage: AuthStage;
-  loading: boolean;
-  signInError?: { type: "unknown" | "auth" };
-  verifyEmail: string;
-  verifyError?: { type: "unknown"; message?: string };
-  onClose: () => void;
-  onSignIn: (opts: { login: string; password: string }) => void;
-  onNavRegister: () => void;
-  onNavRecover: () => void;
-  onNavDescribeProblem: () => void;
-  onConfirmCode: (code: string) => void;
-  onResendCode: () => void;
+  open: boolean
+  stage: AuthStage
+  loading: boolean
+  signInError?: { type: "unknown" | "auth" }
+  verifyEmail: string
+  verifyError?: { type: "unknown"; message?: string }
+  onClose: () => void
+  onSignIn: (opts: { login: string; password: string }) => void
+  onNavRegister: () => void
+  onNavRecover: () => void
+  onNavDescribeProblem: () => void
+  onNavBlockProfile: () => void
+  onConfirmCode: (code: string) => void
+  onResendCode: () => void
 }
 
+
 export function AuthModal(props: AuthModalProps) {
-  let modalContent;
+  let modalContent
   switch (props.stage) {
     case "auth": {
       modalContent = (
@@ -34,9 +38,10 @@ export function AuthModal(props: AuthModalProps) {
           onNavRegister={props.onNavRegister}
           onNavRecover={props.onNavRecover}
           onNavDescribeProblem={props.onNavDescribeProblem}
+          onNavBlockProfile={props.onNavBlockProfile}
         />
-      );
-      break;
+      )
+      break
     }
     case "verify": {
       modalContent = (
@@ -50,13 +55,13 @@ export function AuthModal(props: AuthModalProps) {
           onConfirmCode={props.onConfirmCode}
           onResendCode={props.onResendCode}
         />
-      );
-      break;
+      )
+      break
     }
   }
   return (
     <div className={classNames("modal modal-enter", { show: props.open })}>
       {modalContent}
     </div>
-  );
+  )
 }
