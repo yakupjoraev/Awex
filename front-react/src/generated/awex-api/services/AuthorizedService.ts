@@ -702,7 +702,7 @@ export class AuthorizedService {
     status?: "wait" | "paid" | "expired",
     startTime?: number,
     endTime?: number,
-    search?: string,
+    search?: string
   ): CancelablePromise<{
     page?: number;
     pages?: number;
@@ -1497,7 +1497,7 @@ export class AuthorizedService {
   }> {
     return __request(OpenAPI, {
       method: "POST",
-      url: `/office/${id}/upload`,
+      url: `/office/${id}/document`,
       formData: formData,
       mediaType: "multipart/form-data",
       errors: {
@@ -1675,7 +1675,7 @@ export class AuthorizedService {
   }
 
   public static getLogEvents(): CancelablePromise<{
-    events: Array<string>
+    events: Array<string>;
   }> {
     return __request(OpenAPI, {
       method: "GET",
@@ -1686,5 +1686,4 @@ export class AuthorizedService {
       },
     });
   }
-
 }
