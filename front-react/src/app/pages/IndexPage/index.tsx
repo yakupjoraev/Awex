@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ASSETS_ROUTE, HOME_PAGE_PATH } from "../../constants/path-locations";
+import { ASSETS_ROUTE, ROUTE } from "../../constants/path-locations";
 
 export function IndexPage() {
   return (
@@ -11,7 +11,11 @@ export function IndexPage() {
         <div className="pages">
           <ul className="pages__list">
             <li className="pages__item">
-              <Link className="pages__link" to={HOME_PAGE_PATH} target="_blank">
+              <Link
+                className="pages__link"
+                to={ROUTE.DASHBOARD_PATH}
+                target="_blank"
+              >
                 Главная
               </Link>
             </li>
