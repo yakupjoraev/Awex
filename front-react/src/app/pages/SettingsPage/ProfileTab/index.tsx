@@ -1,12 +1,13 @@
-import { signOut } from "@store/auth/slice";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { NotificationsForm } from "./NotificationsForm";
-import { AuthenticatedService, Notification } from "@awex-api";
-import { useEffect, useState } from "react";
-import { ThemeSelector } from "./ThemeSelector";
-import { LanguageSelector } from "./LanguageSelector";
-import { ProfileFormContainer } from "./ProfileFormContainer";
-import { getAccountProfile } from "@store/accountProfile/slice";
+import { signOut } from "@store/auth/slice"
+import { useAppDispatch, useAppSelector } from "@store/hooks"
+import { NotificationsForm } from "./NotificationsForm"
+import { AuthenticatedService, Notification } from "@awex-api"
+import { useEffect, useState } from "react"
+import { ThemeSelector } from "./ThemeSelector"
+import { LanguageSelector } from "./LanguageSelector"
+import { ProfileFormContainer } from "./ProfileFormContainer"
+import { getAccountProfile } from "@store/accountProfile/slice"
+
 
 const DEFAULT_NOTIFICATION_SETTINGS: Notification = {
   email: false,
@@ -14,61 +15,60 @@ const DEFAULT_NOTIFICATION_SETTINGS: Notification = {
   vk: false,
   google: false,
   apple: false,
-};
+}
+
 
 export function ProfileTab() {
-  const dispatch = useAppDispatch();
-  const [notificationSettings, setNotificationSettings] = useState(
-    DEFAULT_NOTIFICATION_SETTINGS
-  );
-  const [notificationSettingsLoading, setNotificationSettingsLoading] =
-    useState(true);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const dispatch = useAppDispatch()
+  const [notificationSettings, setNotificationSettings] = useState(DEFAULT_NOTIFICATION_SETTINGS)
+  const [notificationSettingsLoading, setNotificationSettingsLoading] = useState(true)
+  const [theme, setTheme] = useState<"light" | "dark">("light")
+  const userName = useAppSelector((state) => state.accountProfile.data?.name)
+  const userId = useAppSelector((state) => state.accountProfile.data?.id)
 
-  const userName = useAppSelector((state) => state.accountProfile.data?.name);
 
   useEffect(() => {
-    setNotificationSettingsLoading(false);
+    setNotificationSettingsLoading(false)
     AuthenticatedService.notificationsGet()
       .then((notifications) => {
-        setNotificationSettings(notifications);
+        setNotificationSettings(notifications)
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error)
       })
       .finally(() => {
-        setNotificationSettingsLoading(false);
-      });
-  }, []);
+        setNotificationSettingsLoading(false)
+      })
+  }, [])
 
   useEffect(() => {
-    dispatch(getAccountProfile());
-  }, []);
+    dispatch(getAccountProfile())
+  }, [])
+
 
   const hanldeLogoutBtnClick = () => {
-    dispatch(signOut());
-  };
+    dispatch(signOut())
+  }
 
   const handleUpdateNotificationSettings = (
     nextNotificationSettings: Notification
   ) => {
-    if (notificationSettingsLoading) {
-      return;
-    }
-    setNotificationSettingsLoading(true);
-    setNotificationSettings(nextNotificationSettings);
+    if (notificationSettingsLoading) return
+    setNotificationSettingsLoading(true)
+    setNotificationSettings(nextNotificationSettings)
     AuthenticatedService.notificationsSet(nextNotificationSettings)
       .catch((error) => {
-        console.error(error);
+        console.error(error)
       })
       .finally(() => {
-        setNotificationSettingsLoading(false);
-      });
-  };
+        setNotificationSettingsLoading(false)
+      })
+  }
 
   const handleChangeTheme = (theme: "light" | "dark") => {
-    setTheme(theme);
-  };
+    setTheme(theme)
+  }
+
 
   return (
     <>
@@ -80,7 +80,7 @@ export function ProfileTab() {
 
           <div className="settings-profile__user-info">
             <p className="settings-profile__user-name">{userName}</p>
-            <p className="settings-profile__user-code">(#125445hg55)</p>
+            <p className="settings-profile__user-code">(#{ userId })</p>
           </div>
         </div>
 
@@ -310,5 +310,5 @@ export function ProfileTab() {
         </div>
       </div>
     </>
-  );
+  )
 }

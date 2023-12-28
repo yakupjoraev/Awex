@@ -7,8 +7,9 @@
  * profile display information
  */
 export type ProfileData = {
-    name: string;
-    email: string;
-    telegram: string;
-    displayCurrency: string;
-};
+    name: string
+    email: string
+    telegram: string
+    displayCurrency: string
+    id?: number
+}
