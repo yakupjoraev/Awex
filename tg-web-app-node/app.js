@@ -4,7 +4,8 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 
-const bot = new TelegramBot("6119167331:AAGzhg57baM-7F_5DPYBEvQBWC5yG7IdxUU", {
+const bot = new TelegramBot("6007178023:AAELLLKz1U_rtZKQULfM1cTL9msOibFM_wA", {
+  //6119167331:AAGzhg57baM-7F_5DPYBEvQBWC5yG7IdxUU
   polling: true,
 });
 
@@ -22,21 +23,83 @@ bot.on("message", async (msg) => {
 
 _Для начала работы нажмите на кнопку Войти и авторизуйтесь в свой Awex аккаунт._`,
         {
-          // reply_markup: {
-          //   inline_keyboard: [
-          //     [
-          //       {
-          //         text: "Application",
-          //         web_app: { url: "https://awex-telegram.freeblock.site" },
-          //       },
-          //     ],
-          //   ],
-          // },
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "Войти",
+                  callback_data: "login",
+                },
+              ],
+            ],
+          },
           parse_mode: "Markdown",
         }
       );
     } catch (err) {
       console.log(err);
+    }
+  }
+});
+
+bot.on("callback_query", async (ctx) => {
+  console.log(ctx);
+  const chatId = ctx.message.chat.id;
+  const data = ctx.data;
+
+  if (data === "login") {
+    try {
+      await bot.sendMessage(
+        chatId,
+        `Для авторизации введите ваш логин и пароль в формате:
+*login:password*`,
+        {
+          parse_mode: "Markdown",
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+});
+
+bot.on("message", async (msg) => {
+  const chatId = msg.chat.id;
+  const text = msg.text;
+
+  if (text.includes(":")) {
+    const [login, password] = text.split(":");
+
+    try {
+      const response = await axios.post(
+        "https://awex.freeblock.site/api/0.0.1/account/auth/sign-in",
+        {
+          email: login,
+          password,
+        }
+      );
+
+      const { token } = response.data;
+
+      const userResponse = await axios.get(
+        "https://awex.freeblock.site/api/0.0.1/account/auth/user"
+      );
+
+      console.log(token);
+
+      await bot.sendMessage(chatId, `Вы успешно авторизовались ✅`, {
+        parse_mode: "Markdown",
+      });
+    } catch (err) {
+      console.log(err.response.data.errors);
+      await bot.sendMessage(
+        chatId,
+        `Ошибка авторизации ❌
+Проверьте правильность введенных данных и повторите попытку.`,
+        {
+          parse_mode: "Markdown",
+        }
+      );
     }
   }
 });
