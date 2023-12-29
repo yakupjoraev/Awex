@@ -45,4 +45,5 @@ export const ROUTE = {
     "/admin/applications/office-address/:applicationId",
   ADMIN_COMMISSION_PATH: "/admin/commission",
   EMPLOYEE_ACTIVITY_PATH: "/dashboard/employee-activity",
+  ORDER_CASH_PATH: "/dashboard/order-cash",
 };

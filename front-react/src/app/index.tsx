@@ -52,6 +52,7 @@ import AdminProjectDetails from "./pages/AdminApplicationsPage/AdminProjectDetai
 import LandingPersonalPage from "./pages/LandingPersonalPage";
 import LandingBusinessPage from "./pages/LandingBusinessPage";
 import LandingLayout from "./layouts/LandingLayout";
+import OrderCashToOffice from "./pages/OrderCashToOffice";
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -204,6 +205,7 @@ export function App() {
             path={ROUTE.EMPLOYEE_ACTIVITY_PATH}
             element={<EmployeeActivityPage />}
           />
+          <Route path={ROUTE.ORDER_CASH_PATH} element={<OrderCashToOffice />} />
           <Route path="*" element={<UserAreaNotFoundPage />} />
         </Route>
         <Route

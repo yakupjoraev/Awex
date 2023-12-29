@@ -1,44 +1,41 @@
-import { useEffect, useState } from "react"
-import { useAppSelector, useAppDispatch } from "@store/hooks"
-import { getAccountBalance } from "@store/accountBalance/slice"
-
+import { useEffect, useState } from "react";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { getAccountBalance } from "@store/accountBalance/slice";
+import { Link } from "react-router-dom";
+import { ROUTE } from "@constants/path-locations";
 
 interface Balance {
   balance: {
-    int: string
-    fract: string
-  }
-  currency: string
+    int: string;
+    fract: string;
+  };
+  currency: string;
 }
 
-
 export function CheckBalance() {
-  const [userBalance, setUserBalance] = useState<Balance | null>(null)
-  const dispatch = useAppDispatch()
-  const accountBalance = useAppSelector((state) => state.accountBalance.data)
-  
+  const [userBalance, setUserBalance] = useState<Balance | null>(null);
+  const dispatch = useAppDispatch();
+  const accountBalance = useAppSelector((state) => state.accountBalance.data);
 
   useEffect(() => {
-    dispatch(getAccountBalance())
-  },[])
+    dispatch(getAccountBalance());
+  }, []);
 
   useEffect(() => {
-    formattingBalance()
-  },[accountBalance])
-
+    formattingBalance();
+  }, [accountBalance]);
 
   function formattingBalance(): void {
-    const {balance, currency} = accountBalance
-    const balanceSegmented: string[] = balance.split('.')
+    const { balance, currency } = accountBalance;
+    const balanceSegmented: string[] = balance.split(".");
     setUserBalance({
       balance: {
         int: balanceSegmented[0],
-        fract: balanceSegmented[1] ? balanceSegmented[1] : '',
+        fract: balanceSegmented[1] ? balanceSegmented[1] : "",
       },
-      currency
-    })
+      currency,
+    });
   }
-
 
   return (
     <div className="about-check__balance">
@@ -56,16 +53,12 @@ export function CheckBalance() {
           </a>
         </div>
 
-        { userBalance && (
+        {userBalance && (
           <div className="about-check__balance-sum">
-            { userBalance.balance.int }
+            {userBalance.balance.int}
             <span>
-              { userBalance.balance.fract && (
-                <>
-                  ,{ userBalance.balance.fract }
-                </>
-              )}
-              { userBalance.currency }
+              {userBalance.balance.fract && <>,{userBalance.balance.fract}</>}
+              {userBalance.currency}
             </span>
           </div>
         )}
@@ -79,15 +72,15 @@ export function CheckBalance() {
         </div>
       </div>
 
-      <button
-        type="button"
+      <Link
+        to={ROUTE.ORDER_CASH_PATH}
         className="about-check__btn main-btn"
-        onClick={() => {
-          alert("NOT IMPLEMENTED")
+        style={{
+          width: "max-content",
         }}
       >
         Заказ наличных в офис
-      </button>
+      </Link>
     </div>
-  )
+  );
 }
