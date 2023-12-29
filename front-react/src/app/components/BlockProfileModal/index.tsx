@@ -1,4 +1,4 @@
-import { useEffect, useId } from "react"
+import { useEffect, useId, useState } from "react"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { FieldErrors, useForm } from "react-hook-form"
 import { blockProfileFormSchema } from "./validators"
@@ -12,7 +12,6 @@ export interface BlockProfileModalProps {
   open: boolean
   loading: boolean
   onClose: () => void
-  onSubmitProblem: (opts: { problem: string }) => void
 }
 
 export type BlockProfileModalFormData = {
@@ -28,6 +27,7 @@ const DEFAULT_FORM_DATA: BlockProfileModalFormData = {
 
 
 export function BlockProfileModal(props: BlockProfileModalProps) {
+  const [inProcess, setInProcess] = useState<boolean>(false)
   const loginID = useId()
   const wordID = useId()
   const {
@@ -48,22 +48,26 @@ export function BlockProfileModal(props: BlockProfileModalProps) {
 
 
   const handleBlockProfileFormSubmit = handleSubmit((formData) => {
-    console.log('formData', formData)
-    // props.onSubmitProblem({ problem: formData.problem })
+    if(inProcess) return
+    setInProcess(true)
     CommonService.accountProfileBlock(formData.login, formData.secretWrod)
     .then((response) => {
       if(!response) {
-        console.error(response)
         toast.error(msg.UNEXPECTED_ERROR)
         return
       }
-      console.log(response)
+      toast.success(msg.PROFILE_BLUCKED_SUCCESS)
+      reset()
     })
     .catch((error) => {
-      console.error('=>', error)
-      toast.error(msg.SAVED_ERROR) // !!!!!!! <<<===
+      console.error(error)
+      toast.error(msg.DATA_ERROR)
+      setError('login', { message: msg.DATA_CORRECT })
+      setError('secretWrod', { message: msg.DATA_CORRECT })
     })
-
+    .finally(() => {
+      setInProcess(false)
+    })
   })
 
 
@@ -126,7 +130,7 @@ export function BlockProfileModal(props: BlockProfileModalProps) {
         <button
           type="submit"
           className="modal-content__btn second-btn"
-          disabled={props.loading}
+          disabled={props.loading || inProcess}
         >
           Блокировать профиль
         </button>

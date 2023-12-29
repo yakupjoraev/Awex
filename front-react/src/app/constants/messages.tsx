@@ -9,6 +9,8 @@ export const msg = {
     SAVED_SUCCESS: 'Сохранено успешно',
     CORYED_SUCCESS: 'Скопировано!',
     LOGOUT_SUCCESS: 'Вы успешно вышли из профиля.',
+    DATA_CORRECT: 'Проверьте корректность данных',
+    PROFILE_BLUCKED_SUCCESS: 'Профиль успешно заблокирован!',
     
     // Errors
     MESSAGE_FIELD_REQUIRED: 'Поле обязательно для ввода!',
@@ -22,4 +24,5 @@ export const msg = {
     SECRET_WORD_ERROR: 'Введите предыдущее кодовое слово',
     SECRET_WORD_REPEAT_ERROR: 'Слова не совпадают!',
     LENGTH_WORD_12_ERROR: 'Длина слова должна быть не меньше 12 символов',
+    DATA_ERROR: 'Введены неверные данные',
 }
