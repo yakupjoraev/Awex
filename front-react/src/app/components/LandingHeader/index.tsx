@@ -2,6 +2,7 @@ import { ROUTE } from "@constants/path-locations";
 import { AuthModalContainer } from "@containers/AuthModalContainer";
 import { BlockProfileModalContainer } from "@containers/BlockProfileModalContainer";
 import { DescribeProblemModalContainer } from "@containers/DescribeProblemModalContainer";
+import LanguagesModalContainer from "@containers/LanguagesModalContainer";
 import { RecoverModalContainer } from "@containers/RecoverModalContainer";
 import { RegisterModalContainer } from "@containers/RegisterModalContainer";
 import { useAppSelector } from "@store/hooks";
@@ -15,6 +16,7 @@ const LandingHeader: React.FC = () => {
   const [describeProblemModalOpened, setDescribeProblemModalOpened] =
     useState(false);
   const [blockProfileModalOpened, setBlockProfileModalOpened] = useState(false);
+  const [isLanguagesModalOpen, setIsLanguagesModalOpen] = useState(false);
 
   const authorized = useAppSelector((state) => state.auth.user !== undefined);
 
@@ -62,6 +64,14 @@ const LandingHeader: React.FC = () => {
     setBlockProfileModalOpened(false);
   };
 
+  const handleCloseLanguagesModal = () => {
+    setIsLanguagesModalOpen(false);
+  };
+
+  const handleLanguagesModalOpen = () => {
+    setIsLanguagesModalOpen(true);
+  };
+
   return (
     <header className="header header-app">
       <nav className="nav">
@@ -94,7 +104,7 @@ const LandingHeader: React.FC = () => {
               </li>
             </ul>
             <div className="nav__others">
-              <div className="sidebar__user">
+              <div className="sidebar__user" onClick={handleLanguagesModalOpen}>
                 <img
                   className="sidebar__user-icon"
                   src="/img/icons/ru.svg"
@@ -161,6 +171,11 @@ const LandingHeader: React.FC = () => {
       <BlockProfileModalContainer
         open={blockProfileModalOpened}
         onClose={handleCloseBlockProfileModal}
+      />
+
+      <LanguagesModalContainer
+        open={isLanguagesModalOpen}
+        onClose={handleCloseLanguagesModal}
       />
     </header>
   );
