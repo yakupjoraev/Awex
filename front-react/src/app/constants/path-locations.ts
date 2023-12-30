@@ -24,7 +24,7 @@ export const ROUTE = {
   HISTORY_PATH: "/dashboard/history",
   REFERRAL_PATH: "/dashboard/referral",
   PAYMENT_CRYPTO_STAGE_PATH: "/dashboard/payment-crypto",
-  PAYMENT_UNIQUEID_PATH: "/dashboard/payment",
+  PAYMENT_UNIQUEID_PATH: "/payment",
   INDEX_PATH: "/dashboard/index",
   AUTH_PATH: "/auth",
   ADMIN_AUTH_PATH: "/dashboard/admin/auth",

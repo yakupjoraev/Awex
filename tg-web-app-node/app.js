@@ -3,9 +3,14 @@ const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const { createInlineKeyboard } = require("./utils/createInlineKeyboard");
 
-const bot = new TelegramBot("6007178023:AAELLLKz1U_rtZKQULfM1cTL9msOibFM_wA", {
-  //6119167331:AAGzhg57baM-7F_5DPYBEvQBWC5yG7IdxUU
+let awexToken = "";
+let currentPage = 0;
+let currencies = [];
+let currency = "";
+
+const bot = new TelegramBot("6119167331:AAGzhg57baM-7F_5DPYBEvQBWC5yG7IdxUU", {
   polling: true,
 });
 
@@ -43,7 +48,6 @@ _Для начала работы нажмите на кнопку Войти и
 });
 
 bot.on("callback_query", async (ctx) => {
-  console.log(ctx);
   const chatId = ctx.message.chat.id;
   const data = ctx.data;
 
@@ -61,11 +65,134 @@ bot.on("callback_query", async (ctx) => {
       console.log(err);
     }
   }
+
+  if (data.startsWith("next_page_")) {
+    const requestedPage = parseInt(data.split("_")[2]);
+    if (!isNaN(requestedPage)) {
+      currentPage = requestedPage; // Update the currentPage based on the requested page
+    }
+
+    const response = await axios.get(
+      "https://awex.freeblock.site/api/0.0.1/order/merchant/currencies",
+      {
+        headers: {
+          Authorization: `Bearer ${awexToken}`,
+        },
+      }
+    );
+
+    currencies = response.data.currencies;
+
+    const keyboard = createInlineKeyboard(currencies, currentPage, 40);
+
+    await bot.editMessageText(`Выберите валюту:`, {
+      chat_id: chatId,
+      message_id: ctx.message.message_id,
+      reply_markup: {
+        inline_keyboard: keyboard,
+      },
+      parse_mode: "Markdown",
+    });
+  }
+
+  if (data.startsWith("prev_page_")) {
+    const requestedPage = parseInt(data.split("_")[2]);
+    if (!isNaN(requestedPage)) {
+      currentPage = requestedPage; // Update the currentPage based on the requested page
+    }
+
+    const response = await axios.get(
+      "https://awex.freeblock.site/api/0.0.1/order/merchant/currencies",
+      {
+        headers: {
+          Authorization: `Bearer ${awexToken}`,
+        },
+      }
+    );
+
+    currencies = response.data.currencies;
+
+    const keyboard = createInlineKeyboard(currencies, currentPage, 40);
+
+    await bot.editMessageText(`Выберите валюту:`, {
+      chat_id: chatId,
+      message_id: ctx.message.message_id,
+      reply_markup: {
+        inline_keyboard: keyboard,
+      },
+      parse_mode: "Markdown",
+    });
+  }
+
+  if (data.startsWith("select_currency_")) {
+    currency = data.split("_")[2];
+
+    await bot.sendMessage(chatId, `Введите сумму в ${currency.toUpperCase()}`, {
+      parse_mode: "Markdown",
+    });
+  }
+
+  if (data === "create_order") {
+    const response = await axios.get(
+      "https://awex.freeblock.site/api/0.0.1/order/merchant/currencies",
+      {
+        headers: {
+          Authorization: `Bearer ${awexToken}`,
+        },
+      }
+    );
+
+    currencies = response.data.currencies;
+
+    try {
+      const keyboard = createInlineKeyboard(currencies, currentPage, 40);
+
+      await bot.editMessageText(`Выберите валюту:`, {
+        chat_id: chatId,
+        message_id: ctx.message.message_id,
+        reply_markup: {
+          inline_keyboard: keyboard,
+        },
+        parse_mode: "Markdown",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 });
 
 bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
+
+  if (+text) {
+    const response = await axios.post(
+      "https://awex.freeblock.site/api/0.0.1/order/invoice",
+      {
+        name: "Счет выставленный через телеграм бота",
+        price: +text,
+        currency,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${awexToken}`,
+        },
+      }
+    );
+
+    const { uniqueId } = response.data;
+
+    await bot.sendMessage(
+      chatId,
+      `*Счет успешно создан* ✅
+*Сумма:* ${text} ${currency.toUpperCase()}
+*Ссылка для оплаты:* https://awex.freeblock.site/payment/${uniqueId}
+      `,
+      {
+        parse_mode: "Markdown",
+      }
+    );
+  }
 
   if (text.includes(":")) {
     const [login, password] = text.split(":");
@@ -81,13 +208,19 @@ bot.on("message", async (msg) => {
 
       const { token } = response.data;
 
-      const userResponse = await axios.get(
-        "https://awex.freeblock.site/api/0.0.1/account/auth/user"
-      );
-
-      console.log(token);
+      awexToken = token;
 
       await bot.sendMessage(chatId, `Вы успешно авторизовались ✅`, {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "Выставить счет",
+                callback_data: "create_order",
+              },
+            ],
+          ],
+        },
         parse_mode: "Markdown",
       });
     } catch (err) {

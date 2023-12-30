@@ -90,13 +90,23 @@ const OrderCashToOfficeForm: React.FC<IProps> = ({
         />
       </div>
 
-      <button
-        type="button"
-        className="actives-action__withdrawal-btn second-btn"
-        onClick={() => alert("NOT IMPLEMENTED")}
-      >
-        Заказать
-      </button>
+      <div className="actives-action__form-btns">
+        <button
+          type="button"
+          className="actives-action__withdrawal-btn second-btn"
+          onClick={() => alert("NOT IMPLEMENTED")}
+        >
+          Заказать
+        </button>
+
+        <button
+          type="button"
+          className="actives-action__withdrawal-btn second-btn"
+          onClick={() => alert("NOT IMPLEMENTED")}
+        >
+          Чат
+        </button>
+      </div>
     </form>
   );
 };
