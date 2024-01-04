@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import clsx from "clsx";
 import classNames from "classnames";
 import { useDropdown } from "../../hooks/useDropdown";
 
@@ -13,6 +14,9 @@ export interface SelectorSimpleProps {
   value: string | undefined;
   onChange: (value: string) => void;
   placeholder?: string;
+  className?: string;
+  error?: boolean;
+  helperText?: string;
 }
 
 export function SelectorSimple(props: SelectorSimpleProps) {
@@ -39,50 +43,64 @@ export function SelectorSimple(props: SelectorSimpleProps) {
   );
 
   return (
-    <div
-      className="about-deposit__generation-select about-deposit__generation-selected--not-reverse about-deposit__generation-selected--white"
-      ref={dropdown.containerRef}
-    >
+    <div className="about-deposit__generation-select-wrapper">
       <div
-        className={classNames("about-deposit__generation-selected", {
-          active: dropdown.opened,
-        })}
-        onClick={handleSelectClick}
+        className={clsx(
+          "about-deposit__generation-select about-deposit__generation-selected--not-reverse about-deposit__generation-selected--white",
+          props.className,
+          {
+            "about-deposit__generation-select-error": props.error,
+          }
+        )}
+        ref={dropdown.containerRef}
       >
-        <div className="about-deposit__generation-info">
-          <h5 className="about-deposit__generation-title">
-            {props.value
-              ? valueToLabel.get(props.value)
-              : props.placeholder
-              ? props.placeholder
-              : "---"}
-          </h5>
+        <div
+          className={classNames("about-deposit__generation-selected", {
+            active: dropdown.opened,
+          })}
+          onClick={handleSelectClick}
+        >
+          <div className="about-deposit__generation-info">
+            <h5 className="about-deposit__generation-title">
+              {props.value
+                ? valueToLabel.get(props.value)
+                : props.placeholder
+                ? props.placeholder
+                : "---"}
+            </h5>
+          </div>
+
+          <div className="about-deposit__generation-currency">
+            <img
+              className="about-deposit__generation-img"
+              src="/img/icons/arrow-down.svg"
+              alt="arrow-down"
+            />
+          </div>
         </div>
 
-        <div className="about-deposit__generation-currency">
-          <img
-            className="about-deposit__generation-img"
-            src="/img/icons/arrow-down.svg"
-            alt="arrow-down"
-          />
-        </div>
+        <ul
+          className={classNames("about-deposit__generation-list", {
+            active: dropdown.opened,
+          })}
+        >
+          {props.options.map(({ label, value }) => (
+            <li
+              className="about-deposit__generation-item"
+              key={value}
+              onClick={() => handleOptionClick(value)}
+            >
+              {label}
+            </li>
+          ))}
+        </ul>
       </div>
 
-      <ul
-        className={classNames("about-deposit__generation-list", {
-          active: dropdown.opened,
-        })}
-      >
-        {props.options.map(({ label, value }) => (
-          <li
-            className="about-deposit__generation-item"
-            key={value}
-            onClick={() => handleOptionClick(value)}
-          >
-            {label}
-          </li>
-        ))}
-      </ul>
+      {props.helperText && (
+        <p className="about-deposit__generation-helper-text">
+          {props.helperText}
+        </p>
+      )}
     </div>
   );
 }

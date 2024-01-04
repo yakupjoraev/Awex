@@ -1,4 +1,5 @@
-.main-content {}
+.main-content {
+}
 
 .main-content__title {
   margin-bottom: 25px;
@@ -132,14 +133,12 @@
   // .about-check__info-label
 
   &__info-label {
-
     &:nth-child(1) {
       width: 180px;
 
       @media (max-width: $breakpoint1720) {
         width: 164px;
       }
-
 
       @media (max-width: $breakpoint1200) {
         max-width: 150px;
@@ -189,7 +188,8 @@
 
   // .about-check__balance-label
 
-  &__balance-label {}
+  &__balance-label {
+  }
 
   // .about-check__balance-statistic
 
@@ -242,7 +242,8 @@
     @media (max-width: 1750px) {
       font-size: 48px;
 
-      span {}
+      span {
+      }
     }
 
     @media (max-width: $breakpoint1200) {
@@ -395,7 +396,6 @@
       font-size: 13px;
     }
 
-
     @media (max-width: $breakpoint1720) {
       display: none;
     }
@@ -431,6 +431,14 @@
     }
   }
 
+  &__generation-select-wrapper {
+    width: 100%;
+  }
+
+  &__generation-select-error {
+    border: 1px solid var(--error-color);
+  }
+
   // .about-deposit__generation-selected
 
   &__generation-selected {
@@ -442,7 +450,6 @@
   }
 
   &__generation-selected--not-reverse {
-
     .about-deposit__generation-selected {
       flex-direction: row;
     }
@@ -461,6 +468,17 @@
   &__generation-title {
     font-weight: 600;
     font-size: 13px;
+  }
+
+  &__generation-title-error {
+    color: var(--error-color);
+  }
+
+  &__generation-helper-text {
+    font-size: 13px;
+    line-height: 120%;
+    color: var(--error-color);
+    margin-bottom: 10px;
   }
 
   // .about-deposit__generation-currency
@@ -497,7 +515,7 @@
     outline: 0;
 
     &::placeholder {
-      font-family: 'Raleway', sans-serif;
+      font-family: "Raleway", sans-serif;
       font-style: normal;
       font-weight: 400;
       font-size: 13px;
@@ -518,13 +536,10 @@
     @media (max-width: $breakpoint1300) {
       font-size: 24px;
     }
-
   }
 }
 
-
 .about-deposit {
-
   // .about-deposit__generation-list
 
   &__generation-list {
@@ -569,11 +584,11 @@
     color: #000;
     cursor: pointer;
 
-    border-bottom: 1px solid rgba(209, 209, 209, 0.20);
+    border-bottom: 1px solid rgba(209, 209, 209, 0.2);
     transition: background-color 0.2s linear;
 
     &:hover {
-      background-color: rgba(209, 209, 209, 0.20);
+      background-color: rgba(209, 209, 209, 0.2);
     }
   }
 }
@@ -583,14 +598,11 @@
 }
 
 .about-deposit__generation-selected--border {
-
   .about-deposit__generation-currency {
     padding-right: 15px;
-    border-right: 1px solid #D1D1D1;
+    border-right: 1px solid #d1d1d1;
   }
 }
-
-
 
 .generate__link {
   display: none;
@@ -629,12 +641,12 @@
   }
 }
 
-.main-content__logo-pic {}
+.main-content__logo-pic {
+}
 
 .about-deposit__generation-selected--white {
   background-color: var(--white-color);
 }
-
 
 .about-deposit__generation-crypt {
   font-weight: 600;

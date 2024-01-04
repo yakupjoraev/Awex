@@ -22,6 +22,7 @@ import { OfficeAddressListAdmin } from "../models/OfficeAddressAdminList";
 import { OfficeAddressAdminItem } from "../models/OfficeAddressAdminItem";
 import { TCardList } from "../models/CardList";
 import { Card } from "../models/Card";
+import { CashOrder } from "../models/CashOrder";
 
 export class AuthorizedService {
   public static teamMembersList(page?: string): CancelablePromise<{
@@ -1683,6 +1684,32 @@ export class AuthorizedService {
       errors: {
         400: `request failed`,
         403: `Forbidden`,
+      },
+    });
+  }
+
+  public static getCashOrderCurrencies(): CancelablePromise<{ rate: number }> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/cash-order/currencies",
+      errors: {
+        403: `Forbidden`,
+      },
+    });
+  }
+
+  public static cashOrder(requestBody: CashOrder): CancelablePromise<{
+    message?: string;
+  }> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/cash-order",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        400: `request failed`,
+        403: `Forbidden`,
+        404: `request failed`,
       },
     });
   }
