@@ -104,10 +104,10 @@ export function ProfileTab() {
 
       <div className="settings-profile__selects">
         <LanguageSelector />
-        <ThemeSelector theme={theme} onChange={handleChangeTheme} />
+        {/* <ThemeSelector theme={theme} onChange={handleChangeTheme} /> */}
       </div>
 
-      <div className="settings-profile__selects">
+      {/* <div className="settings-profile__selects">
         <div className="settings-profile__select">
           <div className="settings-profile__included">
             <p className="settings-profile__included-label">
@@ -308,7 +308,7 @@ export function ProfileTab() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

@@ -51,6 +51,7 @@ import AdminOfficeAddressDetails from "./pages/AdminApplicationsPage/AdminOffice
 import AdminProjectDetails from "./pages/AdminApplicationsPage/AdminProjectDetails";
 import LandingPersonalPage from "./pages/LandingPersonalPage";
 import LandingBusinessPage from "./pages/LandingBusinessPage";
+import StatsPage from "./pages/StatsPage";
 import LandingLayout from "./layouts/LandingLayout";
 
 export function App() {
@@ -204,6 +205,7 @@ export function App() {
             path={ROUTE.EMPLOYEE_ACTIVITY_PATH}
             element={<EmployeeActivityPage />}
           />
+          <Route path={ROUTE.STATS_PATH} element={<StatsPage />} />
           <Route path="*" element={<UserAreaNotFoundPage />} />
         </Route>
         <Route

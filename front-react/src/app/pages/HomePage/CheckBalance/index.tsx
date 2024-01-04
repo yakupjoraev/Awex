@@ -46,7 +46,9 @@ export function CheckBalance() {
         <div className="about-check__balance-labels">
           <div className="about-check__balance-label">Общий баланс:</div>
 
-          <a href="#" className="about-check__balance-statistic">
+          <a href="#" className="about-check__balance-statistic ___not_implemented"
+           onClick={() => alert('Не реализовано')}
+          >
             Статистика
             <img
               className="about-check__balance-statistic-img"

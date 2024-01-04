@@ -11,7 +11,7 @@ export function RequisitesTab() {
     <div className="settings-requisites__lists">
       <Cards />
 
-      <div className="settings-requisites__list-wrapper">
+      <div className="settings-requisites__list-wrapper ___not_implemented">
         <div className="settings-requisites__header">
           <h3 className="settings-requisites__title">Мои счета</h3>
 

@@ -7,7 +7,10 @@ export interface BellCheckboxProps<T extends string> {
 
 export function BellCheckbox<T extends string>(props: BellCheckboxProps<T>) {
   const handleBtnClick = () => {
-    props.onChange(!props.value);
+    // props.onChange(!props.value);
+
+    alert('В Разработке!')
+
   };
 
   return (

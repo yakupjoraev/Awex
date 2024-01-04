@@ -18,7 +18,7 @@ export function SafetyTab() {
       <div className="settings-profile__selects">
         <IPBinding />
 
-        <div className="settings-profile__select">
+        <div className="settings-profile__select ___not_implemented">
           <div className="settings-security__header">
             <h3 className="settings-security__title">Google 2FA</h3>
           </div>

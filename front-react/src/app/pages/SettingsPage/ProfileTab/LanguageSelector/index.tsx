@@ -10,10 +10,10 @@ export function LanguageSelector() {
 
   return (
     <div
-      className="settings-profile__select"
+      className="settings-profile__select ___not_implemented"
       data-select-wrapper=""
       ref={langDropdown.containerRef}
-      onClick={() => langDropdown.toggle()}
+      // onClick={() => langDropdown.toggle()}
     >
       <div
         className={classNames("settings-profile__language", {

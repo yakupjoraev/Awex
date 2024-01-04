@@ -19,7 +19,7 @@ export function NotificationsForm(props: NotificationsFormProps) {
 
   return (
     <form
-      className="settings-profile__selects grid-column-1"
+      className="settings-profile__selects grid-column-1 ___not_implemented"
       onSubmit={(ev) => void ev.preventDefault()}
     >
       <div className="settings-profile__select">
@@ -58,7 +58,7 @@ export function NotificationsForm(props: NotificationsFormProps) {
                 onChange={(value) => handleChange(value, "telegram")}
               />
             </li>
-
+{/* 
             <li className="settings-profile__included-item">
               <img
                 className="settings-profile__included-icon"
@@ -106,7 +106,7 @@ export function NotificationsForm(props: NotificationsFormProps) {
                 value={props.notificationSettings.apple}
                 onChange={(value) => handleChange(value, "apple")}
               />
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

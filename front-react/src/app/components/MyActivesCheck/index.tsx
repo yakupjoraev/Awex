@@ -36,7 +36,7 @@ export function MyActivesCheck(props: MyActivesCheckProps) {
       </div>
 
       <div className="my-actives__check-operations">
-        <div className="my-actives__check-operation" onClick={props.onWithdraw}>
+        <div className="my-actives__check-operation ___not_implemented" onClick={() => { alert('Не реализовано') /*props.onWithdraw*/}}>
           <img
             className="my-actives__check-operation-img"
             src="/img/icons/conclusion.svg"
@@ -47,7 +47,7 @@ export function MyActivesCheck(props: MyActivesCheckProps) {
         </div>
 
         {props.sell && (
-          <div className="my-actives__check-operation" onClick={props.onSell}>
+          <div className="my-actives__check-operation ___not_implemented" onClick={() => { alert('Не реализовано') /*props.onSell*/}}>
             <img
               className="my-actives__check-operation-img"
               src="/img/icons/sell.svg"
@@ -59,7 +59,7 @@ export function MyActivesCheck(props: MyActivesCheckProps) {
         )}
 
         {props.swap && (
-          <div className="my-actives__check-operation" onClick={props.onSwap}>
+          <div className="my-actives__check-operation ___not_implemented" onClick={() => { alert('Не реализовано') /*props.onSwap*/}}>
             <img
               className="my-actives__check-operation-img"
               src="/img/icons/swap.svg"
