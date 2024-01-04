@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import ApplicationForNewOfficeAddressList from "../AdminOfficeAddresses/ApplicationForNewOfficeAddressList";
+import ApplicationForNewOfficeAddressList from "../AdminOfficeAddresses/AdminOfficeAddressList";
 import SupportingOfficeDocumentList from "./SupportingOfficeDocumentList";
 import { AdminRejectOfficeAddressModalContainer } from "@containers/AdminRejectOfficeAddressModalContainer";
 import { AuthorizedService, MerchantItem } from "@awex-api";
-import { RequestAdditionalInfoModalContainer } from "@containers/RequestAdditionalInfoModalContainer";
 import { OfficeAddressAdminItem } from "src/generated/awex-api/models/OfficeAddressAdminItem";
 import classes from "./AdminOfficeAddressDetails.module.css";
 

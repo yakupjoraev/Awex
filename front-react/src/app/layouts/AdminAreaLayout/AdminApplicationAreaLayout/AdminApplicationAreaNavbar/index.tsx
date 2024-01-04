@@ -43,8 +43,8 @@ const AdminApplicationAreaNavbar: React.FC = () => {
     },
     {
       title: "Заказ наличных в офис",
-      path: "/admin-applications-page/cash-order",
-      disable: true,
+      path: ROUTE.ADMIN_APPLICATIONS_CASH_ORDER,
+      disable: false,
     },
   ];
 

@@ -1,19 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { AuthorizedService } from "@awex-api";
-import classes from "../AdminProjects/AdminProjects.module.css";
+import AdminProjectList from "./AdminProjectList";
+import { AuthorizedService, ProjectListAdmin } from "@awex-api";
+import classes from "./AdminProjects.module.css";
 import { useSearchParams } from "react-router-dom";
 import classNames from "classnames";
-import AdminApplicationAreaNavbar from "../../../layouts/AdminAreaLayout/AdminApplicationAreaLayout/AdminApplicationAreaNavbar";
-import AdminOfficeAddressList from "./AdminOfficeAddressList";
-import { OfficeAddressListAdmin } from "src/generated/awex-api/models/OfficeAddressAdminList";
 import { Pagination } from "@components/Pagination";
+import AdminApplicationAreaNavbar from "../../../layouts/AdminAreaLayout/AdminApplicationAreaLayout/AdminApplicationAreaNavbar";
 
 const DEFAULT_SEARCH = "";
 const QUERY_PARAM_SEARCH = "search";
 
-const AdminOfficeAddress: React.FC = () => {
-  const [applications, setApplications] =
-    React.useState<OfficeAddressListAdmin>();
+const ProjectsIncrease: React.FC = () => {
+  const [applications, setApplications] = React.useState<ProjectListAdmin[]>(
+    []
+  );
   const [searchInputFocused, setSearchInputFocused] = useState(false);
   const [searchText, setSearchText] = useState(DEFAULT_SEARCH);
   const [page, setPage] = useState(1);
@@ -46,14 +46,14 @@ const AdminOfficeAddress: React.FC = () => {
     setSearchText(ev.currentTarget.value);
   };
 
+  function changePage(page: number): void {
+    setPage(page);
+  }
+
   const submittedSearchText = useMemo(() => {
     const searchText = searchParams.get(QUERY_PARAM_SEARCH);
     return searchText === null ? DEFAULT_SEARCH : searchText;
   }, [searchParams]);
-
-  const changePage = (page: number): void => {
-    setPage(page);
-  };
 
   useEffect(() => {
     setSearchText(submittedSearchText);
@@ -68,16 +68,16 @@ const AdminOfficeAddress: React.FC = () => {
 
   useEffect(() => {
     const searchText = searchParams.get(QUERY_PARAM_SEARCH);
-    AuthorizedService.getAdminOfficeAddresses(
-      page,
+    AuthorizedService.adminProjectsList(
+      page.toString(),
       undefined,
       searchText!
     ).then((res) => {
-      setApplications(res);
+      setApplications(res.list!);
       setTotalPages(res.pages!);
       setPage(res.page!);
     });
-  }, []);
+  }, [page, totalPages]);
 
   return (
     <>
@@ -128,14 +128,14 @@ const AdminOfficeAddress: React.FC = () => {
             <p className="admin-marchants__item-label" />
           </div>
 
-          <AdminOfficeAddressList applications={applications!} />
+          <AdminProjectList applications={applications} />
         </div>
 
         {totalPages > 1 ? (
           <Pagination
+            currentPage={page}
             goToPage={changePage}
             pages={totalPages}
-            currentPage={page}
           />
         ) : null}
       </div>
@@ -143,4 +143,4 @@ const AdminOfficeAddress: React.FC = () => {
   );
 };
 
-export default AdminOfficeAddress;
+export default ProjectsIncrease;

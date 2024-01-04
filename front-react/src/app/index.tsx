@@ -33,7 +33,7 @@ import { PaymentPage } from "./pages/PaymentPage";
 import { NotificationsPage } from "./pages/NotificationsPage";
 import AdminApplicationsPage from "./pages/AdminApplicationsPage";
 import AdminApplicationAreaLayout from "./layouts/AdminAreaLayout/AdminApplicationAreaLayout";
-import ProjectsIncrease from "./pages/AdminApplicationsPage/ProjectsIncrease";
+import AdminProjects from "./pages/AdminApplicationsPage/AdminProjects";
 import { OperationsHistoryPage } from "./pages/OperationsHistoryPage";
 import { InvoiceTemplates } from "./pages/InvoiceTemplates";
 import { ReferralPage } from "./pages/ReferralPage";
@@ -54,6 +54,8 @@ import LandingBusinessPage from "./pages/LandingBusinessPage";
 import StatsPage from "./pages/StatsPage";
 import LandingLayout from "./layouts/LandingLayout";
 import OrderCashToOffice from "./pages/OrderCashToOffice";
+import AdminCashOrder from "./pages/AdminApplicationsPage/AdminCashOrder";
+import AdminCashOrderDetails from "./pages/AdminApplicationsPage/AdminCashOrderDetails";
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -119,7 +121,7 @@ export function App() {
             />
             <Route
               path={ROUTE.ADMIN_APPLICATIONS_PROJECTS_PATH}
-              element={<ProjectsIncrease />}
+              element={<AdminProjects />}
             />
             <Route
               path={`${ROUTE.ADMIN_APPLICATIONS_PROJECTS_DETAILS_PATH}`}
@@ -132,6 +134,14 @@ export function App() {
             <Route
               path={ROUTE.ADMIN_APPLICATIONS_OFFICE_ADDRESS_DETAILS_PATH}
               element={<AdminOfficeAddressDetails />}
+            />
+            <Route
+              path={ROUTE.ADMIN_APPLICATIONS_CASH_ORDER}
+              element={<AdminCashOrder />}
+            />
+            <Route
+              path={ROUTE.ADMIN_APPLICATIONS_CASH_ORDER_DETAILS}
+              element={<AdminCashOrderDetails />}
             />
           </Route>
 

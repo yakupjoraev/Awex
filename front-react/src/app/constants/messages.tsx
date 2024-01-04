@@ -17,6 +17,7 @@ export const msg = {
   DELETED_ERROR: "Не удалось удалить",
   ADDED_ERROR: "Не удалось добавить",
   SAVED_ERROR: "Не удалось сохранить",
+  APPROVE_ERROR: "Не удалось подтвердить",
   UNEXPECTED_ERROR:
     "Непредвиденная ошибка. Попробуйте повторить дейтсвие позже",
   SERVER_ERROR:

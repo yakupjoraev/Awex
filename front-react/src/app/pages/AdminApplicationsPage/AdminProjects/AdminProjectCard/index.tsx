@@ -8,7 +8,7 @@ interface IProps {
   isDetailsButton?: boolean;
 }
 
-const ApplicationForNewProjectCard: React.FC<IProps> = ({
+const AdminProjectCard: React.FC<IProps> = ({
   application,
   isDetailsButton = true,
 }) => {
@@ -71,4 +71,4 @@ const ApplicationForNewProjectCard: React.FC<IProps> = ({
   );
 };
 
-export default ApplicationForNewProjectCard;
+export default AdminProjectCard;
