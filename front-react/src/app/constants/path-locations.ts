@@ -24,7 +24,7 @@ export const ROUTE = {
   HISTORY_PATH: "/dashboard/history",
   REFERRAL_PATH: "/dashboard/referral",
   PAYMENT_CRYPTO_STAGE_PATH: "/dashboard/payment-crypto",
-  PAYMENT_UNIQUEID_PATH: "/dashboard/payment",
+  PAYMENT_UNIQUEID_PATH: "/payment",
   INDEX_PATH: "/dashboard/index",
   AUTH_PATH: "/auth",
   ADMIN_AUTH_PATH: "/dashboard/admin/auth",
@@ -46,4 +46,5 @@ export const ROUTE = {
   ADMIN_COMMISSION_PATH: "/admin/commission",
   EMPLOYEE_ACTIVITY_PATH: "/dashboard/employee-activity",
   STATS_PATH: "/dashboard/stats",
+  ORDER_CASH_PATH: "/dashboard/order-cash",
 };

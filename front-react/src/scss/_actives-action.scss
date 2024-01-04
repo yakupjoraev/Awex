@@ -1,7 +1,7 @@
 .actives-action {
   width: 100%;
   height: 100%;
-  padding: 120px 60px;
+  padding: 70px 30px;
   background-color: var(--bg-color);
 
   .actives-check__back {
@@ -13,21 +13,20 @@
   }
 
   @media (max-width: $breakpoint1300) {
-    padding: 120px 30px;
+    padding: 70px 30px;
   }
 
   @media (max-width: $breakpoint1200) {
-    padding: 120px 15px;
+    padding: 70px 15px;
   }
 
   @media (max-width: $breakpoint768) {
-    padding: 70px 15px;
+    padding: 50px 15px;
   }
 
   &__inner {
     max-width: 500px;
     width: 100%;
-
 
     @media (max-width: $breakpoint768) {
       max-width: 100%;
@@ -45,7 +44,6 @@
     @media (max-width: $breakpoint1300) {
       font-size: 16px;
     }
-
 
     @media (max-width: $breakpoint768) {
       margin-bottom: 15px;
@@ -111,7 +109,8 @@
 
   // .actives-action__count-descrs
 
-  &__count-descrs {}
+  &__count-descrs {
+  }
 
   // .actives-action__count-name
 
@@ -134,27 +133,27 @@
   // .actives-action__count-btn
 
   &__count-btn {
-
     @media (max-width: 420px) {
       margin-left: auto;
     }
   }
 }
 
-
 .actives-action {
-
   // .actives-action__inner
 
-  &__inner {}
+  &__inner {
+  }
 
   // .actives-action__title
 
-  &__title {}
+  &__title {
+  }
 
   // .actives-action__withdrawal
 
-  &__withdrawal {}
+  &__withdrawal {
+  }
 
   // .actives-action__withdrawal-group
 
@@ -170,12 +169,12 @@
     @media (max-width: $breakpoint1300) {
       font-size: 13px;
     }
-
   }
 
   // .actives-action__withdrawal-input
 
-  &__withdrawal-input {}
+  &__withdrawal-input {
+  }
 
   // .actives-action__withdrawal-exchange
 
@@ -206,7 +205,7 @@
     column-gap: 5px;
     padding: 5px;
     border-radius: 10px;
-    background: var(--light-grey-50, rgba(209, 209, 209, 0.50));
+    background: var(--light-grey-50, rgba(209, 209, 209, 0.5));
     font-size: 12px;
     font-weight: 600;
     line-height: 120%;
@@ -238,7 +237,6 @@
     @media (max-width: $breakpoint992) {
       font-size: 24px;
     }
-
   }
 
   // .actives-action__withdrawal-deceives-sum
@@ -281,7 +279,8 @@
 
   // .actives-action__inforamation-pic
 
-  &__inforamation-pic {}
+  &__inforamation-pic {
+  }
 
   // .actives-action__inforamation-title
 
@@ -305,13 +304,23 @@
     width: fit-content;
     margin: 0 auto;
   }
+
+  &__form-btns {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    margin-bottom: 25px;
+
+    @media (max-width: $breakpoint768) {
+      flex-direction: column;
+      row-gap: 10px;
+    }
+  }
 }
 
 .actives-action__withdrawal-swaps {
   position: relative;
   margin-bottom: 25px;
-
-
 
   .invoice__generation-select {
     margin-bottom: 0;
@@ -319,7 +328,6 @@
 }
 
 .actives-action__withdrawal-swap {
-
   &:not(:last-child) {
     margin-bottom: 10px;
   }
@@ -330,7 +338,6 @@
 
   .about-deposit__generation-input {
     font-size: 36px;
-
 
     @media (max-width: $breakpoint992) {
       font-size: 24px;
@@ -401,7 +408,7 @@
 .actives-action__withdrawal-comission-green {
   padding: 5px 15px;
   border-radius: 15px;
-  background: rgba(51, 160, 44, 0.20);
+  background: rgba(51, 160, 44, 0.2);
   color: var(--green-color);
 
   @media (max-width: 359px) {
@@ -409,14 +416,7 @@
   }
 }
 
-
-
-
-
-
-
 .actives-action {
-
   // .actives-action__exchanges
 
   &__exchanges {
@@ -441,7 +441,7 @@
   &__exchange-label {
     font-size: 10px;
     font-weight: 600;
-    color: #9A9A9A;
+    color: #9a9a9a;
   }
 
   // .actives-action__exchange-price
@@ -499,7 +499,7 @@
     margin-bottom: 12px;
     font-weight: 400;
     font-size: 12px;
-    color: #9A9A9A;
+    color: #9a9a9a;
   }
 
   // .actives-action__exchang-limites
@@ -514,17 +514,15 @@
 
   &__exchang-limit {
     font-size: 12px;
-    color: #9A9A9A;
+    color: #9a9a9a;
 
     font-weight: 600;
   }
 }
 
 .actives-action__withdrawal {
-
   .about-deposit__generation-input {
     font-size: 36px;
-
 
     &::placeholder {
       font-size: 36px;
@@ -535,6 +533,5 @@
     @media (max-width: $breakpoint1300) {
       font-size: 36px;
     }
-
   }
 }
