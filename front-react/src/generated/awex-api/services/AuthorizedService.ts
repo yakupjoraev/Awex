@@ -1512,6 +1512,27 @@ export class AuthorizedService {
     });
   }
 
+  public static uploadOfficeAddressDocumentAdmin(
+    id: string,
+    formData: {
+      upload: Blob[];
+    }
+  ): CancelablePromise<{
+    message?: string;
+  }> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: `/office/${id}/document/admin`,
+      formData: formData,
+      mediaType: "multipart/form-data",
+      errors: {
+        400: `request failed`,
+        403: `Forbidden`,
+        404: `request failed`,
+      },
+    });
+  }
+
   public static requestOfficeAddressValidation(id: string): CancelablePromise<{
     message?: string;
   }> {
@@ -1616,6 +1637,30 @@ export class AuthorizedService {
       },
       path: {
         fileName: fileName,
+      },
+    });
+  }
+
+  public static administratorOfficeAddressRequest(
+    id: string,
+    requestBody: {
+      request: string;
+    }
+  ): CancelablePromise<{
+    message?: string;
+  }> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/office/{id}/admin/request",
+      path: {
+        id: id,
+      },
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        400: `request failed`,
+        403: `Forbidden`,
+        404: `request failed`,
       },
     });
   }

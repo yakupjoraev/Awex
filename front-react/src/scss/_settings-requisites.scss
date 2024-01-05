@@ -135,4 +135,13 @@
       display: none;
     }
   }
+
+  &__empty-list-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #d1d1d1;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
 }

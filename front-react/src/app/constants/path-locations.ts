@@ -43,6 +43,8 @@ export const ROUTE = {
   ADMIN_APPLICATIONS_OFFICE_ADDRESS_PATH: "/admin/applications/office-address",
   ADMIN_APPLICATIONS_OFFICE_ADDRESS_DETAILS_PATH:
     "/admin/applications/office-address/:applicationId",
+  ADMIN_APPLICATIONS_OFFICE_ADDRESS_REQUEST_DETAILS_PATH:
+    "/admin/applications/office-address/:applicationId/request",
   ADMIN_APPLICATIONS_CASH_ORDER: "/admin/applications/cash-order",
   ADMIN_APPLICATIONS_CASH_ORDER_DETAILS:
     "/admin/applications/cash-order/:applicationId",
