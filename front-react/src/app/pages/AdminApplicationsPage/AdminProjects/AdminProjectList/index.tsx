@@ -1,5 +1,5 @@
 import React from "react";
-import ApplicationCard from "../ApplicationForNewProjectCard";
+import AdminProjectCard from "../AdminProjectCard";
 import classes from "./ApplicationList.module.css";
 import { ProjectListAdmin } from "@awex-api";
 
@@ -8,14 +8,14 @@ interface IProps {
   isDetailsButton?: boolean;
 }
 
-const ApplicationForNewProjectList: React.FC<IProps> = ({
+const AdminProjectList: React.FC<IProps> = ({
   applications,
   isDetailsButton = true,
 }) => {
   return (
     <ul className={classes["application-list"]}>
       {applications?.map((application, index) => (
-        <ApplicationCard
+        <AdminProjectCard
           key={index}
           application={application}
           isDetailsButton={isDetailsButton}
@@ -25,4 +25,4 @@ const ApplicationForNewProjectList: React.FC<IProps> = ({
   );
 };
 
-export default ApplicationForNewProjectList;
+export default AdminProjectList;

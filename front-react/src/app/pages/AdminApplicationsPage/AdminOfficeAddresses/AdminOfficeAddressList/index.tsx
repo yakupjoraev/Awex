@@ -1,5 +1,5 @@
 import React from "react";
-import ApplicationForNewOfficeAddressCard from "../ApplicationForNewOfficeAddressCard";
+import AdminOfficeAddressCard from "../AdminOfficeAddressCard";
 import classes from "./ApplicationForNewOfficeAddressList.module.css";
 import { OfficeAddressListAdmin } from "src/generated/awex-api/models/OfficeAddressAdminList";
 
@@ -8,14 +8,14 @@ interface IProps {
   isDetailsButton?: boolean;
 }
 
-const ApplicationForNewOfficeAddressList: React.FC<IProps> = ({
+const AdminOfficeAddressList: React.FC<IProps> = ({
   applications,
   isDetailsButton = true,
 }) => {
   return (
     <ul className={classes["application-list"]}>
       {applications?.list?.map((application, index) => (
-        <ApplicationForNewOfficeAddressCard
+        <AdminOfficeAddressCard
           key={index}
           application={application}
           isDetailsButton={isDetailsButton}
@@ -25,4 +25,4 @@ const ApplicationForNewOfficeAddressList: React.FC<IProps> = ({
   );
 };
 
-export default ApplicationForNewOfficeAddressList;
+export default AdminOfficeAddressList;

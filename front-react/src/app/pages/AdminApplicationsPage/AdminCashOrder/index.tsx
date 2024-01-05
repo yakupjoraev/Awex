@@ -1,17 +1,18 @@
+import { AuthorizedService } from "@awex-api";
 import React, { useEffect, useMemo, useState } from "react";
-import ApplicationList from "./ApplicationForNewProjectList";
-import { AuthorizedService, ProjectListAdmin } from "@awex-api";
-import classes from "./ProjectIncrease.module.css";
+import AdminApplicationAreaNavbar from "../../../layouts/AdminAreaLayout/AdminApplicationAreaLayout/AdminApplicationAreaNavbar";
+import classes from "../AdminProjects/AdminProjects.module.css";
 import { useSearchParams } from "react-router-dom";
 import classNames from "classnames";
 import { Pagination } from "@components/Pagination";
-import AdminApplicationAreaNavbar from "../../../layouts/AdminAreaLayout/AdminApplicationAreaLayout/AdminApplicationAreaNavbar";
+import AdminCashOrderList from "./AdminCashOrderList";
+import { AdminCashOrderItem } from "src/generated/awex-api/models/AdminCashOrderItem";
 
 const DEFAULT_SEARCH = "";
 const QUERY_PARAM_SEARCH = "search";
 
-const ProjectsIncrease: React.FC = () => {
-  const [applications, setApplications] = React.useState<ProjectListAdmin[]>(
+const AdminCashOrder: React.FC = () => {
+  const [applications, setApplications] = React.useState<AdminCashOrderItem[]>(
     []
   );
   const [searchInputFocused, setSearchInputFocused] = useState(false);
@@ -68,15 +69,13 @@ const ProjectsIncrease: React.FC = () => {
 
   useEffect(() => {
     const searchText = searchParams.get(QUERY_PARAM_SEARCH);
-    AuthorizedService.adminProjectsList(
-      page.toString(),
-      undefined,
-      searchText!
-    ).then((res) => {
-      setApplications(res.list!);
-      setTotalPages(res.pages!);
-      setPage(res.page!);
-    });
+    AuthorizedService.adminCashOrder(page, undefined, searchText!).then(
+      (res) => {
+        setApplications(res.list!);
+        setTotalPages(res.pages!);
+        setPage(res.page!);
+      }
+    );
   }, [page, totalPages]);
 
   return (
@@ -123,22 +122,24 @@ const ProjectsIncrease: React.FC = () => {
         <div className="admin-marchants__list">
           <div className="admin-marchants__item-labels">
             <p className="admin-marchants__item-label">Номер</p>
-            <p className="admin-marchants__item-label">Номер/ID мерчанта</p>
+            <p className="admin-marchants__item-label">Номер/ID офиса</p>
             <p className="admin-marchants__item-label">Дата заявки</p>
             <p className="admin-marchants__item-label" />
           </div>
 
-          <ApplicationList applications={applications} />
+          <AdminCashOrderList applications={applications} />
         </div>
 
-        <Pagination
-          currentPage={page}
-          goToPage={changePage}
-          pages={totalPages}
-        />
+        {totalPages > 1 ? (
+          <Pagination
+            currentPage={page}
+            goToPage={changePage}
+            pages={totalPages}
+          />
+        ) : null}
       </div>
     </>
   );
 };
 
-export default ProjectsIncrease;
+export default AdminCashOrder;

@@ -256,6 +256,12 @@
     }
   }
 
+  // .actives-action__office-select
+
+  &__office-select {
+    width: 100%;
+  }
+
   // .actives-action__inforamation
 
   &__inforamation {
@@ -526,6 +532,22 @@
 
     &::placeholder {
       font-size: 36px;
+
+      @media (max-width: "1024px") {
+        font-size: 24px;
+      }
+
+      @media (max-width: "780px") {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: "1024px") {
+      font-size: 24px;
+    }
+
+    @media (max-width: "780px") {
+      font-size: 18px;
     }
   }
 

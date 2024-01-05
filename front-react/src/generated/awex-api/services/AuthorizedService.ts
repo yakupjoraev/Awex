@@ -22,6 +22,10 @@ import { OfficeAddressListAdmin } from "../models/OfficeAddressAdminList";
 import { OfficeAddressAdminItem } from "../models/OfficeAddressAdminItem";
 import { TCardList } from "../models/CardList";
 import { Card } from "../models/Card";
+import { CashOrder } from "../models/CashOrder";
+import { AdminCashOrderList } from "../models/AdminCashOrderList";
+import { AdminCashOrderItem } from "../models/AdminCashOrderItem";
+import { AdminCashOrderApplication } from "../models/AdminCashOrderApplication";
 
 export class AuthorizedService {
   public static teamMembersList(page?: string): CancelablePromise<{
@@ -1683,6 +1687,79 @@ export class AuthorizedService {
       errors: {
         400: `request failed`,
         403: `Forbidden`,
+      },
+    });
+  }
+
+  public static getCashOrderCurrencies(): CancelablePromise<{ rate: number }> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/cash-order/currencies",
+      errors: {
+        403: `Forbidden`,
+      },
+    });
+  }
+
+  public static cashOrder(requestBody: CashOrder): CancelablePromise<{
+    message?: string;
+  }> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/cash-order",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        400: `request failed`,
+        403: `Forbidden`,
+        404: `request failed`,
+      },
+    });
+  }
+
+  public static adminCashOrder(
+    page?: number,
+    status?: string,
+    search?: string
+  ): CancelablePromise<AdminCashOrderList> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/cash-order/admin",
+      query: {
+        page: page,
+        status: status,
+        search: search,
+      },
+      errors: {
+        403: `Forbidden`,
+      },
+    });
+  }
+
+  public static adminCashOrderApplication(
+    id?: number
+  ): CancelablePromise<AdminCashOrderApplication> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: `/cash-order/${id}/admin`,
+      errors: {
+        404: "Not Found",
+        403: `Forbidden`,
+      },
+    });
+  }
+
+  public static adminCompleteCashOrder(id: number): CancelablePromise<{
+    message?: string;
+  }> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: `/cash-order/${id}/admin/complete`,
+      mediaType: "application/json",
+      errors: {
+        400: `request failed`,
+        403: `Forbidden`,
+        404: `request failed`,
       },
     });
   }

@@ -5,10 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import OrderCashToOfficeForm from "./OrderCashToOfficeForm";
+import toast from "react-hot-toast";
+import { msg } from "@constants/messages";
 
 export interface IOrderCashToOfficeForm {
   amount: number;
   officeAddress: string;
+  courierName: string;
+  courierPhone: string;
+  courierDocument: string;
 }
 
 const OrderCashToOffice: React.FC = () => {
@@ -24,6 +29,11 @@ const OrderCashToOffice: React.FC = () => {
   const OrderCashToOfficeFormSchema = yup.object().shape({
     amount: yup.number().required("Введите сумму"),
     officeAddress: yup.string().required("Выберете офис"),
+    courierName: yup.string().required("Введите имя получателя"),
+    courierPhone: yup.string().required("Введите номер телефона получателя"),
+    courierDocument: yup
+      .string()
+      .required("Введите номер документа получателя"),
   });
 
   const useFormReturn = useForm<IOrderCashToOfficeForm>({
@@ -35,7 +45,18 @@ const OrderCashToOffice: React.FC = () => {
   };
 
   const handleSubmit = (data: IOrderCashToOfficeForm) => {
-    console.log(data);
+    AuthorizedService.cashOrder({
+      ...data,
+      currency: "usd",
+      officeId: data.officeAddress,
+    })
+      .then((res) => {
+        toast.success(msg.APPLICATION_SUCCESS);
+        navigate(-1);
+      })
+      .catch(() => {
+        toast.error(msg.ADDED_ERROR);
+      });
   };
 
   useEffect(() => {

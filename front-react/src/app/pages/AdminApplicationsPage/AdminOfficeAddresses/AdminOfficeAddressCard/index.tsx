@@ -8,7 +8,7 @@ interface IProps {
   isDetailsButton?: boolean;
 }
 
-const ApplicationForNewOfficeAddressCard: React.FC<IProps> = ({
+const AdminOfficeAddressCard: React.FC<IProps> = ({
   application,
   isDetailsButton,
 }) => {
@@ -70,4 +70,4 @@ const ApplicationForNewOfficeAddressCard: React.FC<IProps> = ({
   );
 };
 
-export default ApplicationForNewOfficeAddressCard;
+export default AdminOfficeAddressCard;

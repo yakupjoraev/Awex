@@ -7,7 +7,7 @@ import {
 } from "@awex-api";
 import { RequestAdditionalInfoModalContainer } from "@containers/RequestAdditionalInfoModalContainer";
 import { AdminRejectProjectModalContainer } from "@containers/AdminRejectProjectModalContainer";
-import ApplicationForNewProjectList from "../ProjectsIncrease/ApplicationForNewProjectList";
+import ApplicationForNewProjectList from "../AdminProjects/AdminProjectList";
 import classes from "./AdminProject.module.css";
 
 const AdminProjectDetails: React.FC = () => {
