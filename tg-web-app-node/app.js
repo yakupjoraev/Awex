@@ -189,6 +189,16 @@ bot.on("message", async (msg) => {
 *Ссылка для оплаты:* https://awex.freeblock.site/payment/${uniqueId}
       `,
       {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "Выставить счет",
+                callback_data: "create_order",
+              },
+            ],
+          ],
+        },
         parse_mode: "Markdown",
       }
     );

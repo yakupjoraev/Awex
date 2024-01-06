@@ -1,6 +1,6 @@
 import { CommonService } from "@awex-api";
 import { DescribeProblemModal } from "@components/DescribeProblemModal";
-import { RecoverModal } from "@components/RecoverModal";
+import { RecoverModalContent } from "@components/RecoverModal/RecoverModalContent";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 

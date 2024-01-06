@@ -1,5 +1,6 @@
 import { ApiError, CommonService } from "@awex-api";
-import { RecoverError, RecoverModal } from "@components/RecoverModal";
+import { RecoverModal } from "@components/RecoverModal";
+import { RecoverError } from "@components/RecoverModal/RecoverModalContent";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -9,39 +10,95 @@ export interface RecoverModalContainerProps {
 }
 
 export function RecoverModalContainer(props: RecoverModalContainerProps) {
+  const [stage, setStage] = useState<"email" | "verify" | "reset">("email");
+  const [authData, setAuthData] = useState<{ email: string }>({ email: "" });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<RecoverError | null>(null);
+  const [recoverError, setRecoverError] = useState<RecoverError | null>(null);
+  const [verifyError, setVerifyError] = useState<{
+    type: "unknown";
+    message?: string;
+  } | null>(null);
+  const [newPasswordError, setNewPasswordError] = useState<{
+    type: "unknown";
+    message?: string;
+  } | null>(null);
+  const [resetToken, setResetToken] = useState<string | null>(null);
 
   useEffect(() => {
-    setError(null);
+    setRecoverError(null);
+    setVerifyError(null);
+    setNewPasswordError(null);
+    setResetToken(null);
+    setStage("email");
   }, [props.open]);
 
   const handleRecover = (opts: { email: string }) => {
     setLoading(true);
-    CommonService.send({ email: opts.email })
+    CommonService.send(opts)
       .then(() => {
-        toast("Пароль отправлен на почту.");
-        props.onClose();
+        setStage("verify");
+        setAuthData({ email: opts.email });
       })
       .catch((error) => {
-        if (error instanceof ApiError && error.status === 404) {
-          setError({ type: "USER_NOT_FOUND" });
-        } else {
-          setError({ type: "GENERAL" });
-        }
+        console.error(error);
+        setRecoverError(error);
       })
       .finally(() => {
         setLoading(false);
       });
   };
 
+  const handleConfirm = (code: string) => {
+    setLoading(true);
+    CommonService.resetConfirm({ code })
+      .then((res) => {
+        setResetToken(res?.resetToken!);
+        setStage("reset");
+      })
+      .catch((error) => {
+        console.error(error);
+        setVerifyError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleNewPassword = (opt: { password: string }) => {
+    // setLoading(true);
+    // CommonService.resetPassword({ password: opt.password })
+    //   .then(() => {
+    //     toast.success("Пароль успешно изменен!");
+    //     props.onClose();
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     setNewPasswordError(error);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
+    toast.error("NOT IMPLEMENTED!");
+  };
+
+  const handleResendCode = () => {
+    toast.error("NOT IMPLEMENTED!");
+  };
+
   return (
     <RecoverModal
       open={props.open}
+      stage={stage}
+      verifyEmail={authData?.email}
+      verifyError={verifyError!}
+      recoverError={recoverError!}
+      newPasswordError={newPasswordError!}
       loading={loading}
-      error={error || undefined}
       onClose={props.onClose}
       onRecover={handleRecover}
+      onConfirm={handleConfirm}
+      onNewPassword={handleNewPassword}
+      onResendCode={handleResendCode}
     />
   );
 }

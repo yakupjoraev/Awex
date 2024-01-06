@@ -30,4 +30,5 @@ export const msg = {
   SECRET_WORD_REPEAT_ERROR: "Слова не совпадают!",
   LENGTH_WORD_12_ERROR: "Длина слова должна быть не меньше 12 символов",
   DATA_ERROR: "Введены неверные данные",
+  ADDRESS_APPROVE_ERROR: "Выбранный адрес не подтвержден",
 };

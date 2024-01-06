@@ -54,14 +54,18 @@ const OrderCashToOffice: React.FC = () => {
         toast.success(msg.APPLICATION_SUCCESS);
         navigate(-1);
       })
-      .catch(() => {
+      .catch((res) => {
+        if (res.status === 409) {
+          toast.error(msg.ADDRESS_APPROVE_ERROR);
+          return;
+        }
         toast.error(msg.ADDED_ERROR);
       });
   };
 
   useEffect(() => {
     AuthorizedService.getOfficeAddresses().then((res) => {
-      const addresses = res.list.map((address) => ({
+      const addresses = res?.list?.map((address) => ({
         label: address.address,
         value: address.id.toString(),
       }));
