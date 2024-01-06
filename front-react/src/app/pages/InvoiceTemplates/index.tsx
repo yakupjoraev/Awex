@@ -155,7 +155,7 @@ export function InvoiceTemplates() {
                             value={searchFilter}
                             onChange={onSearch}
                         />
-                        <img className="my-actives__search-img search-img" src="./img/icons/search.svg" alt="Поиск" />
+                        <img className="my-actives__search-img search-img" src="/img/icons/search.svg" alt="Поиск" />
                     </div>
                 </div>
                 
@@ -174,7 +174,7 @@ export function InvoiceTemplates() {
                                     <div className="my-projects__item-info">
                                         <h3 className="my-projects__item-title main-title">
                                             { templateName }
-                                            <img className="my-projects__item-icon" src="./img/icons/pen.svg" alt="pen"
+                                            <img className="my-projects__item-icon" src="/img/icons/pen.svg" alt="pen"
                                                 onClick={() => editTemplate(templateData)}
                                             />
                                         </h3>
@@ -210,7 +210,7 @@ export function InvoiceTemplates() {
                                         <div className="my-projects__item-for">
                                             <div className="my-projects__item-text">Конвертация в:</div>
                                             <div className="my-projects__item-currency">
-                                                <img className="my-projects__item-pic" src="./img/actives/actives-1.png" alt="" />
+                                                <img className="my-projects__item-pic" src="/img/actives/actives-1.png" alt="" />
                                                 <span className="my-projects__item-curr">USDT</span> {/* No Data */}
                                             </div>
                                         </div>

@@ -15,6 +15,7 @@ import { PaymentLinkModal } from "@components/PaymentLinkModal"
 import classNames from "classnames"
 import { NavLink, useLocation } from "react-router-dom"
 import { useCurrencies } from "../../hooks/useCurrencies"
+import { ROUTE } from "@constants/path-locations"
 
 
 const DEFAULT_PROJECTS: { id: string; project: AppProject }[] = []
@@ -240,7 +241,7 @@ export function InvoicePage() {
             <h1 className="invoice__title main-title">Выставление счета</h1>
           </div>
 
-          <NavLink to={'/invoice-templates'} className="invoice__header-link second-btn">Выбрать шаблон</NavLink>
+          <NavLink to={ROUTE.INVOICE_TEMPLATES_PATH} className="invoice__header-link second-btn">Выбрать шаблон</NavLink>
         </div>
 
         <form className="invoice__wrapper" onSubmit={handleInvoiceFormSubmit}>

@@ -28,7 +28,7 @@ export function GenerationLinksModal(props: GenerationLinksModalProps) {
               <button className="close-modal-btn"
                 onClick={closeModal}
               >
-                <img src="./img/icons/close-modal.svg" alt="" />
+                <img src="/img/icons/close-modal.svg" alt="" />
               </button>
           </div>
 

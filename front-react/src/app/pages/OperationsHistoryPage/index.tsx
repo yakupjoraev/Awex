@@ -15,7 +15,7 @@ return (
             <div className="settings__inner">
                 <div className="settings__list" data-payment-details-content>
                     <a className="settings__item active" href="#">Платежи</a>
-                    <img className="settings__list-arrow" src="./img/icons/arrow-down-white.svg" alt="" data-payment-details-btn />
+                    <img className="settings__list-arrow" src="/img/icons/arrow-down-white.svg" alt="" data-payment-details-btn />
                     <a className="settings__item" href="#">Депозиты</a>
                     <a className="settings__item" href="#">Вывод</a>
                     <a className="settings__item" href="#">Реферальные начисления</a>

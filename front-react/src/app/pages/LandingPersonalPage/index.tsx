@@ -306,7 +306,7 @@ const LandingPersonalPage: React.FC = () => {
         <div className="chat__container">
           <div className="chat">
             <div className="chat__btn">
-              <img src="./img/icons/chat-icon.svg" alt="chat-icon.svg" />
+              <img src="/img/icons/chat-icon.svg" alt="chat-icon.svg" />
             </div>
           </div>
         </div>

@@ -97,7 +97,9 @@ export class AuthenticatedService {
         })
     }
 
-    public static otpEnabled(): CancelablePromise<Array<string>> {
+    public static otpEnabled(): CancelablePromise<{
+        enabled: Array<string>
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/account/otp/enabled',

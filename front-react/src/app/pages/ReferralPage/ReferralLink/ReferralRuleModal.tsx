@@ -26,7 +26,7 @@ export function ReferralRuleModal(props: ReferralRuleModalProps) {
                     <button className="close-modal-btn"
                         onClick={close}
                     >
-                        <img src="./img/icons/close-modal.svg" alt="" />
+                        <img src="/img/icons/close-modal.svg" alt="" />
                     </button>
                 </div>
 

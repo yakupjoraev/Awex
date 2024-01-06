@@ -79,7 +79,7 @@ const LandingBusinessPage: React.FC = () => {
           <div className="landing-page__inner">
             <div className="landing-page__hero">
               <div className="landing-page__hero-banner">
-                <img src="./img/landing-page__hero-3.png" alt="" />
+                <img src="/img/landing-page__hero-3.png" alt="" />
               </div>
 
               <div className="landing-page__hero-main">
@@ -119,7 +119,7 @@ const LandingBusinessPage: React.FC = () => {
               </div>
 
               <div className="landing-page__hero-banner landing-page__hero-banner--second">
-                <img src="./img/landing-page__hero-4.png" alt="" />
+                <img src="/img/landing-page__hero-4.png" alt="" />
               </div>
             </div>
 
@@ -130,7 +130,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-1.svg"
+                    src="/img/partners/landing-page__partners-1.svg"
                     alt=""
                   />
                 </li>
@@ -138,7 +138,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-2.png"
+                    src="/img/partners/landing-page__partners-2.png"
                     alt=""
                   />
                 </li>
@@ -146,7 +146,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-3.svg"
+                    src="/img/partners/landing-page__partners-3.svg"
                     alt=""
                   />
                 </li>
@@ -154,7 +154,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-4.png"
+                    src="/img/partners/landing-page__partners-4.png"
                     alt=""
                   />
                 </li>
@@ -162,7 +162,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-5.png"
+                    src="/img/partners/landing-page__partners-5.png"
                     alt=""
                   />
                 </li>
@@ -170,7 +170,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-6.svg"
+                    src="/img/partners/landing-page__partners-6.svg"
                     alt=""
                   />
                 </li>
@@ -178,7 +178,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-7.svg"
+                    src="/img/partners/landing-page__partners-7.svg"
                     alt=""
                   />
                 </li>
@@ -186,7 +186,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-8.png"
+                    src="/img/partners/landing-page__partners-8.png"
                     alt=""
                   />
                 </li>
@@ -194,7 +194,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-9.svg"
+                    src="/img/partners/landing-page__partners-9.svg"
                     alt=""
                   />
                 </li>
@@ -202,7 +202,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-10.svg"
+                    src="/img/partners/landing-page__partners-10.svg"
                     alt=""
                   />
                 </li>
@@ -210,7 +210,7 @@ const LandingBusinessPage: React.FC = () => {
                 <li className="landing-page__partners-item landing-page__partners-item--last">
                   <img
                     className="landing-page__partners-pic"
-                    src="./img/partners/landing-page__partners-11.png"
+                    src="/img/partners/landing-page__partners-11.png"
                     alt=""
                   />
                 </li>
@@ -333,7 +333,7 @@ const LandingBusinessPage: React.FC = () => {
 
             <div className="landing-page__grade">
               <div className="landing-page__grade-picture">
-                <img src="./img/landing-page__grade-picture.png" alt="" />
+                <img src="/img/landing-page__grade-picture.png" alt="" />
               </div>
 
               <div className="landing-page__grade-info">
@@ -443,7 +443,7 @@ const LandingBusinessPage: React.FC = () => {
                 </button>
               </div>
               <div className="landing-page__integration-picture">
-                <img src="./img/landing-page__integration-pic.png" alt="" />
+                <img src="/img/landing-page__integration-pic.png" alt="" />
               </div>
             </div>
           </div>
@@ -452,7 +452,7 @@ const LandingBusinessPage: React.FC = () => {
         <div className="chat__container">
           <div className="chat">
             <div className="chat__btn">
-              <img src="./img/icons/chat-icon.svg" alt="chat-icon.svg" />
+              <img src="/img/icons/chat-icon.svg" alt="chat-icon.svg" />
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ export function ReferralRules() {
             <a className="referral__rule" href="#"
                 onClick={() => setIsOpenModal(true) }
             >
-                <img src="./img/icons/note-text.svg" alt="note-text" />
+                <img src="/img/icons/note-text.svg" alt="note-text" />
                 <span>Правила реферальной программы</span>
             </a>
 

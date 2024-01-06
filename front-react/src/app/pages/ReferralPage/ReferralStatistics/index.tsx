@@ -87,7 +87,7 @@ export function ReferralStatistics() {
     
             <NavLink className="referral__score-link history-operations__link" to={'#'}>
                 Статистика
-                <img className="history-operations__link-img" src="./img/icons/arrow-right.svg" alt="Перейти в Статистика" />
+                <img className="history-operations__link-img" src="/img/icons/arrow-right.svg" alt="Перейти в Статистика" />
             </NavLink>
         </div>
     )

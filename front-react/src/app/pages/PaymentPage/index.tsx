@@ -931,7 +931,7 @@ export function PaymentPage() {
                       onClick={changeMethod}
                     >
                       Изменить способ
-                      <img className="payment-form__label-arrow" src="./img/icons/arrow-right.svg" alt="" />
+                      <img className="payment-form__label-arrow" src="/img/icons/arrow-right.svg" alt="" />
                     </a>
                   </p>
 
@@ -945,7 +945,7 @@ export function PaymentPage() {
 
                       <div className="about-deposit__generation-currency">
                         <div className="about-deposit__generation-curr">
-                          <img src="./img/usdt.png" alt="" />
+                          <img src="/img/usdt.png" alt="" />
                           { paymentOrder?.paymentData?.depositWithdrawCurrency }
                         </div>
                       </div>

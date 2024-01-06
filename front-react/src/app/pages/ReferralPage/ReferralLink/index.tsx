@@ -81,7 +81,7 @@ export function ReferralLink() {
                     <button type="button" className="referral__middle-qr"
                         onClick={() => setQrIsModalOpen(true)}
                     >
-                        <img src="./img/icons/QR.svg" alt="QR.svg" />
+                        <img src="/img/icons/QR.svg" alt="QR.svg" />
                     </button>
                 </div>
         

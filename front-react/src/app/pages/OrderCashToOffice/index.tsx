@@ -75,7 +75,7 @@ const OrderCashToOffice: React.FC = () => {
         <button onClick={handleBack} className="actives-check__back">
           <img
             className="actives-check__back-pic"
-            src="./img/icons/arrow-left.svg"
+            src="/img/icons/arrow-left.svg"
             alt="arrow to back"
           />
           Вернуться

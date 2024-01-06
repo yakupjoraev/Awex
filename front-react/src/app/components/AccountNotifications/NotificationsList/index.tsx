@@ -48,7 +48,7 @@ export function NotificationsList({notifications, unread, isOpenList, onClose}: 
                 <button className="close-modal-btn"
                     onClick={close}
                 >
-                    <img src="./img/icons/close-modal.svg" alt="" />
+                    <img src="/img/icons/close-modal.svg" alt="" />
                 </button>
             </div>
 
