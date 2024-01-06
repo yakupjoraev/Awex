@@ -7,6 +7,7 @@ import { useDebounce } from 'usehooks-ts'
 import { useNavigate } from "react-router-dom"
 import usePortal from "react-useportal"
 import { ConfirmationModal } from "@components/ConfirmationModal"
+import { ROUTE } from "@constants/path-locations"
 
 interface OrderTemplate {
     id: number
@@ -104,7 +105,7 @@ export function InvoiceTemplates() {
     }
 
     function openInvoicePage(templateData: {process: InvoiceStates, template: OrderTemplate}) {
-        navigate("/invoice", { state: { templateData } })
+        navigate(ROUTE.INVOICE_PATH, { state: { templateData } })
     }
 
     function deleteTemplate(templateId: number, name: string) {

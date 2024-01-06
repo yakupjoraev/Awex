@@ -195,7 +195,7 @@ export function App() {
           />
           <Route path={ROUTE.PROJECTS_PATH} element={<MyProjectsPage />} />
           <Route
-            path={`${ROUTE.PROJECTS_PROJECTID_PATH}/:projectId`}
+            path={`${ROUTE.PROJECTS_PROJECTID_PATH}:projectId`}
             element={<EditProjectPage />}
           />
           <Route

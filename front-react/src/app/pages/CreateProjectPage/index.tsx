@@ -92,7 +92,7 @@ export function CreateProjectPage() {
     AuthorizedService.projectCreate(projectData)
     .then((response) => {
       toast.success("Проект создан! Теперь вам нужно отправить его на валидацию.")
-      navigate(`${ROUTE.PROJECTS_PROJECTID_PATH}/${response?.id}`)
+      navigate(`${ROUTE.PROJECTS_PROJECTID_PATH}${response?.id}`)
     })
     .catch((error) => {
       console.error(error)

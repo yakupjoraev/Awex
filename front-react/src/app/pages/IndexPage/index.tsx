@@ -21,7 +21,7 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <Link className="pages__link" to={ROUTE.PROJECTS_PROJECTID_PATH} target="_blank">
+              <Link className="pages__link" to={ROUTE.PROJECTS_PATH} target="_blank">
                 Мои проекты
               </Link>
             </li>
