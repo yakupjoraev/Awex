@@ -13,7 +13,8 @@ export type OfficeAddressAdminItem = {
   userId?: number;
   data?: {
     companyName: string;
-    fileName: string;
+    userFiles?: string[];
+    adminFiles?: string[];
   };
   address: string;
   validation_requested_at?: number | null;

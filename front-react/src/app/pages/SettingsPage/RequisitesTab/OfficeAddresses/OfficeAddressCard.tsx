@@ -15,13 +15,6 @@ const OfficeAddressCard: React.FC<IProps> = ({ officeAddress }) => {
 
   return (
     <>
-      <SupportingDocumentsForOfficeModalContainer
-        addressId={officeAddress?.id}
-        address={officeAddress?.address}
-        companyName={officeAddress?.data?.companyName}
-        open={supportingDocumentsModalOpen}
-        onClose={handleCloseSupportingDocuments}
-      />
       <li key={officeAddress.id} className="settings-requisites__item">
         <div className="settings-requisites__item-block">
           {officeAddress?.data?.companyName}
@@ -41,6 +34,14 @@ const OfficeAddressCard: React.FC<IProps> = ({ officeAddress }) => {
           Подтверждающие документы
         </button>
       </li>
+
+      <SupportingDocumentsForOfficeModalContainer
+        addressId={officeAddress?.id}
+        address={officeAddress?.address}
+        companyName={officeAddress?.data?.companyName}
+        open={supportingDocumentsModalOpen}
+        onClose={handleCloseSupportingDocuments}
+      />
     </>
   );
 };

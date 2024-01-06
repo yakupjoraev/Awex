@@ -33,9 +33,13 @@ const OfficeAddresses: React.FC = () => {
         </button>
       </div>
 
-      {officeAddresses.length > 0 ? (
+      {officeAddresses?.length > 0 ? (
         <OfficeAddressList officeAddresses={officeAddresses} />
-      ) : null}
+      ) : (
+        <p className="settings-requisites__empty-list-text">
+          Нет доступных адресов для доставки
+        </p>
+      )}
 
       <NewAddressRequisiteModalContainer
         open={newOfficeAddressModalOpen}

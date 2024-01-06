@@ -9,6 +9,7 @@ import { RequestAdditionalInfoModalContainer } from "@containers/RequestAddition
 import { AdminRejectProjectModalContainer } from "@containers/AdminRejectProjectModalContainer";
 import ApplicationForNewProjectList from "../AdminProjects/AdminProjectList";
 import classes from "./AdminProject.module.css";
+import AdminWaitingRequest from "@components/AdminWaitingRequest";
 
 const AdminProjectDetails: React.FC = () => {
   const [application, setApplication] = useState<ProjectItemAdmin>();
@@ -85,128 +86,151 @@ const AdminProjectDetails: React.FC = () => {
           Мерчант: ID{application?.userId}
         </h3>
 
-        <div className={classes["info-grid-container"]}>
-          <div className={classes["info-table-single-item"]}>
-            <p className={classes["info-table-single-item__label"]}>
-              Название проекта
-            </p>
-            <p>{application?.draft?.name || application?.data?.name}</p>
-          </div>
-          <div className={classes["info-table-triple-item"]}>
-            <p className={classes["info-table-triple-item__label"]}>Описание</p>
-            <p>
-              {application?.draft?.description ||
-                application?.data?.description}
-            </p>
-          </div>
-          <div className={classes["info-table-single-item"]}>
-            <p className={classes["info-table-single-item__label"]}>
-              URL сайта или Telegram канала
-            </p>
-            <p>{application?.draft?.urlWeb || application?.data?.urlWeb}</p>
-          </div>
-          <div className={classes["info-table-single-item"]}>
-            <p className={classes["info-table-single-item__label"]}>
-              URL уведомлений
-            </p>
-            <p>
-              {application?.draft?.urlNotification ||
-                application?.data?.urlNotification}
-            </p>
-          </div>
-          <div
-            className={classes["info-table-single-item"]}
-            style={{
-              gridRow: 1 / 6,
-            }}
-          >
-            <p className={classes["info-table-single-item__label"]}>
-              Деятельность
-            </p>
-            <p>{application?.draft?.activity || application?.data?.activity}</p>
-          </div>
-          <div
-            className={classes["info-table-unwrapped-grid"]}
-            style={{
-              gridRowStart: 2,
-              gridRowEnd: 5,
-            }}
-          >
-            <div className={classes["info-table-unwrapped-grid__first_item"]}>
+        {application?.validation?.status !== "waiting" ? (
+          <div className={classes["info-grid-container"]}>
+            <div className={classes["info-table-single-item"]}>
+              <p className={classes["info-table-single-item__label"]}>
+                Название проекта
+              </p>
+              <p>{application?.draft?.name || application?.data?.name}</p>
+            </div>
+            <div className={classes["info-table-triple-item"]}>
+              <p className={classes["info-table-triple-item__label"]}>
+                Описание
+              </p>
+              <p>
+                {application?.draft?.description ||
+                  application?.data?.description}
+              </p>
+            </div>
+            <div className={classes["info-table-single-item"]}>
+              <p className={classes["info-table-single-item__label"]}>
+                URL сайта или Telegram канала
+              </p>
+              <p>{application?.draft?.urlWeb || application?.data?.urlWeb}</p>
+            </div>
+            <div className={classes["info-table-single-item"]}>
+              <p className={classes["info-table-single-item__label"]}>
+                URL уведомлений
+              </p>
+              <p>
+                {application?.draft?.urlNotification ||
+                  application?.data?.urlNotification}
+              </p>
+            </div>
+            <div
+              className={classes["info-table-single-item"]}
+              style={{
+                gridRow: 1 / 6,
+              }}
+            >
+              <p className={classes["info-table-single-item__label"]}>
+                Деятельность
+              </p>
+              <p>
+                {application?.draft?.activity || application?.data?.activity}
+              </p>
+            </div>
+            <div
+              className={classes["info-table-unwrapped-grid"]}
+              style={{
+                gridRowStart: 2,
+                gridRowEnd: 5,
+              }}
+            >
+              <div className={classes["info-table-unwrapped-grid__first_item"]}>
+                <div className={classes["info-table-unwrapped-grid__item"]}>
+                  <p
+                    className={
+                      classes["info-table-unwrapped-grid__item__label"]
+                    }
+                  >
+                    Конвертировать оплату в:
+                  </p>
+                  <p
+                    className={
+                      classes["info-table-unwrapped-grid__item__value"]
+                    }
+                  >
+                    {application?.draft?.convertTo ||
+                      application?.data?.convertTo}
+                  </p>
+                </div>
+                <div className={classes["info-table-unwrapped-grid__item"]}>
+                  <p
+                    className={
+                      classes["info-table-unwrapped-grid__item__label"]
+                    }
+                  >
+                    Использую CMS:
+                  </p>
+                  <p
+                    className={
+                      classes["info-table-unwrapped-grid__item__value"]
+                    }
+                  >
+                    {application?.draft?.cms || application?.data?.cms}
+                  </p>
+                </div>
+              </div>
               <div className={classes["info-table-unwrapped-grid__item"]}>
                 <p
                   className={classes["info-table-unwrapped-grid__item__label"]}
                 >
-                  Конвертировать оплату в:
+                  Комиссию оплачивает:
                 </p>
                 <p
                   className={classes["info-table-unwrapped-grid__item__value"]}
                 >
-                  {application?.draft?.convertTo ||
-                    application?.data?.convertTo}
+                  {application?.draft?.feePayee || application?.data?.feePayee
+                    ? "Мерчант"
+                    : "Клиент"}
                 </p>
               </div>
               <div className={classes["info-table-unwrapped-grid__item"]}>
                 <p
                   className={classes["info-table-unwrapped-grid__item__label"]}
                 >
-                  Использую CMS:
+                  Как вы планируете принимать платежи:
                 </p>
                 <p
                   className={classes["info-table-unwrapped-grid__item__value"]}
                 >
-                  {application?.draft?.cms || application?.data?.cms}
+                  {application?.draft?.paymentBills ||
+                    (application?.data?.paymentBills && "Выставлять счета ")}
+                  {application?.draft?.paymentTelegram ||
+                    (application?.data?.paymentTelegram && "В Telegram ")}
+                  {application?.draft?.paymentWeb ||
+                    (application?.data?.paymentWeb && "На сайте ")}
                 </p>
               </div>
             </div>
-            <div className={classes["info-table-unwrapped-grid__item"]}>
-              <p className={classes["info-table-unwrapped-grid__item__label"]}>
-                Комиссию оплачивает:
+            <div className={classes["info-table-single-item"]}>
+              <p className={classes["info-table-single-item__label"]}>
+                URL успешной оплаты
               </p>
-              <p className={classes["info-table-unwrapped-grid__item__value"]}>
-                {application?.draft?.feePayee || application?.data?.feePayee
-                  ? "Мерчант"
-                  : "Клиент"}
-              </p>
-            </div>
-            <div className={classes["info-table-unwrapped-grid__item"]}>
-              <p className={classes["info-table-unwrapped-grid__item__label"]}>
-                Как вы планируете принимать платежи:
-              </p>
-              <p className={classes["info-table-unwrapped-grid__item__value"]}>
-                {application?.draft?.paymentBills ||
-                  (application?.data?.paymentBills && "Выставлять счета ")}
-                {application?.draft?.paymentTelegram ||
-                  (application?.data?.paymentTelegram && "В Telegram ")}
-                {application?.draft?.paymentWeb ||
-                  (application?.data?.paymentWeb && "На сайте ")}
+              <p>
+                {application?.draft?.urlPaymentSuccess ||
+                  application?.data?.urlPaymentSuccess}
               </p>
             </div>
-          </div>
-          <div className={classes["info-table-single-item"]}>
-            <p className={classes["info-table-single-item__label"]}>
-              URL успешной оплаты
-            </p>
-            <p>
-              {application?.draft?.urlPaymentSuccess ||
-                application?.data?.urlPaymentSuccess}
-            </p>
-          </div>
 
-          <div className={classes["info-table-single-item"]}>
-            <p className={classes["info-table-single-item__label"]}>
-              URL неудачной оплаты
-            </p>
-            <p>
-              {application?.draft?.urlPaymentFailure ||
-                application?.data?.urlPaymentFailure}
-            </p>
+            <div className={classes["info-table-single-item"]}>
+              <p className={classes["info-table-single-item__label"]}>
+                URL неудачной оплаты
+              </p>
+              <p>
+                {application?.draft?.urlPaymentFailure ||
+                  application?.data?.urlPaymentFailure}
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <AdminWaitingRequest />
+        )}
       </div>
 
-      {application?.validation?.status === "read" ||
-      application?.validation?.status === "waiting" ? (
+      {application?.validation?.status === "read" ? (
         <div className={classes.buttons}>
           <button
             onClick={() => setIsAdminRejectProjectModalOpened(true)}

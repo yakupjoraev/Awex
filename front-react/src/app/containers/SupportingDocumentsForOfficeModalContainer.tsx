@@ -36,14 +36,14 @@ export function SupportingDocumentsForOfficeModalContainer(
 
     AuthorizedService.uploadOfficeAddressDocument(props.addressId, uploadData);
 
-    // AuthorizedService.requestOfficeAddressValidation(props?.addressId).then(
-    //   (res) => {
-    //     if (res.message) {
-    //       props.onClose();
-    //       setLoading(false);
-    //     }
-    //   }
-    // );
+    AuthorizedService.requestOfficeAddressValidation(props?.addressId).then(
+      (res) => {
+        if (res.message) {
+          props.onClose();
+          setLoading(false);
+        }
+      }
+    );
   };
 
   return (

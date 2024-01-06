@@ -41,7 +41,7 @@
   opacity: 1;
   user-select: auto;
   pointer-events: visible;
-  transform: scale(1)
+  transform: scale(1);
 }
 
 .modal-content {
@@ -50,7 +50,7 @@
   margin: 10% auto;
   padding: 30px;
   width: 80%;
-  max-width: 500px;
+  max-width: 700px;
   border-radius: 10px;
   opacity: 0;
   transform: translateY(-50px);
@@ -59,7 +59,6 @@
   @media (max-width: $breakpoint768) {
     width: 90%;
   }
-
 }
 
 .modal.show .modal-content {
@@ -83,7 +82,6 @@
 }
 
 .modal-content {
-
   // .modal-content__header
 
   &__header {
@@ -153,7 +151,8 @@
 
   // .modal-content__qr-img
 
-  &__qr-img {}
+  &__qr-img {
+  }
 
   // .modal-content__copy
 
@@ -194,7 +193,8 @@
 
   // .modal-content__copy-img
 
-  &__copy-img {}
+  &__copy-img {
+  }
 
   // .modal-content__btn
 
@@ -203,6 +203,13 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+  }
+
+  &__main-img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
   }
 }
 
@@ -217,7 +224,6 @@
     height: auto;
   }
 
-
   img {
     width: 100%;
     max-width: 100%;
@@ -225,12 +231,10 @@
   }
 }
 
-
-
 .modal-content--select-list {
   max-width: 380px;
   padding: 30px 15px;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 .modal-content__header {
@@ -279,7 +283,6 @@
   background: var(--color-secondary);
 }
 
-
 .crypto___item {
   display: flex;
   align-items: center;
@@ -301,7 +304,8 @@
   border-radius: 100%;
 }
 
-.crypto__item-info {}
+.crypto__item-info {
+}
 
 .crypto__item-name {
   margin-bottom: 5px;
@@ -337,12 +341,10 @@
 
 .crypto__item-chain {
   padding-left: 10px;
-  color: var(--grey-color-2)
+  color: var(--grey-color-2);
 }
 
-
 .modal-genation-links {
-
   .about-deposit__generation-select {
     width: 100%;
     margin-bottom: 20px;
@@ -373,23 +375,20 @@
   }
 }
 
-
 .modal-notifications {
-
   .modal-content {
     max-width: 400px;
   }
 
   .accordion__item {
     user-select: none;
-    transition: opacity .3s;
+    transition: opacity 0.3s;
     :hover {
       opacity: 0.7;
     }
   }
 
   .modal-content__title {
-
     @media (max-width: 420px) {
       display: inline;
       padding-right: 60px;
@@ -443,10 +442,7 @@
   text-align: center;
 }
 
-
-
 .modal-content {
-
   .invoice-project__group-selected {
     background-color: var(--white-color);
   }
@@ -494,7 +490,6 @@
 }
 
 .modal-cash-to-office {
-
   .modal-content {
     @media (max-width: 420px) {
       width: 96%;
@@ -503,15 +498,7 @@
   }
 }
 
-
-
-
-
-
-
-
 .modal-enter {
-
   .modal-content {
     max-width: 400px;
   }
@@ -562,7 +549,7 @@
   a {
     color: var(--text-color);
     text-decoration: underline;
-    transition: color .2s linear;
+    transition: color 0.2s linear;
   }
 }
 
@@ -605,24 +592,21 @@
   }
 }
 
-
-
-
-
-
-
-.modal-slider-pictures {}
+.modal-slider-pictures {
+}
 
 .modal-content {
   max-width: 1200px;
 
   // .modal-content__header
 
-  &__header {}
+  &__header {
+  }
 
   // .modal-content__title
 
-  &__title {}
+  &__title {
+  }
 
   // .modal-content__slider
 
@@ -638,7 +622,7 @@
 
     right: 30px;
     cursor: pointer;
-    transition: transform .2s linear;
+    transition: transform 0.2s linear;
 
     svg path {
       transition: 0.2s linear;
@@ -659,7 +643,7 @@
     transform: translateY(-50%);
     left: 30px;
     cursor: pointer;
-    transition: transform .2s linear;
+    transition: transform 0.2s linear;
 
     svg path {
       transition: 0.2s linear;
@@ -674,9 +658,11 @@
     }
   }
 
-  .swiper-container {}
+  .swiper-container {
+  }
 
-  .swiper-slide-container {}
+  .swiper-slide-container {
+  }
 
   .gallery-top {
     margin-bottom: 25px;
@@ -695,7 +681,6 @@
   }
 
   .gallery-thumbs {
-
     .swiper-wrapper {
       display: flex;
       align-items: center;
@@ -714,5 +699,6 @@
     }
   }
 
-  .gallery-thumbs .swiper-slide-active {}
+  .gallery-thumbs .swiper-slide-active {
+  }
 }

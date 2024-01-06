@@ -11,6 +11,7 @@ export const msg = {
   DATA_CORRECT: "Проверьте корректность данных",
   PROFILE_BLUCKED_SUCCESS: "Профиль успешно заблокирован!",
   APPLICATION_SUCCESS: "Заявка успешно отправлена!",
+  REQUEST_SUCCESS: "Запрос успешно отправлен!",
 
   // Errors
   MESSAGE_FIELD_REQUIRED: "Поле обязательно для ввода!",

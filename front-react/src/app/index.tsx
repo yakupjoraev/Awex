@@ -56,6 +56,7 @@ import LandingLayout from "./layouts/LandingLayout";
 import OrderCashToOffice from "./pages/OrderCashToOffice";
 import AdminCashOrder from "./pages/AdminApplicationsPage/AdminCashOrder";
 import AdminCashOrderDetails from "./pages/AdminApplicationsPage/AdminCashOrderDetails";
+import AdminOfficeAddressRequest from "./pages/AdminApplicationsPage/AdminOfficeAddressRequest";
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -134,6 +135,12 @@ export function App() {
             <Route
               path={ROUTE.ADMIN_APPLICATIONS_OFFICE_ADDRESS_DETAILS_PATH}
               element={<AdminOfficeAddressDetails />}
+            />
+            <Route
+              path={
+                ROUTE.ADMIN_APPLICATIONS_OFFICE_ADDRESS_REQUEST_DETAILS_PATH
+              }
+              element={<AdminOfficeAddressRequest />}
             />
             <Route
               path={ROUTE.ADMIN_APPLICATIONS_CASH_ORDER}

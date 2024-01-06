@@ -38,7 +38,13 @@ const Cards: React.FC = () => {
         </button>
       </div>
 
-      <CardList cards={cards!} />
+      {cards?.list?.length! > 0 ? (
+        <CardList cards={cards!} />
+      ) : (
+        <p className="settings-requisites__empty-list-text">
+          Нет доступных карт
+        </p>
+      )}
 
       <NewCardModalContainer
         open={isNewCardModalOpen}

@@ -31,6 +31,7 @@ const AdminDocumentsViewModal: React.FC<AdminDocumentsViewModalProps> = (
 
         <div className="modal-content__main">
           <img
+            className="modal-content__main-img"
             src={`https://awex.freeblock.site/api/uploaded-files/${props.fileName}`}
             alt="file"
           />
