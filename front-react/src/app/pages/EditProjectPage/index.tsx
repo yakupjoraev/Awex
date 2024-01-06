@@ -16,6 +16,7 @@ import { EditProjectHeader } from "./EditProjectHeader"
 import { toast } from "react-hot-toast"
 import { AppProject } from "src/types"
 import { getCompanies } from "@store/companies/slice"
+import { ROUTE } from "@constants/path-locations"
 
 
 const DEFAULT_CURRENCIES: { name: string; type: "fiat" | "crypto" }[] = []
@@ -89,7 +90,7 @@ export function EditProjectPage() {
       dispatch(deleteProject({ id: projectId }))
       toast.success("Проект удален!")
     }
-    navigate("/projects")
+    navigate(ROUTE.PROJECTS_PATH)
   }
 
   const handleSubmit = (formData: EditProjectFormData) => {
@@ -147,7 +148,7 @@ export function EditProjectPage() {
   }
 
   if (!project && !projectsLoading) {
-    navigate("/projects", { replace: true })
+    navigate(ROUTE.PROJECTS_PATH, { replace: true })
     return null
   }
 

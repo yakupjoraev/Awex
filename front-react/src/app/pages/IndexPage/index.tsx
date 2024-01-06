@@ -21,7 +21,7 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <Link className="pages__link" to="/projects" target="_blank">
+              <Link className="pages__link" to={ROUTE.PROJECTS_PROJECTID_PATH} target="_blank">
                 Мои проекты
               </Link>
             </li>
@@ -30,20 +30,20 @@ export function IndexPage() {
               <Link
                 className="pages__link"
                 target="_blank"
-                to="/successfully-invoice"
+                to={ROUTE.SUCCESSFULLY_INVOICE_PATH}
               >
                 ЛК эквайринг (успешно выставленный счет)
               </Link>
             </li>
 
             <li className="pages__item">
-              <Link className="pages__link" target="_blank" to="/invoice">
+              <Link className="pages__link" target="_blank" to={ROUTE.INVOICE_PATH}>
                 ЛК эквайринг (выставление счета)
               </Link>
             </li>
 
             <li className="pages__item">
-              <Link className="pages__link" target="_blank" to="/deposits">
+              <Link className="pages__link" target="_blank" to={ROUTE.DEPOSITS_PATH}>
                 Депозиты
               </Link>
             </li>
@@ -52,14 +52,14 @@ export function IndexPage() {
               <Link
                 className="pages__link"
                 target="_blank"
-                to="/deposit-retention"
+                to={ROUTE.DEPOSIT_RETENTION_PATH}
               >
                 удержание депозита
               </Link>
             </li>
 
             <li className="pages__item">
-              <Link className="pages__link" to="/settings" target="_blank">
+              <Link className="pages__link" to={ROUTE.SETTINGS_PATH} target="_blank">
                 Настройки
               </Link>
             </li>
@@ -67,7 +67,7 @@ export function IndexPage() {
             <li className="pages__item">
               <Link
                 className="pages__link"
-                to="/payment-crypto/stage1"
+                to={`${ROUTE.PAYMENT_CRYPTO_STAGE_PATH}/stage1`}
                 target="_blank"
               >
                 Платежная ссылка у клиента (крипто) 1
@@ -77,7 +77,7 @@ export function IndexPage() {
             <li className="pages__item">
               <Link
                 className="pages__link"
-                to="/payment-crypto/stage2"
+                to={`${ROUTE.PAYMENT_CRYPTO_STAGE_PATH}/stage2`}
                 target="_blank"
               >
                 Платежная ссылка у клиента (крипто) шаг2
@@ -87,7 +87,7 @@ export function IndexPage() {
             <li className="pages__item">
               <Link
                 className="pages__link"
-                to="/payment-crypto/stage3"
+                to={`${ROUTE.PAYMENT_CRYPTO_STAGE_PATH}/stage3`}
                 target="_blank"
               >
                 Платежная ссылка у клиента (крипто) ожидание транзакции
@@ -147,19 +147,19 @@ export function IndexPage() {
               </a>
             </li>
             <li className="pages__item">
-              <Link className="pages__link" target="_blank" to="/date-picker">
+              <Link className="pages__link" target="_blank" to={ROUTE.DATE_PICKER_PATH}>
                 Компонент выбора даты
               </Link>
             </li>
 
             <li className="pages__item">
-              <a className="pages__link" href="/auth" target="_blank">
+              <a className="pages__link" href={ROUTE.AUTH_PATH} target="_blank">
                 Модалки Вход и Регистрация
               </a>
             </li>
 
             <li className="pages__item">
-              <a className="pages__link" href="/settings" target="_blank">
+              <a className="pages__link" href={ROUTE.SETTINGS_PATH} target="_blank">
                 Настройки Профиль Главная вкладка
               </a>
             </li>
@@ -167,7 +167,7 @@ export function IndexPage() {
             <li className="pages__item">
               <a
                 className="pages__link"
-                href="/settings/requisites"
+                href={`${ROUTE.SETTINGS_PATH}/requisites`}
                 target="_blank"
               >
                 Настройки Реквизиты
@@ -177,7 +177,7 @@ export function IndexPage() {
             <li className="pages__item">
               <a
                 className="pages__link"
-                href="/settings/safety"
+                href={`${ROUTE.SETTINGS_PATH}/safety`}
                 target="_blank"
               >
                 Настройки Безопасность
@@ -187,7 +187,7 @@ export function IndexPage() {
             <li className="pages__item">
               <a
                 className="pages__link"
-                href="/settings/permission-management"
+                href={`${ROUTE.SETTINGS_PATH}/permission-management`}
                 target="_blank"
               >
                 Управление правами
@@ -195,7 +195,7 @@ export function IndexPage() {
             </li>
 
             <li className="pages__item">
-              <a className="pages__link" href="/infocenter" target="_blank">
+              <a className="pages__link" href={ROUTE.INFOCENTER_PATH} target="_blank">
                 Инфоцентр
               </a>
             </li>
@@ -207,7 +207,7 @@ export function IndexPage() {
             </li>
             {"<------- СТРАНИЦЫ АДМИНКИ-------->"}
             <li className="pages__item">
-              <a className="pages__link" href="/admin/auth" target="_blank">
+              <a className="pages__link" href={ROUTE.ADMIN_AUTH_PATH} target="_blank">
                 Админ панель (вход)
               </a>
             </li>
@@ -217,27 +217,27 @@ export function IndexPage() {
 
       <style>
         {`.pages__list {
-  display: grid;
-  gap: 20px;
-  padding: 50px 0;
-}
+          display: grid;
+          gap: 20px;
+          padding: 50px 0;
+        }
 
-.pages__item {
-  display: grid;
-}
+        .pages__item {
+          display: grid;
+        }
 
-.pages__link {
-  padding: 20px;
-  background-color: var(--second-color);
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 120%;
-  color: var(--text-color);
-}
+        .pages__link {
+          padding: 20px;
+          background-color: var(--second-color);
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 120%;
+          color: var(--text-color);
+        }
 
-.pages__link:hover {
-  color: var(--white-color);
-}`}
+        .pages__link:hover {
+          color: var(--white-color);
+        }`}
       </style>
     </main>
   );

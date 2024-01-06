@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@store/hooks"
 import { getProjects } from "@store/projects/slice"
 import { currencyToName } from "@constants/currency-names"
+import { ROUTE } from "@constants/path-locations"
 
 
 export function MyProjectsPage() {
@@ -35,7 +36,7 @@ export function MyProjectsPage() {
           <div
             className="my-projects__added"
             role="button"
-            onClick={() => navigate("/projects/new-project")}
+            onClick={() => navigate(`${ROUTE.PROJECTS_PROJECTID_PATH}new-project`)}
           >
             <img
               className="my-projects__added-img"

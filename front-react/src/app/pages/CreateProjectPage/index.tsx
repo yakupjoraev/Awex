@@ -12,6 +12,7 @@ import { AuthenticatedService, AuthorizedService } from "@awex-api"
 import { useEffect, useMemo, useState } from "react"
 import { getCompanies } from "@store/companies/slice"
 import { AppProject } from "src/types"
+import { ROUTE } from "@constants/path-locations"
 
 
 const DEFAULT_CURRENCIES: { name: string; type: "fiat" | "crypto" }[] = []
@@ -64,7 +65,7 @@ export function CreateProjectPage() {
 
 
   const handleCancelBtnClick = () => {
-    navigate("/projects")
+    navigate(ROUTE.PROJECTS_PATH)
   }
 
 
@@ -91,7 +92,7 @@ export function CreateProjectPage() {
     AuthorizedService.projectCreate(projectData)
     .then((response) => {
       toast.success("Проект создан! Теперь вам нужно отправить его на валидацию.")
-      navigate(`/projects/${response?.id}`)
+      navigate(`${ROUTE.PROJECTS_PROJECTID_PATH}/${response?.id}`)
     })
     .catch((error) => {
       console.error(error)

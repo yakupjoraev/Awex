@@ -1,3 +1,4 @@
+import { ROUTE } from "@constants/path-locations"
 import { Link } from "react-router-dom"
 import { ProjectValidation } from "src/types"
 
@@ -58,7 +59,7 @@ export function ProjectItem(props: ProjectItemProps) {
         <h3 className="my-projects__item-title main-title">
           {props.name}
 
-          <Link to={"/projects/" + props.id}>
+          <Link to={ROUTE.PROJECTS_PROJECTID_PATH + props.id}>
             <img
               className="my-projects__item-icon"
               src="/img/icons/pen.svg"

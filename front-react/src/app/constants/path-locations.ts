@@ -13,7 +13,7 @@ export const ROUTE = {
   DEPOSITS_PATH: "/dashboard/deposits",
   DEPOSIT_RETENTION_PATH: "/dashboard/deposit-retention",
   PROJECTS_PATH: "/dashboard/projects",
-  PROJECTS_PROJECTID_PATH: "/dashboard/projects",
+  PROJECTS_PROJECTID_PATH: "/dashboard/projects/",
   PROJECTS_NEW_PROJECT_PATH: "/dashboard/projects/new-project",
   SETTINGS_PATH: "/dashboard/settings",
   ASSETS_ROUTE_PATH: "/dashboard/assets",
