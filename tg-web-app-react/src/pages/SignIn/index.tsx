@@ -47,10 +47,6 @@ export default function SignIn() {
   return (
     <main className="center-container">
       <div className="wrapper">
-        <Link className="absolute top-10 left-10" to="/">{`<< Back`}</Link>
-        <br />
-        <br />
-
         <SignInForm useFormInstance={useFormReturn} onSubmit={handleForm} />
       </div>
     </main>
