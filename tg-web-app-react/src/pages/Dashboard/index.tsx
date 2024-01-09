@@ -7,6 +7,7 @@ import {
   useGetTransactions,
 } from "../../services/account.services";
 import TransactionList from "./TransactionList";
+import { ROUTES } from "../../routes/routes";
 
 const Dashboard: React.FC = () => {
   const { site } = useContext(AppContext);
@@ -89,31 +90,34 @@ const Dashboard: React.FC = () => {
               <span>{balance?.currency?.toUpperCase()}</span>
             </div>
 
-            {/* <div className="balance__actions">
-              <a className="balance__action replenish-action" href="#">
+            <div className="balance__actions">
+              {/* <a className="balance__action replenish-action" href="#">
                 <div className="balance__action-pic">
                   <img src="./img/icons/arrow-down.svg" alt="" />
                 </div>
 
                 <p className="balance__action-text">Пополнить</p>
-              </a>
+              </a> */}
 
-              <a className="balance__action make-action" href="#">
+              <Link
+                className="balance__action make-action"
+                to={ROUTES.WITHDRAW}
+              >
                 <div className="balance__action-pic">
                   <img src="./img/icons/arrow-top.svg" alt="" />
                 </div>
 
                 <p className="balance__action-text">Вывести</p>
-              </a>
+              </Link>
 
-              <a className="balance__action swap-action" href="#">
+              {/* <a className="balance__action swap-action" href="#">
                 <div className="balance__action-pic">
                   <img src="./img/icons/swap.svg" alt="" />
                 </div>
 
                 <p className="balance__action-text">SWAP</p>
-              </a>
-            </div> */}
+              </a> */}
+            </div>
 
             <Link to="/invoice" type="button" className="second-btn">
               Создать ссылку на оплату

@@ -4,6 +4,7 @@ import { AppContext } from "../store";
 import cookies from "../services/cookies";
 import Loading from "../components/Loading";
 import { ROUTES } from "./routes";
+import Withdraw from "../pages/Withdraw";
 
 const Header = React.lazy(() => import("../components/Header"));
 const Home = React.lazy(() => import("../pages/Home"));
@@ -41,7 +42,6 @@ const RoutesWrapper: React.FC = () => {
             element={
               <React.Suspense>
                 {store.site.token ? <Navigate to={ROUTES.MAIN} /> : <SignIn />}
-                IProps
               </React.Suspense>
             }
           />
@@ -50,6 +50,14 @@ const RoutesWrapper: React.FC = () => {
             element={
               <React.Suspense>
                 <Invoice />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path={ROUTES.WITHDRAW}
+            element={
+              <React.Suspense>
+                {store.site.token ? <Withdraw /> : <Home />}
               </React.Suspense>
             }
           />

@@ -1,4 +1,4 @@
-import { ApiError, CommonService } from "@awex-api";
+import { CommonService } from "@awex-api";
 import { RecoverModal } from "@components/RecoverModal";
 import { RecoverError } from "@components/RecoverModal/RecoverModalContent";
 import { msg } from "@constants/messages";

@@ -47,7 +47,7 @@ export default function SignIn() {
   return (
     <main className="center-container">
       <div className="wrapper">
-        <Link className="absolute top-10 left-10" to="/">{`<< back`}</Link>
+        <Link className="absolute top-10 left-10" to="/">{`<< Back`}</Link>
         <br />
         <br />
 
