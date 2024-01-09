@@ -1,6 +1,7 @@
 import { ApiError, CommonService } from "@awex-api";
 import { RecoverModal } from "@components/RecoverModal";
 import { RecoverError } from "@components/RecoverModal/RecoverModalContent";
+import { msg } from "@constants/messages";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -65,24 +66,40 @@ export function RecoverModalContainer(props: RecoverModalContainerProps) {
   };
 
   const handleNewPassword = (opt: { password: string }) => {
-    // setLoading(true);
-    // CommonService.resetPassword({ password: opt.password })
-    //   .then(() => {
-    //     toast.success("Пароль успешно изменен!");
-    //     props.onClose();
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //     setNewPasswordError(error);
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
-    toast.error("NOT IMPLEMENTED!");
+    setLoading(true);
+    CommonService.passwordReset({
+      resetToken: resetToken!,
+      password: opt.password,
+    })
+      .then(() => {
+        toast.success(msg.PASSWORD_CHANGED_SUCCESS);
+        props.onClose();
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(msg.PASSWORD_CHANGED_ERROR);
+        setNewPasswordError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleResendCode = () => {
-    toast.error("NOT IMPLEMENTED!");
+    setLoading(true);
+    CommonService.resend({
+      email: authData.email!,
+    })
+      .then(() => {
+        toast.success(msg.EMAIL_CODE_SUCCESS);
+      })
+      .catch((error) => {
+        console.error(error);
+        setRecoverError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (

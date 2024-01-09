@@ -12,6 +12,9 @@ export const msg = {
   PROFILE_BLUCKED_SUCCESS: "Профиль успешно заблокирован!",
   APPLICATION_SUCCESS: "Заявка успешно отправлена!",
   REQUEST_SUCCESS: "Запрос успешно отправлен!",
+  PASSWORD_CHANGED_SUCCESS: "Пароль успешно изменен!",
+  PASSWORD_CHANGED_ERROR: "Не удалось изменить пароль!",
+  EMAIL_CODE_SUCCESS: "Код подтверждения отправлен на почту!",
 
   // Errors
   MESSAGE_FIELD_REQUIRED: "Поле обязательно для ввода!",

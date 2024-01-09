@@ -60,11 +60,20 @@ const onCallbackQuery = async (query) => {
     }
 
     const { currencies } = await getCurrencies(chatId);
+    const filteredCurrencies = [
+      currencies.find((currency) => currency.currency === "usdt"),
+      currencies.find((currency) => currency.currency === "usdc"),
+      ...currencies,
+    ];
     const prevStoreData = store.get(chatId);
 
-    store.set(chatId, { ...prevStoreData, currencies });
+    store.set(chatId, { ...prevStoreData, currencies: filteredCurrencies });
 
-    const keyboard = createInlineKeyboard(currencies, requestedPage, 40);
+    const keyboard = createInlineKeyboard(
+      filteredCurrencies,
+      requestedPage,
+      40
+    );
 
     await bot.editMessageText(`Выберите валюту:`, {
       chat_id: chatId,
@@ -86,6 +95,20 @@ const onCallbackQuery = async (query) => {
     }
 
     const { currencies } = await getCurrencies(chatId);
+    const usdtCurrencyId = currencies.findIndex(
+      (currency) => currency.currency === "usdt"
+    );
+    const usdcCurrencyId = currencies.findIndex(
+      (currency) => currency.currency === "usdc"
+    );
+
+    if (usdtCurrencyId !== -1 && usdcCurrencyId !== -1) {
+      currencies.unshift(
+        ...currencies.splice(usdtCurrencyId, 1),
+        ...currencies.splice(usdcCurrencyId, 1)
+      );
+    }
+
     const prevStoreData = store.get(chatId);
 
     store.set(chatId, { ...prevStoreData, currencies });
@@ -117,12 +140,25 @@ const onCallbackQuery = async (query) => {
 
     if (token) {
       const { currencies } = await getCurrencies(chatId);
+      const usdtCurrencyId = currencies.findIndex(
+        (currency) => currency.currency === "usdt"
+      );
+      const usdcCurrencyId = currencies.findIndex(
+        (currency) => currency.currency === "usdc"
+      );
+
+      if (usdtCurrencyId !== -1 && usdcCurrencyId !== -1) {
+        currencies.unshift(
+          ...currencies.splice(usdtCurrencyId, 1),
+          ...currencies.splice(usdcCurrencyId, 1)
+        );
+      }
 
       const prevStoreData = store.get(chatId);
 
       store.set(chatId, { ...prevStoreData, currencies });
 
-      const currentPage = store.get(chatId).currentCurrencyPage || 1;
+      const currentPage = store.get(chatId).currentCurrencyPage || 0;
 
       const keyboard = createInlineKeyboard(currencies, currentPage, 40);
 
