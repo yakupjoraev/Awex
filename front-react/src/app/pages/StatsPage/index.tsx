@@ -97,15 +97,124 @@ export default function StatsPage() {
   return (
     <div className="wrapper">
       <section className="stats">
-        <div className="deposits__header">
+        <div className="deposits__header deposits__header--mob-column">
           <h1 className="deposits__title main-title">Статистика</h1>
+
+            {/* взял из старого компонента (я так понял сюда подключишь табы) */}
+
+          <div className="stats__filters">
+            <div className="deposits__filter-select stats__filter-select" data-select-wrapper>
+              <div className="deposits__filter-label"> Проект </div>
+              <div className="deposits__filter-selected stats__filter-selected" data-select-value>“Первый Главный проект”</div>
+              <img className="deposits__filter-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" data-select-arrow />
+              <ul className="deposits__filter-list select-list" data-select-list>
+                <li className="deposits__filter-item select-item" data-select-item>“Первый Главный проект”</li>
+              </ul>
+            </div>
+
+            <div className="deposits__filter-select stats__filter-select" data-select-wrapper>
+              <div className="deposits__filter-label"> Дата </div>
+              <div className="deposits__filter-selected stats__filter-selected" data-select-value> 01.06.2022-13.06.2023 </div>
+              <img className="deposits__filter-arrow" src="/img/icons/mini-arrow-down.svg" alt="mini-arrow-down" data-select-arrow />
+              <ul className="deposits__filter-list select-list" data-select-list>
+                <li className="deposits__filter-item select-item" data-select-item>01/06/2022-13/06/2023</li>
+                <li className="deposits__filter-item select-item" data-select-item>01/06/2022-13/06/2023</li>
+                <li className="deposits__filter-item select-item" data-select-item>01/06/2022-13/06/2023</li>
+              </ul>
+            </div>  
+          </div>     
         </div>
 
         <div className="stats__inner">
 
-          <StatsTop />
+          {/* <StatsTop /> */}
 
-          <StatsGroups />
+          {/* <StatsGroups /> */}
+
+
+          {/* ///////////////////////////////////////
+                          new stats 
+          //////////////////////////////////////////*/}
+
+          
+
+          {/* ///////////////////////////////////////
+                          new stats header
+          //////////////////////////////////////////*/}
+
+          <div className="stats__header">
+              {/* взял из старого компонента (я так понял сюда подключишь табы) */}
+              
+            <div className="stats__selects-wrapper">
+              <div className="stats__selects">
+                <a href="#" className="stats__selects-tab active">Счета</a>
+                <a href="#" className="stats__selects-tab false">Депозиты</a>
+              </div>
+
+            <div className="stats__checheds stats__checheds--sums">
+              <div className="stats__cheched">
+                  <img src="/img/icons/check-circle-grey.svg" alt="check icon" />
+                  <p>Сумма удержаний</p>
+              </div>
+
+              <div className="stats__cheched">
+                  <img src="/img/icons/check-circle-dark-grey.svg" alt="check icon" />
+                  <p>Сумма оплаченных</p>
+              </div>
+
+             </div>
+
+            <div className="stats__graphik">
+              <img width="1128" height="336" src="/img/new-stats-pic.png" alt="Статистика" />
+            </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+          {/* ///////////////////////////////////////
+                          new stats footer
+          //////////////////////////////////////////*/}
+
+          <div className="stats__footer">
+            <ul className="stats__list">
+              <li className="stats__item stats__item--full">
+                <div className="stats__item-label">Общая сумма USD</div>
+                <div className="stats__item-sum">10 000 000,23</div>
+                <div className="stats__item-footer">
+                  <span className='stats__item-percent green'>+5.67% </span> за сегодня
+                </div>
+              </li>
+
+              <li className="stats__item">
+                <div className="stats__item-label">Оплаченные счета</div>
+                <div className="stats__item-sum">256</div>
+                <div className="stats__item-footer">
+                  <span className='stats__item-percent green'>+5.67% </span> за сегодня
+                </div>
+              </li>
+
+              <li className="stats__item">
+                <div className="stats__item-label">Создано счетов</div>
+                <div className="stats__item-sum">25</div>
+                <div className="stats__item-footer">
+                  <span className='stats__item-percent red'>-1.67% </span> за сегодня
+                </div>
+              </li>
+
+              <li className="stats__item">
+                <div className="stats__item-label">Оплачено частично</div>
+                <div className="stats__item-sum">34</div>
+                <div className="stats__item-footer">
+                  <span className='stats__item-percent grey'>0.00% </span> за сегодня
+                </div>
+              </li>
+            </ul>
+          </div>
 
         </div>
       </section>
